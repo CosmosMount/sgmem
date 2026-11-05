@@ -59,3 +59,19 @@ CUDA_VISIBLE_DEVICES=7 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 \
 `run-config.json` 保存软件、模型配置、权重文件大小、revision、代码版本、硬件、实际耗时和 GPU-hours；`generation-audit.jsonl` 保存每次调用的题目、阶段、提示词摘要、token 数和终止原因。GPU-hours 按本任务单卡占用 wall time 计算，包含模型加载和索引期间的驻留，不等于利用率积分。进程被强制 SIGKILL 时最后一个 session 资源收尾可能缺失，需要结合启动日志补记；不能当作零消耗。
 
 最终 `benchmark-summary.json` 保留两个方法的总体、六类、领域、领域内类别和 dev/test 统计，并验证两种方法覆盖相同题目。保留调用错误、无法解析判分和截断计数，不用人工复核结果静默替换原始分数。
+
+## 多卡并行
+
+新增空闲卡时，可按题目分片，每张卡加载一份相同的 Qwen。`--methods dense --shards 2 --shard-index 0` 和 `--methods dense --shards 2 --shard-index 1` 分别处理两个不重叠的分片；两者都必须使用原来的四域顺序、完整类别和 `--full`。分片前仍生成同一份完整划分，再按稳定题目 ID 分配；`full-split.json` 保存完整划分，`split.json` 保存该卡的子集，不重新抽取 dev/test。
+
+每个 worker 使用独立输出目录和单独的 `CUDA_VISIBLE_DEVICES`。原有串行 BM25 可继续；BM25 完成后应停止该旧进程，防止它再次计算已分配给其他卡的 Dense。停止前核实进程属于本次任务，并保留 BM25 的完整 checkpoint、metrics 和旧运行资源收尾。旧总运行尚未完成两种方法，所以总 `finished` 可以为 false；这不等于其 BM25 组件失败。最终完成标志属于汇总目录。
+
+```bash
+python scripts/merge_local_baselines.py \
+  --parts ORIGINAL/bm25 DENSE_SHARD_0/dense DENSE_SHARD_1/dense \
+  --split ORIGINAL/split.json --output NEW_AGGREGATE
+```
+
+合并工具要求两种方法均完整覆盖原始划分，检查分片无重复、dev/test 归属、模型、生成设置、输入、依赖版本以及检索/评测/生成实现一致。允许仅调度代码不同的提交，但会在 `aggregation.json` 中保留每个来源的提交、原始结果摘要和资源消耗。各卡驻留时间相加得到 GPU-hours，不能用并行后的墙钟时间冒充总算力消耗。单卡完成时间不同，实际加速应根据运行进度测量。
+
+分片机制只改变问题分配，不改变检索、QA、judge 或输出预算。34 项离线检查覆盖原有协议，以及分片穷尽性、归属保持、重复/遗漏/失败/配置漂移拒绝。切换到多卡前另外做真实模型小样本检查；不以分数是否提高作为并行改动的通过条件。

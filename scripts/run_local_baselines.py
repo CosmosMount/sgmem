@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from sgmem import runner
+from sgmem.shards import shard_split
 
 
 def main():
@@ -25,6 +26,9 @@ def main():
     parser.add_argument("--output", required=True, help="New directory; never overwritten")
     parser.add_argument("--domains", nargs="+", choices=runner.DOMAINS, default=["Finance", "Technology"])
     parser.add_argument("--categories", nargs="+", choices=runner.CATEGORIES, default=list(runner.CATEGORIES))
+    parser.add_argument('--methods', nargs='+', choices=('bm25', 'dense'), default=['bm25', 'dense'])
+    parser.add_argument('--shards', type=int, default=1, help='Disjoint question shards; use --full')
+    parser.add_argument('--shard-index', type=int, default=0, help='Zero-based shard number')
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--limit', type=int, default=1, help='Questions per dev domain/category; default 1')
     mode.add_argument('--full', action='store_true', help='Run every question in selected domains/categories; retain dev/test labels')
@@ -36,6 +40,12 @@ def main():
         parser.error("--limit must be positive")
     if len(set(args.domains)) != len(args.domains) or len(set(args.categories)) != len(args.categories):
         parser.error('Domains and categories must not be repeated')
+    if len(set(args.methods)) != len(args.methods):
+        parser.error('Methods must not be repeated')
+    if args.shards < 1 or not 0 <= args.shard_index < args.shards:
+        parser.error('Require shards > 0 and 0 <= shard-index < shards')
+    if args.shards != 1 and not args.full:
+        parser.error('Question sharding requires --full')
     for path in (args.model, args.embedding_model):
         if not Path(path).is_dir():
             parser.error(f"Local model directory does not exist: {path}")
@@ -151,16 +161,20 @@ def main():
                     }) + "\n")
                 return tokenizer.decode(generated, skip_special_tokens=True)
 
-        split = runner.make_split(benchmark, args.domains, args.seed, 0.25)
+        full_split = runner.make_split(benchmark, args.domains, args.seed, 0.25)
+        split = shard_split(full_split, args.shard_index, args.shards)
         split_path = output / "split.json"
         if args.resume:
             if json.loads(split_path.read_text()) != split:
                 raise ValueError('Saved split differs from the frozen split')
+            if json.loads((output / 'full-split.json').read_text()) != full_split:
+                raise ValueError('Saved full split differs from the frozen split')
         else:
             runner.write_json(split_path, split)
+            runner.write_json(output / 'full-split.json', full_split)
         paired_ids = None
         summary = {}
-        for method in ("bm25", "dense"):
+        for method in args.methods:
             if args.full and (runner._git_info(ROOT) != source or runner._git_info(benchmark) != details['benchmark_git']):
                 raise ValueError('Source changed during a full run; do not mix code versions')
             run_args = argparse.Namespace(
