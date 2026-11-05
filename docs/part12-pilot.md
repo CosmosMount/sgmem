@@ -47,13 +47,15 @@ metadata_could_help 是分析者对后续方向的判断，不是实际修复成
 
 ## 代码完善
 
-- scripts/run_local_pilot.py：可直接使用本地 Qwen 和 E5 跑成对基线，无需先启动 HTTP 服务；保留调用耗时、token 数、终止原因、配置和环境。
+- scripts/run_local_baselines.py：可直接使用本地 Qwen 和 E5 跑成对基线，无需先启动 HTTP 服务；保留调用耗时、token 数、终止原因、配置和环境。
 - src/sgmem/runner.py：增加显式 client_factory 接口，默认 HTTP 路径保持原行为。
 - src/sgmem/qa.py：记录回答/判分的 finish_reason，统计 length 截断。使用同一个客户端时也保存回答当时的状态。
 - src/sgmem/analysis.py：增加 F9 判分争议，与任务错误数量分开；禁止把 F9 与任务错误混合标注，不改变原始成绩。
 - tests/test_baselines.py：覆盖原有流程、显式客户端入口、终止原因和 F9 边界，共 11 项通过。
 
 原始 24 条结果产生于原提交 998f2a41d2776ae7bc5e6dbd2a594626b6c3a341，加一个临时直接加载模型的客户端适配；其实际驱动脚本作为 execution-driver.txt 保存在结果目录。随后把该行为整理为上述正式入口，并通过对应的真实样本回归。原始记录和分数没有为了新字段而重写。
+
+试跑入口已在全量运行审核中统一更名为 `scripts/run_local_baselines.py`，原 24 条实验的配置与记录保持不变。
 
 ## 复跑方式与环境边界
 
@@ -63,12 +65,12 @@ metadata_could_help 是分析者对后续方向的判断，不是实际修复成
 ```bash
 cd /home/ai4s_group/XZG/NLP/sgmem
 QWEN_MODEL=/home/ai4s_group/.cache/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218
-CUDA_VISIBLE_DEVICES=7 .venv-cpu/bin/python scripts/run_local_pilot.py \
+CUDA_VISIBLE_DEVICES=7 .venv-cpu/bin/python scripts/run_local_baselines.py \
   --model "$QWEN_MODEL" --embedding-model models/e5-small-v2 \
   --output results/runs/my-new-pilot
 ```
 
-输出目录必须不存在。默认是 2 领域 × 6 类 × 1 dev 题，语料不下采样；更小的连通性检查可加 --domains Finance --categories user_implicit。CPU 可加 --device cpu，但 8B 模型速度会很慢。本脚本只做固定 25% dev 划分的试跑；正式 test 评估仍使用现有 sgmem run 命令与冻结配置。
+输出目录必须不存在。默认是 2 领域 × 6 类 × 1 dev 题，语料不下采样；更小的连通性检查可加 --domains Finance --categories user_implicit。CPU 可加 --device cpu，但 8B 模型速度会很慢。不加 --full 时仍做固定 dev 划分的小规模试跑；新版入口增加了 --full 和 --resume，详见 [全量运行方案](part1-full-benchmark.md)。
 
 本机账号没有 Docker 执行权限，故本次没有验证同学的 Docker 镜像或真实 HTTP serving 集成；Dockerfile 和同学原有容器流程未改变。使用直接 Transformers 后端是为了复用已有环境、快速完成本次测试。
 

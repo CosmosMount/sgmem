@@ -181,13 +181,20 @@ def summarize(records: list[dict]) -> dict:
 
     groups = defaultdict(list)
     domains = defaultdict(list)
+    partitions = defaultdict(list)
     for record in records:
         groups[record["category"]].append(record)
         if "domain" in record:
             domains[record["domain"]].append(record)
+        if record.get('partition'):
+            partitions[record['partition']].append(record)
     return {"overall": aggregate(records),
             "by_category": {name: aggregate(items) for name, items in groups.items()},
             "by_domain": {name: aggregate(items) for name, items in domains.items()},
+            'by_partition': {name: {'overall': aggregate(items),
+                                   'by_category': {category: aggregate([r for r in items if r['category'] == category])
+                                                   for category in sorted({r['category'] for r in items})}}
+                             for name, items in partitions.items()},
             "by_domain_and_category": {
                 domain: {category: aggregate([r for r in items if r["category"] == category])
                          for category in sorted({r["category"] for r in items})}

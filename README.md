@@ -4,6 +4,8 @@
 
 2026-11-05：完成 Qwen3-8B + E5-small-v2 的双领域小样本试跑及逐条错误分析，结果、复跑方式和验证边界见 [Part 1/2 交接](docs/part12-pilot.md)。
 
+全量运行入口、715 题审核和恢复方法见 [Part 1 全量运行方案](docs/part1-full-benchmark.md)。
+
 ## 安装与运行
 
 需要 Python 3.10 或更高版本、Git 子模块，以及一个本地 OpenAI 兼容的 chat-completions 服务；服务需支持答题和 judge。Dense 还需要 E5 模型文件及 Sentence Transformers。容器运行方式见 [HPC 部署](docs/hpc-deployment.md)。
@@ -47,9 +49,9 @@ python -m sgmem run --method dense --answer-model "$QWEN_MODEL" --device cuda \
 
 本机 E5 文件来自 `intfloat/e5-base-v2` 的 `f52bf8ec8c7124536f0efb74aca902b2995e5bcd` 修订；正式实验应固定模型和数据来源并记录环境。使用模型仓库名称而非本地路径时，可通过 `--embedding-revision` 指定修订。若系统设置了代理，请对客户端设置 `NO_PROXY=127.0.0.1,localhost`。默认 API 地址为 `http://127.0.0.1:8000/v1`，可通过 `--base-url` 更改，`--judge-model` 默认与答题模型相同；如服务需要密钥，从环境变量 `SGMEM_API_KEY` 读取。用 `--categories multi_hop --domains Finance --limit 2` 可进行小样本调试，完成后删除临时输出。实际考试或课程要求如指定其他切分，以其要求为准。
 
-每次运行输出 `manifest.json`、`predictions.jsonl`、`metrics.json`。逐题记录包含参考答案，只供判分和后续分析；检索器仅接收提问者 ID 和问题文本。指标包括总体、六类、领域及领域内类别的准确率和分母。客户端提供终止原因时，还记录回答/判分的 length 截断次数。judge 输出无法解析时，官方汇总口径将其计入分母且不计正确，同时记录 `unclear`；服务调用失败单独记录，受影响的准确率设为不可用，不静默当成错误回答。当前没有实现自动重试/恢复、完整 GPU-hours 统计或上下文 token 截断控制；模型上下文限制、批量执行和资源测量需在正式运行前确认。
+每次运行输出 `manifest.json`、`predictions.jsonl`、`metrics.json`。逐题记录包含参考答案，只供判分和后续分析；检索器仅接收提问者 ID 和问题文本。指标包括总体、六类、领域及领域内类别的准确率和分母。客户端提供终止原因时，还记录回答/判分的 length 截断次数。judge 输出无法解析时，官方汇总口径将其计入分母且不计正确，同时记录 `unclear`；服务调用失败单独记录，受影响的准确率设为不可用，不静默当成错误回答。本地入口支持全量模式、显式断点恢复和单卡 GPU-hours 记录；不会自动循环重试。它检查模型上下文上限并报错，不静默截断 QA 输入。HTTP 服务的模型上下文上限仍由服务端控制。
 
-开发集和评估集按问题 ID、领域与类别划分，默认 25%/75%；它们仍共享历史对话，不能据此声称跨对话泛化。先在 dev 进行失败分析，方法冻结后再运行 `--partition test`。如果服务中断，已完成的逐题结果仍保存在输出目录；判分调用失败时也会保留已生成的回答，但当前需要另建目录重跑。切勿将不完整运行当作完整结果。
+开发集和评估集按问题 ID、领域与类别划分，默认 25%/75%；它们仍共享历史对话，不能据此声称跨对话泛化。先在 dev 进行失败分析，方法冻结后再运行 `--partition test`。如果服务中断，逐题 attempt 和已生成回答会保留；修复原因后，用相同命令加 --resume 续跑，配置/输入/代码变化会被拒绝。切勿将不完整运行当作完整结果。
 
 ## 人工失败分析
 
