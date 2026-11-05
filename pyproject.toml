@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sgmem"
+version = "0.1.0"
+description = "Reproducible multi-party memory retrieval experiments"
+requires-python = ">=3.10"
+dependencies = ["rank-bm25==0.2.2", "numpy>=1.26,<3"]
+
+[project.optional-dependencies]
+dense = ["sentence-transformers==5.7.0", "torch==2.12.0"]
+serving = ["transformers[serving]==5.20.2", "torch==2.12.0", "Pillow==12.3.0", "requests==2.34.2"]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+sgmem = "sgmem.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
