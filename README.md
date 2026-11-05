@@ -2,6 +2,8 @@
 
 项目已实现 GroupMemBench 的内容检索基线（BM25、E5 Dense）、本地模型问答与判分、逐题结果及人工失败分析。主基准和扩展基准分别以子模块固定；SGAR 方法、正式实验结果和报告尚未完成。上游使用 GPT-5 与 `text-embedding-3-large`，本项目使用本地模型和 E5，因而是**官方流程的本地适配**，不是官方模型配置的精确复现。
 
+2026-11-05：完成 Qwen3-8B + E5-small-v2 的双领域小样本试跑及逐条错误分析，结果、复跑方式和验证边界见 [Part 1/2 交接](docs/part12-pilot.md)。
+
 ## 安装与运行
 
 需要 Python 3.10 或更高版本、Git 子模块，以及一个本地 OpenAI 兼容的 chat-completions 服务；服务需支持答题和 judge。Dense 还需要 E5 模型文件及 Sentence Transformers。容器运行方式见 [HPC 部署](docs/hpc-deployment.md)。
@@ -45,13 +47,13 @@ python -m sgmem run --method dense --answer-model "$QWEN_MODEL" --device cuda \
 
 本机 E5 文件来自 `intfloat/e5-base-v2` 的 `f52bf8ec8c7124536f0efb74aca902b2995e5bcd` 修订；正式实验应固定模型和数据来源并记录环境。使用模型仓库名称而非本地路径时，可通过 `--embedding-revision` 指定修订。若系统设置了代理，请对客户端设置 `NO_PROXY=127.0.0.1,localhost`。默认 API 地址为 `http://127.0.0.1:8000/v1`，可通过 `--base-url` 更改，`--judge-model` 默认与答题模型相同；如服务需要密钥，从环境变量 `SGMEM_API_KEY` 读取。用 `--categories multi_hop --domains Finance --limit 2` 可进行小样本调试，完成后删除临时输出。实际考试或课程要求如指定其他切分，以其要求为准。
 
-每次运行输出 `manifest.json`、`predictions.jsonl`、`metrics.json`。逐题记录包含参考答案，只供判分和后续分析；检索器仅接收提问者 ID 和问题文本。指标包括总体、六类、领域及领域内类别的准确率和分母。judge 输出无法解析时，官方汇总口径将其计入分母且不计正确，同时记录 `unclear`；服务调用失败单独记录，受影响的准确率设为不可用，不静默当成错误回答。当前没有实现自动重试/恢复、完整 GPU-hours 统计或上下文 token 截断控制；模型上下文限制、批量执行和资源测量需在正式运行前确认。
+每次运行输出 `manifest.json`、`predictions.jsonl`、`metrics.json`。逐题记录包含参考答案，只供判分和后续分析；检索器仅接收提问者 ID 和问题文本。指标包括总体、六类、领域及领域内类别的准确率和分母。客户端提供终止原因时，还记录回答/判分的 length 截断次数。judge 输出无法解析时，官方汇总口径将其计入分母且不计正确，同时记录 `unclear`；服务调用失败单独记录，受影响的准确率设为不可用，不静默当成错误回答。当前没有实现自动重试/恢复、完整 GPU-hours 统计或上下文 token 截断控制；模型上下文限制、批量执行和资源测量需在正式运行前确认。
 
 开发集和评估集按问题 ID、领域与类别划分，默认 25%/75%；它们仍共享历史对话，不能据此声称跨对话泛化。先在 dev 进行失败分析，方法冻结后再运行 `--partition test`。如果服务中断，已完成的逐题结果仍保存在输出目录；判分调用失败时也会保留已生成的回答，但当前需要另建目录重跑。切勿将不完整运行当作完整结果。
 
 ## 人工失败分析
 
-从开发集运行生成未标注模板，再人工填写 `annotator`、`failure_types`、`primary_failure_type`、`error_stage`、证据 ID 和分析说明。标签 `F1`–`F8` 分别覆盖说话人、群组、观点归属、回复上下文、时间更新、跨参与者推理、其他检索和 QA 推理错误。多标签可以共存，主标签只能选一个；分析流程不会自动猜测错误原因或支持证据。
+从开发集运行生成未标注模板，再人工填写 `annotator`、`failure_types`、`primary_failure_type`、`error_stage`、证据 ID 和分析说明。标签 `F1`–`F8` 分别覆盖说话人、群组、观点归属、回复上下文、时间更新、跨参与者推理、其他检索和 QA 推理错误。另加 `F9` 表示待复核的判分争议，必须单独标注并设置 `error_stage=evaluation`；它不修改原始准确率，在汇总中与任务错误分开。多标签可以共存（F9 除外），主标签只能选一个；分析流程不会自动猜测错误原因或支持证据。
 
 ```bash
 python -m sgmem annotate --records results/bm25-dev/predictions.jsonl results/dense-dev/predictions.jsonl \

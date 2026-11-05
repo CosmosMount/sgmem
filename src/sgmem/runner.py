@@ -64,7 +64,7 @@ def _git_info(path: Path) -> dict:
     return {"commit": git("rev-parse", "HEAD"), "status": git("status", "--porcelain")}
 
 
-def run(args) -> Path:
+def run(args, client_factory=None) -> Path:
     benchmark = Path(args.benchmark).resolve()
     output = Path(args.output).resolve()
     selected = split_keys(Path(args.split), args.partition) if args.split else None
@@ -101,8 +101,9 @@ def run(args) -> Path:
     }
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     key = os.environ.get("SGMEM_API_KEY")
-    answer_client = LocalClient(args.base_url, args.answer_model, timeout=args.timeout, api_key=key)
-    judge_client = LocalClient(args.base_url, args.judge_model or args.answer_model, timeout=args.timeout, api_key=key)
+    client_factory = client_factory or LocalClient
+    answer_client = client_factory(args.base_url, args.answer_model, timeout=args.timeout, api_key=key)
+    judge_client = client_factory(args.base_url, args.judge_model or args.answer_model, timeout=args.timeout, api_key=key)
     records = []
     index_times = {}
     with (output / "predictions.jsonl").open("x", encoding="utf-8") as handle:

@@ -99,7 +99,8 @@ def test_split_disjoint_and_stratified(tmp_path):
         split_keys(path, 'dev')
 
 
-def test_full_runner_and_human_analysis(tmp_path, monkeypatch):
+@pytest.mark.parametrize('use_factory', [False, True])
+def test_full_runner_and_human_analysis(tmp_path, monkeypatch, use_factory):
     benchmark = tmp_path / 'benchmark'
     benchmark.mkdir()
     _write_benchmark(benchmark)
@@ -111,12 +112,13 @@ def test_full_runner_and_human_analysis(tmp_path, monkeypatch):
         def complete(self, system, prompt, max_tokens):
             prompts.append((system, prompt))
             return 'Final: Incorrect' if system == 'judge' else 'Final: 5'
-    monkeypatch.setattr('sgmem.runner.LocalClient', Client)
+    if not use_factory:
+        monkeypatch.setattr('sgmem.runner.LocalClient', Client)
     args = Namespace(benchmark=str(benchmark), project_root=str(tmp_path), output=str(tmp_path / 'run'), split=None, partition=None,
                      domains=['Finance'], categories=['multi_hop'], method='bm25', base_url='http://localhost/v1',
                      answer_model='local', judge_model=None, embedding_model='intfloat/e5-base-v2',
                      embedding_revision=None, device='cpu', batch_size=2, top_k=2, timeout=1, limit=1)
-    out = run(args)
+    out = run(args, client_factory=Client) if use_factory else run(args)
     records = [json.loads(line) for line in (out / 'predictions.jsonl').read_text().splitlines()]
     assert records[0]['status'] == 'ok' and records[0]['correct'] is False
     assert json.loads((out / 'metrics.json').read_text())['overall']['accuracy'] == 0
@@ -143,7 +145,7 @@ def test_http_payload_and_usage(monkeypatch):
         def __exit__(self, *args):
             return False
         def read(self, *args):
-            return json.dumps({'choices': [{'message': {'content': 'Final: answer'}}],
+            return json.dumps({'choices': [{'message': {'content': 'Final: answer'}, 'finish_reason': 'length'}],
                                'usage': {'total_tokens': 42}}).encode()
 
     def fake_urlopen(request, timeout):
@@ -159,6 +161,7 @@ def test_http_payload_and_usage(monkeypatch):
     assert captured['payload']['messages'] == [{'role': 'system', 'content': 'system'},
                                                 {'role': 'user', 'content': 'user'}]
     assert client.last_usage == {'total_tokens': 42}
+    assert client.last_finish_reason == 'length'
 
 
 def test_invalid_split_fails_before_output_and_model_use(tmp_path, monkeypatch):
@@ -193,3 +196,38 @@ def test_judge_failure_preserves_answer():
         evaluate_question(question, [], Client(), Client(fail=True), 'agent', 'judge')
     assert error.value.partial['answer'] == 'retained answer'
     assert error.value.partial['agent_output'] == 'Final: retained answer'
+
+
+def test_shared_client_finish_reason_is_snapshotted():
+    class Client:
+        last_usage = None
+        last_finish_reason = None
+
+        def complete(self, system, prompt, max_tokens):
+            self.last_finish_reason = 'length' if system == 'agent' else 'stop'
+            return 'Final: answer' if system == 'agent' else 'Final: Incorrect'
+
+    client = Client()
+    result = evaluate_question({'question': 'What?', 'answer': 'gold'}, [], client, client, 'agent', 'judge')
+    assert result['answer_finish_reason'] == 'length'
+    assert result['judge_finish_reason'] == 'stop'
+    metrics = summarize([{**result, 'category': 'multi_hop', 'status': 'ok'}])
+    assert metrics['overall']['truncated_answers'] == 1
+    assert metrics['overall']['truncated_judgments'] == 0
+    assert metrics['overall']['accuracy'] == 0
+
+
+def test_judge_review_does_not_rewrite_scores_or_mix_task_errors():
+    records = [{'domain': 'Finance', 'category': 'multi_hop', 'question_id': 'q1',
+                'method': 'bm25', 'correct': False, 'official_correct': False}]
+    rows = build_annotation_template(records)
+    rows[0].update(annotator='reviewer', failure_types=['F9'], primary_failure_type='F9',
+                   error_stage='evaluation', notes='Evidence agrees with answer; recheck judge.')
+    summary = summarize_annotations(records, rows)
+    assert summary['judged_correct'] == 0 and summary['judged_failures'] == 1
+    assert summary['evaluation_review_cases'] == 1
+    assert summary['annotated_task_failures'] == 0
+    assert summary['task_primary_failure_counts'] == {}
+    rows[0]['failure_types'].append('F8')
+    with pytest.raises(ValueError, match='Judge disagreements'):
+        summarize_annotations(records, rows)
