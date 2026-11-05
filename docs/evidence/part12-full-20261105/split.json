@@ -1,0 +1,3584 @@
+{
+  "seed": 42,
+  "dev_fraction": 0.25,
+  "unit": "question",
+  "dev": [
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_36"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_30"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_31"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_19"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_29"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_18"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_37"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_45"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_20"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_12"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_41"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_13"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_3"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_1"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_17"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_8"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_19"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_31"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_14"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_23"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_18"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_1"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_32"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_4"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_3"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_24"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_14"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_21"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_12"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_2"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_9"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_13"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_7"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_4"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_5"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_10"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_5"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_23"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_7"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_21"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_42"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_38"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_43"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_39"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_27"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_8"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_12"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_14"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_9"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_35"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_45"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_4"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_36"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_36"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_39"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_21"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_37"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_14"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_31"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_30"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_2"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_18"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_32"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_18"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_30"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_7"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_20"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_31"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_2"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_26"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_28"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_35"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_28"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_12"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_20"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_14"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_7"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_2"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_6"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_21"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_11"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_17"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_1"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_4"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_18"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_9"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_2"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_28"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_23"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_31"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_26"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_5"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_19"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_34"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_28"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_20"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_41"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_7"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_33"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_36"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_2"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_48"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_39"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_34"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_27"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_31"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_32"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_26"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_44"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_48"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_42"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_25"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_38"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_37"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_40"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_22"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_13"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_28"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_2"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_12"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_8"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_5"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_22"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_7"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_31"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_36"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_4"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_12"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_29"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_27"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_37"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "user_implicit",
+      "id": "user_implicit_1"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_4"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_1"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_33"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_1"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_11"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_15"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_21"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_17"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_6"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_43"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_33"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_30"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_44"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_25"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_24"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_32"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_12"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_3"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_10"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_1"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_7"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_18"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_2"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_14"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_34"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_39"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_41"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_12"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_4"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_31"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_42"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_37"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_27"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_5"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_1"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "id": "user_implicit_3"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_8"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_7"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_3"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_44"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_27"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_25"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_42"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_37"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_45"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_21"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_6"
+    }
+  ],
+  "test": [
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_5"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_33"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_2"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_4"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_35"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_47"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_26"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_38"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_8"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_39"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_42"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_32"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_28"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_3"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_9"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_6"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_1"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_27"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_24"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_48"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_21"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_44"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_7"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_11"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_34"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_43"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_14"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_40"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_15"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_17"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_22"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_23"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_25"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_10"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_16"
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_46"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_21"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_29"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_7"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_5"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_24"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_13"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_4"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_16"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_10"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_32"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_15"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_26"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_2"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_27"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_28"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_18"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_6"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_9"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_20"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_12"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_25"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_22"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_30"
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_11"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_29"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_37"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_27"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_39"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_30"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_43"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_38"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_35"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_26"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_15"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_11"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_17"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_20"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_42"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_34"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_16"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_10"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_41"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_5"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_33"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_28"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_22"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_8"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_31"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_36"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_45"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_23"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_40"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_19"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_44"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_13"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_6"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_25"
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_7"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_12"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_14"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_15"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_8"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_9"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_6"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_1"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_10"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_2"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_3"
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_11"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_37"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_33"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_11"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_20"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_2"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_13"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_15"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_3"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_18"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_28"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_12"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_32"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_14"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_31"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_6"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_17"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_35"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_30"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_45"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_22"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_19"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_34"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_26"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_9"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_29"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_25"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_40"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_16"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_1"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_41"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_24"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_4"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_36"
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_44"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_42"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_34"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_38"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_19"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_26"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_33"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_37"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_8"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_32"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_24"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_44"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_47"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_43"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_2"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_40"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_48"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_39"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_46"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_49"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_18"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_41"
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_3"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_4"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_26"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_5"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_20"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_12"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_27"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_38"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_25"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_15"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_8"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_17"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_34"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_24"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_33"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_19"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_35"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_11"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_9"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_41"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_28"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_3"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_6"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_1"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_40"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_7"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_10"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_29"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_13"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_22"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_23"
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_16"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_27"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_24"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_23"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_1"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_3"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_19"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_10"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_8"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_34"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_6"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_11"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_4"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_33"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_17"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_14"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_21"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_13"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_22"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_25"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_36"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_5"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_16"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_9"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_29"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_32"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_12"
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_15"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_8"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_17"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_16"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_33"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_22"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_9"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_19"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_27"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_4"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_5"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_10"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_35"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_18"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_15"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_13"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_23"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_37"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_29"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_25"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_32"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_30"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_3"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_34"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_26"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_36"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_24"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_31"
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_1"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_15"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_25"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_7"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_14"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_23"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_6"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_13"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_22"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_19"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_24"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_21"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_11"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_10"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_27"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_5"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_8"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_26"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_12"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_20"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_16"
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_3"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_10"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_43"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_8"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_30"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_12"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_29"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_38"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_9"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_4"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_27"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_32"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_25"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_22"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_14"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_18"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_2"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_16"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_37"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_11"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_35"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_3"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_17"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_24"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_39"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_21"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_40"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_13"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_15"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_42"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_6"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_36"
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_1"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_40"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_4"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_42"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_28"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_47"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_29"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_33"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_44"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_43"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_24"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_32"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_1"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_45"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_46"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_35"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_41"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_18"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_15"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_30"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_37"
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_38"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_24"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_31"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_6"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_43"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_4"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_10"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_20"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_12"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_9"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_8"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_16"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_29"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_36"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_39"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_5"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_14"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_1"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_46"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_35"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_2"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_19"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_45"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_18"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_33"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_41"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_47"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_15"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_23"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_21"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_3"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_7"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_30"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_27"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_11"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_17"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_34"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_13"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_16"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_11"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_10"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_1"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_14"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_6"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_7"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_15"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_9"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_3"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_4"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_17"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_33"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_13"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_32"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_23"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_14"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_18"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_19"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_11"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_30"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_2"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_6"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_25"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_24"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_1"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_21"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_8"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_10"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_17"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_15"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_26"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_35"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_20"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_16"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_5"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_9"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_28"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_3"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_34"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "user_implicit",
+      "id": "user_implicit_2"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_5"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_3"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_2"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_7"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_6"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_10"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_28"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_25"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_31"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_24"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_22"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_27"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_32"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_34"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_29"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_30"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_23"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_5"
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_26"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_37"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_1"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_2"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_19"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_13"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_36"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_34"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_35"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_4"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_15"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_9"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_28"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_21"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_40"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_11"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_31"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_41"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_42"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_16"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_38"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_10"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_18"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_20"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_22"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_27"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_23"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_8"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_29"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_45"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_5"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_39"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_26"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_14"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_7"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_15"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_12"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_13"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_6"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_20"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_11"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_16"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_17"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_3"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_21"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_8"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_9"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_19"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_5"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_4"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_22"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_2"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_38"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_36"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_24"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_6"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_32"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_10"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_33"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_22"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_43"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_19"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_30"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_21"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_11"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_15"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_8"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_7"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_3"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_20"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_16"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_18"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_17"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_14"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_40"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_28"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_29"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_9"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_23"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_26"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_13"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_35"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_25"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "id": "user_implicit_2"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "id": "user_implicit_1"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "id": "user_implicit_4"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_10"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_2"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_4"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_11"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_9"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_1"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_6"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_5"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_35"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_29"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_41"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_34"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_47"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_33"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_46"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_40"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_24"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_28"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_30"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_26"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_7"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_23"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_32"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_22"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_31"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_38"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_17"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_1"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_39"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_48"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_36"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_43"
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_12"
+    }
+  ]
+}

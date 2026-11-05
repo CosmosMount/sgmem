@@ -1,0 +1,202 @@
+{
+  "selection": "One development question with at least one failed method per nonempty domain/category cell, chosen by smallest salted SHA256.",
+  "salt": "sgmem-part2-20261105",
+  "test_questions_inspected_for_part2": 0,
+  "questions": [
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "id": "abstention_9",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_1",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_29",
+      "bm25_correct": false,
+      "dense_correct": true
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_21",
+      "bm25_correct": false,
+      "dense_correct": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_43",
+      "bm25_correct": false,
+      "dense_correct": true
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "id": "user_implicit_5",
+      "bm25_correct": true,
+      "dense_correct": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "id": "abstention_1",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_5",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_48",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_22",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_1",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "user_implicit",
+      "id": "user_implicit_1",
+      "bm25_correct": true,
+      "dense_correct": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "id": "abstention_6",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_10",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_24",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "id": "temporal_12",
+      "bm25_correct": true,
+      "dense_correct": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_8",
+      "bm25_correct": false,
+      "dense_correct": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "id": "user_implicit_3",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "id": "abstention_27",
+      "bm25_correct": false,
+      "dense_correct": true
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_30",
+      "bm25_correct": false,
+      "dense_correct": true
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_2",
+      "bm25_correct": false,
+      "dense_correct": true
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_2",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_33",
+      "bm25_correct": false,
+      "dense_correct": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "id": "user_implicit_18",
+      "bm25_correct": false,
+      "dense_correct": false
+    }
+  ],
+  "eligible_questions_by_cell": {
+    "Finance/abstention": 4,
+    "Finance/knowledge_update": 7,
+    "Finance/multi_hop": 9,
+    "Finance/temporal": 10,
+    "Finance/term_ambiguity": 10,
+    "Finance/user_implicit": 2,
+    "Healthcare/abstention": 4,
+    "Healthcare/knowledge_update": 4,
+    "Healthcare/multi_hop": 12,
+    "Healthcare/temporal": 9,
+    "Healthcare/term_ambiguity": 2,
+    "Healthcare/user_implicit": 1,
+    "Manufacturing/abstention": 3,
+    "Manufacturing/knowledge_update": 6,
+    "Manufacturing/multi_hop": 10,
+    "Manufacturing/temporal": 11,
+    "Manufacturing/term_ambiguity": 3,
+    "Manufacturing/user_implicit": 1,
+    "Technology/abstention": 4,
+    "Technology/knowledge_update": 7,
+    "Technology/multi_hop": 10,
+    "Technology/temporal": 9,
+    "Technology/term_ambiguity": 10,
+    "Technology/user_implicit": 4
+  },
+  "distribution_scope": "Quota sample; percentages are not population estimates for all benchmark failures."
+}

@@ -1,0 +1,50 @@
+{
+  "all": {
+    "questions": 715,
+    "both_correct": 122,
+    "bm25_only_correct": 112,
+    "dense_only_correct": 82,
+    "both_incorrect": 399,
+    "bm25_minus_dense": 0.04195804195804196,
+    "paired_bootstrap_95_ci": [
+      0.002797202797202797,
+      0.07972027972027972
+    ],
+    "mcnemar_exact_two_sided_p": 0.03706191404782606,
+    "bootstrap_draws": 20000,
+    "seed": 42,
+    "caveat": "Question-level descriptive uncertainty; shared dialogue and related questions are not independent."
+  },
+  "dev": {
+    "questions": 179,
+    "both_correct": 27,
+    "bm25_only_correct": 29,
+    "dense_only_correct": 31,
+    "both_incorrect": 92,
+    "bm25_minus_dense": -0.0111731843575419,
+    "paired_bootstrap_95_ci": [
+      -0.09497206703910614,
+      0.07262569832402235
+    ],
+    "mcnemar_exact_two_sided_p": 0.8974218269914305,
+    "bootstrap_draws": 20000,
+    "seed": 42,
+    "caveat": "Question-level descriptive uncertainty; shared dialogue and related questions are not independent."
+  },
+  "test": {
+    "questions": 536,
+    "both_correct": 95,
+    "bm25_only_correct": 83,
+    "dense_only_correct": 51,
+    "both_incorrect": 307,
+    "bm25_minus_dense": 0.05970149253731343,
+    "paired_bootstrap_95_ci": [
+      0.016791044776119403,
+      0.10074626865671642
+    ],
+    "mcnemar_exact_two_sided_p": 0.007178115485500777,
+    "bootstrap_draws": 20000,
+    "seed": 42,
+    "caveat": "Question-level descriptive uncertainty; shared dialogue and related questions are not independent."
+  }
+}

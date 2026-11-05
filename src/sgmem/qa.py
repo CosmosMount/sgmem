@@ -30,6 +30,7 @@ class LocalClient:
         self.temperature = temperature
         self.api_key = api_key
         self.last_usage = None
+        self.last_finish_reason = None
 
     def complete(self, system_prompt: str, user_prompt: str, max_tokens: int) -> str:
         payload = {
@@ -47,6 +48,7 @@ class LocalClient:
         request = Request(self.url, data=json.dumps(payload).encode("utf-8"),
                           headers=headers, method="POST")
         self.last_usage = None
+        self.last_finish_reason = None
         try:
             with urlopen(request, timeout=self.timeout) as response:
                 data = json.load(response)
@@ -61,6 +63,7 @@ class LocalClient:
         if not isinstance(content, str) or not content.strip():
             raise ValueError("Chat completion response has empty message content")
         self.last_usage = data.get("usage")
+        self.last_finish_reason = data["choices"][0].get("finish_reason")
         return content
 
 
@@ -119,6 +122,7 @@ def evaluate_question(question: dict, retrieved: list[dict], answer_client: Loca
     agent_output = answer_client.complete(agent_system, answer_prompt, max_tokens=512)
     answer_seconds = perf_counter() - start
     answer_usage = answer_client.last_usage
+    answer_finish_reason = getattr(answer_client, "last_finish_reason", None)
     answer = extract_final(agent_output)
     judge_prompt = (
         f"Question:\n{question['question']}\n\n"
@@ -131,7 +135,7 @@ def evaluate_question(question: dict, retrieved: list[dict], answer_client: Loca
     except (RuntimeError, ValueError, OSError, TimeoutError) as exc:
         raise JudgeFailure(str(exc), {"answer": answer, "agent_output": agent_output,
                                      "retrieved_docs": docs, "answer_seconds": answer_seconds,
-                                     "answer_usage": answer_usage}) from exc
+                                     "answer_usage": answer_usage, "answer_finish_reason": answer_finish_reason}) from exc
     judge_seconds = perf_counter() - start
     judge_answer = extract_final(judge_output)
     return {
@@ -146,6 +150,8 @@ def evaluate_question(question: dict, retrieved: list[dict], answer_client: Loca
         "judge_seconds": judge_seconds,
         "answer_usage": answer_usage,
         "judge_usage": judge_client.last_usage,
+        "answer_finish_reason": answer_finish_reason,
+        "judge_finish_reason": getattr(judge_client, "last_finish_reason", None),
     }
 
 
@@ -168,18 +174,27 @@ def summarize(records: list[dict]) -> dict:
             "errors": failed,
             "unclear": unclear,
             "correct": correct,
+            "truncated_answers": sum(item.get("answer_finish_reason") == "length" for item in items),
+            "truncated_judgments": sum(item.get("judge_finish_reason") == "length" for item in items),
             "accuracy": correct / total if total and not failed else None,
         }
 
     groups = defaultdict(list)
     domains = defaultdict(list)
+    partitions = defaultdict(list)
     for record in records:
         groups[record["category"]].append(record)
         if "domain" in record:
             domains[record["domain"]].append(record)
+        if record.get('partition'):
+            partitions[record['partition']].append(record)
     return {"overall": aggregate(records),
             "by_category": {name: aggregate(items) for name, items in groups.items()},
             "by_domain": {name: aggregate(items) for name, items in domains.items()},
+            'by_partition': {name: {'overall': aggregate(items),
+                                   'by_category': {category: aggregate([r for r in items if r['category'] == category])
+                                                   for category in sorted({r['category'] for r in items})}}
+                             for name, items in partitions.items()},
             "by_domain_and_category": {
                 domain: {category: aggregate([r for r in items if r["category"] == category])
                          for category in sorted({r["category"] for r in items})}

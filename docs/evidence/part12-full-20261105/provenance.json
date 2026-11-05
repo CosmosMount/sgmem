@@ -1,0 +1,277 @@
+{
+  "benchmark": "GroupMemBench",
+  "benchmark_commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+  "method_core": {
+    "src/sgmem/data.py": "bad1139adbdb30928fde210bbb3e2d585730ff745a3248a0725cea39d8853748",
+    "src/sgmem/retrieval.py": "7832403b946c4a7e2b899918997c9e3c58ee17ed9011f86c61619a129d4b41b6",
+    "src/sgmem/qa.py": "0cd4fd8bc46eb406d9884cf597efe091cb3b1d5b85e4cfc3f607e9042b5f3b4a",
+    "src/sgmem/runner.py": "bf4d2b26d1abcf82ee4170ddc5592cfab383e582bda5f725d066afb8631a83b6",
+    "local_generation_ast": "bdbbfaddd8354cebea27d42e2939d1e5c3b12fc2b998c5ffa40f035c742144cd"
+  },
+  "protocol": {
+    "partition": "all",
+    "domains": [
+      "Finance",
+      "Technology",
+      "Healthcare",
+      "Manufacturing"
+    ],
+    "categories": [
+      "multi_hop",
+      "knowledge_update",
+      "temporal",
+      "user_implicit",
+      "term_ambiguity",
+      "abstention"
+    ],
+    "base_url": "in-process",
+    "answer_model": "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+    "judge_model": null,
+    "embedding_model": "/home/ai4s_group/XZG/NLP/sgmem/models/e5-small-v2",
+    "embedding_revision": null,
+    "device": "cuda",
+    "batch_size": 64,
+    "top_k": 10,
+    "timeout": 300,
+    "limit": null,
+    "generation_config": {
+      "seed_per_call": 42,
+      "enable_thinking": false,
+      "temperature": 0.2,
+      "top_p": 1.0,
+      "top_k": 0,
+      "answer_max_tokens": 512,
+      "judge_max_tokens": 256
+    },
+    "model_provenance": {
+      "qa_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "embedding_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+      "files": {
+        "qa": {
+          "configuration_sha256": {
+            "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+            "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+            "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+            "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+            "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+            "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          },
+          "weight_sizes": {
+            "model-00001-of-00005.safetensors": 3996250744,
+            "model-00002-of-00005.safetensors": 3993160032,
+            "model-00003-of-00005.safetensors": 3959604768,
+            "model-00004-of-00005.safetensors": 3187841392,
+            "model-00005-of-00005.safetensors": 1244659840
+          }
+        },
+        "embedding": {
+          "configuration_sha256": {
+            "1_Pooling/config.json": "987f7a67a38fa564c849bb5d277c52ab9088a84368fc0be31a354125aebb12a0",
+            "config.json": "5dfb0363cd0243be179c03bcaafd1542d0fbb95e8cbcf575fff3e229342adc2f",
+            "modules.json": "c6e29747481e8b5dd2b58401966aeac910de39092f90cda9a704b1545f902b04",
+            "sentence_bert_config.json": "948201d8329907aae938fa62f9ceeed53f5694dacc2b87b9f3b78b37ee986529",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+            "tokenizer_config.json": "ae83fa6ca0333117ff12606020af925d648667ef70d92ff7f27d781ba0ca4544"
+          },
+          "weight_sizes": {
+            "model.safetensors": 133466304
+          }
+        }
+      }
+    },
+    "benchmark_commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+    "inputs": {
+      "prompts/hipporag_agent_system.txt": "c2019778844ba90e854d80bf25a9a0a316c50538acb9c12ce6dd070b7013865d",
+      "prompts/hipporag_judge_system.txt": "abcd96fd2df5eff8d4d32d516da7d84847478a03928d39456f54770657966fc1",
+      "data/final/Finance/synthetic_domain_channels_rolevariants_Finance.json": "0dab291e46fc1c32a1c454b80d931bd75fa180bfa063280015d050c09325c0e8",
+      "data/final/Technology/synthetic_domain_channels_rolevariants_Technology.json": "b2b5b816475a11c11c3ff80bfcfcb157c9ed5f793cd92f0a76d90253d22f9c5d",
+      "data/final/Healthcare/synthetic_domain_channels_rolevariants_Healthcare.json": "bc665c792847bab5c5e8e35e4d5ce0489e0b1b8217d15dc8261d5f878155a7cf",
+      "data/final/Manufacturing/synthetic_domain_channels_rolevariants_Manufacturing.json": "cfe2badca60e19f6d75c6d027402d32c0983dc25f06c9aa5fe5b6bf148ffa3c9",
+      "questions/Finance/multi_hop.jsonl": "12f689fae2e33f829715c4281208e585b6d06752f1a5e7cb6dd1025c036c0a09",
+      "questions/Finance/knowledge_update.jsonl": "af991804babdeecc0827ec64037355b425699331406a6daf8019ebe27b9f0561",
+      "questions/Finance/temporal.jsonl": "1d6384a444b9402d432b926c089ba10a623b28cbc94414c4e43090b2bd0e3866",
+      "questions/Finance/user_implicit.jsonl": "1720cd5ea652fd83a8b51e2b2ea53a603ceb6652812288f02fc1fecfd3b3d42f",
+      "questions/Finance/term_ambiguity.jsonl": "e8993f6495e8d32e775c748af477e67054b3bebf442bbba3f73865b18451e688",
+      "questions/Finance/abstention.jsonl": "e8af614e52f6962c87961182a695f7e56899df316f07f2678649d2a21954c268",
+      "questions/Technology/multi_hop.jsonl": "8b0491e08be326a5496c9c9930cf6e310bf01a97b1b0435f6258f20970a1b121",
+      "questions/Technology/knowledge_update.jsonl": "759ea371f5136761ea1c6518015029e77c70520be646af1c2b2caa5608d3105e",
+      "questions/Technology/temporal.jsonl": "d957a53dbae86f8b8eefd397b0fa69352da9885b50c51bd68e23d6622dbd55b5",
+      "questions/Technology/user_implicit.jsonl": "62f274b99a5c7203a6a54bfee824c4c97bb3458b8f201f9888ddca233d8d33d7",
+      "questions/Technology/term_ambiguity.jsonl": "ca79a800fb9bc32c95cb1b2fa135495cfd6048815b38f90e58d46c9b75a559a9",
+      "questions/Technology/abstention.jsonl": "d3703d6c42d0a9803d3725b2f337c3bfd10ff51952d35abd0c40da713abb6fad",
+      "questions/Healthcare/multi_hop.jsonl": "2d26f763ee5fff6a168f47c8f9b1447f44c4296e8f725e57ac917576aa1d1e0f",
+      "questions/Healthcare/knowledge_update.jsonl": "0e520375ed9c38f74b05d2e1448bf1e280e330dc3be54e6d2f5481da745bb141",
+      "questions/Healthcare/temporal.jsonl": "b9939a1094c60f0ab637ef8d2b8b27840ce4ad5b996f01b86aaeb9cffafe8549",
+      "questions/Healthcare/user_implicit.jsonl": "baaa29b89afb87dd685b6f275651262be732d09bb88c610866e18d4c7e1cc35a",
+      "questions/Healthcare/term_ambiguity.jsonl": "a2383a68b45372ea70c39987ccfa00adce294c1fdaf352bff6c509e044d5b4bd",
+      "questions/Healthcare/abstention.jsonl": "8f47085bf1d5d36eb025317ae7d148f864e76d45511f86e259c3c6780ff9ee0a",
+      "questions/Manufacturing/multi_hop.jsonl": "8219f7e8826ad6725fb0e40189b0b2b7c1c545d7a88fa4f8ce1f4e46c6577282",
+      "questions/Manufacturing/knowledge_update.jsonl": "4417f400aacefddb9e541e7e7cd999740d67a56dbac5f10a405ed01588a2553d",
+      "questions/Manufacturing/temporal.jsonl": "dcb534a68df66baee63aa4195c9b7101ccbb12ee6c00773e0d6aa8e8a96918fd",
+      "questions/Manufacturing/user_implicit.jsonl": "15936b79a89357065f1cddefd48cf70c328d1329209f23b851141ed8c7dd68f7",
+      "questions/Manufacturing/term_ambiguity.jsonl": "2066d2408c16f5a5ad1054317b89787a29444aef80daa4c7105fddcbdc99a5ab",
+      "questions/Manufacturing/abstention.jsonl": "8ee2d5366575d3c9ae71f96659723a43a0fc1918f9b6bd35155a7a5b59681273"
+    }
+  },
+  "runtime": {
+    "packages": {
+      "torch": "2.8.0",
+      "transformers": "4.57.1",
+      "sentence-transformers": "5.7.0",
+      "numpy": "2.2.6",
+      "rank-bm25": "0.2.2"
+    },
+    "model_files": {
+      "qa": {
+        "configuration_sha256": {
+          "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+          "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+          "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+        },
+        "weight_sizes": {
+          "model-00001-of-00005.safetensors": 3996250744,
+          "model-00002-of-00005.safetensors": 3993160032,
+          "model-00003-of-00005.safetensors": 3959604768,
+          "model-00004-of-00005.safetensors": 3187841392,
+          "model-00005-of-00005.safetensors": 1244659840
+        }
+      },
+      "embedding": {
+        "configuration_sha256": {
+          "1_Pooling/config.json": "987f7a67a38fa564c849bb5d277c52ab9088a84368fc0be31a354125aebb12a0",
+          "config.json": "5dfb0363cd0243be179c03bcaafd1542d0fbb95e8cbcf575fff3e229342adc2f",
+          "modules.json": "c6e29747481e8b5dd2b58401966aeac910de39092f90cda9a704b1545f902b04",
+          "sentence_bert_config.json": "948201d8329907aae938fa62f9ceeed53f5694dacc2b87b9f3b78b37ee986529",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "ae83fa6ca0333117ff12606020af925d648667ef70d92ff7f27d781ba0ca4544"
+        },
+        "weight_sizes": {
+          "model.safetensors": 133466304
+        }
+      }
+    },
+    "enable_thinking": false,
+    "temperature": 0.2,
+    "top_p": 1.0,
+    "top_k": 0,
+    "answer_max_tokens": 512,
+    "judge_max_tokens": 256,
+    "seed_per_call": 42
+  },
+  "gpu_hours": 3.5906568882769596,
+  "completion": {
+    "complete": true,
+    "started_at_utc": "2026-11-05T10:35:52Z",
+    "finished_at_utc": "2026-11-05T11:34:32Z",
+    "parallel_wall_seconds": 3519.368077231571,
+    "canonical_results": "/home/ai4s_group/XZG/NLP/sgmem/results/runs/part1-full-20261105-parallel/combined",
+    "bm25_questions": 715,
+    "dense_questions": 715
+  },
+  "raw_parts": [
+    {
+      "path": "/home/ai4s_group/XZG/NLP/sgmem/results/runs/part1-full-20261105/bm25",
+      "commit": "1948e642400006e9abf31a27750d8048be62e082",
+      "method": "bm25",
+      "questions": 715,
+      "sha256": {
+        "manifest.json": "4a22c00c92225ba5d33b103ba16ac6e495fcd5a369a86c89aebe3cea5e3b9c64",
+        "predictions.jsonl": "b652a065eebc83416a24f5adba6917163f941e0f8e5f04200184b3d85b42c731",
+        "metrics.json": "a66c13d487e83e420dc8ffb39d3004936ac4321404b3ded3cfbb974b32bb1287"
+      }
+    },
+    {
+      "path": "/home/ai4s_group/XZG/NLP/sgmem/results/runs/part1-full-20261105-parallel/dense-0/dense",
+      "commit": "0c0ee203d297b75e8913923f0036ef4c5a73709e",
+      "method": "dense",
+      "questions": 358,
+      "sha256": {
+        "manifest.json": "accc1747aa9445550ead33f86a7f43c2da8f866bc1e898112919df38dfc9554a",
+        "predictions.jsonl": "67da43e7b185cd10bccf37ea34311ad79b6a302ece776a7eed4acff40ccd8713",
+        "metrics.json": "8ee7b1d3bf5546b263a60649ef46e4f642330a5ba638f118ee28af412af4e9bd"
+      }
+    },
+    {
+      "path": "/home/ai4s_group/XZG/NLP/sgmem/results/runs/part1-full-20261105-parallel/dense-1/dense",
+      "commit": "0c0ee203d297b75e8913923f0036ef4c5a73709e",
+      "method": "dense",
+      "questions": 357,
+      "sha256": {
+        "manifest.json": "4273e967fc5efbe644fad8213d7f3d27ba915f02728b50723ce91f46cc3b272d",
+        "predictions.jsonl": "260f4af7f57d04b79e8c83ea240bd301ec5b1ff30c107812c9858dd129988438",
+        "metrics.json": "17b8edb8cc119a5429c25dc68ffbe7dbf8773d4c2ec2604b494dbbe6da0da88e"
+      }
+    }
+  ],
+  "resource_runs": {
+    "/home/ai4s_group/XZG/NLP/sgmem/results/runs/part1-full-20261105": {
+      "gpu_hours": 1.6581043586077997,
+      "wall_seconds": 5969.175690988079,
+      "gpu": "7"
+    },
+    "/home/ai4s_group/XZG/NLP/sgmem/results/runs/part1-full-20261105-parallel/dense-0": {
+      "gpu_hours": 0.956748055475764,
+      "wall_seconds": 3444.2929997127503,
+      "gpu": "2"
+    },
+    "/home/ai4s_group/XZG/NLP/sgmem/results/runs/part1-full-20261105-parallel/dense-1": {
+      "gpu_hours": 0.9758044741933959,
+      "wall_seconds": 3512.896107096225,
+      "gpu": "3"
+    }
+  },
+  "question_count": 715,
+  "dev": 179,
+  "test": 536,
+  "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+  "index_seconds": {
+    "part1-full-20261105/bm25": {
+      "Finance": 0.9472201112657785,
+      "Technology": 0.9466191101819277,
+      "Healthcare": 0.32555191591382027,
+      "Manufacturing": 0.3611918482929468
+    },
+    "part1-full-20261105/dense": {},
+    "dense-0/dense": {
+      "Finance": 22.58984293974936,
+      "Technology": 22.71939829364419,
+      "Healthcare": 8.496008332818747,
+      "Manufacturing": 8.63083254545927
+    },
+    "dense-1/dense": {
+      "Finance": 22.584494445472956,
+      "Technology": 22.6151505112648,
+      "Healthcare": 8.373082593083382,
+      "Manufacturing": 8.595516303554177
+    }
+  },
+  "peak_allocated_gpu_bytes": {
+    "part1-full-20261105": 16985468928,
+    "dense-0": 17201920000,
+    "dense-1": 17220008448
+  },
+  "generation_calls": {
+    "part1-full-20261105": {
+      "answer": 715,
+      "judge": 715
+    },
+    "dense-0": {
+      "answer": 358,
+      "judge": 358
+    },
+    "dense-1": {
+      "answer": 357,
+      "judge": 357
+    }
+  },
+  "raw_archive": {
+    "name": "SGMem-Part1-full-evidence-20261105.tar.gz",
+    "bytes": 10275815,
+    "sha256": "792a534593ea1957b24ea86b87316e3736b694dadc38f0fdd6ee01711e3cd7b1"
+  }
+}

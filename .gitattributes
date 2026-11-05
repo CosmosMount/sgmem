@@ -1,0 +1,3 @@
+# Preserve the exact frozen split and portable JSONL evidence on Windows/Linux.
+docs/evidence/**/*.json text eol=lf
+docs/evidence/**/*.jsonl text eol=lf

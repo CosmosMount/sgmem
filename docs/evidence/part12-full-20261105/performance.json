@@ -1,0 +1,66 @@
+{
+  "bm25": {
+    "retrieval_seconds": {
+      "sum": 81.51411340013146,
+      "mean": 0.11400575300717687,
+      "median": 0.10603632032871246,
+      "p95": 0.17155325412750239
+    },
+    "answer_seconds": {
+      "sum": 3737.5940835308284,
+      "mean": 5.227404312630529,
+      "median": 4.7053730841726065,
+      "p95": 9.51701956540346
+    },
+    "judge_seconds": {
+      "sum": 2136.528970276937,
+      "mean": 2.98815240598173,
+      "median": 2.9270592126995325,
+      "p95": 4.206185321137308
+    },
+    "answer_tokens": {
+      "prompt_tokens": 1139962,
+      "completion_tokens": 114660,
+      "total_tokens": 1254622
+    },
+    "answer_max_prompt_tokens": 2330,
+    "judge_tokens": {
+      "prompt_tokens": 112550,
+      "completion_tokens": 69465,
+      "total_tokens": 182015
+    },
+    "judge_max_prompt_tokens": 652
+  },
+  "dense": {
+    "retrieval_seconds": {
+      "sum": 9.58476035669446,
+      "mean": 0.013405259240132111,
+      "median": 0.01257547177374363,
+      "p95": 0.01612391099333763
+    },
+    "answer_seconds": {
+      "sum": 4423.911844054237,
+      "mean": 6.187289292383548,
+      "median": 5.598439939320087,
+      "p95": 12.00811284463852
+    },
+    "judge_seconds": {
+      "sum": 2380.5193064771593,
+      "mean": 3.3293976314365863,
+      "median": 3.2510160207748413,
+      "p95": 4.577447182312605
+    },
+    "answer_tokens": {
+      "prompt_tokens": 1202445,
+      "completion_tokens": 128329,
+      "total_tokens": 1330774
+    },
+    "answer_max_prompt_tokens": 2362,
+    "judge_tokens": {
+      "prompt_tokens": 115798,
+      "completion_tokens": 72181,
+      "total_tokens": 187979
+    },
+    "judge_max_prompt_tokens": 664
+  }
+}

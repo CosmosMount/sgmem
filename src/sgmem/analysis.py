@@ -1,4 +1,4 @@
-"""Human-led failure annotation and descriptive summaries."""
+"""Evidence-reviewed failure annotation and descriptive summaries."""
 
 from collections import Counter
 from typing import Any, Iterable
@@ -13,6 +13,7 @@ FAILURE_TYPES = {
     "F6": "cross_participant_reasoning",
     "F7": "other_retrieval_error",
     "F8": "qa_reasoning_error",
+    "F9": "judge_disagreement",
 }
 _KEY_FIELDS = ("domain", "category", "question_id", "method")
 
@@ -74,7 +75,7 @@ def summarize_annotations(
 
     Counts of secondary labels are multi-label counts, so their sum may exceed
     annotated examples. Evidence coverage is measured only for rows where a
-    human has supplied at least one supporting message ID.
+    reviewer has supplied at least one supporting message ID.
     """
     records = list(records)
     failed = _failed_records(records)
@@ -108,7 +109,7 @@ def summarize_annotations(
         if not isinstance(failure_types, list) or any(
             not isinstance(label, str) or label not in FAILURE_TYPES for label in failure_types
         ):
-            raise ValueError(f"Invalid failure_types for {key}; expected labels F1–F8")
+            raise ValueError(f"Invalid failure_types for {key}; expected labels F1–F9")
         if len(set(failure_types)) != len(failure_types):
             raise ValueError(f"Duplicate failure label for {key}")
         chosen = row.get("primary_failure_type")
@@ -120,7 +121,7 @@ def summarize_annotations(
             not isinstance(item, str) or not item for item in evidence
         ):
             raise ValueError(f"Invalid annotator or supporting_message_ids for {key}")
-        if stage not in (None, "retrieval", "qa", "mixed", "unknown"):
+        if stage not in (None, "retrieval", "qa", "mixed", "unknown", "evaluation"):
             raise ValueError(f"Invalid error_stage for {key}")
         if could_help is not None and type(could_help) is not bool:
             raise ValueError(f"metadata_could_help must be true, false, or null: {key}")
@@ -130,6 +131,8 @@ def summarize_annotations(
             continue
         if not annotator.strip() or chosen not in failure_types:
             raise ValueError(f"Annotated row needs an annotator and primary label in failure_types: {key}")
+        if "F9" in failure_types and (failure_types != ["F9"] or stage != "evaluation"):
+            raise ValueError(f"Judge disagreements require only F9 and error_stage=evaluation: {key}")
         annotated += 1
         method_summary["annotated_failures"] += 1
         method_summary["primary_failure_counts"][chosen] += 1
@@ -165,6 +168,9 @@ def summarize_annotations(
         "unjudged": sum(record.get("correct") is None for record in records),
         "judged_failures": len(failed),
         "annotated_failures": annotated,
+        "evaluation_review_cases": primary["F9"],
+        "annotated_task_failures": annotated - primary["F9"],
+        "task_primary_failure_counts": {label: count for label, count in sorted(primary.items()) if label != "F9"},
         "unannotated_failures": len(failed) - annotated,
         "primary_failure_counts": dict(sorted(primary.items())),
         "multi_label_counts": dict(sorted(labels.items())),

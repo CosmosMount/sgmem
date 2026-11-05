@@ -1,0 +1,601 @@
+{
+  "scope": "Post-hoc reachability of reviewer-identified support; not official evidence-recall labels or a top-10 repair experiment.",
+  "uses_reference_for_diagnosis_only": true,
+  "qa_rerun": false,
+  "positive_support_failure_records": 28,
+  "target_in_top10": 6,
+  "target_within_one_reply_hop": 6,
+  "target_within_two_reply_hops": 10,
+  "median_one_hop_candidates": 21.5,
+  "median_two_hop_candidates": 45.5,
+  "rows": [
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "method": "bm25",
+      "case_id": "C02",
+      "targets": [
+        "Msg_7489"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 15,
+      "two_hop_candidates": 23,
+      "public_asking_user_id": "User_2",
+      "target_speakers": [
+        "User_7"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "method": "dense",
+      "case_id": "C02",
+      "targets": [
+        "Msg_7489"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 22,
+      "two_hop_candidates": 30,
+      "public_asking_user_id": "User_2",
+      "target_speakers": [
+        "User_7"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_29",
+      "method": "bm25",
+      "case_id": "C03",
+      "targets": [
+        "Msg_28258"
+      ],
+      "target_in_top10": true,
+      "target_within_one_reply_hop": true,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 22,
+      "two_hop_candidates": 33,
+      "public_asking_user_id": "User_9",
+      "target_speakers": [
+        "User_13"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_21",
+      "method": "bm25",
+      "case_id": "C04",
+      "targets": [
+        "Msg_8383"
+      ],
+      "target_in_top10": true,
+      "target_within_one_reply_hop": true,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 29,
+      "two_hop_candidates": 51,
+      "public_asking_user_id": "User_5",
+      "target_speakers": [
+        "User_4"
+      ],
+      "retrieved_group_count": 2,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_43",
+      "method": "bm25",
+      "case_id": "C05",
+      "targets": [
+        "Msg_10725"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 15,
+      "two_hop_candidates": 65,
+      "public_asking_user_id": "User_3",
+      "target_speakers": [
+        "User_3"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_5",
+      "method": "dense",
+      "case_id": "C06",
+      "targets": [
+        "Msg_28294"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 20,
+      "two_hop_candidates": 25,
+      "public_asking_user_id": "User_13",
+      "target_speakers": [
+        "User_13"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "method": "bm25",
+      "case_id": "C08",
+      "targets": [
+        "Msg_2947"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 22,
+      "two_hop_candidates": 62,
+      "public_asking_user_id": "User_3",
+      "target_speakers": [
+        "User_3"
+      ],
+      "retrieved_group_count": 2,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "method": "dense",
+      "case_id": "C08",
+      "targets": [
+        "Msg_2947"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 24,
+      "two_hop_candidates": 47,
+      "public_asking_user_id": "User_3",
+      "target_speakers": [
+        "User_3"
+      ],
+      "retrieved_group_count": 5,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_48",
+      "method": "bm25",
+      "case_id": "C09",
+      "targets": [
+        "Msg_24002"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 19,
+      "two_hop_candidates": 42,
+      "public_asking_user_id": "User_3",
+      "target_speakers": [
+        "User_4"
+      ],
+      "retrieved_group_count": 7,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_48",
+      "method": "dense",
+      "case_id": "C09",
+      "targets": [
+        "Msg_24002"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 19,
+      "two_hop_candidates": 99,
+      "public_asking_user_id": "User_3",
+      "target_speakers": [
+        "User_4"
+      ],
+      "retrieved_group_count": 5,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "method": "bm25",
+      "case_id": "C10",
+      "targets": [
+        "Msg_28251"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 21,
+      "two_hop_candidates": 38,
+      "public_asking_user_id": "User_4",
+      "target_speakers": [
+        "User_4"
+      ],
+      "retrieved_group_count": 5,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "method": "dense",
+      "case_id": "C10",
+      "targets": [
+        "Msg_28251"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 20,
+      "two_hop_candidates": 68,
+      "public_asking_user_id": "User_4",
+      "target_speakers": [
+        "User_4"
+      ],
+      "retrieved_group_count": 3,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "method": "bm25",
+      "case_id": "C11",
+      "targets": [
+        "Msg_25463"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 26,
+      "two_hop_candidates": 61,
+      "public_asking_user_id": "User_6",
+      "target_speakers": [
+        "User_2"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "method": "dense",
+      "case_id": "C11",
+      "targets": [
+        "Msg_25463"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 31,
+      "two_hop_candidates": 75,
+      "public_asking_user_id": "User_6",
+      "target_speakers": [
+        "User_2"
+      ],
+      "retrieved_group_count": 3,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "user_implicit",
+      "question_id": "user_implicit_1",
+      "method": "dense",
+      "case_id": "C12",
+      "targets": [
+        "Msg_26630"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 15,
+      "two_hop_candidates": 30,
+      "public_asking_user_id": "User_2",
+      "target_speakers": [
+        "User_2"
+      ],
+      "retrieved_group_count": 2,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "method": "bm25",
+      "case_id": "C14",
+      "targets": [
+        "Msg_1633"
+      ],
+      "target_in_top10": true,
+      "target_within_one_reply_hop": true,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 29,
+      "two_hop_candidates": 65,
+      "public_asking_user_id": "User_4",
+      "target_speakers": [
+        "User_8"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "method": "dense",
+      "case_id": "C14",
+      "targets": [
+        "Msg_1633"
+      ],
+      "target_in_top10": true,
+      "target_within_one_reply_hop": true,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 31,
+      "two_hop_candidates": 60,
+      "public_asking_user_id": "User_4",
+      "target_speakers": [
+        "User_8"
+      ],
+      "retrieved_group_count": 2,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "method": "bm25",
+      "case_id": "C15",
+      "targets": [
+        "Msg_29329"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 20,
+      "two_hop_candidates": 89,
+      "public_asking_user_id": "User_8",
+      "target_speakers": [
+        "User_8"
+      ],
+      "retrieved_group_count": 6,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "method": "dense",
+      "case_id": "C15",
+      "targets": [
+        "Msg_29329"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 23,
+      "two_hop_candidates": 142,
+      "public_asking_user_id": "User_8",
+      "target_speakers": [
+        "User_8"
+      ],
+      "retrieved_group_count": 4,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_12",
+      "method": "dense",
+      "case_id": "C16",
+      "targets": [
+        "Msg_21256"
+      ],
+      "target_in_top10": true,
+      "target_within_one_reply_hop": true,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 17,
+      "two_hop_candidates": 43,
+      "public_asking_user_id": "User_6",
+      "target_speakers": [
+        "User_4"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "method": "bm25",
+      "case_id": "C18",
+      "targets": [
+        "Msg_1645"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 37,
+      "two_hop_candidates": 82,
+      "public_asking_user_id": "User_3",
+      "target_speakers": [
+        "User_3"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "method": "dense",
+      "case_id": "C18",
+      "targets": [
+        "Msg_1645"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 26,
+      "two_hop_candidates": 74,
+      "public_asking_user_id": "User_3",
+      "target_speakers": [
+        "User_3"
+      ],
+      "retrieved_group_count": 7,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_30",
+      "method": "bm25",
+      "case_id": "C20",
+      "targets": [
+        "Msg_4523"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 19,
+      "two_hop_candidates": 25,
+      "public_asking_user_id": "User_9",
+      "target_speakers": [
+        "User_9"
+      ],
+      "retrieved_group_count": 2,
+      "target_group_already_retrieved": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "method": "bm25",
+      "case_id": "C21",
+      "targets": [
+        "Msg_847"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 17,
+      "two_hop_candidates": 20,
+      "public_asking_user_id": "User_8",
+      "target_speakers": [
+        "User_13"
+      ],
+      "retrieved_group_count": 2,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "method": "bm25",
+      "case_id": "C22",
+      "targets": [
+        "Msg_6810"
+      ],
+      "target_in_top10": true,
+      "target_within_one_reply_hop": true,
+      "target_within_two_reply_hops": true,
+      "one_hop_candidates": 23,
+      "two_hop_candidates": 41,
+      "public_asking_user_id": "User_4",
+      "target_speakers": [
+        "User_15"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "method": "dense",
+      "case_id": "C22",
+      "targets": [
+        "Msg_6810"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 24,
+      "two_hop_candidates": 44,
+      "public_asking_user_id": "User_4",
+      "target_speakers": [
+        "User_15"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_33",
+      "method": "bm25",
+      "case_id": "C23",
+      "targets": [
+        "Msg_27780"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 20,
+      "two_hop_candidates": 26,
+      "public_asking_user_id": "User_1",
+      "target_speakers": [
+        "User_1"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_33",
+      "method": "dense",
+      "case_id": "C23",
+      "targets": [
+        "Msg_27780"
+      ],
+      "target_in_top10": false,
+      "target_within_one_reply_hop": false,
+      "target_within_two_reply_hops": false,
+      "one_hop_candidates": 18,
+      "two_hop_candidates": 27,
+      "public_asking_user_id": "User_1",
+      "target_speakers": [
+        "User_1"
+      ],
+      "retrieved_group_count": 1,
+      "target_group_already_retrieved": true
+    }
+  ]
+}
