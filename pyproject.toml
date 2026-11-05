@@ -13,6 +13,7 @@ dependencies = ["rank-bm25==0.2.2", "numpy>=1.26,<3"]
 dense = ["sentence-transformers==5.7.0", "torch==2.12.0"]
 serving = ["transformers[serving]==5.20.2", "torch==2.12.0", "Pillow==12.3.0", "requests==2.34.2"]
 test = ["pytest>=8,<10"]
+analysis = ["matplotlib>=3.8,<4"]
 
 [project.scripts]
 sgmem = "sgmem.cli:main"

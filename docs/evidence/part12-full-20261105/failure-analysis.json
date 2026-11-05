@@ -1,0 +1,132 @@
+{
+  "taxonomy": {
+    "F1": "speaker_confusion",
+    "F2": "group_confusion",
+    "F3": "belief_attribution",
+    "F4": "reply_context_loss",
+    "F5": "temporal_update",
+    "F6": "cross_participant_reasoning",
+    "F7": "other_retrieval_error",
+    "F8": "qa_reasoning_error",
+    "F9": "judge_disagreement"
+  },
+  "total_records": 358,
+  "judged_correct": 114,
+  "unjudged": 0,
+  "judged_failures": 244,
+  "annotated_failures": 38,
+  "evaluation_review_cases": 4,
+  "annotated_task_failures": 34,
+  "task_primary_failure_counts": {
+    "F1": 1,
+    "F2": 3,
+    "F3": 2,
+    "F4": 3,
+    "F5": 5,
+    "F7": 9,
+    "F8": 11
+  },
+  "unannotated_failures": 206,
+  "primary_failure_counts": {
+    "F1": 1,
+    "F2": 3,
+    "F3": 2,
+    "F4": 3,
+    "F5": 5,
+    "F7": 9,
+    "F8": 11,
+    "F9": 4
+  },
+  "multi_label_counts": {
+    "F1": 3,
+    "F2": 3,
+    "F3": 2,
+    "F4": 3,
+    "F5": 6,
+    "F7": 10,
+    "F8": 11,
+    "F9": 4
+  },
+  "primary_counts_by_category": {
+    "abstention": {
+      "F8": 6,
+      "F9": 1
+    },
+    "knowledge_update": {
+      "F2": 2,
+      "F5": 4,
+      "F8": 1
+    },
+    "multi_hop": {
+      "F1": 1,
+      "F2": 1,
+      "F4": 3,
+      "F8": 1
+    },
+    "temporal": {
+      "F7": 3,
+      "F8": 3
+    },
+    "term_ambiguity": {
+      "F7": 5,
+      "F9": 1
+    },
+    "user_implicit": {
+      "F3": 2,
+      "F5": 1,
+      "F7": 1,
+      "F9": 2
+    }
+  },
+  "error_stage_counts": {
+    "evaluation": 4,
+    "mixed": 8,
+    "qa": 12,
+    "retrieval": 14
+  },
+  "metadata_could_help_counts": {
+    "no": 15,
+    "unknown": 6,
+    "yes": 17
+  },
+  "by_method": {
+    "bm25": {
+      "judged_failures": 123,
+      "annotated_failures": 21,
+      "primary_failure_counts": {
+        "F1": 1,
+        "F2": 1,
+        "F3": 1,
+        "F4": 2,
+        "F5": 2,
+        "F7": 4,
+        "F8": 7,
+        "F9": 3
+      },
+      "unannotated_failures": 102
+    },
+    "dense": {
+      "judged_failures": 121,
+      "annotated_failures": 17,
+      "primary_failure_counts": {
+        "F2": 2,
+        "F3": 1,
+        "F4": 1,
+        "F5": 3,
+        "F7": 5,
+        "F8": 4,
+        "F9": 1
+      },
+      "unannotated_failures": 104
+    }
+  },
+  "manually_annotated_evidence": {
+    "examples_with_evidence": 38,
+    "examples_with_any_evidence_retrieved": 28,
+    "examples_with_all_evidence_retrieved": 14
+  },
+  "sample_questions": 24,
+  "sample_records": 48,
+  "sample_failed_records": 38,
+  "annotation_provenance": "AI-assisted source review; not human gold labels"
+}

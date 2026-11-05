@@ -1,6 +1,14 @@
 # SGMem：多人对话记忆检索研究
 
-项目已实现 GroupMemBench 的内容检索基线（BM25、E5 Dense）、本地模型问答与判分、逐题结果及人工失败分析。主基准和扩展基准分别以子模块固定；SGAR 方法、正式实验结果和报告尚未完成。上游使用 GPT-5 与 `text-embedding-3-large`，本项目使用本地模型和 E5，因而是**官方流程的本地适配**，不是官方模型配置的精确复现。
+项目已完成 GroupMemBench 的 BM25/E5 Dense 全量本地基线和 Part 2 结构性失败分析。四域共 715 题，两种方法共 1,430 条结果；BM25 32.73%，Dense 28.53%。Part 2 覆盖固定开发样本 24 道题、38 条判错记录和 61 条源消息，标注来源明确为 AI-assisted。SGAR 修复方法和最终课程报告/海报仍需完成。上游使用 GPT-5 与 `text-embedding-3-large`，本项目使用本地 Qwen3-8B 和 E5，因而是**官方流程的本地适配**，不是官方模型配置的精确复现。
+
+**从这里接手：[Part 1/2 全量结果与错误分析](docs/part12-full-results.md)。** [仓库内精简证据](docs/evidence/part12-full-20261105/)可在无 GPU 环境复核：
+
+```bash
+python scripts/verify_part12_evidence.py
+# 可选：用固定子模块同时核验源消息和回复图
+python scripts/verify_part12_evidence.py --benchmark external/GroupMemBench
+```
 
 2026-11-05：完成 Qwen3-8B + E5-small-v2 的双领域小样本试跑及逐条错误分析，结果、复跑方式和验证边界见 [Part 1/2 交接](docs/part12-pilot.md)。
 
@@ -8,7 +16,7 @@
 
 ## 安装与运行
 
-需要 Python 3.10 或更高版本、Git 子模块，以及一个本地 OpenAI 兼容的 chat-completions 服务；服务需支持答题和 judge。Dense 还需要 E5 模型文件及 Sentence Transformers。容器运行方式见 [HPC 部署](docs/hpc-deployment.md)。
+需要 Python 3.10 或更高版本与 Git 子模块。已有本地 Qwen 权重时，可按[全量运行方案](docs/part1-full-benchmark.md)直接使用 Transformers，无需 HTTP 服务；也可使用下述 OpenAI 兼容 chat-completions 服务。Dense 需要 E5 模型文件及 Sentence Transformers。容器运行方式见 [HPC 部署](docs/hpc-deployment.md)，本次金融服务器的全量结果来自直接 Transformers 后端。
 
 ```bash
 git submodule update --init --recursive
@@ -74,4 +82,4 @@ python -m sgmem analyze --records results/bm25-dev/predictions.jsonl results/den
 - [HPC 容器部署与 Qwen 升级](docs/hpc-deployment.md)、[检索参考](docs/retrieval-references.md)
 - [实施路线图](docs/roadmap.md)、[后续 CI 清单](docs/ci-plan.md)、[数据和依赖](docs/data-and-dependencies.md)
 
-评分细则、50 GPU-hours 等信息来自用户提供的材料；实施前仍应对照原始课程说明核验。本机已使用 Qwen2.5-0.5B、E5 和 Finance 域的单题完成两条基线的连通性验证；这是小样本测试，不是正式实验结果，不能据此推断准确率或方法提升。
+评分细则与 50 GPU-hours 上限来自用户提供的课程材料。本次全量运行累计 3.5907 GPU-hours；早期 Qwen2.5-0.5B 连通性测试和 Qwen3-8B 试跑属于历史准备，不应替代全量结果。当前报告没有声称完成 Part 3 修复或取得修复后的准确率提升。

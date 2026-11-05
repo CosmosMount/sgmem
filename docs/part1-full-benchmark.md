@@ -2,6 +2,8 @@
 
 日期：2026-11-05。用户已确认使用金融服务器 GPU 7，运行 GroupMemBench 四个领域全部问题。本文记录启动前审核和固定方案；实际完成状态以运行目录的 `run-config.json`、`benchmark-summary.json` 为准。
 
+完成更新：四域两法已全部结束，共 1,430 条结果；后半程使用 GPU 2/3 的 Dense 分片加原 GPU 7 的 BM25。旧串行入口在 BM25 完成后计划内中断，最终完成依据为并行汇总的 `completion.json` 和 `combined/benchmark-summary.json`。结果及 Part 2 分析见 [全量报告](part12-full-results.md)。
+
 ## 审核结论
 
 课程 Part 1 要求 BM25 与 Dense、官方评测流程、总体和六类准确率。课程允许本地 Qwen 4B–8B 和 E5；因此本项目是官方流程的本地模型适配，不是 GPT-5/text-embedding-3-large 原配置的精确复现。

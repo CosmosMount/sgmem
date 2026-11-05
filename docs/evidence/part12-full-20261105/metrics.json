@@ -1,0 +1,1038 @@
+{
+  "bm25": {
+    "overall": {
+      "total": 715,
+      "completed": 715,
+      "errors": 0,
+      "unclear": 0,
+      "correct": 234,
+      "truncated_answers": 5,
+      "truncated_judgments": 0,
+      "accuracy": 0.32727272727272727
+    },
+    "by_category": {
+      "abstention": {
+        "total": 109,
+        "completed": 109,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 82,
+        "truncated_answers": 0,
+        "truncated_judgments": 0,
+        "accuracy": 0.7522935779816514
+      },
+      "knowledge_update": {
+        "total": 107,
+        "completed": 107,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 31,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.2897196261682243
+      },
+      "multi_hop": {
+        "total": 182,
+        "completed": 182,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 51,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.2802197802197802
+      },
+      "temporal": {
+        "total": 162,
+        "completed": 162,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 37,
+        "truncated_answers": 3,
+        "truncated_judgments": 0,
+        "accuracy": 0.22839506172839505
+      },
+      "term_ambiguity": {
+        "total": 106,
+        "completed": 106,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 13,
+        "truncated_answers": 0,
+        "truncated_judgments": 0,
+        "accuracy": 0.12264150943396226
+      },
+      "user_implicit": {
+        "total": 49,
+        "completed": 49,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 20,
+        "truncated_answers": 0,
+        "truncated_judgments": 0,
+        "accuracy": 0.40816326530612246
+      }
+    },
+    "by_domain": {
+      "Finance": {
+        "total": 214,
+        "completed": 214,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 79,
+        "truncated_answers": 0,
+        "truncated_judgments": 0,
+        "accuracy": 0.3691588785046729
+      },
+      "Healthcare": {
+        "total": 130,
+        "completed": 130,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 33,
+        "truncated_answers": 0,
+        "truncated_judgments": 0,
+        "accuracy": 0.25384615384615383
+      },
+      "Manufacturing": {
+        "total": 158,
+        "completed": 158,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 52,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.3291139240506329
+      },
+      "Technology": {
+        "total": 213,
+        "completed": 213,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 70,
+        "truncated_answers": 4,
+        "truncated_judgments": 0,
+        "accuracy": 0.3286384976525822
+      }
+    },
+    "by_partition": {
+      "dev": {
+        "overall": {
+          "total": 179,
+          "completed": 179,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 56,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.3128491620111732
+        },
+        "by_category": {
+          "abstention": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 19,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.7037037037037037
+          },
+          "knowledge_update": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 5,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.18518518518518517
+          },
+          "multi_hop": {
+            "total": 45,
+            "completed": 45,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 13,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.28888888888888886
+          },
+          "temporal": {
+            "total": 40,
+            "completed": 40,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 9,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.225
+          },
+          "term_ambiguity": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 2,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.07407407407407407
+          },
+          "user_implicit": {
+            "total": 13,
+            "completed": 13,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 8,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.6153846153846154
+          }
+        }
+      },
+      "test": {
+        "overall": {
+          "total": 536,
+          "completed": 536,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 178,
+          "truncated_answers": 4,
+          "truncated_judgments": 0,
+          "accuracy": 0.332089552238806
+        },
+        "by_category": {
+          "abstention": {
+            "total": 82,
+            "completed": 82,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 63,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.7682926829268293
+          },
+          "knowledge_update": {
+            "total": 80,
+            "completed": 80,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 26,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.325
+          },
+          "multi_hop": {
+            "total": 137,
+            "completed": 137,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 38,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.2773722627737226
+          },
+          "temporal": {
+            "total": 122,
+            "completed": 122,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 28,
+            "truncated_answers": 2,
+            "truncated_judgments": 0,
+            "accuracy": 0.22950819672131148
+          },
+          "term_ambiguity": {
+            "total": 79,
+            "completed": 79,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 11,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.13924050632911392
+          },
+          "user_implicit": {
+            "total": 36,
+            "completed": 36,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 12,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.3333333333333333
+          }
+        }
+      }
+    },
+    "by_domain_and_category": {
+      "Finance": {
+        "abstention": {
+          "total": 29,
+          "completed": 29,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 22,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.7586206896551724
+        },
+        "knowledge_update": {
+          "total": 32,
+          "completed": 32,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.34375
+        },
+        "multi_hop": {
+          "total": 48,
+          "completed": 48,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 18,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.375
+        },
+        "temporal": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 12,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.26666666666666666
+        },
+        "term_ambiguity": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.15555555555555556
+        },
+        "user_implicit": {
+          "total": 15,
+          "completed": 15,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.6
+        }
+      },
+      "Healthcare": {
+        "abstention": {
+          "total": 19,
+          "completed": 19,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.8421052631578947
+        },
+        "knowledge_update": {
+          "total": 17,
+          "completed": 17,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 2,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.11764705882352941
+        },
+        "multi_hop": {
+          "total": 48,
+          "completed": 48,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 8,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.16666666666666666
+        },
+        "temporal": {
+          "total": 37,
+          "completed": 37,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.13513513513513514
+        },
+        "term_ambiguity": {
+          "total": 7,
+          "completed": 7,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 0,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.0
+        },
+        "user_implicit": {
+          "total": 2,
+          "completed": 2,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 2,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 1.0
+        }
+      },
+      "Manufacturing": {
+        "abstention": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 24,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.7272727272727273
+        },
+        "knowledge_update": {
+          "total": 22,
+          "completed": 22,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18181818181818182
+        },
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 12,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.26666666666666666
+        },
+        "temporal": {
+          "total": 43,
+          "completed": 43,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.23255813953488372
+        },
+        "term_ambiguity": {
+          "total": 11,
+          "completed": 11,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 2,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18181818181818182
+        },
+        "user_implicit": {
+          "total": 4,
+          "completed": 4,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 0,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.0
+        }
+      },
+      "Technology": {
+        "abstention": {
+          "total": 28,
+          "completed": 28,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 20,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.7142857142857143
+        },
+        "knowledge_update": {
+          "total": 36,
+          "completed": 36,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 14,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.3888888888888889
+        },
+        "multi_hop": {
+          "total": 41,
+          "completed": 41,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 13,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.3170731707317073
+        },
+        "temporal": {
+          "total": 37,
+          "completed": 37,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.2702702702702703
+        },
+        "term_ambiguity": {
+          "total": 43,
+          "completed": 43,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.09302325581395349
+        },
+        "user_implicit": {
+          "total": 28,
+          "completed": 28,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.32142857142857145
+        }
+      }
+    },
+    "complete": true,
+    "expected_questions": 715
+  },
+  "dense": {
+    "overall": {
+      "total": 715,
+      "completed": 715,
+      "errors": 0,
+      "unclear": 0,
+      "correct": 204,
+      "truncated_answers": 10,
+      "truncated_judgments": 0,
+      "accuracy": 0.2853146853146853
+    },
+    "by_category": {
+      "abstention": {
+        "total": 109,
+        "completed": 109,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 67,
+        "truncated_answers": 0,
+        "truncated_judgments": 0,
+        "accuracy": 0.6146788990825688
+      },
+      "knowledge_update": {
+        "total": 107,
+        "completed": 107,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 21,
+        "truncated_answers": 3,
+        "truncated_judgments": 0,
+        "accuracy": 0.19626168224299065
+      },
+      "multi_hop": {
+        "total": 182,
+        "completed": 182,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 50,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.27472527472527475
+      },
+      "temporal": {
+        "total": 162,
+        "completed": 162,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 22,
+        "truncated_answers": 5,
+        "truncated_judgments": 0,
+        "accuracy": 0.13580246913580246
+      },
+      "term_ambiguity": {
+        "total": 106,
+        "completed": 106,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 25,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.2358490566037736
+      },
+      "user_implicit": {
+        "total": 49,
+        "completed": 49,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 19,
+        "truncated_answers": 0,
+        "truncated_judgments": 0,
+        "accuracy": 0.3877551020408163
+      }
+    },
+    "by_domain": {
+      "Finance": {
+        "total": 214,
+        "completed": 214,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 71,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.3317757009345794
+      },
+      "Healthcare": {
+        "total": 130,
+        "completed": 130,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 37,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.2846153846153846
+      },
+      "Manufacturing": {
+        "total": 158,
+        "completed": 158,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 38,
+        "truncated_answers": 5,
+        "truncated_judgments": 0,
+        "accuracy": 0.24050632911392406
+      },
+      "Technology": {
+        "total": 213,
+        "completed": 213,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 58,
+        "truncated_answers": 3,
+        "truncated_judgments": 0,
+        "accuracy": 0.27230046948356806
+      }
+    },
+    "by_partition": {
+      "dev": {
+        "overall": {
+          "total": 179,
+          "completed": 179,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 58,
+          "truncated_answers": 4,
+          "truncated_judgments": 0,
+          "accuracy": 0.3240223463687151
+        },
+        "by_category": {
+          "abstention": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 15,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.5555555555555556
+          },
+          "knowledge_update": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 5,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.18518518518518517
+          },
+          "multi_hop": {
+            "total": 45,
+            "completed": 45,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 16,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.35555555555555557
+          },
+          "temporal": {
+            "total": 40,
+            "completed": 40,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 7,
+            "truncated_answers": 3,
+            "truncated_judgments": 0,
+            "accuracy": 0.175
+          },
+          "term_ambiguity": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 9,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.3333333333333333
+          },
+          "user_implicit": {
+            "total": 13,
+            "completed": 13,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 6,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.46153846153846156
+          }
+        }
+      },
+      "test": {
+        "overall": {
+          "total": 536,
+          "completed": 536,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 146,
+          "truncated_answers": 6,
+          "truncated_judgments": 0,
+          "accuracy": 0.27238805970149255
+        },
+        "by_category": {
+          "abstention": {
+            "total": 82,
+            "completed": 82,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 52,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.6341463414634146
+          },
+          "knowledge_update": {
+            "total": 80,
+            "completed": 80,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 16,
+            "truncated_answers": 3,
+            "truncated_judgments": 0,
+            "accuracy": 0.2
+          },
+          "multi_hop": {
+            "total": 137,
+            "completed": 137,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 34,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.24817518248175183
+          },
+          "temporal": {
+            "total": 122,
+            "completed": 122,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 15,
+            "truncated_answers": 2,
+            "truncated_judgments": 0,
+            "accuracy": 0.12295081967213115
+          },
+          "term_ambiguity": {
+            "total": 79,
+            "completed": 79,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 16,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.20253164556962025
+          },
+          "user_implicit": {
+            "total": 36,
+            "completed": 36,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 13,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.3611111111111111
+          }
+        }
+      }
+    },
+    "by_domain_and_category": {
+      "Finance": {
+        "abstention": {
+          "total": 29,
+          "completed": 29,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 17,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5862068965517241
+        },
+        "knowledge_update": {
+          "total": 32,
+          "completed": 32,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.1875
+        },
+        "multi_hop": {
+          "total": 48,
+          "completed": 48,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 21,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.4375
+        },
+        "temporal": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.13333333333333333
+        },
+        "term_ambiguity": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.35555555555555557
+        },
+        "user_implicit": {
+          "total": 15,
+          "completed": 15,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3333333333333333
+        }
+      },
+      "Healthcare": {
+        "abstention": {
+          "total": 19,
+          "completed": 19,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 12,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.631578947368421
+        },
+        "knowledge_update": {
+          "total": 17,
+          "completed": 17,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.35294117647058826
+        },
+        "multi_hop": {
+          "total": 48,
+          "completed": 48,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.20833333333333334
+        },
+        "temporal": {
+          "total": 37,
+          "completed": 37,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.1891891891891892
+        },
+        "term_ambiguity": {
+          "total": 7,
+          "completed": 7,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 1,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.14285714285714285
+        },
+        "user_implicit": {
+          "total": 2,
+          "completed": 2,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 1,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5
+        }
+      },
+      "Manufacturing": {
+        "abstention": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 19,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5757575757575758
+        },
+        "knowledge_update": {
+          "total": 22,
+          "completed": 22,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 2,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.09090909090909091
+        },
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2222222222222222
+        },
+        "temporal": {
+          "total": 43,
+          "completed": 43,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 3,
+          "truncated_judgments": 0,
+          "accuracy": 0.11627906976744186
+        },
+        "term_ambiguity": {
+          "total": 11,
+          "completed": 11,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 2,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18181818181818182
+        },
+        "user_implicit": {
+          "total": 4,
+          "completed": 4,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 0,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.0
+        }
+      },
+      "Technology": {
+        "abstention": {
+          "total": 28,
+          "completed": 28,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 19,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.6785714285714286
+        },
+        "knowledge_update": {
+          "total": 36,
+          "completed": 36,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.19444444444444445
+        },
+        "multi_hop": {
+          "total": 41,
+          "completed": 41,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.21951219512195122
+        },
+        "temporal": {
+          "total": 37,
+          "completed": 37,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.10810810810810811
+        },
+        "term_ambiguity": {
+          "total": 43,
+          "completed": 43,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.13953488372093023
+        },
+        "user_implicit": {
+          "total": 28,
+          "completed": 28,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 13,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.4642857142857143
+        }
+      }
+    },
+    "complete": true,
+    "expected_questions": 715
+  }
+}
