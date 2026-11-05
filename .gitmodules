@@ -1,0 +1,6 @@
+[submodule "external/GroupMemBench"]
+	path = external/GroupMemBench
+	url = https://github.com/UCSB-NLP-Chang/GroupMemBench.git
+[submodule "external/EverMemBench"]
+	path = external/EverMemBench
+	url = https://github.com/EverMind-AI/EverMemBench.git

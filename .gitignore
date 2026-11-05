@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+build/
+dist/
+*.egg-info/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Rebuildable or large artifacts
+/data/raw/
+/data/processed/
+/data/splits/
+/data/annotations/
+/results/
+/models/
+/cache/
+*.log
+.ipynb_checkpoints/
