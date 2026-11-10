@@ -23,11 +23,11 @@
 - 依赖尚未合并的接口时，可以临时从上游任务分支创建堆叠分支，PR 标明依赖；上游合并后将下游基线更新到 `main`，再审查和合并。不要让下游 PR 重复包含上游修改。
 - 分支命名不等于独占文件；冲突时及时沟通。合并后删除已完成的远程分支。
 
-当前 `main` 尚无提交，因此不能从它创建正常的任务分支。由仓库维护者先审查并提交本设计作为初始提交，然后各成员执行：
+代码统一以 GitHub 最新 `main` 为起点。开始工作前先查看工作区；已有未提交修改应保留在原分支或独立工作树，不能为了同步而覆盖。以下命令适用于干净工作区：
 
 ```bash
 git switch main
-git pull --ff-only origin main  # 首次推送前，跳过此步
+git pull --ff-only origin main
 git switch -c feat/groupmembench-adapter
 # 完成改动并本地验证
 git add <相关文件>
@@ -35,7 +35,7 @@ git commit -m "feat: add GroupMemBench adapter"
 git push -u origin feat/groupmembench-adapter
 ```
 
-初始提交推送与远程权限由维护者负责；切勿将以上命令误当作已执行。不要将密钥、原始数据、模型权重或大量运行产物提交到 Git。
+切勿将以上命令误当作已执行。不要将密钥、原始数据、模型权重或大量运行产物提交到 Git。
 
 ## PR 约定
 

@@ -1,0 +1,3303 @@
+{
+  "scope": "Descriptive dev-only metadata hints; no QA run, no changed retrieval, no accuracy claim.",
+  "rule": "Full names after lowercase/punctuation/space normalization; union of matched groups must be a singleton.",
+  "query_hint_inputs": [
+    "question text",
+    "visible message group/phase_name/topic"
+  ],
+  "support_comparison": "Reviewer target IDs are used only after query hints are computed, not to derive hints.",
+  "first_person_caveat": "An I/my/mine mention alone does not prove the asker is the target speaker.",
+  "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+  "dev_questions": 179,
+  "group_hint_counts": {
+    "ambiguous": 6,
+    "none": 80,
+    "unique": 93
+  },
+  "matched_field_question_counts": {
+    "group": 6,
+    "phase_name": 70,
+    "topic": 27
+  },
+  "first_person_questions": 12,
+  "by_domain": {
+    "Finance": {
+      "none": 24,
+      "unique": 29
+    },
+    "Healthcare": {
+      "none": 19,
+      "unique": 14
+    },
+    "Manufacturing": {
+      "ambiguous": 1,
+      "none": 20,
+      "unique": 19
+    },
+    "Technology": {
+      "ambiguous": 5,
+      "none": 17,
+      "unique": 31
+    }
+  },
+  "positive_support": {
+    "records": 28,
+    "group_hint_available": 14,
+    "group_hint_agrees": 14,
+    "group_hint_conflicts": 0,
+    "all_top10_already_in_support_group": 13,
+    "hint_available_and_some_wrong_group_candidates": 5
+  },
+  "questions": [
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_12",
+      "question": "What is the stable control set that engineering will use for validation in the AML project?",
+      "asking_user_id": "User_3",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_14",
+      "question": "What is the SLA duration for each exception path mentioned in the compliance control design spec?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Compliance Control Design",
+          "groups": [
+            "Customer Onboarding Optimization"
+          ]
+        }
+      ],
+      "group_hint": "Customer Onboarding Optimization",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_35",
+      "question": "What is the exact retry timing being tested in the pilot for the verification process?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_36",
+      "question": "What is the version ID that needs to be published for the Training and Awareness Program?",
+      "asking_user_id": "User_9",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Training and Awareness Program",
+          "groups": [
+            "Regulatory Compliance Program"
+          ]
+        }
+      ],
+      "group_hint": "Regulatory Compliance Program",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_4",
+      "question": "Who is the designated exception log owner for the ESG data provider reliability control?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_45",
+      "question": "Who is the designated owner for addressing sign-off gaps in the UX Prototype Approval phase?",
+      "asking_user_id": "User_13",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "UX Prototype Approval",
+          "groups": [
+            "Customer Onboarding Optimization"
+          ]
+        }
+      ],
+      "group_hint": "Customer Onboarding Optimization",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_9",
+      "question": "Who is the designated owner of the exception log for the 'July 29 snapshot' mentioned in the Sustainable Investment Screening phase?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Sustainable Investment Screening",
+          "groups": [
+            "Sustainable Finance Strategy"
+          ]
+        }
+      ],
+      "group_hint": "Sustainable Finance Strategy",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "question": "What is the current approval scope for the UX Prototype Approval phase?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "UX Prototype Approval",
+          "groups": [
+            "Customer Onboarding Optimization"
+          ]
+        }
+      ],
+      "group_hint": "Customer Onboarding Optimization",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_14",
+      "question": "What approach is the team using for SLA controls in validation?",
+      "asking_user_id": "User_13",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_17",
+      "question": "What is the current scope for phase 1 of the treasury forecasting project?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_19",
+      "question": "What is the current approach for handling metadata validation and blob replay tests in the CDD pipeline?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_23",
+      "question": "What is the current approach for handling the consent timestamp and audit-trail fields in the requirements?",
+      "asking_user_id": "User_11",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_3",
+      "question": "What is the current approach for owner and expiry tracking in the transaction monitoring framework?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Transaction Monitoring Framework",
+          "groups": [
+            "AML (Anti-Money Laundering) Project"
+          ]
+        }
+      ],
+      "group_hint": "AML (Anti-Money Laundering) Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_31",
+      "question": "What is the current approach for handling edits and ownership in the compliance policy draft?",
+      "asking_user_id": "User_10",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_8",
+      "question": "What approach is the team using to address high verification drop-off in the pilot launch?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_12",
+      "question": "What type of call is planned for the end of the day in the Regulatory Requirements Assessment phase?",
+      "asking_user_id": "User_3",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Regulatory Requirements Assessment",
+          "groups": [
+            "Regulatory Compliance Program"
+          ]
+        }
+      ],
+      "group_hint": "Regulatory Compliance Program",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_13",
+      "question": "Who is expected to own the rollback evidence pack if the July 26 milestone slips?",
+      "asking_user_id": "User_3",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_18",
+      "question": "By what date should Finance stamp the blocked rows in the spec according to the discussion on impact measurement?",
+      "asking_user_id": "User_7",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_19",
+      "question": "By what date does the Product Owner want to close the last operational gaps for Production Deployment Readiness?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Production Deployment Readiness",
+          "groups": [
+            "Treasury Management System Implementation"
+          ]
+        }
+      ],
+      "group_hint": "Treasury Management System Implementation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_20",
+      "question": "What are the three key controls identified in FRA for stabilizing reconciliation?",
+      "asking_user_id": "User_9",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_29",
+      "question": "What specific condition is DE being asked to bind failed-artifact ID to in the specification?",
+      "asking_user_id": "User_9",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_30",
+      "question": "What is Compliance focusing on for the Finance v1 fields in the Define Reporting Requirements phase?",
+      "asking_user_id": "User_9",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Define Reporting Requirements",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_31",
+      "question": "What is the required action for Compliance before the CDD Data Source Integration phase can be marked as Completed?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "CDD Data Source Integration",
+          "groups": [
+            "AML (Anti-Money Laundering) Project"
+          ]
+        }
+      ],
+      "group_hint": "AML (Anti-Money Laundering) Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_36",
+      "question": "What is the recommended approach for handling malformed payloads in real traffic during the KYC Vendor Selection phase?",
+      "asking_user_id": "User_13",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "KYC Vendor Selection",
+          "groups": [
+            "Customer Onboarding Optimization"
+          ]
+        }
+      ],
+      "group_hint": "Customer Onboarding Optimization",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_37",
+      "question": "What was the duration of the design freeze caused by labeling gaps as blockers on Project Halcyon?",
+      "asking_user_id": "User_7",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_41",
+      "question": "Where should the rollback evidence be posted before BI signs the archived baseline?",
+      "asking_user_id": "User_10",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_45",
+      "question": "By what date does the data engineering team need to confirm any unstable fields for the Model Feature Engineering phase?",
+      "asking_user_id": "User_6",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Model Feature Engineering",
+          "groups": [
+            "AML (Anti-Money Laundering) Project"
+          ]
+        }
+      ],
+      "group_hint": "AML (Anti-Money Laundering) Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_1",
+      "question": "On what date (YYYY-MM-DD) was the ProjectManager instructed to lock the primary, backup, exact handoff trigger, and rollback owner in the production deployment readiness spec?",
+      "asking_user_id": "User_7",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Production Deployment Readiness",
+          "groups": [
+            "Treasury Management System Implementation"
+          ]
+        }
+      ],
+      "group_hint": "Treasury Management System Implementation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_12",
+      "question": "By what date (YYYY-MM-DD) must final concerns on regulatory alignment, evidencing, or exception handling be flagged?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_14",
+      "question": "What is the deadline (YYYY-MM-DD) for Finance Ops and Project Manager to confirm both items in-thread?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_18",
+      "question": "What is the date (YYYY-MM-DD) by which Legal or Data must post any remaining gaps to avoid missing the handoff?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "question": "By what date (YYYY-MM-DD) must the open jurisdictional rules, scenario logic, and escalation thresholds be validated?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_21",
+      "question": "On what date (YYYY-MM-DD) were the acceptance criteria for regulatory fields and source-count parity frozen?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_24",
+      "question": "On what date (YYYY-MM-DD) should Product/Design lock the source-of-truth journey?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_3",
+      "question": "On what date (YYYY-MM-DD) is the blocking of source mismatches expected to be completed?",
+      "asking_user_id": "User_4",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_32",
+      "question": "By what date (YYYY-MM-DD) should @Compliance post the threshold owner and date in-thread?",
+      "asking_user_id": "User_10",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_4",
+      "question": "What is the due date (YYYY-MM-DD) for assigning a revalidator and due date for every owner swap in the Define Impact Metrics phase?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Define Impact Metrics",
+          "groups": [
+            "Sustainable Finance Strategy"
+          ]
+        }
+      ],
+      "group_hint": "Sustainable Finance Strategy",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_9",
+      "question": "What is the deadline for locking in owners for threshold review and data rule review (YYYY-MM-DD)?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_10",
+      "question": "What is the role of financial operations in the Design Automated Report Templates phase?",
+      "asking_user_id": "User_9",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Design Automated Report Templates",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_21",
+      "question": "What action is operational finance expected to take regarding the locked values, evidence owner, and timestamp during the Production Deployment Readiness phase?",
+      "asking_user_id": "User_7",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Production Deployment Readiness",
+          "groups": [
+            "Treasury Management System Implementation"
+          ]
+        }
+      ],
+      "group_hint": "Treasury Management System Implementation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_23",
+      "question": "What is the status of finance workflows proving the post-cutoff gate during the Design Automated Report Templates phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Design Automated Report Templates",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_27",
+      "question": "What is the deadline for operational finance to post the signed control pack during the Cash Management Module Build?",
+      "asking_user_id": "User_7",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Cash Management Module Build",
+          "groups": [
+            "Treasury Management System Implementation"
+          ]
+        }
+      ],
+      "group_hint": "Treasury Management System Implementation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_38",
+      "question": "What is the responsibility of financial operations during the Design Automated Report Templates phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Design Automated Report Templates",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_39",
+      "question": "How are late fields being handled by financial operations during the Design Automated Report Templates phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Design Automated Report Templates",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_42",
+      "question": "What role is assigned to financial operations in the Design Automated Report Templates phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Design Automated Report Templates",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_43",
+      "question": "What is the role of financial operations in decision-making for the Risk: Cutover Downtime phase?",
+      "asking_user_id": "User_3",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Cutover Downtime",
+          "groups": [
+            "Treasury Management System Implementation"
+          ]
+        }
+      ],
+      "group_hint": "Treasury Management System Implementation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_5",
+      "question": "What responsibilities does operational finance have in the Design Automated Report Templates phase?",
+      "asking_user_id": "User_7",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Design Automated Report Templates",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_7",
+      "question": "What is the deadline for financial operations to stamp the owner during the Implement Report Generation Engine phase?",
+      "asking_user_id": "User_9",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Implement Report Generation Engine",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_8",
+      "question": "What is the responsibility of financial operations in the ownership process during the Design Automated Report Templates phase?",
+      "asking_user_id": "User_9",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Design Automated Report Templates",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_13",
+      "question": "Am I keeping Reporting blocked until the sweep is clean in the Risk: Inconsistent Sustainability Standards phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Inconsistent Sustainability Standards",
+          "groups": [
+            "Sustainable Finance Strategy"
+          ]
+        }
+      ],
+      "group_hint": "Sustainable Finance Strategy",
+      "status": "unique",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_4",
+      "question": "What am I trying to confirm about the review checkpoint design for the Risk: Data Privacy Gaps phase?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Data Privacy Gaps",
+          "groups": [
+            "Customer Onboarding Optimization"
+          ]
+        }
+      ],
+      "group_hint": "Customer Onboarding Optimization",
+      "status": "unique",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_5",
+      "question": "Who do I need aligned on formatting rules for the mitigation plan in the Risk: Formatting Inconsistencies phase?",
+      "asking_user_id": "User_13",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Formatting Inconsistencies",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_7",
+      "question": "What is blocking me from finalizing the regulatory formatting for the Implement Report Generation Engine phase?",
+      "asking_user_id": "User_12",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Implement Report Generation Engine",
+          "groups": [
+            "Financial Reporting Automation"
+          ]
+        }
+      ],
+      "group_hint": "Financial Reporting Automation",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_1",
+      "question": "Who is responsible for making the final decision on whether documentation shifts remain in scope or move to training-only?",
+      "asking_user_id": "User_1",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_11",
+      "question": "Who is responsible for confirming the module changes for compliance by 2025-07-16?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_15",
+      "question": "Who from the pharmacy team is responsible for conducting the 30-minute review of the medication lists during the week of 2025-07-24?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_21",
+      "question": "What is the name of the backup transport vendor currently designated in the Logistics Continuity Plan?",
+      "asking_user_id": "User_1",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_33",
+      "question": "Who from the legal team is responsible for reviewing the patient access wording decision during the Security and Compliance Review phase?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Security and Compliance Review",
+          "groups": [
+            "Telemedicine Expansion"
+          ]
+        }
+      ],
+      "group_hint": "Telemedicine Expansion",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_12",
+      "question": "What is the current plan for starting the care coordination pilot?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_2",
+      "question": "What approach is the team using for infection surveillance alerts?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "question": "What is the current plan for locking the audit tool fields in the Hand Hygiene Compliance Program?",
+      "asking_user_id": "User_3",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Hand Hygiene Compliance Program",
+          "groups": [
+            "Infection Control Campaign"
+          ]
+        }
+      ],
+      "group_hint": "Infection Control Campaign",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_8",
+      "question": "What is the current dependency trigger for the Supplier Diversification Strategy?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Supplier Diversification Strategy",
+          "groups": [
+            "Supply Chain Resilience Project"
+          ]
+        }
+      ],
+      "group_hint": "Supply Chain Resilience Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_13",
+      "question": "What is the deadline for Ops/Analytics to provide sign-off on the frozen assumptions for the phase where buffer assumptions were debated against reopening forecasting over EHR consumption gaps (YYYY-MM-DD HH:MM)?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_22",
+      "question": "By what date should NursingInformatics confirm the reissue feed for the Hand Hygiene Compliance Program?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Hand Hygiene Compliance Program",
+          "groups": [
+            "Infection Control Campaign"
+          ]
+        }
+      ],
+      "group_hint": "Infection Control Campaign",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_25",
+      "question": "What is the URL for the specification document mentioned in the Security and Compliance Review phase of the Telemedicine Expansion project?",
+      "asking_user_id": "User_3",
+      "matched_names": [
+        {
+          "field": "group",
+          "name": "Telemedicine Expansion",
+          "groups": [
+            "Telemedicine Expansion"
+          ]
+        },
+        {
+          "field": "phase_name",
+          "name": "Security and Compliance Review",
+          "groups": [
+            "Telemedicine Expansion"
+          ]
+        }
+      ],
+      "group_hint": "Telemedicine Expansion",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_26",
+      "question": "What specific aspect of the reroute rule does DataOps need to verify for the Logistics Continuity Planning phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Logistics Continuity Planning",
+          "groups": [
+            "Supply Chain Resilience Project"
+          ]
+        }
+      ],
+      "group_hint": "Supply Chain Resilience Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_28",
+      "question": "What field does ClinicalOps need to confirm for the EHR trigger related to the phase where a Clinical Project Manager advised against making assumptions?",
+      "asking_user_id": "User_3",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_32",
+      "question": "What deadline was set for Patient Relations to confirm the handoff path during the Service Recovery Pilot?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Service Recovery Pilot",
+          "groups": [
+            "Patient Experience Improvement"
+          ]
+        }
+      ],
+      "group_hint": "Patient Experience Improvement",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_37",
+      "question": "What are the three areas of potential weakness identified for bedside staff in the draft hand hygiene language, including the factor critical for audit success if policy language does not match EHR hand-hygiene capture?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_38",
+      "question": "Who is expected to confirm that the final handoff path matches the floor workflow in the Reconciliation Workflow Design phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Reconciliation Workflow Design",
+          "groups": [
+            "Medication Reconciliation Project"
+          ]
+        }
+      ],
+      "group_hint": "Medication Reconciliation Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_40",
+      "question": "When is the fix confirmation by Pharmacy IT scheduled? (YYYY-MM-DD HH:MM)",
+      "asking_user_id": "User_1",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_42",
+      "question": "What action is expected from SupplyChainOps regarding the factor tied to triggers in logistics continuity planning?",
+      "asking_user_id": "User_5",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Logistics Continuity Planning",
+          "groups": [
+            "Supply Chain Resilience Project"
+          ]
+        }
+      ],
+      "group_hint": "Supply Chain Resilience Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_44",
+      "question": "When is QA expected to capture nurse-flag events for the Medication Reconciliation Project?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "group",
+          "name": "Medication Reconciliation Project",
+          "groups": [
+            "Medication Reconciliation Project"
+          ]
+        }
+      ],
+      "group_hint": "Medication Reconciliation Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_48",
+      "question": "What action does the Health IT Specialist want DataEng to take regarding the field map for demand forecasting?",
+      "asking_user_id": "User_3",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_12",
+      "question": "On what date (YYYY-MM-DD) is feasibility confirmation expected to be completed?",
+      "asking_user_id": "User_4",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "question": "On what date (YYYY-MM-DD) was the buffer threshold expected to be locked?",
+      "asking_user_id": "User_4",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_27",
+      "question": "What is the date (YYYY-MM-DD) by which the final assumptions and any reporting lag need to be confirmed?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_29",
+      "question": "What is the date (YYYY-MM-DD) by which @ITOps and @Comms need to verify delivery?",
+      "asking_user_id": "User_1",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_31",
+      "question": "What is the exact datetime (YYYY-MM-DD HH:MM) by which the wave-one 1-pager is approved to be pushed?",
+      "asking_user_id": "User_4",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_36",
+      "question": "On what date (YYYY-MM-DD) do the retraining blocks for the Staff Safety Training Program begin?",
+      "asking_user_id": "User_5",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Staff Safety Training Program",
+          "groups": [
+            "Patient Safety Initiative"
+          ]
+        }
+      ],
+      "group_hint": "Patient Safety Initiative",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_37",
+      "question": "On what date (YYYY-MM-DD) were exceptions to be confirmed or signed off by close of business?",
+      "asking_user_id": "User_4",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_4",
+      "question": "What is the deadline (YYYY-MM-DD) for confirming HRIS credential fields alignment?",
+      "asking_user_id": "User_4",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_7",
+      "question": "What is the deadline (YYYY-MM-DD) for Clinical, IT Security, and Legal to approve the control set?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "question": "What was the outcome of the medication reconciliation during the Timeline Adjustment for Retraining?",
+      "asking_user_id": "User_6",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Timeline Adjustment for Retraining",
+          "groups": [
+            "Patient Safety Initiative"
+          ]
+        }
+      ],
+      "group_hint": "Patient Safety Initiative",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_4",
+      "question": "What is the sequence priority for medication reconciliation during the Timeline Adjustment for Retraining?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Timeline Adjustment for Retraining",
+          "groups": [
+            "Patient Safety Initiative"
+          ]
+        }
+      ],
+      "group_hint": "Patient Safety Initiative",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "user_implicit",
+      "question_id": "user_implicit_1",
+      "question": "What is the open item I still need to resolve for the Telehealth Platform Infrastructure requirements?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Telehealth Platform Infrastructure",
+          "groups": [
+            "Telemedicine Expansion"
+          ]
+        }
+      ],
+      "group_hint": "Telemedicine Expansion",
+      "status": "unique",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_21",
+      "question": "What is the name of the CMMS owner assigned for the noon interval mentioned in the Preventive Maintenance Optimization discussion?",
+      "asking_user_id": "User_8",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Preventive Maintenance Optimization",
+          "groups": [
+            "Downtime Reduction Taskforce"
+          ]
+        }
+      ],
+      "group_hint": "Downtime Reduction Taskforce",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_25",
+      "question": "What is the name of the vendor whose contacts changed during the Incident Response Plan Approval?",
+      "asking_user_id": "User_8",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Incident Response Plan Approval",
+          "groups": [
+            "Plant Safety Program"
+          ]
+        }
+      ],
+      "group_hint": "Plant Safety Program",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_27",
+      "question": "What is the exact threshold for acceptable skew in the precursor rules during the shift-to-downtime mapping process?",
+      "asking_user_id": "User_9",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_37",
+      "question": "What is the exact threshold value used for the alerts during the replay runs?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_42",
+      "question": "Who in Finance is responsible for signing the drift owner matrix for the Energy Monitoring System Deployment?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Energy Monitoring System Deployment",
+          "groups": [
+            "Energy Efficiency Project"
+          ]
+        }
+      ],
+      "group_hint": "Energy Efficiency Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_44",
+      "question": "What is the verified range for the fallback list that was locked in LIMS?",
+      "asking_user_id": "User_1",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_45",
+      "question": "Who is responsible for signing off on the data quality test for the Energy Monitoring System Deployment?",
+      "asking_user_id": "User_3",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Energy Monitoring System Deployment",
+          "groups": [
+            "Energy Efficiency Project"
+          ]
+        }
+      ],
+      "group_hint": "Energy Efficiency Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_6",
+      "question": "What is the canonical owner that Data Engineering is expected to post for the 5-minute checks?",
+      "asking_user_id": "User_9",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "question": "What is the current process for freezing the registry in the Data Collection and Sensor Integration phase?",
+      "asking_user_id": "User_8",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Data Collection and Sensor Integration",
+          "groups": [
+            "Predictive Maintenance Program"
+          ]
+        }
+      ],
+      "group_hint": "Predictive Maintenance Program",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "question": "What is the current approach for handling unknown fields in the v1 schema?",
+      "asking_user_id": "User_4",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_14",
+      "question": "What is the current approach for handling the quality data and timestamp alignment in the pilot optimization deployment?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Pilot Optimization Deployment",
+          "groups": [
+            "Production Line Optimization"
+          ]
+        }
+      ],
+      "group_hint": "Production Line Optimization",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_18",
+      "question": "What is the current plan for managing the retrofit crews during the equipment efficiency upgrades?",
+      "asking_user_id": "User_5",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Equipment Efficiency Upgrades",
+          "groups": [
+            "Energy Efficiency Project"
+          ]
+        }
+      ],
+      "group_hint": "Energy Efficiency Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_2",
+      "question": "What is the current approach for the inventory optimization planning run?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "group",
+          "name": "Inventory Optimization",
+          "groups": [
+            "Inventory Optimization"
+          ]
+        }
+      ],
+      "group_hint": "Inventory Optimization",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_7",
+      "question": "What is the current plan for validation tracking and normalization in the analytics pipeline?",
+      "asking_user_id": "User_9",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_12",
+      "question": "Who has the authority to finalize the after-hours escalation owner for the Incident Response Framework?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Incident Response Framework",
+          "groups": [
+            "Plant Safety Program"
+          ]
+        }
+      ],
+      "group_hint": "Plant Safety Program",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_17",
+      "question": "What data field is suggested to be pulled alongside the ingestion timestamp to rule out timing issues in the workflow?",
+      "asking_user_id": "User_3",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "question": "What data source should be prioritized before cleaning the spreadsheets for the baseline assessment?",
+      "asking_user_id": "User_8",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_25",
+      "question": "Which teams is the Production Manager aligning with to finalize the KPI definitions for the Supply Chain Analytics Deployment?",
+      "asking_user_id": "User_6",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Supply Chain Analytics Deployment",
+          "groups": [
+            "Supply Chain Integration"
+          ]
+        }
+      ],
+      "group_hint": "Supply Chain Integration",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_3",
+      "question": "Who is responsible for the final sign-off in the Define Downtime Metrics phase?",
+      "asking_user_id": "User_6",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Define Downtime Metrics",
+          "groups": [
+            "Downtime Reduction Taskforce"
+          ]
+        }
+      ],
+      "group_hint": "Downtime Reduction Taskforce",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_30",
+      "question": "What specific aspect of the integration testing passed under load according to the final report?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Integration Testing",
+          "groups": [
+            "Predictive Maintenance Program"
+          ]
+        }
+      ],
+      "group_hint": "Predictive Maintenance Program",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_32",
+      "question": "What does the author suggest should be validated before locking the tag schema, considering the signals flagged as missing to address silent gaps in downtime monitoring?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_33",
+      "question": "Who is responsible for confirming the schema contract before any work orders go live?",
+      "asking_user_id": "User_4",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_43",
+      "question": "What decision was suggested regarding the duration of the check for the dependencies that Facilities and Finance still need to confirm in the Energy Audit and Baseline Assessment phase?",
+      "asking_user_id": "User_5",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Energy Audit and Baseline Assessment",
+          "groups": [
+            "Energy Efficiency Project"
+          ]
+        }
+      ],
+      "group_hint": "Energy Efficiency Project",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_44",
+      "question": "Who is expected to review the revised maintenance windows on August 6, 2025?",
+      "asking_user_id": "User_9",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_6",
+      "question": "What constraint was identified on the Define Quality Standards side during the Compliance Requirements Review - Revision phase?",
+      "asking_user_id": "User_3",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Compliance Requirements Review",
+          "groups": [
+            "Quality Improvement Initiative"
+          ]
+        },
+        {
+          "field": "phase_name",
+          "name": "Compliance Requirements Review - Revision",
+          "groups": [
+            "Quality Improvement Initiative"
+          ]
+        },
+        {
+          "field": "phase_name",
+          "name": "Define Quality Standards",
+          "groups": [
+            "Quality Improvement Initiative"
+          ]
+        }
+      ],
+      "group_hint": "Quality Improvement Initiative",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_1",
+      "question": "On what date (YYYY-MM-DD) is the revised burner control module scheduled for installation?",
+      "asking_user_id": "User_7",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_12",
+      "question": "On what date (YYYY-MM-DD) was Engineering expected to lock the remaining spec details to avoid delays in tooling and test preparation?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_27",
+      "question": "On what date (YYYY-MM-DD) did the Production Manager plan to freeze the closure table if the maintenance checklist was confirmed, considering the Maintenance Engineer's concern about ownership of the final policy review after a specific date?",
+      "asking_user_id": "User_3",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_31",
+      "question": "On what date (YYYY-MM-DD) did the production manager request engineering to sketch the exact Line 3 sequence?",
+      "asking_user_id": "User_7",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_34",
+      "question": "On what date (YYYY-MM-DD) did Ops need to name the owner for Preventive Maintenance Optimization?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Preventive Maintenance Optimization",
+          "groups": [
+            "Downtime Reduction Taskforce"
+          ]
+        }
+      ],
+      "group_hint": "Downtime Reduction Taskforce",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_37",
+      "question": "On what date (YYYY-MM-DD) was the supervisor walkthrough requested to be scheduled?",
+      "asking_user_id": "User_8",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_39",
+      "question": "What is the deadline (YYYY-MM-DD HH:MM) for DataEng to sign off on the intervals table?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_4",
+      "question": "What is the date (YYYY-MM-DD) by which the first diff needs to be posted?",
+      "asking_user_id": "User_3",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_41",
+      "question": "When is the RevC review scheduled to occur (YYYY-MM-DD HH:MM)?",
+      "asking_user_id": "User_2",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_42",
+      "question": "On what date (YYYY-MM-DD) did the Production Manager expect Engineering to address the open gaps in product requirements?",
+      "asking_user_id": "User_8",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_5",
+      "question": "On what date (YYYY-MM-DD) must the final evidence for the Compliance Audit Preparation be confirmed?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Compliance Audit Preparation",
+          "groups": [
+            "Quality Improvement Initiative"
+          ]
+        }
+      ],
+      "group_hint": "Quality Improvement Initiative",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_3",
+      "question": "When did energy-saving strategies reduce rework during the Pilot Build Preparation phase?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Pilot Build Preparation",
+          "groups": [
+            "New Product Introduction"
+          ]
+        }
+      ],
+      "group_hint": "New Product Introduction",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_7",
+      "question": "What is the status of the baseline for training requirements in the context of Risk: Low Field Staff Participation, regarding the project requirements?",
+      "asking_user_id": "User_5",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Low Field Staff Participation",
+          "groups": [
+            "Workforce Training Campaign"
+          ]
+        }
+      ],
+      "group_hint": "Workforce Training Campaign",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_8",
+      "question": "What is the confirmation status of vibration alerts in the Data Integration Build for data system optimization?",
+      "asking_user_id": "User_7",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Data Integration Build",
+          "groups": [
+            "Quality Improvement Initiative"
+          ]
+        }
+      ],
+      "group_hint": "Quality Improvement Initiative",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "question": "What is the biggest risk I’m monitoring during the Sensor Requirements Definition phase?",
+      "asking_user_id": "User_3",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Requirements Definition",
+          "groups": [
+            "Inventory Optimization"
+          ]
+        },
+        {
+          "field": "phase_name",
+          "name": "Sensor Requirements Definition",
+          "groups": [
+            "Predictive Maintenance Program"
+          ]
+        }
+      ],
+      "group_hint": null,
+      "status": "ambiguous",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_2",
+      "question": "Who is the named owner for handling mismatches in the exception lane after July 18?",
+      "asking_user_id": "User_8",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_27",
+      "question": "Who is the rollback owner mentioned in the release workflow definition spec?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Release Workflow Definition",
+          "groups": [
+            "DevOpsAutomationAgent"
+          ]
+        }
+      ],
+      "group_hint": "DevOpsAutomationAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_31",
+      "question": "What is the ceiling value for the Provider API limits mentioned in the Infrastructure as Code Automation project?",
+      "asking_user_id": "User_16",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Infrastructure as Code Automation",
+          "groups": [
+            "DevOpsAutomationAgent"
+          ]
+        }
+      ],
+      "group_hint": "DevOpsAutomationAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_34",
+      "question": "Who is the late-extract owner mentioned in the Build ETL Pipelines spec?",
+      "asking_user_id": "User_8",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Build ETL Pipelines",
+          "groups": [
+            "StatusReportAgent"
+          ]
+        }
+      ],
+      "group_hint": "StatusReportAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_36",
+      "question": "What is the SLA value for the emergency-only override mentioned in the matrix?",
+      "asking_user_id": "User_15",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_39",
+      "question": "What is the fallback label specified for the locale compare in the document at http://sharepoint/meetingscheduleagent/risk:_cross_timezone_calculation_errors_spec?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "group",
+          "name": "MeetingScheduleAgent",
+          "groups": [
+            "MeetingScheduleAgent"
+          ]
+        },
+        {
+          "field": "phase_name",
+          "name": "Risk: Cross-Timezone Calculation Errors",
+          "groups": [
+            "MeetingScheduleAgent"
+          ]
+        }
+      ],
+      "group_hint": "MeetingScheduleAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_48",
+      "question": "What is the ETA for the Ops alignment note mentioned in the Production Rollout spec?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Production Rollout",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_18",
+      "question": "What is the current telemetry key structure for adapter-visible events?",
+      "asking_user_id": "User_15",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_2",
+      "question": "What is the team's current approach for handling duplicate or reordered edit-delete events in the comment sync module?",
+      "asking_user_id": "User_7",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Comment Sync Module",
+          "groups": [
+            "CodeReviewAgent"
+          ]
+        }
+      ],
+      "group_hint": "CodeReviewAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_20",
+      "question": "What is the current conflict policy for the notification system architecture?",
+      "asking_user_id": "User_15",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Notification System Architecture",
+          "groups": [
+            "NotificationAgent"
+          ]
+        },
+        {
+          "field": "topic",
+          "name": "System Architecture",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": null,
+      "status": "ambiguous",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_26",
+      "question": "What is the current approach for handling stale transport metadata after a coverage-zone handoff in the Field Communication Module?",
+      "asking_user_id": "User_13",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Field Communication Module",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": "EmergencyResponseAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_28",
+      "question": "What is the current plan for handling ordering behavior in the scheduling algorithm?",
+      "asking_user_id": "User_10",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_30",
+      "question": "What is the updated approach for handling conflict responses in the system architecture when incorporating a signal used to assess recovery stability and telemetry lag during clean runs in API rate limit testing?",
+      "asking_user_id": "User_9",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "System Architecture",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": "EmergencyResponseAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_31",
+      "question": "What is the current approach for tagging fields in the data integration setup?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Data Integration Setup",
+          "groups": [
+            "StatusReportAgent"
+          ]
+        }
+      ],
+      "group_hint": "StatusReportAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_35",
+      "question": "What is the current plan for handling transition metadata in the metric collection implementation, considering the validation/error split confirmation and the component driven by User_2 for final integration validation and cleanup against the telemetry pipeline?",
+      "asking_user_id": "User_17",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Metric Collection Implementation",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_7",
+      "question": "What is the current approach for handling request origin in the immutable audit schema?",
+      "asking_user_id": "User_12",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_14",
+      "question": "What is the deadline for confirming the schema-change owner during the 'Build ETL Pipelines' phase (YYYY-MM-DD)?",
+      "asking_user_id": "User_13",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Build ETL Pipelines",
+          "groups": [
+            "StatusReportAgent"
+          ]
+        }
+      ],
+      "group_hint": "StatusReportAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_18",
+      "question": "What is the deadline for Security to post the audit/retention fields (YYYY-MM-DD)?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "question": "What rule should be applied to handle stale availability according to the scheduling requirements discussion?",
+      "asking_user_id": "User_8",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_21",
+      "question": "When should SRE provide their approval for the frozen table in the Alert Rule Engine Development phase (YYYY-MM-DD)?",
+      "asking_user_id": "User_3",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Alert Rule Engine Development",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_30",
+      "question": "What aspect of offline replay is enforced by the backend according to the architecture design spec?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Architecture Design",
+          "groups": [
+            "CodeReviewAgent",
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": null,
+      "status": "ambiguous",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_31",
+      "question": "By what date must Product, Data, and Ops finalize the decision on metric scope and ownership of source-of-truth definitions for StatusReportAgent?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "group",
+          "name": "StatusReportAgent",
+          "groups": [
+            "StatusReportAgent"
+          ]
+        }
+      ],
+      "group_hint": "StatusReportAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_32",
+      "question": "What does the author suggest freezing in code to address the issue with the Field Communication Module?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "topic",
+          "name": "Field Communication Module",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": "EmergencyResponseAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_36",
+      "question": "What are the only closure gates for the 'Risk: Alert Noise Overload' phase?",
+      "asking_user_id": "User_19",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Alert Noise Overload",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_37",
+      "question": "What specific aspect of the system is the review focused on during the Radio Gateway Development phase?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Radio Gateway Development",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": "EmergencyResponseAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_39",
+      "question": "What is the deadline for QA to provide the untouched-screen list and pass/fail results (YYYY-MM-DD)?",
+      "asking_user_id": "User_11",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_11",
+      "question": "What is the deadline (YYYY-MM-DD) for confirming metrics, logs, and traces ownership to avoid duplicated telemetry and blind spots?",
+      "asking_user_id": "User_8",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_12",
+      "question": "What is the date (YYYY-MM-DD) by which @SRE and @Support need to weigh in on actionable alerts and suppression rules?",
+      "asking_user_id": "User_18",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_14",
+      "question": "On what date (YYYY-MM-DD) was feedback requested to finalize the release workflow revision?",
+      "asking_user_id": "User_1",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "question": "What is the deadline (YYYY-MM-DD) for Platform to fill true delegate rows in the deployment_pipeline_setup_spec?",
+      "asking_user_id": "User_4",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Deployment Pipeline Setup",
+          "groups": [
+            "NotificationAgent"
+          ]
+        }
+      ],
+      "group_hint": "NotificationAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_20",
+      "question": "On what date (YYYY-MM-DD) is Platform expected to post the per-source tags for UX to freeze the correct states?",
+      "asking_user_id": "User_16",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_21",
+      "question": "On what date (YYYY-MM-DD) are the family samples expected to be posted according to the timeline?",
+      "asking_user_id": "User_15",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_28",
+      "question": "What is the date (YYYY-MM-DD) by which the final readiness pass must be completed?",
+      "asking_user_id": "User_1",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_6",
+      "question": "What is the date (YYYY-MM-DD) by which QA is expected to stamp the constrained pass?",
+      "asking_user_id": "User_6",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_7",
+      "question": "What is the date (YYYY-MM-DD) by which the checkpoint names and timestamp-conversion diffs need to be dropped into the specified SharePoint location?",
+      "asking_user_id": "User_5",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_19",
+      "question": "What is the sign-off condition for the boundary conditions during the Deployment Planning phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Deployment Planning",
+          "groups": [
+            "CodeReviewAgent",
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": null,
+      "status": "ambiguous",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_20",
+      "question": "Who owns the backup behavior during the Integration Architecture Setup?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Integration Architecture Setup",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": "EmergencyResponseAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_23",
+      "question": "Who is responsible for the extreme cases in the Risk: Reporting Accuracy Issues phase?",
+      "asking_user_id": "User_18",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Reporting Accuracy Issues",
+          "groups": [
+            "StatusReportAgent"
+          ]
+        }
+      ],
+      "group_hint": "StatusReportAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_26",
+      "question": "What phase are the escalation limit scenarios assigned to in the context of Risk: Unclear Scope?",
+      "asking_user_id": "User_16",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Unclear Scope",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": "EmergencyResponseAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_28",
+      "question": "What is the impact scope of the permission boundary conditions during the Comment Sync Module phase?",
+      "asking_user_id": "User_16",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Comment Sync Module",
+          "groups": [
+            "CodeReviewAgent"
+          ]
+        }
+      ],
+      "group_hint": "CodeReviewAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_31",
+      "question": "What is the review status of the recurring-meeting limit scenarios during the Develop Scheduling Algorithm phase?",
+      "asking_user_id": "User_12",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Develop Scheduling Algorithm",
+          "groups": [
+            "MeetingScheduleAgent"
+          ]
+        }
+      ],
+      "group_hint": "MeetingScheduleAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_33",
+      "question": "What are the remaining types of boundary conditions in the Risk: Alert Noise Overload phase?",
+      "asking_user_id": "User_1",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Alert Noise Overload",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_34",
+      "question": "What is the deadline for addressing status-transition boundary conditions in the Dashboard Delivery Module - Revision?",
+      "asking_user_id": "User_9",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Dashboard Delivery Module",
+          "groups": [
+            "StatusReportAgent"
+          ]
+        },
+        {
+          "field": "phase_name",
+          "name": "Dashboard Delivery Module - Revision",
+          "groups": [
+            "StatusReportAgent"
+          ]
+        }
+      ],
+      "group_hint": "StatusReportAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_41",
+      "question": "What is the deadline for posting the graceful degradation rules during the Build ETL Pipelines phase?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Build ETL Pipelines",
+          "groups": [
+            "StatusReportAgent"
+          ]
+        }
+      ],
+      "group_hint": "StatusReportAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_5",
+      "question": "What is the deadline for QA and Engineering to confirm the final corner scenarios during Deployment Planning?",
+      "asking_user_id": "User_15",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Deployment Planning",
+          "groups": [
+            "CodeReviewAgent",
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": null,
+      "status": "ambiguous",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_7",
+      "question": "Who is responsible for reviewing the boundary conditions during the Alert Rule Engine Development phase?",
+      "asking_user_id": "User_13",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Alert Rule Engine Development",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_1",
+      "question": "What are my two options for locking the monitoring scope during the Define Monitoring Requirements phase?",
+      "asking_user_id": "User_10",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Define Monitoring Requirements",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_17",
+      "question": "What UX elements am I treating as locked for the Production Rollout handoff wording?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Production Rollout",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_18",
+      "question": "What are my open items for the Risk: Unclear Scope phase?",
+      "asking_user_id": "User_7",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Risk: Unclear Scope",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": "EmergencyResponseAgent",
+      "status": "unique",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_2",
+      "question": "What are the fixed dashboard and validation states I committed to for the UX handoff contract in the Implement Metric Collectors - Extension phase, considering the state explicitly assumed to be locked for dashboard and validation by the UX designer in their canonical mapping review?",
+      "asking_user_id": "User_2",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Implement Metric Collectors",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        },
+        {
+          "field": "phase_name",
+          "name": "Implement Metric Collectors - Extension",
+          "groups": [
+            "MonitoringAgent"
+          ]
+        }
+      ],
+      "group_hint": "MonitoringAgent",
+      "status": "unique",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_28",
+      "question": "Do I need to address any UX fallout for the Metric Collectors implementation phase before finalizing it?",
+      "asking_user_id": "User_10",
+      "matched_names": [],
+      "group_hint": null,
+      "status": "none",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_4",
+      "question": "What am I focusing on during the Deployment Planning phase for EmergencyResponseAgent?",
+      "asking_user_id": "User_11",
+      "matched_names": [
+        {
+          "field": "group",
+          "name": "EmergencyResponseAgent",
+          "groups": [
+            "EmergencyResponseAgent"
+          ]
+        },
+        {
+          "field": "phase_name",
+          "name": "Deployment Planning",
+          "groups": [
+            "CodeReviewAgent",
+            "EmergencyResponseAgent"
+          ]
+        }
+      ],
+      "group_hint": null,
+      "status": "ambiguous",
+      "first_person_mention": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_9",
+      "question": "Who do I need input from for the review preparation for the Alert Dispatcher Implementation phase?",
+      "asking_user_id": "User_17",
+      "matched_names": [
+        {
+          "field": "phase_name",
+          "name": "Alert Dispatcher Implementation",
+          "groups": [
+            "NotificationAgent"
+          ]
+        }
+      ],
+      "group_hint": "NotificationAgent",
+      "status": "unique",
+      "first_person_mention": true
+    }
+  ],
+  "positive_support_rows": [
+    {
+      "case_id": "C02",
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "method": "bm25",
+      "group_hint": "Customer Onboarding Optimization",
+      "target_groups": [
+        "Customer Onboarding Optimization"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C02",
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "method": "dense",
+      "group_hint": "Customer Onboarding Optimization",
+      "target_groups": [
+        "Customer Onboarding Optimization"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C03",
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_29",
+      "method": "bm25",
+      "group_hint": null,
+      "target_groups": [
+        "Financial Reporting Automation"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C04",
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_21",
+      "method": "bm25",
+      "group_hint": null,
+      "target_groups": [
+        "Financial Reporting Automation"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 4,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C05",
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_43",
+      "method": "bm25",
+      "group_hint": "Treasury Management System Implementation",
+      "target_groups": [
+        "Treasury Management System Implementation"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C06",
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_5",
+      "method": "dense",
+      "group_hint": "Financial Reporting Automation",
+      "target_groups": [
+        "Financial Reporting Automation"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": true,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C08",
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "method": "bm25",
+      "group_hint": "Infection Control Campaign",
+      "target_groups": [
+        "Infection Control Campaign"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 9,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C08",
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "method": "dense",
+      "group_hint": "Infection Control Campaign",
+      "target_groups": [
+        "Infection Control Campaign"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 2,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C09",
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_48",
+      "method": "bm25",
+      "group_hint": null,
+      "target_groups": [
+        "Supply Chain Resilience Project"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 4,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C09",
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_48",
+      "method": "dense",
+      "group_hint": null,
+      "target_groups": [
+        "Supply Chain Resilience Project"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 1,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C10",
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "method": "bm25",
+      "group_hint": null,
+      "target_groups": [
+        "Supply Chain Resilience Project"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 1,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C10",
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "method": "dense",
+      "group_hint": null,
+      "target_groups": [
+        "Supply Chain Resilience Project"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 8,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C11",
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "method": "bm25",
+      "group_hint": "Patient Safety Initiative",
+      "target_groups": [
+        "Patient Safety Initiative"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C11",
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "method": "dense",
+      "group_hint": "Patient Safety Initiative",
+      "target_groups": [
+        "Patient Safety Initiative"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 6,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C12",
+      "domain": "Healthcare",
+      "category": "user_implicit",
+      "question_id": "user_implicit_1",
+      "method": "dense",
+      "group_hint": "Telemedicine Expansion",
+      "target_groups": [
+        "Telemedicine Expansion"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 9,
+      "first_person_mention": true,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C14",
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "method": "bm25",
+      "group_hint": null,
+      "target_groups": [
+        "Predictive Maintenance Program"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C14",
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "method": "dense",
+      "group_hint": null,
+      "target_groups": [
+        "Predictive Maintenance Program"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 9,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C15",
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "method": "bm25",
+      "group_hint": null,
+      "target_groups": [
+        "Energy Efficiency Project"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 3,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C15",
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "method": "dense",
+      "group_hint": null,
+      "target_groups": [
+        "Energy Efficiency Project"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 5,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C16",
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_12",
+      "method": "dense",
+      "group_hint": null,
+      "target_groups": [
+        "New Product Introduction"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C18",
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "method": "bm25",
+      "group_hint": null,
+      "target_groups": [
+        "Predictive Maintenance Program"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 10,
+      "first_person_mention": true,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C18",
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "method": "dense",
+      "group_hint": null,
+      "target_groups": [
+        "Predictive Maintenance Program"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 4,
+      "first_person_mention": true,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C20",
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_30",
+      "method": "bm25",
+      "group_hint": "EmergencyResponseAgent",
+      "target_groups": [
+        "EmergencyResponseAgent"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 0,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C21",
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "method": "bm25",
+      "group_hint": null,
+      "target_groups": [
+        "MeetingScheduleAgent"
+      ],
+      "hint_agrees_with_support_group": null,
+      "top10_in_support_group": 9,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C22",
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "method": "bm25",
+      "group_hint": "NotificationAgent",
+      "target_groups": [
+        "NotificationAgent"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C22",
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "method": "dense",
+      "group_hint": "NotificationAgent",
+      "target_groups": [
+        "NotificationAgent"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": false
+    },
+    {
+      "case_id": "C23",
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_33",
+      "method": "bm25",
+      "group_hint": "MonitoringAgent",
+      "target_groups": [
+        "MonitoringAgent"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    },
+    {
+      "case_id": "C23",
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_33",
+      "method": "dense",
+      "group_hint": "MonitoringAgent",
+      "target_groups": [
+        "MonitoringAgent"
+      ],
+      "hint_agrees_with_support_group": true,
+      "top10_in_support_group": 10,
+      "first_person_mention": false,
+      "all_target_speakers_equal_asker": true
+    }
+  ]
+}

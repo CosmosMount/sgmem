@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from statistics import median
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +64,22 @@ def verify(folder, benchmark=None):
     failure_summary.pop('examples_with_notes')
     saved_failure = json.loads((folder / 'failure-analysis.json').read_text())
     assert all(saved_failure[k] == value for k, value in failure_summary.items())
+    diagnostics = json.loads((folder / 'metadata-diagnostics.json').read_text(encoding='utf-8'))
+    diagnostic_rows = diagnostics['rows']
+    positive_annotations = {(key(a), a['method']): a for a in annotations if a['target_message_ids']}
+    diagnostic_keys = {(key(d), d['method']) for d in diagnostic_rows}
+    assert len(diagnostic_rows) == len(diagnostic_keys) and diagnostic_keys == set(positive_annotations)
+    for d in diagnostic_rows:
+        annotation = positive_annotations[key(d), d['method']]
+        assert d['case_id'] == annotation['case_id']
+        assert sorted(d['targets']) == sorted(annotation['target_message_ids'])
+        retrieved_ids = methods[d['method']][key(d)]['retrieved_ids']
+        assert d['target_in_top10'] is bool(set(d['targets']).intersection(retrieved_ids))
+    assert diagnostics['positive_support_failure_records'] == len(diagnostic_rows)
+    for field in ('target_in_top10', 'target_within_one_reply_hop', 'target_within_two_reply_hops'):
+        assert diagnostics[field] == sum(d[field] for d in diagnostic_rows)
+    for field in ('one_hop_candidates', 'two_hop_candidates'):
+        assert diagnostics['median_' + field] == median(d[field] for d in diagnostic_rows)
     provenance = json.loads((folder / 'provenance.json').read_text())
     split_path = folder / 'split.json'
     assert hashlib.sha256(split_path.read_bytes()).hexdigest() == provenance['split_sha256']
@@ -82,20 +99,24 @@ def verify(folder, benchmark=None):
                 if m['reply_to']:
                     adjacency[m['id']].add(m['reply_to'])
                     adjacency[m['reply_to']].add(m['id'])
-            diagnostics = json.loads((folder / 'metadata-diagnostics.json').read_text())
-            for d in [d for d in diagnostics['rows'] if d['domain'] == domain]:
+            for d in [d for d in diagnostic_rows if d['domain'] == domain]:
                 targets = set(d['targets'])
                 seeds = set(methods[d['method']][key(d)]['retrieved_ids'])
                 one = seeds | {n for mid in seeds for n in adjacency[mid]}
                 two = one | {n for mid in one for n in adjacency[mid]}
-                assert d['target_in_top10'] == bool(targets & seeds)
                 assert d['target_within_one_reply_hop'] == bool(targets & one)
                 assert d['target_within_two_reply_hops'] == bool(targets & two)
                 assert d['one_hop_candidates'] == len(one) and d['two_hop_candidates'] == len(two)
+    query_diagnostics = folder / 'query-metadata-diagnostics.json'
+    query_hints_checked = benchmark is not None and query_diagnostics.exists()
+    if query_hints_checked:
+        from analyze_metadata_hints import analyze
+        assert json.loads(query_diagnostics.read_text(encoding='utf-8')) == analyze(folder, benchmark)
     return {'verified': True, 'records': len(records), 'questions_per_method': 715,
             'dev_per_method': 179, 'test_per_method': 536, 'reviewed_dev_questions': 24,
             'reviewed_failures': len(annotations), 'source_messages': len(sources),
             'source_content_checked_against_benchmark': benchmark is not None,
+            'query_metadata_checked_against_benchmark': query_hints_checked,
             'gpu_hours': provenance['gpu_hours']}
 
 
