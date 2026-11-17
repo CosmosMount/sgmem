@@ -1,6 +1,6 @@
 # 实验协议
 
-本协议约束实验设计；Part 1 四域全量基线及 Part 2 开发样本分析已完成，2026-11-10 另补充公开查询元数据诊断，实际设置、偏差与结果见 [Part 1/2 全量报告](part12-full-results.md)。后续代码统一从 GitHub 最新 `main` 开始；下列涉及 SGAR 和消融的步骤仍是方案，优先级见 [实施路线图](roadmap.md)。
+Part 1 已完成四域全量基线，Part 2 已完成开发样本分析。2026-11-17 补充了两种元数据规则的开发集检索结果，见 [Part 1/2 全量报告](part12-full-results.md#bm25-metadata-probe)。后续代码从 GitHub 最新 `main` 开始，正式问答比较及消融方案见 [实施路线图](roadmap.md)。
 
 ## 阶段与对照
 

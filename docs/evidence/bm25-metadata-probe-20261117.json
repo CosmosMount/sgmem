@@ -1,0 +1,281 @@
+{
+  "dev_questions": 179,
+  "unique_group_hints": 93,
+  "reviewed_bm25_failures_with_targets": 15,
+  "baseline_support_hits": 4,
+  "methods": {
+    "rank_boost": {
+      "order_changed": 47,
+      "set_changed": 22,
+      "support_in_pool": 4,
+      "support_in_top10": 4,
+      "support_gained": 0,
+      "support_lost": 0
+    },
+    "scope_fusion": {
+      "order_changed": 55,
+      "set_changed": 43,
+      "support_in_pool": 4,
+      "support_in_top10": 4,
+      "support_gained": 0,
+      "support_lost": 0
+    }
+  },
+  "support_cases": [
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "id": "knowledge_update_1",
+      "targets": [
+        "Msg_7489"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "id": "multi_hop_29",
+      "targets": [
+        "Msg_28258"
+      ],
+      "baseline_support_rank": 7,
+      "rank_boost": {
+        "in_pool": true,
+        "support_rank": 7
+      },
+      "scope_fusion": {
+        "in_pool": true,
+        "support_rank": 7
+      }
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "id": "temporal_21",
+      "targets": [
+        "Msg_8383"
+      ],
+      "baseline_support_rank": 1,
+      "rank_boost": {
+        "in_pool": true,
+        "support_rank": 1
+      },
+      "scope_fusion": {
+        "in_pool": true,
+        "support_rank": 1
+      }
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_43",
+      "targets": [
+        "Msg_10725"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "id": "knowledge_update_5",
+      "targets": [
+        "Msg_2947"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "id": "multi_hop_48",
+      "targets": [
+        "Msg_24002"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "id": "temporal_22",
+      "targets": [
+        "Msg_28251"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_1",
+      "targets": [
+        "Msg_25463"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "id": "knowledge_update_10",
+      "targets": [
+        "Msg_1633"
+      ],
+      "baseline_support_rank": 10,
+      "rank_boost": {
+        "in_pool": true,
+        "support_rank": 10
+      },
+      "scope_fusion": {
+        "in_pool": true,
+        "support_rank": 10
+      }
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "id": "multi_hop_24",
+      "targets": [
+        "Msg_29329"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "id": "user_implicit_3",
+      "targets": [
+        "Msg_1645"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "id": "knowledge_update_30",
+      "targets": [
+        "Msg_4523"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "id": "multi_hop_2",
+      "targets": [
+        "Msg_847"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "id": "temporal_2",
+      "targets": [
+        "Msg_6810"
+      ],
+      "baseline_support_rank": 1,
+      "rank_boost": {
+        "in_pool": true,
+        "support_rank": 1
+      },
+      "scope_fusion": {
+        "in_pool": true,
+        "support_rank": 1
+      }
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "id": "term_ambiguity_33",
+      "targets": [
+        "Msg_27780"
+      ],
+      "baseline_support_rank": null,
+      "rank_boost": {
+        "in_pool": false,
+        "support_rank": null
+      },
+      "scope_fusion": {
+        "in_pool": false,
+        "support_rank": null
+      }
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from analyze_metadata_hints import build_catalog, query_hints
+from probe_metadata_retrieval import candidate_orders
 
 
 def test_full_name_boundaries_and_punctuation_normalization():
@@ -31,3 +32,22 @@ def test_catalog_ignores_labels_and_first_person_is_only_a_mention():
     assert result["first_person_mention"] is True
     assert result["group_hint"] == "Project A"
     assert "target_speaker" not in result
+
+
+def test_scope_can_recover_a_lexical_hit_outside_twenty_and_preserves_budget():
+    hits = [{'message': {'group': 'B', 'topic': None}, 'score': 1.0} for _ in range(24)]
+    for index in (13, 20):
+        hits[index]['message'] = {'group': 'A', 'topic': 'Payroll'}
+    hits[21] = {'message': {'group': 'B', 'topic': 'Payroll'}, 'score': 1.0}
+    hits[22] = {'message': {'group': 'A', 'topic': 'Payroll'}, 'score': 0.0}
+    hints = {'group_hint': 'A', 'matched_names': [{'field': 'topic', 'name': 'Payroll'}]}
+    result = candidate_orders(hits, hints)
+    short_pool, short_top = result['rank_boost']
+    scoped_pool, scoped_top = result['scope_fusion']
+    assert short_pool == list(range(20)) and short_top == list(range(9)) + [13]
+    assert set(scoped_pool) == set(range(10)) | {13, 20}
+    assert 20 in scoped_top and len(scoped_top) == len(set(scoped_top)) == 10
+
+    hints['group_hint'] = None
+    for _, chosen in candidate_orders(hits, hints).values():
+        assert chosen == list(range(10))
