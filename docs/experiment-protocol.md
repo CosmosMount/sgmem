@@ -1,6 +1,6 @@
 # 实验协议
 
-Part 1 已完成四域全量基线，Part 2 已完成开发样本分析。阶段与群组规则的结果见 [Part 1/2 全量报告](part12-full-results.md#bm25-metadata-probe)。Part 3 的首个问答可用方法是 `bm25-reply`，沿用同一固定划分和最终十条消息。[有界回复扩展和消融](part3-bounded-replies.md) · [实施路线图](roadmap.md)
+Part 1 已完成四域全量基线，Part 2 已完成开发样本分析。阶段与群组规则的结果见 [Part 1/2 全量报告](part12-full-results.md#bm25-metadata-probe)。Part 3 的 `bm25-reply` 已在同一固定开发集、最终十条消息和相同 Qwen/judge 下完成 179 题问答。[有界回复扩展和消融](part3-bounded-replies.md) · [实施路线图](roadmap.md)
 
 ## 阶段与对照
 

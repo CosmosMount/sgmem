@@ -105,7 +105,7 @@ include an abstract, related work, methods, experimental results, and conclusion
 
 四域两种基线均已完成 715 题全量实验，并提供固定开发样本的结构性失败分析。两法使用相同模型、top-10 和 512/256 输出预算，实际 QA 输入均在共同的上下文上限内。金融服务器使用直接 Transformers 后端。[Part 1/2 全量报告](part12-full-results.md)
 
-Part 3 已实现基于同群组回复关系的 `bm25-reply`，并在固定 179 道开发题上比较了不同跳数和替换位置数。最终课程报告仍需整合问答比较与代表性案例。[Part 3 方法和开发集实验](part3-bounded-replies.md)
+Part 3 已实现基于同群组回复关系的 `bm25-reply`，完成了检索消融和固定 179 道开发题的问答比较。该方法与 BM25 的逐题判定一致，均答对 56 题。最终课程报告仍需整合冻结评估和代表性案例。[Part 3 方法和开发集实验](part3-bounded-replies.md)
 
 ## 公平比较与防泄漏
 
