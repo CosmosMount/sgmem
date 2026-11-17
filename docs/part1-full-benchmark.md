@@ -40,7 +40,9 @@
 
 ## 启动与恢复
 
-统一入口从 `run_local_pilot.py` 更名为 `run_local_baselines.py`；默认仍是少量 dev 题。`--full` 运行所选领域和类别的全部 dev/test 题，并强制代码和上游工作树干净。输出目录不允许覆盖。
+本地入口 `scripts/run_local_baselines.py` 默认从已发布的 `docs/evidence/part12-full-20261105/split.json` 取少量 dev 题。选单个领域、缩减题型或改变生成种子时，同一问题保留原来的 dev/test 归属。`--full` 运行选定领域与题型的全部题目，`--full --partition dev` 只运行其中的开发题，四域合计 179 道。运行记录保存原始清单的 SHA256 和所选 ID。在课程仓库内，`python -m sgmem split --domains Healthcare --output healthcare.json` 也会从已发布清单导出该域。自定义划分种子、比例或独立基准时，命令会标明生成了新样本。
+
+以下是原全量实验的配置。
 
 ```bash
 cd /home/ai4s_group/XZG/NLP/sgmem
@@ -64,7 +66,7 @@ CUDA_VISIBLE_DEVICES=7 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 \
 
 ## 多卡并行
 
-新增空闲卡时，可按题目分片，每张卡加载一份相同的 Qwen。`--methods dense --shards 2 --shard-index 0` 和 `--methods dense --shards 2 --shard-index 1` 分别处理两个不重叠的分片；两者都必须使用原来的四域顺序、完整类别和 `--full`。分片前仍生成同一份完整划分，再按稳定题目 ID 分配；`full-split.json` 保存完整划分，`split.json` 保存该卡的子集，不重新抽取 dev/test。
+分片进程共用同一份清单、领域、题型、分区与模型配置。`--methods dense --shards 2 --shard-index 0` 和 `--methods dense --shards 2 --shard-index 1` 分别处理两个不重叠的分片。脚本先选领域和题型，将两个分区存入 `full-split.json`，然后选择本次运行的分区并按稳定题目 ID 分片，将该卡的范围存入 `split.json`。
 
 每个 worker 使用独立输出目录和单独的 `CUDA_VISIBLE_DEVICES`。原有串行 BM25 可继续；BM25 完成后应停止该旧进程，防止它再次计算已分配给其他卡的 Dense。停止前核实进程属于本次任务，并保留 BM25 的完整 checkpoint、metrics 和旧运行资源收尾。旧总运行尚未完成两种方法，所以总 `finished` 可以为 false；这不等于其 BM25 组件失败。最终完成标志属于汇总目录。
 

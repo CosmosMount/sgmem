@@ -39,20 +39,15 @@ HF_HUB_OFFLINE=1 NO_PROXY=127.0.0.1,localhost transformers serve "$QWEN_MODEL" \
   --host 127.0.0.1 --port 8000 --device cuda --dtype float16
 ```
 
-在第二个终端同样激活 `.venv` 并设置 `QWEN_MODEL` 与 `NO_PROXY=127.0.0.1,localhost`；客户端模型名必须与服务加载的模型一致。正式实验可替换为选择并固定的更合适模型；若使用不同机器，请修改模型路径和设备。以下命令先生成固定的按题目分层的划分：
+在第二个终端激活 `.venv`，设置相同的 `QWEN_MODEL` 和 `NO_PROXY=127.0.0.1,localhost`。两个方法都从已发布的四域清单选择开发题，缩小领域或题型时仍沿用原题目的 dev/test 归属。请使用新的输出目录。
 
 ```bash
-python -m sgmem split --output data/splits/finance-tech.json
-```
-
-在开发集运行基线，两个命令使用相同模型、问题、`top-k` 和评测规则。输出目录必须不存在，避免覆盖既有实验：
-
-```bash
+SPLIT=docs/evidence/part12-full-20261105/split.json
 python -m sgmem run --method bm25 --answer-model "$QWEN_MODEL" \
-  --split data/splits/finance-tech.json --partition dev --output results/bm25-dev
+  --split "$SPLIT" --partition dev --output results/bm25-dev
 python -m sgmem run --method dense --answer-model "$QWEN_MODEL" --device cuda \
   --embedding-model models/e5-base-v2 \
-  --split data/splits/finance-tech.json --partition dev --output results/dense-dev
+  --split "$SPLIT" --partition dev --output results/dense-dev
 ```
 
 本机 E5 文件来自 `intfloat/e5-base-v2` 的 `f52bf8ec8c7124536f0efb74aca902b2995e5bcd` 修订；正式实验应固定模型和数据来源并记录环境。使用模型仓库名称而非本地路径时，可通过 `--embedding-revision` 指定修订。若系统设置了代理，请对客户端设置 `NO_PROXY=127.0.0.1,localhost`。默认 API 地址为 `http://127.0.0.1:8000/v1`，可通过 `--base-url` 更改，`--judge-model` 默认与答题模型相同；如服务需要密钥，从环境变量 `SGMEM_API_KEY` 读取。用 `--categories multi_hop --domains Finance --limit 2` 可进行小样本调试，完成后删除临时输出。实际考试或课程要求如指定其他切分，以其要求为准。

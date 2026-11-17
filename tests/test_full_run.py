@@ -6,6 +6,7 @@ from argparse import Namespace
 import pytest
 
 from sgmem.runner import make_split, run, split_keys
+from sgmem.shards import PUBLISHED_SPLIT, load_frozen_split, partition_map
 from test_baselines import _write_benchmark
 
 
@@ -107,3 +108,45 @@ def test_runner_requires_split_and_partition_together(tmp_path):
     args.partition = None
     with pytest.raises(ValueError, match='provided together'):
         run(args, client_factory=Client)
+
+
+def test_domain_subset_keeps_published_membership_regardless_of_domain_order(tmp_path):
+    from shutil import copytree
+
+    _write_benchmark(tmp_path)
+    copytree(tmp_path / 'questions/Finance', tmp_path / 'questions/Healthcare')
+    published = make_split(tmp_path, ['Finance', 'Healthcare'], 42, .25)
+    path = tmp_path / 'published.json'
+    path.write_text(json.dumps(published), encoding='utf-8')
+    categories = ['multi_hop', 'temporal']
+    expected = {k: v for k, v in partition_map(published).items() if k[1] in categories}
+    for domains in (['Healthcare'], ['Healthcare', 'Finance'], ['Finance', 'Healthcare']):
+        selected = load_frozen_split(path, tmp_path, domains, categories)
+        assert partition_map(selected) == {k: part for k, part in expected.items() if k[0] in domains}
+
+    # Equal cohort sizes alone would not detect this substitution.
+    row = next(row for row in published['dev'] if row['domain'] == 'Healthcare' and row['category'] == 'temporal')
+    row['id'] = 'absent-question'
+    path.write_text(json.dumps(published), encoding='utf-8')
+    with pytest.raises(ValueError, match='1 missing, 1 unknown'):
+        load_frozen_split(path, tmp_path, ['Healthcare'], categories)
+
+
+def test_course_split_cli_uses_published_ids_and_still_supports_a_custom_seed(tmp_path, monkeypatch):
+    import sys
+    from sgmem.cli import main
+
+    benchmark = tmp_path / 'external/GroupMemBench'
+    _write_benchmark(benchmark)
+    published = tmp_path / PUBLISHED_SPLIT
+    published.parent.mkdir(parents=True)
+    original = make_split(benchmark, ['Finance'], 42, .25)
+    original['dev'][0], original['test'][0] = original['test'][0], original['dev'][0]
+    published.write_text(json.dumps(original), encoding='utf-8')
+    for name, flags, expected in [('course', [], original),
+                                  ('custom', ['--seed', '13'], make_split(benchmark, ['Finance'], 13, .25))]:
+        destination = tmp_path / f'{name}.json'
+        monkeypatch.setattr(sys, 'argv', ['sgmem', 'split', '--benchmark', str(benchmark),
+                            '--domains', 'Finance', '--output', str(destination), *flags])
+        main()
+        assert json.loads(destination.read_text(encoding='utf-8')) == expected

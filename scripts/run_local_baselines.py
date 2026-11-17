@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from sgmem import runner
-from sgmem.shards import shard_split
+from sgmem.shards import PUBLISHED_SPLIT, load_frozen_split, row_key, shard_split
 
 
 def main():
@@ -31,10 +31,14 @@ def main():
     parser.add_argument('--shard-index', type=int, default=0, help='Zero-based shard number')
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--limit', type=int, default=1, help='Questions per dev domain/category; default 1')
-    mode.add_argument('--full', action='store_true', help='Run every question in selected domains/categories; retain dev/test labels')
+    mode.add_argument('--full', action='store_true', help='Run every selected question; defaults to both partitions')
+    parser.add_argument('--split', default=str(ROOT / PUBLISHED_SPLIT),
+                        help='Published dev/test question IDs, shared by all domain and category subsets')
+    parser.add_argument('--partition', choices=('dev', 'test', 'all'),
+                        help='Partition for --full; small pilots use dev')
     parser.add_argument('--resume', action='store_true', help='Resume the same output/configuration after interruption')
     parser.add_argument("--device", choices=["cuda", "cpu"], default="cuda")
-    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--seed", type=int, default=42, help="Generation seed; question membership comes from --split")
     args = parser.parse_args()
     if args.limit < 1:
         parser.error("--limit must be positive")
@@ -46,6 +50,10 @@ def main():
         parser.error('Require shards > 0 and 0 <= shard-index < shards')
     if args.shards != 1 and not args.full:
         parser.error('Question sharding requires --full')
+    if not args.full and args.partition in ('test', 'all'):
+        parser.error('Small pilots use dev; select --full to run test or all')
+    args.partition = args.partition or ('all' if args.full else 'dev')
+    args.split = str(Path(args.split).resolve())
     for path in (args.model, args.embedding_model):
         if not Path(path).is_dir():
             parser.error(f"Local model directory does not exist: {path}")
@@ -56,6 +64,15 @@ def main():
         parser.error('--resume requires an existing output directory')
     source = runner._git_info(ROOT)
     benchmark = ROOT / 'external/GroupMemBench'
+    frozen_path = Path(args.split)
+    full_split = load_frozen_split(frozen_path, benchmark, args.domains, args.categories)
+    scope = full_split
+    if args.partition != 'all':
+        other = 'test' if args.partition == 'dev' else 'dev'
+        scope = {**full_split, other: []}
+    split = shard_split(scope, args.shard_index, args.shards)
+    if not (split['dev'] or split['test']):
+        parser.error('No questions in this shard; reduce --shards or change the selection')
     if args.full and (not source['commit'] or source['status'] or runner._git_info(benchmark)['status']):
         parser.error('Full runs require a committed, clean project and benchmark')
     os.environ["HF_HUB_OFFLINE"] = "1"
@@ -71,11 +88,12 @@ def main():
     output.mkdir(parents=True, exist_ok=args.resume)
     started = time.perf_counter()
     details = {
-        'purpose': 'full selected benchmark; dev/test reported separately' if args.full else 'small development pilot, not final evaluation',
+        'purpose': f'full selected benchmark ({args.partition})' if args.full else 'small development pilot, not final evaluation',
         "backend": "in-process Transformers; no HTTP server",
         'arguments': {k: v for k, v in vars(args).items() if k != 'resume'},
         'project_git': source,
         'benchmark_git': runner._git_info(benchmark),
+        'source_split_sha256': hashlib.sha256(frozen_path.read_bytes()).hexdigest(),
         'started_at_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
         "CUDA_VISIBLE_DEVICES": os.environ.get("CUDA_VISIBLE_DEVICES"),
         "enable_thinking": False,
@@ -98,13 +116,20 @@ def main():
     patch = subprocess.check_output(["git", "-C", str(ROOT), "diff", "--binary"])
     details["tracked_patch_sha256"] = hashlib.sha256(patch).hexdigest()
     config_path = output / 'run-config.json'
+    split_path = output / 'split.json'
     if args.resume:
         previous = json.loads(config_path.read_text(encoding='utf-8'))
-        for key in ('arguments', 'project_git', 'benchmark_git', 'script_sha256', 'packages', 'tracked_patch_sha256', 'model_files'):
+        for key in ('arguments', 'project_git', 'benchmark_git', 'source_split_sha256', 'script_sha256', 'packages', 'tracked_patch_sha256', 'model_files'):
             if previous[key] != details[key]:
                 parser.error(f'Resume rejected: {key} changed')
+        if json.loads(split_path.read_text(encoding='utf-8')) != split:
+            parser.error('Saved shard differs from the frozen split')
+        if json.loads((output / 'full-split.json').read_text(encoding='utf-8')) != full_split:
+            parser.error('Saved full split differs from the frozen split')
         details['sessions'] = previous.get('sessions', [])
     else:
+        runner.write_json(split_path, split)
+        runner.write_json(output / 'full-split.json', full_split)
         details['sessions'] = []
     runner.write_json(config_path, details)
     cpu_started = time.process_time()
@@ -161,17 +186,6 @@ def main():
                     }) + "\n")
                 return tokenizer.decode(generated, skip_special_tokens=True)
 
-        full_split = runner.make_split(benchmark, args.domains, args.seed, 0.25)
-        split = shard_split(full_split, args.shard_index, args.shards)
-        split_path = output / "split.json"
-        if args.resume:
-            if json.loads(split_path.read_text()) != split:
-                raise ValueError('Saved split differs from the frozen split')
-            if json.loads((output / 'full-split.json').read_text()) != full_split:
-                raise ValueError('Saved full split differs from the frozen split')
-        else:
-            runner.write_json(split_path, split)
-            runner.write_json(output / 'full-split.json', full_split)
         paired_ids = None
         summary = {}
         for method in args.methods:
@@ -179,7 +193,7 @@ def main():
                 raise ValueError('Source changed during a full run; do not mix code versions')
             run_args = argparse.Namespace(
                 benchmark=str(benchmark), project_root=str(ROOT), output=str(output / method),
-                split=str(split_path), partition='all' if args.full else 'dev', domains=args.domains,
+                split=str(split_path), partition=args.partition, domains=args.domains,
                 categories=args.categories, method=method, base_url="in-process",
                 answer_model=str(Path(args.model).resolve()), judge_model=None,
                 embedding_model=str(Path(args.embedding_model).resolve()), embedding_revision=None,
@@ -193,13 +207,18 @@ def main():
                                   'files': details['model_files']},
             )
             run_path = runner.run(run_args, client_factory=DirectClient)
-            metrics = json.loads((run_path / "metrics.json").read_text())
+            metrics = json.loads((run_path / "metrics.json").read_text(encoding='utf-8'))
             if metrics['overall']['errors'] or not metrics['complete']:
                 raise RuntimeError(f'{method} is incomplete; see predictions.jsonl')
-            records = [json.loads(line) for line in (run_path / 'predictions.jsonl').read_text().splitlines()]
-            ids = {(r['domain'], r['category'], r['question_id']) for r in records}
-            if len(ids) != len(records) or (paired_ids is not None and ids != paired_ids):
-                raise ValueError('Paired methods have duplicate or unequal question coverage')
+            ids = set()
+            with (run_path / 'predictions.jsonl').open(encoding='utf-8') as predictions:
+                for line in predictions:
+                    qid = row_key(json.loads(line))
+                    if qid in ids:
+                        raise ValueError(f'Duplicate prediction for {qid}')
+                    ids.add(qid)
+            if len(ids) != metrics['expected_questions'] or (paired_ids is not None and ids != paired_ids):
+                raise ValueError('Paired methods have incomplete or unequal question coverage')
             paired_ids = ids
             summary[method] = metrics
         runner.write_json(output / 'benchmark-summary.json', summary)

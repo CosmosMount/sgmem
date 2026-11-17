@@ -8,6 +8,7 @@ from pathlib import Path
 
 from sgmem.analysis import build_annotation_template, summarize_annotations
 from sgmem.runner import CATEGORIES, DOMAINS, make_split, run
+from sgmem.shards import PUBLISHED_SPLIT, load_frozen_split
 
 
 def _jsonl(paths: list[str]) -> list[dict]:
@@ -33,7 +34,7 @@ def _write_json(path: str, data: object, jsonl: bool = False) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(prog="sgmem", description="GroupMemBench local baselines and failure analysis")
     sub = parser.add_subparsers(dest="command", required=True)
-    split = sub.add_parser("split", help="Create a question-level stratified development/test split")
+    split = sub.add_parser("split", help="Select from the published course split, or create a custom split")
     split.add_argument("--benchmark", default="external/GroupMemBench")
     split.add_argument("--domains", nargs="+", choices=DOMAINS, default=["Finance", "Technology"])
     split.add_argument("--seed", type=int, default=42)
@@ -71,8 +72,18 @@ def main() -> None:
 
     args = parser.parse_args()
     if args.command == "split":
-        _write_json(args.output, make_split(Path(args.benchmark), args.domains, args.seed, args.dev_fraction))
-        print(f"Wrote split: {args.output}")
+        benchmark = Path(args.benchmark).resolve()
+        root = benchmark.parent.parent
+        published = root / PUBLISHED_SPLIT
+        if (benchmark == root / "external/GroupMemBench" and published.is_file()
+                and args.seed == 42 and args.dev_fraction == .25):
+            selection = load_frozen_split(published, benchmark, args.domains, CATEGORIES)
+            source = "published question IDs"
+        else:
+            selection = make_split(benchmark, args.domains, args.seed, args.dev_fraction)
+            source = "new sample"
+        _write_json(args.output, selection)
+        print(f"Wrote split ({source}): {args.output}")
     elif args.command == "run":
         if bool(args.split) != bool(args.partition):
             parser.error("--split and --partition must be provided together")

@@ -8,8 +8,11 @@ import json
 from pathlib import Path
 import subprocess
 
+from sgmem.data import load_questions
 from sgmem.qa import summarize
-from sgmem.runner import write_json
+from sgmem.runner import question_file, write_json
+
+PUBLISHED_SPLIT = Path('docs/evidence/part12-full-20261105/split.json')
 
 
 def row_key(row):
@@ -25,6 +28,20 @@ def partition_map(split):
                 raise ValueError('Duplicate question or overlapping dev/test split')
             result[key] = partition
     return result
+
+
+def load_frozen_split(path, benchmark, domains, categories):
+    """Select complete cells from a published split, keeping their original labels."""
+    split = json.loads(Path(path).read_text(encoding='utf-8'))
+    cells = {(domain, category) for domain in domains for category in categories}
+    published = {key for key in partition_map(split) if key[:2] in cells}
+    expected = {(domain, category, q['id']) for domain, category in cells
+                for q in load_questions(question_file(benchmark, domain, category), domain, category)}
+    if not expected or published != expected:
+        raise ValueError(f'Frozen split and benchmark disagree in selected cells: '
+                         f'{len(expected - published)} missing, {len(published - expected)} unknown question IDs')
+    return {**split, **{part: [row for row in split[part] if row_key(row) in published]
+                        for part in ('dev', 'test')}}
 
 
 def shard_split(split, index, count):
