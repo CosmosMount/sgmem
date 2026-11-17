@@ -1,5 +1,6 @@
 import json
 import sys
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -88,6 +89,40 @@ def test_duplicate_message_ids_are_rejected():
     rows[-1]["id"] = rows[0]["id"]
     with pytest.raises(ValueError, match="unique message IDs"):
         build_retriever("bm25-reply", rows)
+
+
+def test_order_queries_rerank_only_eligible_replies_and_keep_the_same_pool(monkeypatch):
+    rows = messages(16)
+    for i in range(10, 15):
+        rows[i]["reply_to"] = "0"
+    rows[14]["group"] = "B"  # Hidden across this edge.
+    values = np.array([20] * 8 + [10, 9, 8, 7, 6, 1, 8, 0])
+    base = list(range(10))
+    calls = []
+
+    class Encoder:
+        def __init__(self, name, device, revision):
+            assert (name, device, revision) == ("fixture", "cpu", "tag")
+
+        def encode(self, texts, **options):
+            calls.append(texts)
+            assert options["normalize_embeddings"] and options["batch_size"] == 4
+            return np.array([[1, 0], [0.8, 0.6], [0, 1], [1, 0]])
+
+    monkeypatch.setitem(sys.modules, "sentence_transformers", SimpleNamespace(SentenceTransformer=Encoder))
+    r = build_retriever("bm25-reply-order", rows, "fixture", "cuda", 4, "tag")
+    monkeypatch.setattr(r, "rank_content", lambda query, k: (values, base))
+    original, pool = r.expand("What should happen before launch?", values, base)
+    assert ids(r.retrieve("What should happen?", 10)) == ids(original)
+    assert ids(r.retrieve("Who spoke before launch?", 10)) == [str(i) for i in base]
+    assert not calls
+    ordered = r.retrieve("What should happen BEFORE launch?", 10)
+    assert calls == [["query: What should happen BEFORE launch?",
+                      "passage: word10\nParent: word0", "passage: word11\nParent: word0", "passage: word12\nParent: word0"]]
+    assert ids(original)[-2:] == ["10", "11"]
+    assert ids(ordered) == [str(i) for i in range(8)] + ["12", "10"]
+    assert set(ids(ordered)) <= set(pool) and ordered[-2]["reply_path"] == ["0", "12"]
+    assert ordered[-2]["e5_score"] == 1.0
 
 
 def test_cli_supplies_the_actual_reply_to_qa_without_labels_or_extra_passages(tmp_path, monkeypatch):
