@@ -1,6 +1,6 @@
 # 实验协议
 
-Part 1 已完成四域全量基线，Part 2 已完成开发样本分析。2026-11-17 补充了两种元数据规则的开发集检索结果，见 [Part 1/2 全量报告](part12-full-results.md#bm25-metadata-probe)。后续代码从 GitHub 最新 `main` 开始，正式问答比较及消融方案见 [实施路线图](roadmap.md)。
+Part 1 已完成四域全量基线，Part 2 已完成开发样本分析。阶段与群组规则的结果见 [Part 1/2 全量报告](part12-full-results.md#bm25-metadata-probe)。Part 3 的首个问答可用方法是 `bm25-reply`，沿用同一固定划分和最终十条消息。[有界回复扩展和消融](part3-bounded-replies.md) · [实施路线图](roadmap.md)
 
 ## 阶段与对照
 

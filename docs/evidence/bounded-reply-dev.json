@@ -1,0 +1,775 @@
+{
+  "benchmark_commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+  "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+  "dev_questions": 179,
+  "reviewed_bm25_failures_with_support": 15,
+  "top_k": 10,
+  "methods": {
+    "bm25": {
+      "changed_top10_sets": 0,
+      "support_in_pool": 4,
+      "support_in_top10": 4,
+      "gained_vs_bm25": 0,
+      "lost_vs_bm25": 0
+    },
+    "dense": {
+      "changed_top10_sets": 179,
+      "support_in_pool": 5,
+      "support_in_top10": 5,
+      "gained_vs_bm25": 2,
+      "lost_vs_bm25": 1
+    },
+    "one_hop": {
+      "changed_top10_sets": 15,
+      "support_in_pool": 4,
+      "support_in_top10": 4,
+      "gained_vs_bm25": 0,
+      "lost_vs_bm25": 0
+    },
+    "one_slot": {
+      "changed_top10_sets": 14,
+      "support_in_pool": 6,
+      "support_in_top10": 4,
+      "gained_vs_bm25": 0,
+      "lost_vs_bm25": 0
+    },
+    "ungated": {
+      "changed_top10_sets": 158,
+      "support_in_pool": 6,
+      "support_in_top10": 4,
+      "gained_vs_bm25": 1,
+      "lost_vs_bm25": 1
+    },
+    "bm25-reply": {
+      "changed_top10_sets": 14,
+      "support_in_pool": 6,
+      "support_in_top10": 5,
+      "gained_vs_bm25": 1,
+      "lost_vs_bm25": 0
+    }
+  },
+  "reviewed_cases": [
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "targets": [
+        "Msg_7489"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_29",
+      "targets": [
+        "Msg_28258"
+      ],
+      "baseline_rank": 7,
+      "in_pool": true,
+      "final_rank": 7
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_21",
+      "targets": [
+        "Msg_8383"
+      ],
+      "baseline_rank": 1,
+      "in_pool": true,
+      "final_rank": 1
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_43",
+      "targets": [
+        "Msg_10725"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "targets": [
+        "Msg_2947"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_48",
+      "targets": [
+        "Msg_24002"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "targets": [
+        "Msg_28251"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "targets": [
+        "Msg_25463"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "targets": [
+        "Msg_1633"
+      ],
+      "baseline_rank": 10,
+      "in_pool": true,
+      "final_rank": 10
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "targets": [
+        "Msg_29329"
+      ],
+      "baseline_rank": null,
+      "in_pool": true,
+      "final_rank": null
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "targets": [
+        "Msg_1645"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_30",
+      "targets": [
+        "Msg_4523"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "targets": [
+        "Msg_847"
+      ],
+      "baseline_rank": null,
+      "in_pool": true,
+      "final_rank": 10
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "targets": [
+        "Msg_6810"
+      ],
+      "baseline_rank": 1,
+      "in_pool": true,
+      "final_rank": 1
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_33",
+      "targets": [
+        "Msg_27780"
+      ],
+      "baseline_rank": null,
+      "in_pool": false,
+      "final_rank": null
+    }
+  ],
+  "changed_questions": [
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_18",
+      "final_ids": [
+        "Msg_18049",
+        "Msg_24575",
+        "Msg_27905",
+        "Msg_21380",
+        "Msg_28243",
+        "Msg_29461",
+        "Msg_20601",
+        "Msg_22016",
+        "Msg_29244",
+        "Msg_27851"
+      ],
+      "removed": [
+        "Msg_15005",
+        "Msg_9095"
+      ],
+      "added": [
+        {
+          "id": "Msg_29244",
+          "score": 26.40893013252645,
+          "path": [
+            "Msg_29461",
+            "Msg_29244"
+          ]
+        },
+        {
+          "id": "Msg_27851",
+          "score": 25.872240275249613,
+          "path": [
+            "Msg_27905",
+            "Msg_27851"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_36",
+      "final_ids": [
+        "Msg_8484",
+        "Msg_4355",
+        "Msg_13601",
+        "Msg_14078",
+        "Msg_11054",
+        "Msg_3955",
+        "Msg_14224",
+        "Msg_23289",
+        "Msg_14126",
+        "Msg_13671"
+      ],
+      "removed": [
+        "Msg_13252",
+        "Msg_3611"
+      ],
+      "added": [
+        {
+          "id": "Msg_14126",
+          "score": 24.226963687770684,
+          "path": [
+            "Msg_13601",
+            "Msg_14126"
+          ]
+        },
+        {
+          "id": "Msg_13671",
+          "score": 23.27363230848684,
+          "path": [
+            "Msg_14224",
+            "Msg_13671"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_41",
+      "final_ids": [
+        "Msg_18099",
+        "Msg_20216",
+        "Msg_3805",
+        "Msg_6804",
+        "Msg_17190",
+        "Msg_29981",
+        "Msg_3763",
+        "Msg_29139",
+        "Msg_3698",
+        "Msg_14903"
+      ],
+      "removed": [
+        "Msg_22627",
+        "Msg_29678"
+      ],
+      "added": [
+        {
+          "id": "Msg_3698",
+          "score": 25.31719473757381,
+          "path": [
+            "Msg_3805",
+            "Msg_3571",
+            "Msg_3698"
+          ]
+        },
+        {
+          "id": "Msg_14903",
+          "score": 24.56837049797315,
+          "path": [
+            "Msg_3805",
+            "Msg_3571",
+            "Msg_14903"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_24",
+      "final_ids": [
+        "Msg_26792",
+        "Msg_28345",
+        "Msg_16314",
+        "Msg_12322",
+        "Msg_23873",
+        "Msg_2171",
+        "Msg_27135",
+        "Msg_23401",
+        "Msg_28819",
+        "Msg_28817"
+      ],
+      "removed": [
+        "Msg_23939",
+        "Msg_14314"
+      ],
+      "added": [
+        {
+          "id": "Msg_28819",
+          "score": 21.355239184358695,
+          "path": [
+            "Msg_28345",
+            "Msg_28817",
+            "Msg_28819"
+          ]
+        },
+        {
+          "id": "Msg_28817",
+          "score": 20.907867906121012,
+          "path": [
+            "Msg_28345",
+            "Msg_28817"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_22",
+      "final_ids": [
+        "Msg_29467",
+        "Msg_489",
+        "Msg_20398",
+        "Msg_7812",
+        "Msg_24471",
+        "Msg_21734",
+        "Msg_1086",
+        "Msg_7898",
+        "Msg_8971",
+        "Msg_3515"
+      ],
+      "removed": [
+        "Msg_19202",
+        "Msg_6394"
+      ],
+      "added": [
+        {
+          "id": "Msg_8971",
+          "score": 14.183807012846211,
+          "path": [
+            "Msg_20398",
+            "Msg_8971"
+          ]
+        },
+        {
+          "id": "Msg_3515",
+          "score": 11.73437621273462,
+          "path": [
+            "Msg_29467",
+            "Msg_3515"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_21",
+      "final_ids": [
+        "Msg_26802",
+        "Msg_26538",
+        "Msg_19823",
+        "Msg_18100",
+        "Msg_29146",
+        "Msg_1015",
+        "Msg_22866",
+        "Msg_2301",
+        "Msg_23082",
+        "Msg_20836"
+      ],
+      "removed": [
+        "Msg_15802",
+        "Msg_3664"
+      ],
+      "added": [
+        {
+          "id": "Msg_23082",
+          "score": 14.614187504546436,
+          "path": [
+            "Msg_22866",
+            "Msg_23082"
+          ]
+        },
+        {
+          "id": "Msg_20836",
+          "score": 14.327947667565585,
+          "path": [
+            "Msg_1015",
+            "Msg_2068",
+            "Msg_20836"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_17",
+      "final_ids": [
+        "Msg_22102",
+        "Msg_22130",
+        "Msg_14181",
+        "Msg_23929",
+        "Msg_23461",
+        "Msg_12728",
+        "Msg_2814",
+        "Msg_18960",
+        "Msg_28113",
+        "Msg_23523"
+      ],
+      "removed": [
+        "Msg_13072",
+        "Msg_25791"
+      ],
+      "added": [
+        {
+          "id": "Msg_28113",
+          "score": 11.494143734281163,
+          "path": [
+            "Msg_22130",
+            "Msg_28113"
+          ]
+        },
+        {
+          "id": "Msg_23523",
+          "score": 10.664842516094705,
+          "path": [
+            "Msg_22130",
+            "Msg_23523"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "final_ids": [
+        "Msg_1845",
+        "Msg_3898",
+        "Msg_11154",
+        "Msg_21852",
+        "Msg_14736",
+        "Msg_2304",
+        "Msg_23382",
+        "Msg_17644",
+        "Msg_8",
+        "Msg_21"
+      ],
+      "removed": [
+        "Msg_2522",
+        "Msg_21577"
+      ],
+      "added": [
+        {
+          "id": "Msg_8",
+          "score": 11.557661372787638,
+          "path": [
+            "Msg_2304",
+            "Msg_8"
+          ]
+        },
+        {
+          "id": "Msg_21",
+          "score": 11.265339671876827,
+          "path": [
+            "Msg_2304",
+            "Msg_8",
+            "Msg_21"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_32",
+      "final_ids": [
+        "Msg_29540",
+        "Msg_11787",
+        "Msg_28808",
+        "Msg_8447",
+        "Msg_24303",
+        "Msg_10359",
+        "Msg_7585",
+        "Msg_6443",
+        "Msg_201",
+        "Msg_2657"
+      ],
+      "removed": [
+        "Msg_11825",
+        "Msg_27403"
+      ],
+      "added": [
+        {
+          "id": "Msg_201",
+          "score": 15.180562866125927,
+          "path": [
+            "Msg_24303",
+            "Msg_9583",
+            "Msg_201"
+          ]
+        },
+        {
+          "id": "Msg_2657",
+          "score": 10.815257659567044,
+          "path": [
+            "Msg_29540",
+            "Msg_2657"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_43",
+      "final_ids": [
+        "Msg_26043",
+        "Msg_28691",
+        "Msg_108",
+        "Msg_7222",
+        "Msg_23960",
+        "Msg_17296",
+        "Msg_22092",
+        "Msg_2803",
+        "Msg_15068",
+        "Msg_10046"
+      ],
+      "removed": [
+        "Msg_28457",
+        "Msg_22815"
+      ],
+      "added": [
+        {
+          "id": "Msg_15068",
+          "score": 15.155036937743748,
+          "path": [
+            "Msg_108",
+            "Msg_15068"
+          ]
+        },
+        {
+          "id": "Msg_10046",
+          "score": 14.603815666083088,
+          "path": [
+            "Msg_7222",
+            "Msg_9210",
+            "Msg_10046"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "final_ids": [
+        "Msg_638",
+        "Msg_21861",
+        "Msg_23840",
+        "Msg_1027",
+        "Msg_1126",
+        "Msg_6196",
+        "Msg_11628",
+        "Msg_21151",
+        "Msg_411",
+        "Msg_847"
+      ],
+      "removed": [
+        "Msg_26249",
+        "Msg_5395"
+      ],
+      "added": [
+        {
+          "id": "Msg_411",
+          "score": 15.171788295624179,
+          "path": [
+            "Msg_638",
+            "Msg_411"
+          ]
+        },
+        {
+          "id": "Msg_847",
+          "score": 13.973429858290189,
+          "path": [
+            "Msg_638",
+            "Msg_832",
+            "Msg_847"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_21",
+      "final_ids": [
+        "Msg_20197",
+        "Msg_22458",
+        "Msg_18632",
+        "Msg_16431",
+        "Msg_19039",
+        "Msg_20158",
+        "Msg_28577",
+        "Msg_19324",
+        "Msg_20142",
+        "Msg_20343"
+      ],
+      "removed": [
+        "Msg_3004",
+        "Msg_19830"
+      ],
+      "added": [
+        {
+          "id": "Msg_20142",
+          "score": 27.684762954762284,
+          "path": [
+            "Msg_20158",
+            "Msg_20142"
+          ]
+        },
+        {
+          "id": "Msg_20343",
+          "score": 26.79468096115586,
+          "path": [
+            "Msg_20197",
+            "Msg_20343"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_32",
+      "final_ids": [
+        "Msg_4896",
+        "Msg_27058",
+        "Msg_26504",
+        "Msg_6003",
+        "Msg_29804",
+        "Msg_24195",
+        "Msg_14554",
+        "Msg_6866",
+        "Msg_29999",
+        "Msg_6287"
+      ],
+      "removed": [
+        "Msg_10167",
+        "Msg_400"
+      ],
+      "added": [
+        {
+          "id": "Msg_29999",
+          "score": 13.30270617874112,
+          "path": [
+            "Msg_29804",
+            "Msg_29999"
+          ]
+        },
+        {
+          "id": "Msg_6287",
+          "score": 13.268271441914235,
+          "path": [
+            "Msg_6003",
+            "Msg_6287"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_14",
+      "final_ids": [
+        "Msg_19712",
+        "Msg_18622",
+        "Msg_25585",
+        "Msg_88",
+        "Msg_5167",
+        "Msg_1276",
+        "Msg_6083",
+        "Msg_8726",
+        "Msg_25277",
+        "Msg_25498"
+      ],
+      "removed": [
+        "Msg_19025",
+        "Msg_8013"
+      ],
+      "added": [
+        {
+          "id": "Msg_25277",
+          "score": 14.631649558013033,
+          "path": [
+            "Msg_25585",
+            "Msg_25277"
+          ]
+        },
+        {
+          "id": "Msg_25498",
+          "score": 11.105371563035057,
+          "path": [
+            "Msg_25585",
+            "Msg_25277",
+            "Msg_25498"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from sgmem import runner
+from sgmem.retrieval import METHODS
 from sgmem.shards import PUBLISHED_SPLIT, load_frozen_split, row_key, shard_split
 
 
@@ -26,7 +27,7 @@ def main():
     parser.add_argument("--output", required=True, help="New directory; never overwritten")
     parser.add_argument("--domains", nargs="+", choices=runner.DOMAINS, default=["Finance", "Technology"])
     parser.add_argument("--categories", nargs="+", choices=runner.CATEGORIES, default=list(runner.CATEGORIES))
-    parser.add_argument('--methods', nargs='+', choices=('bm25', 'dense'), default=['bm25', 'dense'])
+    parser.add_argument('--methods', nargs='+', choices=METHODS, default=['bm25', 'dense'])
     parser.add_argument('--shards', type=int, default=1, help='Disjoint question shards; use --full')
     parser.add_argument('--shard-index', type=int, default=0, help='Zero-based shard number')
     mode = parser.add_mutually_exclusive_group()

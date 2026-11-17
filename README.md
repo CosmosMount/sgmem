@@ -1,6 +1,8 @@
 # SGMem：多人对话记忆检索研究
 
-项目已完成 GroupMemBench 的 BM25/E5 Dense 全量本地基线和 Part 2 结构性失败分析。四域共 715 题，两种方法共 1,430 条结果；BM25 32.73%，Dense 28.53%。Part 2 覆盖固定开发样本 24 道题、38 条判错记录和 61 条源消息，标注来源明确为 AI-assisted。SGAR 修复方法和最终课程报告/海报仍需完成。上游使用 GPT-5 与 `text-embedding-3-large`，本项目使用本地 Qwen3-8B 和 E5，因而是**官方流程的本地适配**，不是官方模型配置的精确复现。
+项目已完成 GroupMemBench 的 BM25/E5 Dense 全量本地基线和 Part 2 结构性失败分析。四域共 715 题，两种方法共 1,430 条结果；BM25 32.73%，Dense 28.53%。Part 2 覆盖固定开发样本 24 道题、38 条判错记录和 61 条源消息，标注来源明确为 AI-assisted。上游使用 GPT-5 与 `text-embedding-3-large`，本项目使用本地 Qwen3-8B 和 E5，因而是**官方流程的本地适配**，不是官方模型配置的精确复现。
+
+Part 3 的 `bm25-reply` 已接入问答入口。在固定 179 道开发题中，它改变了 14 道题的前十条消息。15 条有支持标注的 BM25 失败记录中，最终前十命中从 4 条增至 5 条。规则、消融、逐题记录和复跑命令见[有界回复扩展](docs/part3-bounded-replies.md)。
 
 **从这里接手：[Part 1/2 全量结果与错误分析](docs/part12-full-results.md)。** [仓库内精简证据](docs/evidence/part12-full-20261105/)可在无 GPU 环境复核：
 
@@ -77,4 +79,4 @@ python -m sgmem analyze --records results/bm25-dev/predictions.jsonl results/den
 - [HPC 容器部署与 Qwen 升级](docs/hpc-deployment.md)、[检索参考](docs/retrieval-references.md)
 - [实施路线图](docs/roadmap.md)、[后续 CI 清单](docs/ci-plan.md)、[数据和依赖](docs/data-and-dependencies.md)
 
-评分细则与 50 GPU-hours 上限来自用户提供的课程材料。本次全量运行累计 3.5907 GPU-hours；早期 Qwen2.5-0.5B 连通性测试和 Qwen3-8B 试跑属于历史准备，不应替代全量结果。当前报告没有声称完成 Part 3 修复或取得修复后的准确率提升。
+评分细则与 50 GPU-hours 上限来自用户提供的课程材料。Part 1 全量运行累计 3.5907 GPU-hours。早期 Qwen2.5-0.5B 连通性测试和 Qwen3-8B 试跑的耗时另计。

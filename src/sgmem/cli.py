@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 from sgmem.analysis import build_annotation_template, summarize_annotations
+from sgmem.retrieval import METHODS
 from sgmem.runner import CATEGORIES, DOMAINS, make_split, run
 from sgmem.shards import PUBLISHED_SPLIT, load_frozen_split
 
@@ -46,7 +47,7 @@ def main() -> None:
     experiment.add_argument("--project-root", default=".", help="Project checkout for Git provenance")
     experiment.add_argument("--domains", nargs="+", choices=DOMAINS, default=["Finance", "Technology"])
     experiment.add_argument("--categories", nargs="+", choices=CATEGORIES, default=list(CATEGORIES))
-    experiment.add_argument("--method", choices=["bm25", "dense"], required=True)
+    experiment.add_argument("--method", choices=METHODS, required=True)
     experiment.add_argument("--base-url", default="http://127.0.0.1:8000/v1")
     experiment.add_argument("--answer-model", required=True)
     experiment.add_argument("--judge-model", help="Defaults to the answer model")

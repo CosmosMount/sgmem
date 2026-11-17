@@ -1,6 +1,7 @@
 """Parallel execution must not change coverage, partitions, or experiment settings."""
 
 import copy
+import hashlib
 import json
 
 import pytest
@@ -72,6 +73,28 @@ def test_merge_has_exact_coverage_and_resources(parts, tmp_path):
     assert all(m['complete'] and m['overall']['total'] == 7 for m in summary.values())
     assert all(m['by_partition']['dev']['overall']['total'] == 2 for m in summary.values())
     assert json.loads((output / 'aggregation.json').read_text())['gpu_hours'] == pytest.approx(.3)
+
+
+def test_reply_dev_merge_uses_only_the_requested_method_and_frozen_dev_ids(parts, tmp_path):
+    paths, split_path = parts
+    part = paths[0]
+    dev_split = json.loads(split_path.read_text(encoding='utf-8'))
+    dev_split['test'] = []
+    write_json(part.parent / 'split.json', dev_split)
+    manifest = json.loads((part / 'manifest.json').read_text(encoding='utf-8'))
+    manifest['config'].update(method='bm25-reply', partition='dev')
+    manifest['expected_questions'] = len(dev_split['dev'])
+    write_json(part / 'manifest.json', manifest)
+    records = [json.loads(line) for line in (part / 'predictions.jsonl').read_text(encoding='utf-8').splitlines()]
+    (part / 'predictions.jsonl').write_text(''.join(json.dumps({**r, 'method': 'bm25-reply'}) + '\n'
+                                            for r in records if r['partition'] == 'dev'), encoding='utf-8')
+    out = tmp_path / 'reply-merged'
+    summary = shards.merge_runs([part], split_path, out, tmp_path, methods=['bm25-reply'], partition='dev')
+    assert set(summary) == {'bm25-reply'} and summary['bm25-reply']['overall']['total'] == 2
+    assert json.loads((out / 'split.json').read_text(encoding='utf-8')) == dev_split
+    provenance = json.loads((out / 'aggregation.json').read_text(encoding='utf-8'))
+    assert provenance['split_sha256'] == hashlib.sha256(split_path.read_bytes()).hexdigest()
+    assert provenance['merged_split_sha256'] == hashlib.sha256((out / 'split.json').read_bytes()).hexdigest()
 
 
 @pytest.mark.parametrize('fault,match', [('duplicate', 'Duplicate result'), ('missing', 'entire frozen'),

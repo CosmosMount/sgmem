@@ -10,6 +10,7 @@ import subprocess
 
 from sgmem.data import load_questions
 from sgmem.qa import summarize
+from sgmem.retrieval import METHODS
 from sgmem.runner import question_file, write_json
 
 PUBLISHED_SPLIT = Path('docs/evidence/part12-full-20261105/split.json')
@@ -74,16 +75,23 @@ def implementation_signature(root, commit):
     return signature
 
 
-def merge_runs(parts, split_path, output, project_root):
+def merge_runs(parts, split_path, output, project_root, *, methods=("bm25", "dense"), partition="all"):
     """Merge completed method directories, refusing missing IDs or mixed protocols."""
     output, split_path = Path(output), Path(split_path)
     if output.exists():
         raise ValueError('Aggregate output already exists')
     split = json.loads(split_path.read_text(encoding='utf-8'))
+    partition_map(split)  # Validate the full reference before restricting its scope.
+    if partition not in ('dev', 'test', 'all'):
+        raise ValueError('Invalid aggregation partition')
+    if not methods or len(set(methods)) != len(methods) or set(methods) - set(METHODS):
+        raise ValueError('Invalid aggregation methods')
+    if partition != 'all':
+        split['test' if partition == 'dev' else 'dev'] = []
     expected = partition_map(split)
     if not expected:
         raise ValueError('Empty reference split')
-    records = {'bm25': {}, 'dense': {}}
+    records = {method: {} for method in methods}
     provenance, resource_runs = [], {}
     reference_protocol = reference_runtime = reference_implementation = None
     for raw_part in parts:
@@ -93,8 +101,8 @@ def merge_runs(parts, split_path, output, project_root):
         method = config['method']
         if method not in records or manifest['status'] != 'complete':
             raise ValueError(f'Incomplete or unknown method: {part}')
-        if config['partition'] != 'all' or config['limit'] is not None:
-            raise ValueError('Only full benchmark shards can be aggregated')
+        if config['partition'] != partition or config['limit'] is not None:
+            raise ValueError('Aggregated shards must cover the requested partition without a limit')
         protocol = {k: v for k, v in config.items()
                     if k not in {'method', 'output', 'project_root', 'benchmark', 'split', 'resume'}}
         protocol['benchmark_commit'] = manifest['benchmark_git']['commit']
@@ -136,7 +144,7 @@ def merge_runs(parts, split_path, output, project_root):
                                          'wall_seconds': run.get('wall_seconds'),
                                          'gpu': run.get('CUDA_VISIBLE_DEVICES')}
     if any(set(rows) != set(expected) for rows in records.values()):
-        raise ValueError('BM25/Dense do not both cover the entire frozen benchmark')
+        raise ValueError('Requested methods do not cover the entire frozen selection')
     output.mkdir(parents=True)
     summary = {}
     for method, rows in records.items():
@@ -157,5 +165,6 @@ def merge_runs(parts, split_path, output, project_root):
         'protocol': reference_protocol, 'runtime': reference_runtime, 'resource_runs': resource_runs,
         'gpu_hours': sum(costs) if all(cost is not None for cost in costs) else None,
         'split_sha256': hashlib.sha256(split_path.read_bytes()).hexdigest(),
+        'merged_split_sha256': hashlib.sha256((output / 'split.json').read_bytes()).hexdigest(),
     })
     return summary
