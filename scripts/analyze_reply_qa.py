@@ -1,4 +1,4 @@
-"""Compare an actual bm25-reply dev run to both archived controls and the retrieval probe."""
+"""Compare a full reply-retrieval dev run to archived controls and the matching retrieval probe."""
 
 import argparse
 import hashlib
@@ -37,22 +37,28 @@ def audit_calls(path, method, dev, *, allow_other_partitions=False):
     return calls
 
 
-def paired(rows, control):
-    gains = sum(r["bm25-reply"] and not r[control] for r in rows)
-    losses = sum(r[control] and not r["bm25-reply"] for r in rows)
+def paired(rows, method, control):
+    gains = sum(r[method] and not r[control] for r in rows)
+    losses = sum(r[control] and not r[method] for r in rows)
     return {"questions": len(rows), "gained": gains, "lost": losses, "net": gains - losses}
 
 
-def compare(run, bm25_audit, evidence):
-    method = "bm25-reply"
+def paired_by_context(rows, method, control, field):
+    return {"all": paired(rows, method, control),
+            "changed": paired([r for r in rows if r[field]], method, control),
+            "unchanged": paired([r for r in rows if not r[field]], method, control)}
+
+
+def compare(run, bm25_audit, evidence, method="bm25-reply"):
     folder = run / method
     reference = read(evidence / "provenance.json")
-    probe = read(evidence.parent / "bounded-reply-dev.json")
+    ordered = method == "bm25-reply-order"
+    probe = read(evidence.parent / ("ordered-reply-dev.json" if ordered else "bounded-reply-dev.json"))
     manifest, runtime = read(folder / "manifest.json"), read(run / "run-config.json")
     cfg = manifest["config"]
     dev = {k for k, p in partition_map(read(evidence / "split.json")).items() if p == "dev"}
     check(runtime["finished"] and manifest["status"] == "complete" and cfg["partition"] == "dev"
-          and cfg["method"] == method, "Expected a completed bm25-reply development run")
+          and cfg["method"] == method, f"Expected a completed {method} development run")
     check(partition_map(read(run / "split.json")) == dict.fromkeys(dev, "dev")
           and len(dev) == probe["dev_questions"] == manifest["expected_questions"], "Development split mismatch")
     check(digest(evidence / "split.json") == runtime["source_split_sha256"] == reference["split_sha256"]
@@ -92,12 +98,19 @@ def compare(run, bm25_audit, evidence):
     old = audit_calls(bm25_audit, "bm25", dev, allow_other_partitions=True)
     new = audit_calls(run / "generation-audit.jsonl", method, dev)
     changes = {key(r): r["final_ids"] for r in probe["changed_questions"]}
+    check(all(qid in dev and ids != indexed["bm25"][qid]["retrieved_ids"] for qid, ids in changes.items()),
+          "Retrieval probe lists a question outside dev or an unchanged baseline ranking")
+    if ordered:
+        check(probe["model"]["revision"] == cfg["model_provenance"]["embedding_revision"],
+              "E5 revision differs from retrieval probe")
+        reply_changes = {key(r): r["final_ids"] for r in probe["changed_from_reply"] if r["method"] == method}
+        changes.update(reply_changes)
     questions = []
     for qid in sorted(dev):
         a, b = indexed[method][qid], indexed["bm25"][qid]
         ids = [h["message"]["id"] for h in a["retrieval"]]
         changed = ids != b["retrieved_ids"]
-        check(ids == changes.get(qid, b["retrieved_ids"]) and changed == (qid in changes), f"Retrieval differs: {qid}")
+        check(ids == changes.get(qid, b["retrieved_ids"]), f"Retrieval differs: {qid}")
         for stage in ("answer", "judge"):
             call = new[qid, stage]
             check(call["usage"] == a[stage + "_usage"] and call["finish_reason"] == a[stage + "_finish_reason"],
@@ -117,21 +130,40 @@ def compare(run, bm25_audit, evidence):
     for stage in ("answer", "judge"):
         costs[stage] = {k: sum(r[stage + "_usage"][k] for r in records[method]) for k in ("prompt_tokens", "completion_tokens")}
     costs["stage_seconds"] = {k: sum(r[k] for r in records[method]) for k in ("retrieval_seconds", "answer_seconds", "judge_seconds")}
-    return {"run": run.name, "project_commit": manifest["project_git"]["commit"],
-            "benchmark_commit": reference["benchmark_commit"], "source_split_sha256": runtime["source_split_sha256"],
-            "raw_sha256": {"predictions": digest(folder / "predictions.jsonl"), "run_config": digest(run / "run-config.json"),
-                           "calls": digest(run / "generation-audit.jsonl"), "bm25_calls": digest(bm25_audit)},
-            "calls": len(new), "metrics": metrics, "cost": costs,
-            "vs_bm25": {scope: paired(group, "bm25") for scope, group in
-                        (("all", questions), ("changed", [r for r in questions if r["changed_context"]]),
-                         ("unchanged", [r for r in questions if not r["changed_context"]]))},
-            "vs_dense": paired(questions, "dense"), "questions": questions}
+    report = {
+        "run": run.name, "project_commit": manifest["project_git"]["commit"],
+        "benchmark_commit": reference["benchmark_commit"], "source_split_sha256": runtime["source_split_sha256"],
+        "raw_sha256": {"predictions": digest(folder / "predictions.jsonl"), "run_config": digest(run / "run-config.json"),
+                       "calls": digest(run / "generation-audit.jsonl"), "bm25_calls": digest(bm25_audit)},
+        "calls": len(new), "metrics": metrics, "cost": costs,
+        "vs_bm25": paired_by_context(questions, method, "bm25", "changed_context"),
+        "vs_dense": paired(questions, method, "dense"), "questions": questions,
+    }
+    if ordered:
+        reference_path = evidence.parent / "bounded-reply-qa-dev.json"
+        previous = read(reference_path)
+        previous_rows = {key(r): r for r in previous["questions"]}
+        check(set(previous_rows) == dev and len(previous["questions"]) == len(dev)
+              and previous["source_split_sha256"] == report["source_split_sha256"]
+              and previous["benchmark_commit"] == report["benchmark_commit"], "Reply control differs")
+        for r in questions:
+            qid = key(r)
+            old_row = previous_rows[qid]
+            r["bm25-reply"] = old_row["bm25-reply"]
+            r["changed_from_reply"] = r["answer_prompt_sha256"] != old_row["answer_prompt_sha256"]
+            r["same_answer_as_reply"] = r["answer"] == old_row["answer"]
+            check(r["changed_from_reply"] == (qid in reply_changes), f"Reply-control prompt differs: {qid}")
+        report["metrics"]["bm25-reply"] = previous["metrics"]["bm25-reply"]
+        report["vs_bm25_reply"] = paired_by_context(questions, method, "bm25-reply", "changed_from_reply")
+        report["raw_sha256"]["reply_control_evidence"] = digest(reference_path)
+    return report
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", type=Path, required=True)
     parser.add_argument("--bm25-audit", type=Path, required=True, help="Part 1 BM25 generation-audit.jsonl")
+    parser.add_argument("--method", choices=("bm25-reply", "bm25-reply-order"), default="bm25-reply")
     parser.add_argument("--evidence", type=Path, default=ROOT / "docs/evidence/part12-full-20261105")
     args = parser.parse_args()
-    print(json.dumps(compare(args.run, args.bm25_audit, args.evidence), ensure_ascii=True, indent=2))
+    print(json.dumps(compare(args.run, args.bm25_audit, args.evidence, args.method), ensure_ascii=True, indent=2))
