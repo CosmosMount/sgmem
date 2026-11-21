@@ -61,6 +61,11 @@ def implementation_signature(root, commit):
 
     signature = {path: hashlib.sha256(content(path)).hexdigest() for path in (
         'src/sgmem/data.py', 'src/sgmem/retrieval.py', 'src/sgmem/qa.py', 'src/sgmem/runner.py')}
+    # Historical commits predate these retrieval dependencies; keep their signatures valid.
+    for path in ('src/sgmem/query_metadata.py', 'src/sgmem/structured.py'):
+        exists = subprocess.check_output(['git', '-C', str(root), 'ls-tree', '--name-only', commit, '--', path])
+        if exists.strip():
+            signature[path] = hashlib.sha256(content(path)).hexdigest()
     tree = ast.parse(content('scripts/run_local_baselines.py'))
     nodes = [node for node in ast.walk(tree)
              if isinstance(node, ast.ClassDef) and node.name == 'DirectClient']

@@ -100,7 +100,8 @@ def test_split_disjoint_and_stratified(tmp_path):
 
 
 @pytest.mark.parametrize('use_factory', [False, True])
-def test_full_runner_and_human_analysis(tmp_path, monkeypatch, use_factory):
+@pytest.mark.parametrize('method', ['bm25', 'bm25-fields', 'bm25-person', 'bm25-scope-reply'])
+def test_full_runner_and_human_analysis(tmp_path, monkeypatch, use_factory, method):
     benchmark = tmp_path / 'benchmark'
     benchmark.mkdir()
     _write_benchmark(benchmark)
@@ -115,7 +116,7 @@ def test_full_runner_and_human_analysis(tmp_path, monkeypatch, use_factory):
     if not use_factory:
         monkeypatch.setattr('sgmem.runner.LocalClient', Client)
     args = Namespace(benchmark=str(benchmark), project_root=str(tmp_path), output=str(tmp_path / 'run'), split=None, partition=None,
-                     domains=['Finance'], categories=['multi_hop'], method='bm25', base_url='http://localhost/v1',
+                     domains=['Finance'], categories=['multi_hop'], method=method, base_url='http://localhost/v1',
                      answer_model='local', judge_model=None, embedding_model='intfloat/e5-base-v2',
                      embedding_revision=None, device='cpu', batch_size=2, top_k=2, timeout=1, limit=1)
     out = run(args, client_factory=Client) if use_factory else run(args)

@@ -214,9 +214,8 @@ def run(args, client_factory=None) -> Path:
                                                   'method': args.method, 'attempt': record['attempt']}
                         try:
                             asker = q.get("asking_user_id") or ""
-                            query = f"{asker} {q['question']}" if asker else q["question"]
                             retrieval_started = time.perf_counter()
-                            retrieved = retriever.retrieve(query, args.top_k)
+                            retrieved = retriever.retrieve(q["question"], args.top_k, asking_user_id=asker)
                             record["retrieval_seconds"] = time.perf_counter() - retrieval_started
                             record["retrieval"] = retrieved
                             result = evaluate_question(q, retrieved, answer_client, judge_client, agent_system, judge_system)

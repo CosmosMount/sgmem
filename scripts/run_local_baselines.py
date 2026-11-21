@@ -84,6 +84,12 @@ def main():
 
     if args.device == "cuda" and not torch.cuda.is_available():
         parser.error("CUDA is unavailable; select --device cpu or a GPU environment")
+    embedding_sha = None
+    if any(method.startswith('hybrid') for method in args.methods):
+        frozen = json.loads((ROOT / 'docs/evidence/ordered-reply-dev.json').read_text())['model']
+        embedding_sha = hashlib.sha256((Path(args.embedding_model) / 'model.safetensors').read_bytes()).hexdigest()
+        if args.embedding_revision != frozen['revision'] or embedding_sha != frozen['weight_sha256']:
+            parser.error('Hybrid exploration requires the frozen local E5 revision and weights')
     torch.set_num_threads(4)
     torch.set_num_interop_threads(1)
     output.mkdir(parents=True, exist_ok=args.resume)
@@ -105,6 +111,7 @@ def main():
                      ("torch", "transformers", "sentence-transformers", "numpy", "rank-bm25")},
         "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "finished": False,
+        "embedding_weight_sha256": embedding_sha,
     }
     details['model_files'] = {}
     for label, folder in [('qa', Path(args.model)), ('embedding', Path(args.embedding_model))]:
@@ -120,7 +127,7 @@ def main():
     split_path = output / 'split.json'
     if args.resume:
         previous = json.loads(config_path.read_text(encoding='utf-8'))
-        for key in ('arguments', 'project_git', 'benchmark_git', 'source_split_sha256', 'script_sha256', 'packages', 'tracked_patch_sha256', 'model_files'):
+        for key in ('arguments', 'project_git', 'benchmark_git', 'source_split_sha256', 'script_sha256', 'packages', 'tracked_patch_sha256', 'model_files', 'embedding_weight_sha256'):
             if previous[key] != details[key]:
                 parser.error(f'Resume rejected: {key} changed')
         if json.loads(split_path.read_text(encoding='utf-8')) != split:
@@ -231,8 +238,10 @@ def main():
         details['wall_seconds'] = sum(s['wall_seconds'] for s in details['sessions'])
         details['cpu_seconds'] = sum(s['cpu_seconds'] for s in details['sessions'])
         if args.device == "cuda":
-            details["peak_allocated_gpu_bytes"] = torch.cuda.max_memory_allocated()
-            details['peak_reserved_gpu_bytes'] = torch.cuda.max_memory_reserved()
+            details['sessions'][-1]['peak_allocated_gpu_bytes'] = torch.cuda.max_memory_allocated()
+            details['sessions'][-1]['peak_reserved_gpu_bytes'] = torch.cuda.max_memory_reserved()
+            for name in ('peak_allocated_gpu_bytes', 'peak_reserved_gpu_bytes'):
+                details[name] = max(s[name] for s in details['sessions'])
             details["gpu_name"] = torch.cuda.get_device_name()
             details['gpu_hours'] = details['wall_seconds'] / 3600
         runner.write_json(config_path, details)

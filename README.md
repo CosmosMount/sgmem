@@ -78,5 +78,6 @@ python -m sgmem analyze --records results/bm25-dev/predictions.jsonl results/den
 - [架构与接口设计](docs/architecture.md)、[实验协议](docs/experiment-protocol.md)
 - [HPC 容器部署与 Qwen 升级](docs/hpc-deployment.md)、[检索参考](docs/retrieval-references.md)
 - [实施路线图](docs/roadmap.md)、[后续 CI 清单](docs/ci-plan.md)、[数据和依赖](docs/data-and-dependencies.md)
+- [Part 3 完整探索矩阵与复现](docs/part3-exploration.md)
 
 评分细则与 50 GPU-hours 上限来自用户提供的课程材料。Part 1 全量运行累计 3.5907 GPU-hours。早期 Qwen2.5-0.5B 连通性测试和 Qwen3-8B 试跑的耗时另计。

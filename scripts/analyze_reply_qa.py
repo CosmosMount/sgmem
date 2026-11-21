@@ -1,12 +1,15 @@
-"""Compare a full reply-retrieval dev run to archived controls and the matching retrieval probe."""
+"""Compare a full retrieval dev run to archived controls and its matching retrieval probe."""
 
 import argparse
+import ast
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 
 from analyze_full_baselines import ROOT, key, read_rows
 from sgmem.qa import official_correct, summarize
+from sgmem.retrieval import STRUCTURED_METHODS
 from sgmem.shards import implementation_signature, partition_map
 
 
@@ -57,11 +60,26 @@ def paired_by_context(rows, method, control, field):
             "unchanged": paired([r for r in rows if not r[field]], method, control)}
 
 
-def compare(run, bm25_audit, evidence, method="bm25-reply"):
+def check_query_dispatch(root, commit, baseline_commit):
+    """Only the reviewed separation of question text and asker may differ in the runner."""
+    def source(revision):
+        return subprocess.check_output(["git", "-C", str(root), "show", f"{revision}:src/sgmem/runner.py"], text=True)
+    expected = source(baseline_commit).replace(
+        '                            query = f"{asker} {q[\'question\']}" if asker else q["question"]\n', "")
+    expected = expected.replace('retriever.retrieve(query, args.top_k)',
+                                'retriever.retrieve(q["question"], args.top_k, asking_user_id=asker)')
+    check(ast.dump(ast.parse(expected)) == ast.dump(ast.parse(source(commit))),
+          "Runner differs beyond the reviewed public query dispatch")
+
+
+def compare(run, bm25_audit, evidence, method="bm25-reply", probe_file=None):
     folder = run / method
     reference = read(evidence / "provenance.json")
     ordered = method == "bm25-reply-order"
-    probe = read(evidence.parent / ("ordered-reply-dev.json" if ordered else "bounded-reply-dev.json"))
+    structured = method in STRUCTURED_METHODS
+    if structured and probe_file is None:
+        raise ValueError("Structured comparisons require the exact clean-commit retrieval probe")
+    probe = read(probe_file or evidence.parent / ("ordered-reply-dev.json" if ordered else "bounded-reply-dev.json"))
     manifest, runtime = read(folder / "manifest.json"), read(run / "run-config.json")
     cfg = manifest["config"]
     dev = {k for k, p in partition_map(read(evidence / "split.json")).items() if p == "dev"}
@@ -86,7 +104,19 @@ def compare(run, bm25_audit, evidence, method="bm25-reply"):
     # Python versions serialize ASTs differently. Read both immutable commits with this interpreter.
     baseline_commit = next(p["commit"] for p in reference["raw_parts"] if p["method"] == "bm25")
     baseline_signature = implementation_signature(ROOT, baseline_commit)
-    check(all(signature[k] == v for k, v in baseline_signature.items() if k != "src/sgmem/retrieval.py"),
+    excluded = {"src/sgmem/retrieval.py"}
+    if signature["src/sgmem/runner.py"] != baseline_signature["src/sgmem/runner.py"]:
+        excluded.add("src/sgmem/runner.py")
+        check_query_dispatch(ROOT, manifest["project_git"]["commit"], baseline_commit)
+    if structured:
+        check(not probe["project_git"]["status"] and method in probe["methods"], "Uncommitted or missing retrieval probe")
+        check(signature == implementation_signature(ROOT, probe["project_git"]["commit"]),
+              "Retrieval probe and QA run execute different code")
+        if method.startswith("hybrid"):
+            frozen_model = read(evidence.parent / "ordered-reply-dev.json")["model"]
+            check(runtime["embedding_weight_sha256"] == probe["embedding"]["weight_sha256"] == frozen_model["weight_sha256"]
+                  and probe["embedding"]["revision"] == frozen_model["revision"], "Hybrid E5 identity differs")
+    check(all(signature[k] == v for k, v in baseline_signature.items() if k not in excluded),
           "Data, QA, runner or generation code differs")
 
     baseline = [r for r in read_rows(evidence / "outcomes.jsonl") if r["partition"] == "dev"]
@@ -106,7 +136,13 @@ def compare(run, bm25_audit, evidence, method="bm25-reply"):
     old = audit_calls(bm25_audit, "bm25", dev, allow_other_partitions=True)
     attempts = {qid: r.get("attempt", 1) for qid, r in indexed[method].items()}
     new = audit_calls(run / "generation-audit.jsonl", method, dev, attempts=attempts)
-    changes = {key(r): r["final_ids"] for r in probe["changed_questions"]}
+    if structured:
+        check(len(probe["questions"]) == len(dev) and {key(r) for r in probe["questions"]} == dev,
+              "Retrieval probe does not cover the fixed development questions")
+        changes = {key(r): r["methods"][method]["final_ids"] for r in probe["questions"]
+                   if r["methods"][method]["final_ids"] != indexed["bm25"][key(r)]["retrieved_ids"]}
+    else:
+        changes = {key(r): r["final_ids"] for r in probe["changed_questions"]}
     check(all(qid in dev and ids != indexed["bm25"][qid]["retrieved_ids"] for qid, ids in changes.items()),
           "Retrieval probe lists a question outside dev or an unchanged baseline ranking")
     if ordered:
@@ -148,6 +184,11 @@ def compare(run, bm25_audit, evidence, method="bm25-reply"):
         "vs_bm25": paired_by_context(questions, method, "bm25", "changed_context"),
         "vs_dense": paired(questions, method, "dense"), "questions": questions,
     }
+    if structured:
+        report["raw_sha256"]["retrieval_probe"] = digest(probe_file)
+        report["prompt_check"] = "Relative hash consistency with archived controls; generation code and input files also locked"
+        if method.startswith("hybrid"):
+            report["embedding_weight_sha256"] = runtime["embedding_weight_sha256"]
     retries = [r for r in read_rows(run / "generation-audit.jsonl")
                if r["question"].get("attempt", 1) < attempts[key(r["question"])]]
     if retries:
@@ -180,7 +221,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", type=Path, required=True)
     parser.add_argument("--bm25-audit", type=Path, required=True, help="Part 1 BM25 generation-audit.jsonl")
-    parser.add_argument("--method", choices=("bm25-reply", "bm25-reply-order"), default="bm25-reply")
+    parser.add_argument("--method", choices=("bm25-reply", "bm25-reply-order", *STRUCTURED_METHODS), default="bm25-reply")
+    parser.add_argument("--probe", type=Path, help="Clean-commit structured retrieval evidence for this method")
     parser.add_argument("--evidence", type=Path, default=ROOT / "docs/evidence/part12-full-20261105")
     args = parser.parse_args()
-    print(json.dumps(compare(args.run, args.bm25_audit, args.evidence, args.method), ensure_ascii=True, indent=2))
+    print(json.dumps(compare(args.run, args.bm25_audit, args.evidence, args.method, args.probe), ensure_ascii=True, indent=2))

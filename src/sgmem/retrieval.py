@@ -12,7 +12,9 @@ _TOKEN_RE = re.compile(r"[A-Za-z0-9_]+")
 _REPLY_CUE = re.compile(r"\b(?:should|recommend\w*|suggest\w*|propos\w*|discussion|feedback|"
                         r"repl(?:y|ies|ied)|respond\w*|follow[ -]?up)\b", re.IGNORECASE)
 _ORDER_CUE = re.compile(r"\b(?:before|after|first|next)\b", re.IGNORECASE)
-METHODS = ("bm25", "dense", "bm25-reply", "bm25-reply-order")
+STRUCTURED_METHODS = ("bm25-fields", "bm25-scope", "bm25-person", "bm25-time",
+                      "hybrid", "hybrid-meta", "bm25-scope-reply", "bm25-focus")
+METHODS = ("bm25", "dense", "bm25-reply", "bm25-reply-order", *STRUCTURED_METHODS)
 
 
 def _tokenize(text: str) -> list[str]:
@@ -41,7 +43,8 @@ class BM25Retriever:
         order = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
         return scores, order
 
-    def retrieve(self, query: str, top_k: int) -> list[dict[str, Any]]:
+    def retrieve(self, query: str, top_k: int, *, asking_user_id=None) -> list[dict[str, Any]]:
+        query = f"{asking_user_id} {query}" if asking_user_id else query
         scores, order = self.rank_content(query, top_k)
         return [{"message": self.messages[i], "score": float(scores[i])} for i in order]
 
@@ -135,7 +138,8 @@ class BM25ReplyRetriever(BM25Retriever):
             hits.append(hit)
         return hits, [self.messages[i]["id"] for i in pool]
 
-    def retrieve(self, query: str, top_k: int) -> list[dict[str, Any]]:
+    def retrieve(self, query: str, top_k: int, *, asking_user_id=None) -> list[dict[str, Any]]:
+        query = f"{asking_user_id} {query}" if asking_user_id else query
         scores, base = self.rank_content(query, top_k)
         rank_replies = self.e5_scores if self.encoder is not None and _ORDER_CUE.search(query) else None
         return self.expand(query, scores, base, rank_replies=rank_replies)[0]
@@ -157,9 +161,10 @@ class DenseRetriever:
             show_progress_bar=False,
         ), dtype=np.float32)
 
-    def retrieve(self, query: str, top_k: int) -> list[dict[str, Any]]:
+    def retrieve(self, query: str, top_k: int, *, asking_user_id=None) -> list[dict[str, Any]]:
         if top_k <= 0:
             raise ValueError("top_k must be positive")
+        query = f"{asking_user_id} {query}" if asking_user_id else query
         query_vector = np.asarray(self.model.encode(
             ["query: " + query],
             batch_size=self.batch_size,
@@ -193,4 +198,9 @@ def build_retriever(method: str, messages: list[dict[str, Any]],
         return BM25ReplyRetriever(messages, encoder, batch_size)
     if method == "dense":
         return DenseRetriever(messages, model_name, device, batch_size, revision)
+    if method in STRUCTURED_METHODS:
+        from sgmem.structured import StructuredRetriever
+
+        dense = DenseRetriever(messages, model_name, device, batch_size, revision) if method.startswith("hybrid") else None
+        return StructuredRetriever(messages, method, dense=dense)
     raise ValueError(f"Unknown retrieval method: {method!r}")

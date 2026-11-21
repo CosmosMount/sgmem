@@ -5,41 +5,12 @@ from collections import Counter
 import hashlib
 import json
 from pathlib import Path
-import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from sgmem.data import load_messages, load_questions
-
-
-def normalize(text):
-    return " ".join(re.findall(r"[a-z0-9]+", text.lower()))
-
-
-def build_catalog(messages):
-    """Use names and their groups from visible messages, without answer labels."""
-    names = {}
-    for message in messages:
-        for field in ("group", "phase_name", "topic"):
-            name = message.get(field)
-            if name and normalize(name):
-                names.setdefault((field, name), set()).add(message["group"])
-    return [{"field": field, "name": name, "groups": sorted(groups)}
-            for (field, name), groups in sorted(names.items())]
-
-
-def query_hints(question, catalog):
-    """A hint is unique only when every matched name belongs to the same group."""
-    query = " " + normalize(question) + " "
-    matches = [entry for entry in catalog if " " + normalize(entry["name"]) + " " in query]
-    groups = sorted({group for entry in matches for group in entry["groups"]})
-    return {
-        "matched_names": matches,
-        "group_hint": groups[0] if len(groups) == 1 else None,
-        "status": "none" if not matches else ("unique" if len(groups) == 1 else "ambiguous"),
-        "first_person_mention": bool(re.search(r"\b(i|my|mine)\b", question, re.I)),
-    }
+from sgmem.query_metadata import build_catalog, query_hints
 
 
 def key(row):
