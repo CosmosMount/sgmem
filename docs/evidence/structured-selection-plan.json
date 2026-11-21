@@ -1,0 +1,23 @@
+{
+  "authorized_gpu_hours": 8,
+  "authorization": "User approved the complete round on 2026-11-21, including dev, selection, frozen test, code fixes and push.",
+  "source_commit": "3cbf1dbac1a2f4f745125380307bf14c9d4b72c9",
+  "methods": [
+    "bm25-fields",
+    "bm25-scope",
+    "bm25-person",
+    "bm25-time",
+    "hybrid",
+    "hybrid-meta",
+    "bm25-scope-reply",
+    "bm25-focus"
+  ],
+  "dev_questions": 179,
+  "test_questions": 536,
+  "top_k": 10,
+  "qa_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "embedding_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+  "selection": "Highest fixed-dev official correct count among metadata methods. Include both already-evaluated reply methods as eligible fallbacks; pure BM25/Dense/hybrid remain content-only controls. Break ties with supported metadata-related repairs, then lower measured cost and simpler code. No test tuning.",
+  "test_control": "hybrid if hybrid-meta selected; otherwise bm25. Evaluate selected method and control on all 536 test questions after writing a freeze record.",
+  "budget": "All GPU stage wall times, including probes, pilots and failures, count. No GPU stages run concurrently in this ledger."
+}

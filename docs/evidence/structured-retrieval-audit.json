@@ -1,0 +1,9 @@
+{
+  "probe_sha256": "c0a92adfe47a32f5c611db38a1ac2d9c039c897a17f965c132b3f477995e30d8",
+  "question_count": 179,
+  "checked_rankings": 1432,
+  "exact_lexical_replays": 1074,
+  "checked_added_reply_paths": 25,
+  "status": "passed",
+  "scope": "Independent RRF sum, stable tie order, top-10 uniqueness, reply protection/path checks; six lexical traces match the earlier committed probe exactly."
+}

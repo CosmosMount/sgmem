@@ -1,0 +1,46 @@
+{
+  "purpose": "Eight-method execution preflight; not used for choosing a method",
+  "source_commit": "3cbf1dbac1a2f4f745125380307bf14c9d4b72c9",
+  "methods": [
+    "bm25-fields",
+    "bm25-scope",
+    "bm25-person",
+    "bm25-time",
+    "hybrid",
+    "hybrid-meta",
+    "bm25-scope-reply",
+    "bm25-focus"
+  ],
+  "question_ids": [
+    [
+      "Finance",
+      "user_implicit",
+      "user_implicit_4"
+    ],
+    [
+      "Healthcare",
+      "user_implicit",
+      "user_implicit_1"
+    ]
+  ],
+  "predictions": 16,
+  "answer_calls": 16,
+  "judge_calls": 16,
+  "errors": 0,
+  "empty_predictions": 0,
+  "truncated_calls": 0,
+  "qa_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "embedding_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+  "qa_settings": {
+    "seed_per_call": 42,
+    "temperature": 0.2,
+    "top_p": 1.0,
+    "top_k": 0,
+    "enable_thinking": false,
+    "answer_max_tokens": 512,
+    "judge_max_tokens": 256
+  },
+  "peak_allocated_gpu_bytes": 17067132416,
+  "wall_seconds": 214.221784921363,
+  "validation": "All 16 predictions have ten retrieved documents, nonempty answers and consistent generation usage; all 32 calls stopped normally."
+}
