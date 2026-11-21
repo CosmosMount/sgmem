@@ -46,10 +46,17 @@ def probe(evidence, benchmark, e5_model=None):
         weights_hash = hashlib.sha256((e5_model / "model.safetensors").read_bytes()).hexdigest()
         encoder = SentenceTransformer(str(e5_model), device="cpu", local_files_only=True)
 
-    results, changes = {}, []
+    results, changes, three_hop_reach = {}, [], {}
     for domain in sorted({k[0] for k in dev}):
         messages = load_messages(benchmark / f"data/final/{domain}/synthetic_domain_channels_rolevariants_{domain}.json")
         retriever = BM25ReplyRetriever(messages, encoder)
+        # Diagnose whether longer reply traversal could reach missed evidence.
+        # Ignore the query gate and child cap here; retrieval still uses its original bounds.
+        all_links = [[] for _ in messages]
+        for child, parent in enumerate(retriever.parents):
+            if parent is not None:
+                all_links[child].append(parent)
+                all_links[parent].append(child)
         variants = dict(VARIANTS)
         if e5_model is not None:
             variants["e5-reply"] = {"rank_replies": partial(retriever.e5_scores, include_parent=False)}
@@ -64,6 +71,11 @@ def probe(evidence, benchmark, e5_model=None):
                 old = [messages[i]["id"] for i in base]
                 if old != saved["bm25"][qid]["retrieved_ids"] or [scores[i] for i in base] != saved["bm25"][qid]["retrieval_scores"]:
                     raise ValueError(f"Baseline replay differs at {qid}")
+                reached = frontier = set(base[:8])
+                for _ in range(3):
+                    frontier = {j for i in frontier for j in all_links[i]} - reached
+                    reached = reached | frontier
+                three_hop_reach[qid] = set(old) | {messages[i]["id"] for i in reached}
                 results[qid] = {}
                 for name, options in variants.items():
                     hits, pool = retriever.expand(query, scores, base, **options)
@@ -115,7 +127,8 @@ def probe(evidence, benchmark, e5_model=None):
                 if name == "bm25-reply":
                     cases.append({"domain": qid[0], "category": qid[1], "question_id": qid[2],
                                   "targets": sorted(target), "baseline_rank": best_rank(old, target),
-                                  "in_pool": bool(target.intersection(pool)), "final_rank": best_rank(final, target)})
+                                  "in_pool": bool(target.intersection(pool)), "final_rank": best_rank(final, target),
+                                  "reachable_three_hops": bool(target.intersection(three_hop_reach[qid]))})
         summary[name] = {"changed_top10_sets": changed, "support_in_pool": pool_hits, "support_in_top10": final_hits,
                          "gained_vs_bm25": gained, "lost_vs_bm25": lost}
     report = {"benchmark_commit": provenance["benchmark_commit"], "split_sha256": split_hash,

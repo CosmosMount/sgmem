@@ -23,7 +23,8 @@ def check(ok, message):
         raise ValueError(message)
 
 
-def audit_calls(path, method, dev, *, allow_other_partitions=False):
+def audit_calls(path, method, dev, *, allow_other_partitions=False, attempts=None):
+    """Match each saved prediction to its successful attempt, retaining the full audit on disk."""
     calls = {}
     for row in read_rows(path):
         q = row["question"]
@@ -31,7 +32,14 @@ def audit_calls(path, method, dev, *, allow_other_partitions=False):
         if allow_other_partitions and qid not in dev:
             continue
         call = qid, row["stage"]
-        check(q["method"] == method and qid in dev and call not in calls, f"Unexpected or duplicate call: {call}")
+        check(q["method"] == method and qid in dev and row["stage"] in ("answer", "judge"),
+              f"Unexpected or duplicate call: {call}")
+        expected_attempt = attempts[qid] if attempts is not None else 1
+        attempt = q.get("attempt", 1)
+        check(isinstance(attempt, int) and 1 <= attempt <= expected_attempt, f"Unexpected attempt: {call}")
+        if attempt < expected_attempt:
+            continue
+        check(call not in calls, f"Unexpected or duplicate call: {call}")
         calls[call] = row
     check(set(calls) == {(qid, stage) for qid in dev for stage in ("answer", "judge")}, "Incomplete call audit")
     return calls
@@ -96,7 +104,8 @@ def compare(run, bm25_audit, evidence, method="bm25-reply"):
     check(reported["complete"] and all(reported[k] == v for k, v in metrics[method].items()), "Run metrics differ")
 
     old = audit_calls(bm25_audit, "bm25", dev, allow_other_partitions=True)
-    new = audit_calls(run / "generation-audit.jsonl", method, dev)
+    attempts = {qid: r.get("attempt", 1) for qid, r in indexed[method].items()}
+    new = audit_calls(run / "generation-audit.jsonl", method, dev, attempts=attempts)
     changes = {key(r): r["final_ids"] for r in probe["changed_questions"]}
     check(all(qid in dev and ids != indexed["bm25"][qid]["retrieved_ids"] for qid, ids in changes.items()),
           "Retrieval probe lists a question outside dev or an unchanged baseline ranking")
@@ -139,6 +148,14 @@ def compare(run, bm25_audit, evidence, method="bm25-reply"):
         "vs_bm25": paired_by_context(questions, method, "bm25", "changed_context"),
         "vs_dense": paired(questions, method, "dense"), "questions": questions,
     }
+    retries = [r for r in read_rows(run / "generation-audit.jsonl")
+               if r["question"].get("attempt", 1) < attempts[key(r["question"])]]
+    if retries:
+        report["retry_calls"] = len(retries)
+        costs["retries"] = {
+            "seconds": sum(r["seconds"] for r in retries),
+            **{k: sum(r["usage"][k] for r in retries) for k in ("prompt_tokens", "completion_tokens")},
+        }
     if ordered:
         reference_path = evidence.parent / "bounded-reply-qa-dev.json"
         previous = read(reference_path)

@@ -68,6 +68,8 @@ python scripts/probe_reply_retrieval.py --e5-model "$E5_MODEL"
 
 原回复方法改变了 11 道多跳题、2 道时间题和 1 道拒答题。15 条支持标注来自已知失败。新方法已把固定池中能触达的 6 条支持全部送进前十，余下 9 条记录的已知支持位于候选池之外。
 
+2026-11-21 进一步检查了扩大回复范围的可能性。从相同的前八条命中出发，放开查询线索门槛和子回复数量上限，沿同群父子关系走三跳，并纳入原前十，仍然只覆盖上述 6 条支持，另外 9 条均未到达。该结果限于这 15 条诊断记录，支持优先保留当前两跳实现。运行下方检索脚本可在每条 `reviewed_cases` 中复算 `reachable_three_hops`。[三跳可达性记录](evidence/reply-reachability-dev.json)
+
 原回复方法的 CPU 单进程计时覆盖全部 179 题。索引已经建好，每题执行一次 `rank_content`，中位用时 92.21 ms。同一题复用该分数，预热一次 `expand` 后计时 11 次，取每题中位数。179 个题级中位数的中位值为 0.010 ms，P95 为 0.032 ms。计时使用 Python 3.10.20 的 `perf_counter_ns`，覆盖词法检索和回复扩展。两轮正式问答各自的检索、回答、判分总时长见逐题证据文件的 `cost.stage_seconds`。
 
 ## 复现
@@ -103,3 +105,5 @@ python scripts/run_local_baselines.py --methods "$METHOD" --full --partition dev
 python scripts/analyze_reply_qa.py --method bm25-reply-order --run /path/to/ordered-reply-dev-20261117 \
   --bm25-audit /path/to/part1-full-20261105/generation-audit.jsonl
 ```
+
+恢复运行后，分析脚本按每题最终保存的 `attempt` 选择回答和判分调用。同一次成功尝试出现重复调用、缺少判分或出现超出保存次数的调用时会报错。若有较早尝试，报告的 `retry_calls` 和 `cost.retries` 会单独列出这些已记录调用的数量、token 和耗时，`calls` 表示最终成功的回答与判分调用数。总 GPU-hours 取自包含恢复会话的运行记录。

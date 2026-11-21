@@ -73,3 +73,55 @@ def test_call_audit_refuses_duplicates_and_held_out_calls(tmp_path):
         audit.write_text("\n".join(json.dumps(r) for r in calls + [extra]), encoding="utf-8")
         with pytest.raises(ValueError, match="Unexpected or duplicate call"):
             audit_calls(audit, "bm25-reply", dev)
+
+
+def test_call_audit_uses_the_saved_attempt_and_requires_its_complete_pair(tmp_path):
+    audit = tmp_path / "calls.jsonl"
+    q = {"domain": "Finance", "category": "multi_hop", "question_id": "dev", "method": "bm25-reply"}
+    old = {"question": {**q, "attempt": 1}, "stage": "answer"}
+    completed = [{"question": {**q, "attempt": 2}, "stage": s} for s in ("answer", "judge")]
+    attempts = {key(q): 2}
+    audit.write_text("\n".join(json.dumps(r) for r in [old, *completed]), encoding="utf-8")
+    selected = audit_calls(audit, "bm25-reply", set(attempts), attempts=attempts)
+    assert list(selected.values()) == completed
+    for rows, match in [
+        ([old, *completed, completed[0]], "duplicate call"),
+        ([old, completed[0]], "Incomplete call"),
+        ([old, *completed, {"question": {**q, "attempt": 3}, "stage": "answer"}], "Unexpected attempt"),
+    ]:
+        audit.write_text("\n".join(json.dumps(r) for r in rows), encoding="utf-8")
+        with pytest.raises(ValueError, match=match):
+            audit_calls(audit, "bm25-reply", set(attempts), attempts=attempts)
+
+
+def test_runner_judge_failure_and_resume_produce_an_auditable_success(tmp_path):
+    from test_full_run import _args, Client
+    from sgmem.runner import run
+
+    args = _args(tmp_path)
+    audit = tmp_path / "calls.jsonl"
+    failed = False
+
+    class AuditedClient(Client):
+        context = None
+
+        def complete(self, system, prompt, max_tokens):
+            nonlocal failed
+            if system == "judge" and not failed:
+                failed = True
+                raise RuntimeError("interrupted judge")
+            with audit.open("a", encoding="utf-8") as out:
+                out.write(json.dumps({"question": self.context,
+                                      "stage": "answer" if system == "agent" else "judge"}) + "\n")
+            return super().complete(system, prompt, max_tokens)
+
+    with pytest.raises(RuntimeError, match="Model call failed"):
+        run(args, client_factory=AuditedClient)
+    args.resume = True
+    output = run(args, client_factory=AuditedClient)
+    rows = read_rows(output / "predictions.jsonl")
+    attempts = {key(r): r["attempt"] for r in rows}
+    calls = audit_calls(audit, "bm25", set(attempts), attempts=attempts)
+    assert len(calls) == 2 * len(rows) == 8
+    assert len(read_rows(audit)) == 9 and sorted(attempts.values()) == [1, 1, 1, 2]
+    assert all(r["status"] == "ok" for r in rows)

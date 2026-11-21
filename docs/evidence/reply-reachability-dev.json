@@ -1,0 +1,161 @@
+{
+  "benchmark_commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+  "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+  "dev_questions": 179,
+  "reviewed_bm25_failures_with_support": 15,
+  "diagnostic": "From BM25's first eight hits, traverse all same-group parent/child links for three hops without a query gate or child cap; include the original top ten.",
+  "two_hop_pool_hits": 6,
+  "three_hop_reachable": 6,
+  "cases": [
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "targets": [
+        "Msg_7489"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_29",
+      "targets": [
+        "Msg_28258"
+      ],
+      "in_pool": true,
+      "reachable_three_hops": true
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_21",
+      "targets": [
+        "Msg_8383"
+      ],
+      "in_pool": true,
+      "reachable_three_hops": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_43",
+      "targets": [
+        "Msg_10725"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "targets": [
+        "Msg_2947"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_48",
+      "targets": [
+        "Msg_24002"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "targets": [
+        "Msg_28251"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "targets": [
+        "Msg_25463"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "targets": [
+        "Msg_1633"
+      ],
+      "in_pool": true,
+      "reachable_three_hops": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "targets": [
+        "Msg_29329"
+      ],
+      "in_pool": true,
+      "reachable_three_hops": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "targets": [
+        "Msg_1645"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_30",
+      "targets": [
+        "Msg_4523"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "targets": [
+        "Msg_847"
+      ],
+      "in_pool": true,
+      "reachable_three_hops": true
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "targets": [
+        "Msg_6810"
+      ],
+      "in_pool": true,
+      "reachable_three_hops": true
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_33",
+      "targets": [
+        "Msg_27780"
+      ],
+      "in_pool": false,
+      "reachable_three_hops": false
+    }
+  ]
+}
