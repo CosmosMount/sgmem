@@ -1,0 +1,450 @@
+{
+  "purpose": "Six post-hoc descriptive test cases checked against paired predictions and the pinned original benchmark. Not a new scoring set or an estimate of failure frequencies. No labels or retrieval rules changed.",
+  "benchmark_commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+  "raw_prediction_sha256": {
+    "hybrid": "caaaa9d7dfcec0926beab7ad66e7cef45a71a850af52ac86c6a7accbbfd09460",
+    "hybrid-meta": "1f79651648187985c1869cf546cb3bceb9899b869e0021a289984bdd33bc9ec0"
+  },
+  "cases": [
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "diagnostic_kind": "support_added",
+      "question": "What is the fallback process for mismatches after July 18 in the Data Integration Setup phase, as outlined in the document tightened against the spec by User_13 while monitoring upstream schema drift and refresh timing?",
+      "reference_answer": "Any mismatch goes to the exception lane with a named owner, while dashboards stay on the last approved schema-hash.",
+      "methods": {
+        "hybrid": {
+          "asking_user_id": "User_8",
+          "answer": "The specific fallback process for mismatches after July 18 is not explicitly outlined in the retrieved passages.",
+          "judge_output": "The gold answer indicates that after July 18, any mismatch in the Data Integration Setup phase is directed to an exception lane with a named owner, and dashboards remain on the last approved schema-hash. The agent's answer states that the specific fallback process is not explicitly outlined in the retrieved passages. While the agent's answer is technically correct in noting the absence of explicit details, it does not provide the same information as the gold answer, which outlines the fallback process. Therefore, the agent's answer does not match the gold answer in content or intent.\n\nFinal: Incorrect",
+          "official_correct": false,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_22258",
+            "Msg_26331",
+            "Msg_11688",
+            "Msg_583",
+            "Msg_22311",
+            "Msg_7113",
+            "Msg_3036",
+            "Msg_27018",
+            "Msg_27282",
+            "Msg_10585"
+          ],
+          "source_message_ranks": {
+            "Msg_27529": null
+          }
+        },
+        "hybrid-meta": {
+          "asking_user_id": "User_8",
+          "answer": "Fallback after July 18 involves directing any mismatches to the exception lane with a named owner, while dashboards remain on the last approved schema-hash.",
+          "judge_output": "The agent's answer accurately captures the key elements of the gold answer: directing mismatches to the exception lane with a named owner and keeping dashboards on the last approved schema-hash. The mention of \"fallback after July 18\" aligns with the context of the question, and the phrasing is a valid paraphrase of the gold answer without altering the meaning. \n\nFinal: Correct",
+          "official_correct": true,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_22258",
+            "Msg_26331",
+            "Msg_25164",
+            "Msg_22311",
+            "Msg_27529",
+            "Msg_5625",
+            "Msg_16468",
+            "Msg_15831",
+            "Msg_3036",
+            "Msg_2473"
+          ],
+          "source_message_ranks": {
+            "Msg_27529": 5
+          }
+        }
+      },
+      "source_messages": [
+        {
+          "id": "Msg_27529",
+          "content": "Freeze the current mapping now, but only after a 30-minute review with DataEng and reporting owners today.  \nFallback after July 18: any mismatch goes to the exception lane with a named owner, while dashboards stay on the last approved schema-hash.  \nI’ll post the exact deltas in http://sharepoint/statusreportagent/build_etl_pipelines_spec and keep alias-only drift triaged, not re-scoped.",
+          "speaker": "User_13",
+          "group": "StatusReportAgent",
+          "role": "Applied Scientist",
+          "timestamp": "2025-07-17T23:53:36",
+          "reply_to": "Msg_26256",
+          "phase_name": "Build ETL Pipelines",
+          "topic": "Data Integration Setup"
+        }
+      ]
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_2",
+      "diagnostic_kind": "support_already_present",
+      "question": "What is the blocker I flagged for the Integration Testing Cycle?",
+      "reference_answer": "payment approval workflow changes and bank statement timing assumptions",
+      "methods": {
+        "hybrid": {
+          "asking_user_id": "User_3",
+          "answer": "The specific blocker flagged by User_3 for the Integration Testing Cycle is not explicitly identified in the retrieved passages.",
+          "judge_output": "The gold answer provides specific blockers: \"payment approval workflow changes and bank statement timing assumptions.\" The agent's answer, however, states that the specific blocker flagged by User_3 is not explicitly identified in the retrieved passages. This indicates a lack of direct identification of the blockers, which contrasts with the gold answer that clearly lists them. The agent's response does not match the gold answer in content or specificity.\n\nFinal: Incorrect",
+          "official_correct": false,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_26712",
+            "Msg_235",
+            "Msg_29592",
+            "Msg_20228",
+            "Msg_6241",
+            "Msg_6553",
+            "Msg_29799",
+            "Msg_3120",
+            "Msg_2005",
+            "Msg_21922"
+          ],
+          "source_message_ranks": {
+            "Msg_29592": 3
+          }
+        },
+        "hybrid-meta": {
+          "asking_user_id": "User_3",
+          "answer": "The blocker flagged by User_3 for the Integration Testing Cycle is that payment approval workflow changes and bank statement timing assumptions are still shifting, which means several end-to-end test cases may be validating the wrong expected behavior. This creates a real gap for reconciliation, defect triage, and downstream finance readiness if we don’t lock the process flow quickly.",
+          "judge_output": "The gold answer identifies the specific blocker as \"payment approval workflow changes and bank statement timing assumptions.\" The agent's answer correctly mentions these two elements as the blocker but adds additional context about the impact of the blocker, such as affecting test cases, reconciliation, defect triage, and finance readiness. While the additional context is not part of the gold answer, the core elements of the blocker are accurately identified. Since the question specifically asks for the blocker flagged, and the agent's answer correctly identifies the same elements as the gold answer, this is considered a correct response.\n\nFinal: Correct",
+          "official_correct": true,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_235",
+            "Msg_29592",
+            "Msg_26712",
+            "Msg_20228",
+            "Msg_8454",
+            "Msg_6241",
+            "Msg_28832",
+            "Msg_5746",
+            "Msg_6346",
+            "Msg_6553"
+          ],
+          "source_message_ranks": {
+            "Msg_29592": 2
+          }
+        }
+      },
+      "source_messages": [
+        {
+          "id": "Msg_29592",
+          "content": "We’re only 12% into Integration Testing, and I want to flag a risk now before it spreads. The current blocker is that payment approval workflow changes and bank statement timing assumptions are still shifting, which means several end-to-end test cases may be validating the wrong expected behavior.\n\nThat creates a real gap for reconciliation, defect triage, and downstream finance readiness if we don’t lock the process flow quickly. Please review the integration testing spec here: http://sharepoint/treasury_management_system_implementation/integration_testing_cycle_spec and confirm which workflow/version should be treated as authoritative for testing.",
+          "speaker": "User_3",
+          "group": "Treasury Management System Implementation",
+          "role": "Product Owner/Manager",
+          "timestamp": "2025-07-10T02:47:43",
+          "reply_to": null,
+          "phase_name": "Integration Testing Cycle",
+          "topic": "Integration and Testing"
+        }
+      ]
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_30",
+      "diagnostic_kind": "support_removed",
+      "question": "How many boundary conditions should QA select for Testing and Validation in the context of Risk: Reporting Accuracy Issues?",
+      "reference_answer": "5–10",
+      "methods": {
+        "hybrid": {
+          "asking_user_id": "User_15",
+          "answer": "5–10",
+          "judge_output": "The agent's answer directly matches the gold answer in both value and context. Since the answer is identical, it is clearly correct and conveys the same meaning as the gold answer.\n\nFinal: Correct",
+          "official_correct": true,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_9605",
+            "Msg_26486",
+            "Msg_3452",
+            "Msg_9808",
+            "Msg_17584",
+            "Msg_7215",
+            "Msg_14700",
+            "Msg_4896",
+            "Msg_27060",
+            "Msg_1010"
+          ],
+          "source_message_ranks": {
+            "Msg_1010": 10
+          }
+        },
+        "hybrid-meta": {
+          "asking_user_id": "User_15",
+          "answer": "The number of boundary conditions is not specified in the retrieved passages.",
+          "judge_output": "The gold answer specifies that QA should select 5–10 boundary conditions for Testing and Validation in the context of Risk: Reporting Accuracy Issues. The agent answer, however, states that the number of boundary conditions is not specified in the retrieved passages, which directly contradicts the gold answer. Since the agent's answer does not provide the same numerical range as the gold answer and instead claims the information is unspecified, it does not match the intended correct response.\n\nFinal: Incorrect",
+          "official_correct": false,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_26486",
+            "Msg_26161",
+            "Msg_9605",
+            "Msg_3452",
+            "Msg_23612",
+            "Msg_20731",
+            "Msg_7064",
+            "Msg_6221",
+            "Msg_10579",
+            "Msg_798"
+          ],
+          "source_message_ranks": {
+            "Msg_1010": null
+          }
+        }
+      },
+      "source_messages": [
+        {
+          "id": "Msg_1010",
+          "content": "Locked in. QA owns the 5–10 edge cases, I’ll own ingestion/scoring against the gold set, and @eng can pin transformation rules; @user_5 can keep render/copy honest so we don’t get “Star Wars prequel certainty” on shaky data.  \n\nI want the cases labeled by expected failure layer too—upstream normalization, aggregation, or render—so we can separate bug from bad assumptions. Can everyone drop inputs into http://sharepoint/statusreportagent/risk:_reporting_accuracy_issues_spec by EOD today?",
+          "speaker": "User_19",
+          "group": "StatusReportAgent",
+          "role": "Engineering Manager",
+          "timestamp": "2025-07-09T20:18:21",
+          "reply_to": "Msg_241",
+          "phase_name": "Risk: Reporting Accuracy Issues",
+          "topic": "Testing and Validation"
+        }
+      ]
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_23",
+      "diagnostic_kind": "answer_regression_with_support",
+      "question": "What is the deadline (YYYY-MM-DD HH:MM) for posting the EHR System Configuration outputs?",
+      "reference_answer": "2025-07-17 12:00",
+      "methods": {
+        "hybrid": {
+          "asking_user_id": "User_4",
+          "answer": "2025-07-17 12:00",
+          "judge_output": "The agent's answer exactly matches the gold answer in terms of date, time, and format. There is no discrepancy in the information provided, and the answer is presented in the required format (YYYY-MM-DD HH:MM). Since the answer is identical to the gold answer, it is considered correct.\n\nFinal: Correct",
+          "official_correct": true,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_20160",
+            "Msg_977",
+            "Msg_2430",
+            "Msg_19009",
+            "Msg_18858",
+            "Msg_27744",
+            "Msg_14729",
+            "Msg_18868",
+            "Msg_26586",
+            "Msg_995"
+          ],
+          "source_message_ranks": {
+            "Msg_20160": 1,
+            "Msg_26744": null
+          }
+        },
+        "hybrid-meta": {
+          "asking_user_id": "User_4",
+          "answer": "The deadline for posting the EHR System Configuration outputs is not clearly supported by the retrieved passages in the requested format.",
+          "judge_output": "The agent's answer indicates that the deadline is not clearly supported by the retrieved passages, which implies that the exact deadline in the required format (YYYY-MM-DD HH:MM) was not found or could not be determined. This does not match the gold answer, which provides a specific date and time. The agent's response does not provide the correct deadline in the required format, so it is not considered correct.\n\nFinal: Incorrect",
+          "official_correct": false,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_20160",
+            "Msg_977",
+            "Msg_2430",
+            "Msg_19009",
+            "Msg_26744",
+            "Msg_18858",
+            "Msg_15442",
+            "Msg_27744",
+            "Msg_14729",
+            "Msg_18868"
+          ],
+          "source_message_ranks": {
+            "Msg_20160": 1,
+            "Msg_26744": 5
+          }
+        }
+      },
+      "source_messages": [
+        {
+          "id": "Msg_20160",
+          "content": "Acknowledged; those mapping controls need final verification, not debate. @IntegrationTeam post EHR System Configuration outputs here by noon; @Analytics flag ACK timing anomalies today. Like User Acceptance Testing, late validation shifts will ripple unless we lock the outputs now.",
+          "speaker": "User_6",
+          "group": "Electronic Health Record Implementation",
+          "role": "Quality Improvement Coordinator",
+          "timestamp": "2025-07-17T10:14:35",
+          "reply_to": "Msg_2430",
+          "phase_name": "Interface Development",
+          "topic": "System Configuration and Integration"
+        },
+        {
+          "id": "Msg_26744",
+          "content": "Field confirmation today is too late; templates will lag validation. Biggest risk imo: stale mappings, not the Thursday deadline. @ClinicalInformatics needs fields frozen by noon, then @IT_Apps updates templates—can we lock that?",
+          "speaker": "User_4",
+          "group": "Electronic Health Record Implementation",
+          "role": "Health IT Specialist",
+          "timestamp": "2025-07-22T18:27:01",
+          "reply_to": "Msg_1619",
+          "phase_name": "EHR System Configuration",
+          "topic": "System Configuration and Integration"
+        }
+      ]
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_1",
+      "diagnostic_kind": "unchanged_context_failure",
+      "question": "What is the deadline for Reporting to validate fit against the enterprise-wide ESG policy standard? (YYYY-MM-DD)",
+      "reference_answer": "2025-07-18",
+      "methods": {
+        "hybrid": {
+          "asking_user_id": "User_7",
+          "answer": "2025-07-28",
+          "judge_output": "The question asks for the deadline to report and validate fit against the enterprise-wide ESG policy standard, specifically in the format YYYY-MM-DD. The gold answer is 2025-07-18, which is the correct date. The agent's answer, 2025-07-28, provides a different date, which does not match the gold answer. Since the date is a specific and critical piece of information, any deviation from the correct date constitutes an incorrect answer.\n\nFinal: Incorrect",
+          "official_correct": false,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_3651",
+            "Msg_7283",
+            "Msg_27295",
+            "Msg_22374",
+            "Msg_6680",
+            "Msg_6014",
+            "Msg_14870",
+            "Msg_13857",
+            "Msg_15450",
+            "Msg_1681"
+          ],
+          "source_message_ranks": {
+            "Msg_3651": 1,
+            "Msg_13857": 8
+          }
+        },
+        "hybrid-meta": {
+          "asking_user_id": "User_7",
+          "answer": "2025-07-28",
+          "judge_output": "The question asks for the deadline to report and validate fit against the enterprise-wide ESG policy standard, specifically in the format YYYY-MM-DD. The gold answer is 2025-07-18, which is the correct date. The agent's answer, 2025-07-28, provides a different date, which does not match the gold answer. Since the date is a specific and critical piece of information, any deviation from the correct date constitutes an incorrect answer.\n\nFinal: Incorrect",
+          "official_correct": false,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_3651",
+            "Msg_7283",
+            "Msg_27295",
+            "Msg_22374",
+            "Msg_6680",
+            "Msg_6014",
+            "Msg_14870",
+            "Msg_13857",
+            "Msg_15450",
+            "Msg_1681"
+          ],
+          "source_message_ranks": {
+            "Msg_3651": 1,
+            "Msg_13857": 8
+          }
+        }
+      },
+      "source_messages": [
+        {
+          "id": "Msg_3651",
+          "content": "I’m leaning toward the single enterprise-wide definition, with exceptions only where regulation forces them.  \nThat gives Legal one clean baseline to own, and Reporting can validate fit against the same standard before July 18.  \nIf we keep the provisional wording tight, the conflict log should stay readable instead of turning into policy drift.",
+          "speaker": "User_3",
+          "group": "Sustainable Finance Strategy",
+          "role": "Product Owner/Manager",
+          "timestamp": "2025-07-10T04:11:44",
+          "reply_to": "Msg_2898",
+          "phase_name": "Risk: Inconsistent Sustainability Standards",
+          "topic": "ESG Policy Framework"
+        },
+        {
+          "id": "Msg_13857",
+          "content": "Agreed — 2025-07-28 is the right freeze date, assuming Legal and Risk close the threshold wording in time. I’d capture Legal’s tie-breaker now in http://sharepoint/sustainable_finance_strategy/define_esg_policy_requirements_spec, because “implicit” is how policies become haunted houses.  \n\nIf the redlines stay within disclosure, evidence, and trigger interpretation, we can stamp completion and stop the review-loop goblin from getting sequels.",
+          "speaker": "User_13",
+          "group": "Sustainable Finance Strategy",
+          "role": "Compliance Officer",
+          "timestamp": "2025-07-25T21:31:08",
+          "reply_to": "Msg_13446",
+          "phase_name": "Define ESG Policy Requirements",
+          "topic": "ESG Policy Framework"
+        }
+      ]
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_14",
+      "diagnostic_kind": "judge_inconsistency",
+      "question": "What is the deadline for financial operations to confirm which sources can commit to the standard format in the context of Risk: Formatting Inconsistencies?",
+      "reference_answer": "2025-07-29",
+      "methods": {
+        "hybrid": {
+          "asking_user_id": "User_9",
+          "answer": "The deadline for financial operations to confirm which sources can commit to the standard format in the context of Risk: Formatting Inconsistencies is **July 29**. This is explicitly mentioned in passage [2], where User_7 states, \"I’m asking Finance Ops, BI, and report owners to review the spec... and confirm which sources can commit to the standard format by **July 29**.\"",
+          "judge_output": "The agent's answer correctly identifies the deadline as July 29 and provides the necessary context about the sources involved and the reference to passage [2]. The date format differs slightly (July 29 vs. 2025-07-29), but this is a common variation in date representation and does not alter the meaning. The core information matches the gold answer, and the reference to the source of the information is consistent.\n\nFinal: Correct",
+          "official_correct": true,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_21635",
+            "Msg_23904",
+            "Msg_1545",
+            "Msg_12729",
+            "Msg_8367",
+            "Msg_28203",
+            "Msg_26793",
+            "Msg_29957",
+            "Msg_28673",
+            "Msg_5125"
+          ],
+          "source_message_ranks": {
+            "Msg_23904": 2
+          }
+        },
+        "hybrid-meta": {
+          "asking_user_id": "User_9",
+          "answer": "July 29",
+          "judge_output": "The gold answer provides the deadline as \"2025-07-29,\" which is a specific date in the format \"YYYY-MM-DD.\" The agent's answer is \"July 29,\" which is a valid paraphrase of the date but lacks the year and the month format. While \"July 29\" could be interpreted as referring to July 29, 2025, it is not explicitly stated, and the format differs from the gold answer. Therefore, the agent's answer is not an exact match in terms of format or specificity.\n\nFinal: Incorrect",
+          "official_correct": false,
+          "answer_finish_reason": "stop",
+          "judge_finish_reason": "stop",
+          "retrieved_ids": [
+            "Msg_23904",
+            "Msg_12729",
+            "Msg_28673",
+            "Msg_1545",
+            "Msg_8367",
+            "Msg_1263",
+            "Msg_5022",
+            "Msg_29957",
+            "Msg_5125",
+            "Msg_21635"
+          ],
+          "source_message_ranks": {
+            "Msg_23904": 1
+          }
+        }
+      },
+      "source_messages": [
+        {
+          "id": "Msg_23904",
+          "content": "Formatting drift is now the main risk, and I’d like us to lock the template rules before it spreads further. In **Project Northstar**, a similar column-rename issue looked small until reconciliation started failing; we saved time only after owners signed off on one structure.  \n\nI’m asking Finance Ops, BI, and report owners to review the spec here: http://sharepoint/financial_reporting_automation/risk:_formatting_inconsistencies_spec and confirm which sources can commit to the standard format by **July 29**. Once we have that list, I can tighten validation and reduce manual cleanup.",
+          "speaker": "User_7",
+          "group": "Financial Reporting Automation",
+          "role": "Data Analyst",
+          "timestamp": "2025-07-26T03:12:38",
+          "reply_to": null,
+          "phase_name": "Risk: Formatting Inconsistencies",
+          "topic": "Reporting Framework Development"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "verified_at_utc": "2026-11-22T13:12:17.110336+00:00",
+  "source_commit": "3cbf1dbac1a2f4f745125380307bf14c9d4b72c9",
+  "benchmark_commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+  "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+  "verification": "Rebuilt original questions and passages from the pinned benchmark; independently assembled answer/judge user text and rendered the actual local frozen Qwen3 tokenizer chat template. Matched all final prompt SHA256 values and input token counts. No generation, judging, or GPU work.",
+  "qa_tokenizer_config_sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+  "python": "3.10.20",
+  "counts": {
+    "hybrid-meta": {
+      "questions": 536,
+      "source_passages": 5360,
+      "final_prompt_hashes_and_token_counts": 1072
+    },
+    "hybrid": {
+      "questions": 536,
+      "source_passages": 5360,
+      "final_prompt_hashes_and_token_counts": 1072
+    }
+  },
+  "raw_sha256": {
+    "hybrid-meta": {
+      "generation-audit.jsonl": "62be1d995f4dd8da0ae61f6f8d09ab4ddf0060ae3fa82158545583ad329e8e03",
+      "hybrid-meta/predictions.jsonl": "1f79651648187985c1869cf546cb3bceb9899b869e0021a289984bdd33bc9ec0"
+    },
+    "hybrid": {
+      "generation-audit.jsonl": "5c428656d1c9235199f84c839bd4ee95b5e19faf2c70e83d096589578d3f8efe",
+      "hybrid/predictions.jsonl": "caaaa9d7dfcec0926beab7ad66e7cef45a71a850af52ac86c6a7accbbfd09460"
+    }
+  },
+  "model_calls": 0,
+  "gpu_hours": 0
+}

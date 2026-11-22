@@ -1,7 +1,6 @@
 {
-  "purpose": "Audited complete selected-method test and archived baseline comparisons. Frozen hybrid control is not included and remains incomplete.",
+  "purpose": "Audited complete selected-method test and archived baseline comparisons. The paired hybrid control is reported separately in structured-test-comparison.json.",
   "selected_method_complete": true,
-  "frozen_pair_complete": false,
   "freeze_sha256": "8db80f152ef40308935901531f1b74791766d3582fae616b008cb4c830675372",
   "run": {
     "run": "test-hybrid-meta",
@@ -5694,5 +5693,6 @@
       "dense": false
     }
   ],
-  "caveat": "Qwen3-8B self-judgment; archived BM25/Dense controls; question-level paired statistics with shared dialogues. Do not tune rules using these test results."
+  "caveat": "Qwen3-8B self-judgment; archived BM25/Dense controls; question-level paired statistics with shared dialogues. Do not tune rules using these test results.",
+  "frozen_pair_report": "structured-test-comparison.json"
 }
