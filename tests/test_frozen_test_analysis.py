@@ -225,7 +225,8 @@ def test_frozen_dev_count_must_match_per_question_results(experiment):
 def test_unchanged_context_must_have_the_same_prompt(experiment):
     path = experiment[0] / "generation-audit.jsonl"
     calls = audit.read_jsonl(path)
-    calls[1]["prompt_sha256"] = "d" * 64
+    for call in calls[:2]:  # Keep both attempts consistent, but disagree with the paired control.
+        call["prompt_sha256"] = "d" * 64
     write_rows(path, calls)
     with pytest.raises(ValueError, match="Paired answer prompt hashes disagree"):
         audit.analyze(*experiment)
@@ -241,4 +242,45 @@ def test_test_context_must_preserve_ten_unique_raw_passages(experiment, change):
         rows[0]["retrieved_docs"][0] = "Changed passage"
     write_rows(path, rows)
     with pytest.raises(ValueError, match="retrieved passage"):
+        audit.analyze(*experiment)
+
+
+def test_interrupted_session_cost_is_counted_without_inventing_missing_measurements(experiment):
+    run = experiment[0]
+    stage = {"command": ["python", "--output", str(run)], "exit_code": 124, "wall_seconds": 1800}
+    ledger = run.parent / "budget.jsonl"
+    write_rows(ledger, [stage])
+    snapshot = run / "interrupted-run-config.json"
+    write(snapshot, {**audit.read(run / "run-config.json"), "finished": False, "sessions": []})
+    attempt = audit.read_jsonl(run / SELECTED / "attempts.jsonl")[0]
+    call_bytes = (run / "generation-audit.jsonl").read_bytes().split(b"\n", 1)[0] + b"\n"
+    write(run / "interruption.json", {
+        "runtime_sha256": audit.digest(snapshot), "method": SELECTED,
+        "budget_ledger": "../budget.jsonl", "budget_ledger_sha256": audit.digest(ledger), "budget_stage": stage,
+        "original_attempts": {"bytes": 0, "sha256": audit.sha256(b"").hexdigest()},
+        "original_calls": {"bytes": len(call_bytes), "sha256": audit.sha256(call_bytes).hexdigest()},
+        "error_attempt": attempt, "resource_note": "First-session CPU and peaks unavailable.",
+    })
+    report = audit.analyze(*experiment)
+    cost = report["runs"][SELECTED]["cost"]
+    assert cost["gpu_hours"] == 1.5 and report["total_test_gpu_hours"] == 2.5
+    assert cost["wall_seconds"] == 5400 and cost["interrupted_wall_seconds"] == 1800
+    assert cost["cpu_seconds"] is cost["peak_allocated_gpu_bytes"] is cost["peak_reserved_gpu_bytes"] is None
+    assert cost["recorded_cpu_seconds"] == 195
+    assert cost["index_seconds_by_domain"] is cost["stage_seconds"] is None
+    assert cost["recorded_index_seconds_by_domain"] == dict.fromkeys(DOMAINS, 1.0)
+
+
+def test_missing_interruption_receipt_cannot_silently_drop_old_cost(experiment):
+    write(experiment[0] / "interrupted-run-config.json", {})
+    with pytest.raises(ValueError, match="Incomplete interruption evidence"):
+        audit.analyze(*experiment)
+
+
+def test_retry_must_use_the_original_answer_prompt(experiment):
+    path = experiment[0] / "generation-audit.jsonl"
+    calls = audit.read_jsonl(path)
+    calls[0]["prompt_sha256"] = "d" * 64
+    write_rows(path, calls)
+    with pytest.raises(ValueError, match="Answer prompt changed across retries"):
         audit.analyze(*experiment)

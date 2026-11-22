@@ -1,0 +1,76 @@
+{
+  "source_commit": "3cbf1dbac1a2f4f745125380307bf14c9d4b72c9",
+  "benchmark_commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+  "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+  "dev_comparison_sha256": "d3c93039fee270ffa2e8ce61d11c1d94450d04695aeea1cfdf14408992113b3a",
+  "selection_plan_sha256": "703e045c5c8a84006023e5c2a6287c93e377cea766e59c8b5c8113c608a1714c",
+  "selection_rule": "Highest fixed-dev official correct count among metadata methods. Include both already-evaluated reply methods as eligible fallbacks; pure BM25/Dense/hybrid remain content-only controls. Break ties with supported metadata-related repairs, then lower measured cost and simpler code. No test tuning.",
+  "retrieval_probe_sha256": "c0a92adfe47a32f5c611db38a1ac2d9c039c897a17f965c132b3f477995e30d8",
+  "selected_method": "hybrid-meta",
+  "control_method": "hybrid",
+  "selection_table": {
+    "bm25-fields": {
+      "correct": 55,
+      "grounded_repairs": 2,
+      "gpu_hours": 0.46074777544993495
+    },
+    "bm25-scope": {
+      "correct": 62,
+      "grounded_repairs": 1,
+      "gpu_hours": 0.45747927310462627
+    },
+    "bm25-person": {
+      "correct": 64,
+      "grounded_repairs": 2,
+      "gpu_hours": 0.4605122671654034
+    },
+    "bm25-time": {
+      "correct": 62,
+      "grounded_repairs": 2,
+      "gpu_hours": 0.4389551237996461
+    },
+    "hybrid-meta": {
+      "correct": 65,
+      "grounded_repairs": 4,
+      "gpu_hours": 0.574845533983575
+    },
+    "bm25-scope-reply": {
+      "correct": 62,
+      "grounded_repairs": 1,
+      "gpu_hours": 0.8816295177360168
+    },
+    "bm25-focus": {
+      "correct": 63,
+      "grounded_repairs": 2,
+      "gpu_hours": 0.8818295647710975
+    },
+    "bm25-reply": {
+      "correct": 56,
+      "grounded_repairs": 0,
+      "gpu_hours": 0.43028532067986414
+    },
+    "bm25-reply-order": {
+      "correct": 57,
+      "grounded_repairs": 1,
+      "gpu_hours": 0.43764650703873487
+    }
+  },
+  "tie_break_order": [
+    "bm25-fields",
+    "bm25-scope",
+    "bm25-person",
+    "bm25-time",
+    "hybrid-meta",
+    "bm25-scope-reply",
+    "bm25-focus",
+    "bm25-reply",
+    "bm25-reply-order"
+  ],
+  "dev_selection": {
+    "selected_correct": 65,
+    "total": 179,
+    "control_correct": 62,
+    "reason": "hybrid-meta ranked first by official dev correctness (65/179), grounded repairs (4), measured QA GPU-hours (0.574846) and the fixed method order."
+  },
+  "frozen_at_utc": "2026-11-21T20:11:20Z"
+}

@@ -119,6 +119,10 @@ def audit_generation(path, attempts, method, generation):
         check(stage != "judge" or (qid, number, "answer") in calls, f"Judge before answer: {label}")
         check(usage == row[stage + "_usage"] and finish == row[stage + "_finish_reason"],
               f"Generation trace differs from attempt: {label}")
+        if stage == "answer" and number > 1:
+            previous = [calls[qid, n, stage] for n in range(1, number) if (qid, n, stage) in calls]
+            check(all(c["prompt_sha256"] == call["prompt_sha256"] for c in previous),
+                  f"Answer prompt changed across retries: {qid}")
         calls[label] = call
     check(all((qid, row["attempt"], stage) in calls
               for qid, rows in attempts.items() for row in rows for stage in STAGES
@@ -195,8 +199,26 @@ def audit_test(run, method, reference, freeze, frozen_at, signature, split, test
                                      **{k: sum(c["usage"][k] for c in by_stage) for k in USAGE}}
     cost["failed_attempts"] = sum(len(group) - 1 for group in attempts.values())
     cost["retry_calls"] = len(calls) - len(rows) * len(STAGES)
+    interrupted_files = ()
+    check((run / "interruption.json").exists() == (run / "interrupted-run-config.json").exists(),
+          f"Incomplete interruption evidence: {run}")
+    if (run / "interruption.json").exists():
+        from recover_interrupted_run import verify
+        interruption = verify(run)
+        interrupted_seconds = interruption["budget_stage"]["wall_seconds"]
+        cost["interrupted_wall_seconds"] = interrupted_seconds
+        cost["wall_seconds"] += interrupted_seconds
+        cost["gpu_hours"] += interrupted_seconds / 3600
+        # A hard stop prevented saving first-session CPU time and GPU high-water marks.
+        for field in ("cpu_seconds", "peak_allocated_gpu_bytes", "peak_reserved_gpu_bytes",
+                      "index_seconds_by_domain", "stage_seconds"):
+            cost["recorded_" + field] = cost[field]
+            cost[field] = None
+        cost["resource_note"] = interruption["resource_note"]
+        interrupted_files = ("interruption.json", "interrupted-run-config.json")
     raw_files = ("run-config.json", "generation-audit.jsonl", "split.json", "full-split.json", "benchmark-summary.json",
-                 *(f"{method}/{name}" for name in ("manifest.json", "predictions.jsonl", "attempts.jsonl", "metrics.json")))
+                 *(f"{method}/{name}" for name in ("manifest.json", "predictions.jsonl", "attempts.jsonl", "metrics.json")),
+                 *interrupted_files)
     return indexed, calls, runtime, {"run": run.name, "source_commit": commit,
                                     "started_at_utc": runtime["started_at_utc"],
                                     "method_started_at_utc": manifest["started_at_utc"], "metrics": metrics,

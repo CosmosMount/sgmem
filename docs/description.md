@@ -105,7 +105,7 @@ include an abstract, related work, methods, experimental results, and conclusion
 
 四域两种基线均已完成 715 题全量实验，并提供固定开发样本的结构性失败分析。两法使用相同模型、top-10 和 512/256 输出预算，实际 QA 输入均在共同的上下文上限内。金融服务器使用直接 Transformers 后端。[Part 1/2 全量报告](part12-full-results.md)
 
-Part 3 已实现同群组有界回复扩展及其按次序词启用的父消息排序，完成了检索消融和固定 179 道开发题的问答比较。原回复方法与 BM25 各答对 56 题，次序重排答对 57 题，Dense 答对 58 题。两条已标注的 BM25 回复上下文失败中修复了一条。最终课程报告仍需整合冻结测试集评估。[Part 3 方法和开发集实验](part3-bounded-replies.md)
+Part 3 已完成两种有界回复方法及八组新配置的固定 179 题开发集比较。按预定规则选择 hybrid-meta（65/179），冻结的去元数据对照为 hybrid（62/179）。hybrid-meta 已完成 536 题 test，答对 177 题，与原 BM25 的 178 题持平；hybrid 因预算耗尽中断，已安排在追加最多 2 GPU-hours 内补齐。当前不能将相对 Dense 的收益单独归因于元数据。课程报告应整合完整对照及正负案例。[完整探索与证据](part3-exploration.md) · [历史回复方法](part3-bounded-replies.md)
 
 ## 公平比较与防泄漏
 

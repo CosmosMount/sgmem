@@ -1,0 +1,5698 @@
+{
+  "purpose": "Audited complete selected-method test and archived baseline comparisons. Frozen hybrid control is not included and remains incomplete.",
+  "selected_method_complete": true,
+  "frozen_pair_complete": false,
+  "freeze_sha256": "8db80f152ef40308935901531f1b74791766d3582fae616b008cb4c830675372",
+  "run": {
+    "run": "test-hybrid-meta",
+    "source_commit": "3cbf1dbac1a2f4f745125380307bf14c9d4b72c9",
+    "started_at_utc": "2026-11-21T20:11:26Z",
+    "method_started_at_utc": "2026-11-21T20:11:32Z",
+    "metrics": {
+      "overall": {
+        "total": 536,
+        "completed": 536,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 177,
+        "truncated_answers": 5,
+        "truncated_judgments": 0,
+        "accuracy": 0.3302238805970149
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 137,
+          "completed": 137,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 38,
+          "truncated_answers": 3,
+          "truncated_judgments": 0,
+          "accuracy": 0.2773722627737226
+        },
+        "knowledge_update": {
+          "total": 80,
+          "completed": 80,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 26,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.325
+        },
+        "temporal": {
+          "total": 122,
+          "completed": 122,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 24,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.19672131147540983
+        },
+        "user_implicit": {
+          "total": 36,
+          "completed": 36,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 12,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3333333333333333
+        },
+        "term_ambiguity": {
+          "total": 79,
+          "completed": 79,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 20,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.25316455696202533
+        },
+        "abstention": {
+          "total": 82,
+          "completed": 82,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 57,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.6951219512195121
+        }
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 161,
+          "completed": 161,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 60,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.37267080745341613
+        },
+        "Technology": {
+          "total": 160,
+          "completed": 160,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 48,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.3
+        },
+        "Healthcare": {
+          "total": 97,
+          "completed": 97,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 25,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.25773195876288657
+        },
+        "Manufacturing": {
+          "total": 118,
+          "completed": 118,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 44,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.3728813559322034
+        }
+      },
+      "by_partition": {
+        "test": {
+          "overall": {
+            "total": 536,
+            "completed": 536,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 177,
+            "truncated_answers": 5,
+            "truncated_judgments": 0,
+            "accuracy": 0.3302238805970149
+          },
+          "by_category": {
+            "abstention": {
+              "total": 82,
+              "completed": 82,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 57,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.6951219512195121
+            },
+            "knowledge_update": {
+              "total": 80,
+              "completed": 80,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 26,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.325
+            },
+            "multi_hop": {
+              "total": 137,
+              "completed": 137,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 38,
+              "truncated_answers": 3,
+              "truncated_judgments": 0,
+              "accuracy": 0.2773722627737226
+            },
+            "temporal": {
+              "total": 122,
+              "completed": 122,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 24,
+              "truncated_answers": 2,
+              "truncated_judgments": 0,
+              "accuracy": 0.19672131147540983
+            },
+            "term_ambiguity": {
+              "total": 79,
+              "completed": 79,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 20,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.25316455696202533
+            },
+            "user_implicit": {
+              "total": 36,
+              "completed": 36,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 12,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.3333333333333333
+            }
+          }
+        }
+      },
+      "by_domain_and_category": {
+        "Finance": {
+          "abstention": {
+            "total": 22,
+            "completed": 22,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 15,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.6818181818181818
+          },
+          "knowledge_update": {
+            "total": 24,
+            "completed": 24,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 7,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.2916666666666667
+          },
+          "multi_hop": {
+            "total": 36,
+            "completed": 36,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 15,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.4166666666666667
+          },
+          "temporal": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 11,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.3235294117647059
+          },
+          "term_ambiguity": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 7,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.20588235294117646
+          },
+          "user_implicit": {
+            "total": 11,
+            "completed": 11,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 5,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.45454545454545453
+          }
+        },
+        "Technology": {
+          "abstention": {
+            "total": 21,
+            "completed": 21,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 14,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.6666666666666666
+          },
+          "knowledge_update": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 10,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.37037037037037035
+          },
+          "multi_hop": {
+            "total": 31,
+            "completed": 31,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 8,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.25806451612903225
+          },
+          "temporal": {
+            "total": 28,
+            "completed": 28,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.14285714285714285
+          },
+          "term_ambiguity": {
+            "total": 32,
+            "completed": 32,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 6,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.1875
+          },
+          "user_implicit": {
+            "total": 21,
+            "completed": 21,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 6,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.2857142857142857
+          }
+        },
+        "Healthcare": {
+          "abstention": {
+            "total": 14,
+            "completed": 14,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 12,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.8571428571428571
+          },
+          "knowledge_update": {
+            "total": 13,
+            "completed": 13,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 5,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.38461538461538464
+          },
+          "multi_hop": {
+            "total": 36,
+            "completed": 36,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.1111111111111111
+          },
+          "temporal": {
+            "total": 28,
+            "completed": 28,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 2,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.07142857142857142
+          },
+          "term_ambiguity": {
+            "total": 5,
+            "completed": 5,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 1,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.2
+          },
+          "user_implicit": {
+            "total": 1,
+            "completed": 1,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 1,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 1.0
+          }
+        },
+        "Manufacturing": {
+          "abstention": {
+            "total": 25,
+            "completed": 25,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 16,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.64
+          },
+          "knowledge_update": {
+            "total": 16,
+            "completed": 16,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.25
+          },
+          "multi_hop": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 11,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.3235294117647059
+          },
+          "temporal": {
+            "total": 32,
+            "completed": 32,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 7,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.21875
+          },
+          "term_ambiguity": {
+            "total": 8,
+            "completed": 8,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 6,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.75
+          },
+          "user_implicit": {
+            "total": 3,
+            "completed": 3,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 0,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.0
+          }
+        }
+      }
+    },
+    "cost": {
+      "gpu_name": "NVIDIA RTX A6000",
+      "wall_seconds": 7907.116649169475,
+      "cpu_seconds": 11130.360930175999,
+      "gpu_hours": 2.196421291435965,
+      "peak_allocated_gpu_bytes": 17124572160,
+      "peak_reserved_gpu_bytes": 17523802112,
+      "index_seconds_by_domain": {
+        "Finance": 43.13645955733955,
+        "Technology": 42.22953402809799,
+        "Healthcare": 9.220857411623001,
+        "Manufacturing": 9.815277632325888
+      },
+      "stage_seconds": {
+        "retrieval_seconds": 102.76603692397475,
+        "answer_seconds": 4971.5240279678255,
+        "judge_seconds": 2717.7765741366893
+      },
+      "generation": {
+        "answer": {
+          "calls": 536,
+          "seconds": 4966.433683542535,
+          "prompt_tokens": 884184,
+          "completion_tokens": 94343,
+          "total_tokens": 978527
+        },
+        "judge": {
+          "calls": 536,
+          "seconds": 2715.672398876399,
+          "prompt_tokens": 85266,
+          "completion_tokens": 53245,
+          "total_tokens": 138511
+        }
+      },
+      "failed_attempts": 0,
+      "retry_calls": 0
+    },
+    "raw_sha256": {
+      "run-config.json": "ec722a141377e774d0d8a1bc27a0fad5055b6a43725c5b560d52d70ff77bd2cf",
+      "generation-audit.jsonl": "62be1d995f4dd8da0ae61f6f8d09ab4ddf0060ae3fa82158545583ad329e8e03",
+      "split.json": "3ad5642b6afae688cdc7db68a7e99467ccea585ee653cd42cf072379a6810948",
+      "full-split.json": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+      "benchmark-summary.json": "765c0ca1487e15461b14e2de219b9f96aabd8460697c32aa5209b1b34356606a",
+      "hybrid-meta/manifest.json": "094378d625edc08a72108a0cf2550ffce7d7eae32623de68f72dfde27fffd065",
+      "hybrid-meta/predictions.jsonl": "1f79651648187985c1869cf546cb3bceb9899b869e0021a289984bdd33bc9ec0",
+      "hybrid-meta/attempts.jsonl": "1f79651648187985c1869cf546cb3bceb9899b869e0021a289984bdd33bc9ec0",
+      "hybrid-meta/metrics.json": "d7e5989e5c877183fdcc3eb3b7ba74485e5018e80b63f4a5449da23e0f03f5f8"
+    }
+  },
+  "baseline_metrics": {
+    "bm25": {
+      "overall": {
+        "total": 536,
+        "completed": 536,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 178,
+        "truncated_answers": 4,
+        "truncated_judgments": 0,
+        "accuracy": 0.332089552238806
+      },
+      "by_category": {
+        "abstention": {
+          "total": 82,
+          "completed": 82,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 63,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.7682926829268293
+        },
+        "knowledge_update": {
+          "total": 80,
+          "completed": 80,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 26,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.325
+        },
+        "multi_hop": {
+          "total": 137,
+          "completed": 137,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 38,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.2773722627737226
+        },
+        "temporal": {
+          "total": 122,
+          "completed": 122,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 28,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.22950819672131148
+        },
+        "term_ambiguity": {
+          "total": 79,
+          "completed": 79,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.13924050632911392
+        },
+        "user_implicit": {
+          "total": 36,
+          "completed": 36,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 12,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3333333333333333
+        }
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 161,
+          "completed": 161,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 59,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.36645962732919257
+        },
+        "Healthcare": {
+          "total": 97,
+          "completed": 97,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 27,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.27835051546391754
+        },
+        "Manufacturing": {
+          "total": 118,
+          "completed": 118,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 38,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.3220338983050847
+        },
+        "Technology": {
+          "total": 160,
+          "completed": 160,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 54,
+          "truncated_answers": 3,
+          "truncated_judgments": 0,
+          "accuracy": 0.3375
+        }
+      },
+      "by_partition": {
+        "test": {
+          "overall": {
+            "total": 536,
+            "completed": 536,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 178,
+            "truncated_answers": 4,
+            "truncated_judgments": 0,
+            "accuracy": 0.332089552238806
+          },
+          "by_category": {
+            "abstention": {
+              "total": 82,
+              "completed": 82,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 63,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.7682926829268293
+            },
+            "knowledge_update": {
+              "total": 80,
+              "completed": 80,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 26,
+              "truncated_answers": 1,
+              "truncated_judgments": 0,
+              "accuracy": 0.325
+            },
+            "multi_hop": {
+              "total": 137,
+              "completed": 137,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 38,
+              "truncated_answers": 1,
+              "truncated_judgments": 0,
+              "accuracy": 0.2773722627737226
+            },
+            "temporal": {
+              "total": 122,
+              "completed": 122,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 28,
+              "truncated_answers": 2,
+              "truncated_judgments": 0,
+              "accuracy": 0.22950819672131148
+            },
+            "term_ambiguity": {
+              "total": 79,
+              "completed": 79,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 11,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.13924050632911392
+            },
+            "user_implicit": {
+              "total": 36,
+              "completed": 36,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 12,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.3333333333333333
+            }
+          }
+        }
+      },
+      "by_domain_and_category": {
+        "Finance": {
+          "abstention": {
+            "total": 22,
+            "completed": 22,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 17,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.7727272727272727
+          },
+          "knowledge_update": {
+            "total": 24,
+            "completed": 24,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 10,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.4166666666666667
+          },
+          "multi_hop": {
+            "total": 36,
+            "completed": 36,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 13,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.3611111111111111
+          },
+          "temporal": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 8,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.23529411764705882
+          },
+          "term_ambiguity": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 6,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.17647058823529413
+          },
+          "user_implicit": {
+            "total": 11,
+            "completed": 11,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 5,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.45454545454545453
+          }
+        },
+        "Healthcare": {
+          "abstention": {
+            "total": 14,
+            "completed": 14,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 13,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.9285714285714286
+          },
+          "knowledge_update": {
+            "total": 13,
+            "completed": 13,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 2,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.15384615384615385
+          },
+          "multi_hop": {
+            "total": 36,
+            "completed": 36,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 7,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.19444444444444445
+          },
+          "temporal": {
+            "total": 28,
+            "completed": 28,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.14285714285714285
+          },
+          "term_ambiguity": {
+            "total": 5,
+            "completed": 5,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 0,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.0
+          },
+          "user_implicit": {
+            "total": 1,
+            "completed": 1,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 1,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 1.0
+          }
+        },
+        "Manufacturing": {
+          "abstention": {
+            "total": 25,
+            "completed": 25,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 17,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.68
+          },
+          "knowledge_update": {
+            "total": 16,
+            "completed": 16,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.25
+          },
+          "multi_hop": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 8,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.23529411764705882
+          },
+          "temporal": {
+            "total": 32,
+            "completed": 32,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 7,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.21875
+          },
+          "term_ambiguity": {
+            "total": 8,
+            "completed": 8,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 2,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.25
+          },
+          "user_implicit": {
+            "total": 3,
+            "completed": 3,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 0,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.0
+          }
+        },
+        "Technology": {
+          "abstention": {
+            "total": 21,
+            "completed": 21,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 16,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.7619047619047619
+          },
+          "knowledge_update": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 10,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.37037037037037035
+          },
+          "multi_hop": {
+            "total": 31,
+            "completed": 31,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 10,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.3225806451612903
+          },
+          "temporal": {
+            "total": 28,
+            "completed": 28,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 9,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.32142857142857145
+          },
+          "term_ambiguity": {
+            "total": 32,
+            "completed": 32,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 3,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.09375
+          },
+          "user_implicit": {
+            "total": 21,
+            "completed": 21,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 6,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.2857142857142857
+          }
+        }
+      }
+    },
+    "dense": {
+      "overall": {
+        "total": 536,
+        "completed": 536,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 146,
+        "truncated_answers": 6,
+        "truncated_judgments": 0,
+        "accuracy": 0.27238805970149255
+      },
+      "by_category": {
+        "abstention": {
+          "total": 82,
+          "completed": 82,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 52,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.6341463414634146
+        },
+        "knowledge_update": {
+          "total": 80,
+          "completed": 80,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 3,
+          "truncated_judgments": 0,
+          "accuracy": 0.2
+        },
+        "multi_hop": {
+          "total": 137,
+          "completed": 137,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 34,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.24817518248175183
+        },
+        "temporal": {
+          "total": 122,
+          "completed": 122,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.12295081967213115
+        },
+        "term_ambiguity": {
+          "total": 79,
+          "completed": 79,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.20253164556962025
+        },
+        "user_implicit": {
+          "total": 36,
+          "completed": 36,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 13,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3611111111111111
+        }
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 161,
+          "completed": 161,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 50,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3105590062111801
+        },
+        "Healthcare": {
+          "total": 97,
+          "completed": 97,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 29,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.29896907216494845
+        },
+        "Manufacturing": {
+          "total": 118,
+          "completed": 118,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 27,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.2288135593220339
+        },
+        "Technology": {
+          "total": 160,
+          "completed": 160,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 40,
+          "truncated_answers": 3,
+          "truncated_judgments": 0,
+          "accuracy": 0.25
+        }
+      },
+      "by_partition": {
+        "test": {
+          "overall": {
+            "total": 536,
+            "completed": 536,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 146,
+            "truncated_answers": 6,
+            "truncated_judgments": 0,
+            "accuracy": 0.27238805970149255
+          },
+          "by_category": {
+            "abstention": {
+              "total": 82,
+              "completed": 82,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 52,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.6341463414634146
+            },
+            "knowledge_update": {
+              "total": 80,
+              "completed": 80,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 16,
+              "truncated_answers": 3,
+              "truncated_judgments": 0,
+              "accuracy": 0.2
+            },
+            "multi_hop": {
+              "total": 137,
+              "completed": 137,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 34,
+              "truncated_answers": 1,
+              "truncated_judgments": 0,
+              "accuracy": 0.24817518248175183
+            },
+            "temporal": {
+              "total": 122,
+              "completed": 122,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 15,
+              "truncated_answers": 2,
+              "truncated_judgments": 0,
+              "accuracy": 0.12295081967213115
+            },
+            "term_ambiguity": {
+              "total": 79,
+              "completed": 79,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 16,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.20253164556962025
+            },
+            "user_implicit": {
+              "total": 36,
+              "completed": 36,
+              "errors": 0,
+              "unclear": 0,
+              "correct": 13,
+              "truncated_answers": 0,
+              "truncated_judgments": 0,
+              "accuracy": 0.3611111111111111
+            }
+          }
+        }
+      },
+      "by_domain_and_category": {
+        "Finance": {
+          "abstention": {
+            "total": 22,
+            "completed": 22,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 14,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.6363636363636364
+          },
+          "knowledge_update": {
+            "total": 24,
+            "completed": 24,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.16666666666666666
+          },
+          "multi_hop": {
+            "total": 36,
+            "completed": 36,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 14,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.3888888888888889
+          },
+          "temporal": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.11764705882352941
+          },
+          "term_ambiguity": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 11,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.3235294117647059
+          },
+          "user_implicit": {
+            "total": 11,
+            "completed": 11,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 3,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.2727272727272727
+          }
+        },
+        "Healthcare": {
+          "abstention": {
+            "total": 14,
+            "completed": 14,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 10,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.7142857142857143
+          },
+          "knowledge_update": {
+            "total": 13,
+            "completed": 13,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 6,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.46153846153846156
+          },
+          "multi_hop": {
+            "total": 36,
+            "completed": 36,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 7,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.19444444444444445
+          },
+          "temporal": {
+            "total": 28,
+            "completed": 28,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.14285714285714285
+          },
+          "term_ambiguity": {
+            "total": 5,
+            "completed": 5,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 1,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.2
+          },
+          "user_implicit": {
+            "total": 1,
+            "completed": 1,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 1,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 1.0
+          }
+        },
+        "Manufacturing": {
+          "abstention": {
+            "total": 25,
+            "completed": 25,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 14,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.56
+          },
+          "knowledge_update": {
+            "total": 16,
+            "completed": 16,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 2,
+            "truncated_answers": 2,
+            "truncated_judgments": 0,
+            "accuracy": 0.125
+          },
+          "multi_hop": {
+            "total": 34,
+            "completed": 34,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 7,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.20588235294117646
+          },
+          "temporal": {
+            "total": 32,
+            "completed": 32,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 3,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.09375
+          },
+          "term_ambiguity": {
+            "total": 8,
+            "completed": 8,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 1,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.125
+          },
+          "user_implicit": {
+            "total": 3,
+            "completed": 3,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 0,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.0
+          }
+        },
+        "Technology": {
+          "abstention": {
+            "total": 21,
+            "completed": 21,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 14,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.6666666666666666
+          },
+          "knowledge_update": {
+            "total": 27,
+            "completed": 27,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.14814814814814814
+          },
+          "multi_hop": {
+            "total": 31,
+            "completed": 31,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 6,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.1935483870967742
+          },
+          "temporal": {
+            "total": 28,
+            "completed": 28,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 4,
+            "truncated_answers": 1,
+            "truncated_judgments": 0,
+            "accuracy": 0.14285714285714285
+          },
+          "term_ambiguity": {
+            "total": 32,
+            "completed": 32,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 3,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.09375
+          },
+          "user_implicit": {
+            "total": 21,
+            "completed": 21,
+            "errors": 0,
+            "unclear": 0,
+            "correct": 9,
+            "truncated_answers": 0,
+            "truncated_judgments": 0,
+            "accuracy": 0.42857142857142855
+          }
+        }
+      }
+    }
+  },
+  "paired_with_archived_baselines": {
+    "bm25": {
+      "questions": 536,
+      "gained": 56,
+      "lost": 57,
+      "net": -1,
+      "accuracy_delta": -0.0018656716417910447,
+      "mcnemar_exact_two_sided_p": 1
+    },
+    "dense": {
+      "questions": 536,
+      "gained": 70,
+      "lost": 39,
+      "net": 31,
+      "accuracy_delta": 0.05783582089552239,
+      "mcnemar_exact_two_sided_p": 0.0038541081873813185
+    }
+  },
+  "baseline_outcomes_sha256": "1b2466d5814c3c1e10acb7b0fca03707a8a2de4a6571fe6cd3544c11720cc51a",
+  "questions": [
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_18",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_19",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_2",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_24",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_26",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_32",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_33",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_34",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_37",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_38",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_39",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_40",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_41",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_42",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_43",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_44",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_46",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_47",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_48",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_49",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "abstention",
+      "question_id": "abstention_8",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_12",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_13",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_16",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_18",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_2",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_21",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_22",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_24",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_25",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_26",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_27",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_28",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_29",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_30",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_4",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_6",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_7",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_1",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_10",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_11",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_14",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_16",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_21",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_22",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_23",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_25",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_26",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_27",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_28",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_3",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_33",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_34",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_35",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_38",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_39",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_4",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_42",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_43",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_44",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_46",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_47",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_48",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_6",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_7",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_8",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "multi_hop",
+      "question_id": "multi_hop_9",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_13",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_16",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_17",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_19",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_23",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_25",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_26",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_27",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_28",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_29",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_30",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_31",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_33",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_34",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_35",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_36",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_37",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_38",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_39",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_41",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_42",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_43",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_44",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_45",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_6",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_7",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "temporal",
+      "question_id": "temporal_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_11",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_12",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_13",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_14",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_16",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_18",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_22",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_24",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_25",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_26",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_28",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_29",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_3",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_30",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_31",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_33",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_34",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_35",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_36",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_37",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_4",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_41",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_44",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_45",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_6",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_9",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_1",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_10",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_12",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_14",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_15",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_2",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_6",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Finance",
+      "category": "user_implicit",
+      "question_id": "user_implicit_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_10",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_22",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_23",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_24",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_25",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_26",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_27",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_28",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_29",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_30",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_31",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_32",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_34",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "abstention",
+      "question_id": "abstention_5",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_13",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_14",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_16",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_3",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_4",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_6",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_7",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_9",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_1",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_10",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_12",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_14",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_16",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_17",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_18",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_21",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_23",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_27",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_29",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_30",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_31",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_33",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_34",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_35",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_36",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_39",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_4",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_41",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_43",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_45",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_46",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_47",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_6",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_7",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "multi_hop",
+      "question_id": "multi_hop_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_1",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_13",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_14",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_15",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_16",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_18",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_21",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_23",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_24",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_25",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_26",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_28",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_30",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_33",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_34",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_35",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_6",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "temporal",
+      "question_id": "temporal_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_6",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Healthcare",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_7",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Healthcare",
+      "category": "user_implicit",
+      "question_id": "user_implicit_2",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_1",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_12",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_17",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_22",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_23",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_24",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_26",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_28",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_29",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_30",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_31",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_33",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_34",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_35",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_36",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_38",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_39",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_41",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_43",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_46",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_47",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_48",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "abstention",
+      "question_id": "abstention_7",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_11",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_12",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_13",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_16",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_21",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_22",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_4",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_6",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_1",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_10",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_13",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_14",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_15",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_16",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_18",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_21",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_22",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_23",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_26",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_27",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_28",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_29",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_31",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_34",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_35",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_36",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_37",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_38",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_39",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_4",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_41",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_42",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_45",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_7",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "multi_hop",
+      "question_id": "multi_hop_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_13",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_14",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_16",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_18",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_19",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_21",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_23",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_24",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_25",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_26",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_28",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_29",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_30",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_33",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_35",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_36",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_38",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_43",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_6",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_7",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "temporal",
+      "question_id": "temporal_9",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_10",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_11",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_4",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_5",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_6",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_9",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_1",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Manufacturing",
+      "category": "user_implicit",
+      "question_id": "user_implicit_4",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_1",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_15",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_18",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_24",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_28",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_29",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_30",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_32",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_33",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_35",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_37",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_38",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_4",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_41",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_42",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_43",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_44",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_45",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_46",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "abstention",
+      "question_id": "abstention_47",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_1",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_12",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_13",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_14",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_16",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_21",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_22",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_23",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_24",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_25",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_27",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_29",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_3",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_33",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_34",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_36",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_4",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_5",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_6",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "knowledge_update",
+      "question_id": "knowledge_update_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_1",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_12",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_13",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_16",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_20",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_22",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_23",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_24",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_25",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_26",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_27",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_28",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_29",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_3",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_33",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_34",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_35",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_38",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_4",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_41",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_6",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_7",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_8",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "multi_hop",
+      "question_id": "multi_hop_9",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_1",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_13",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_16",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_18",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_22",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_23",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_24",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_25",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_26",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_27",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_29",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_3",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_30",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_31",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_33",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_34",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_35",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_36",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_37",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_4",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_8",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "temporal",
+      "question_id": "temporal_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_1",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_11",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_12",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_13",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_14",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_15",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_16",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_17",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_18",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_2",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_21",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_22",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_24",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_25",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_27",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_29",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_30",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_32",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_35",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_36",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_37",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_38",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_39",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_4",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_40",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_42",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_43",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_6",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "term_ambiguity",
+      "question_id": "term_ambiguity_9",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_10",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_11",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_12",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_13",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_14",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_15",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_16",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_19",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_20",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_21",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_22",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_23",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_24",
+      "hybrid-meta": true,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_25",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_26",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_27",
+      "hybrid-meta": true,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_3",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_5",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_6",
+      "hybrid-meta": false,
+      "bm25": true,
+      "dense": true
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_7",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    },
+    {
+      "domain": "Technology",
+      "category": "user_implicit",
+      "question_id": "user_implicit_8",
+      "hybrid-meta": false,
+      "bm25": false,
+      "dense": false
+    }
+  ],
+  "caveat": "Qwen3-8B self-judgment; archived BM25/Dense controls; question-level paired statistics with shared dialogues. Do not tune rules using these test results."
+}
