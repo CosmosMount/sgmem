@@ -11,7 +11,7 @@
 | Part 3 | 八组 dev、选型、完整冻结 test 和案例分析已完成 | hybrid-meta test 177/536，hybrid 164/536，净增 13（35 改善、22 退化，p=0.111）；与 BM25 178/536 整体持平。保留正负结果及自判分局限，停止本轮调参。[结果、取舍与复现](part3-exploration.md) |
 | Part 4 | 尚待整合 | 约 6 页最终报告、海报/演示、可运行配置和个人代码面试准备 |
 
-Part 1/2 的逐题结果与 Part 3 的比较协议分别见[结果报告](part12-full-results.md)和[实验协议](experiment-protocol.md)。
+Part 1/2 的逐题结果与 Part 3 的比较协议分别见[结果报告](part12-full-results.md)和[实验协议](experiment-protocol.md)。2026-11-22 按教师原文及评分表完成[整体审核与交付清单](coursework-audit.md)，建议停止本轮方法搜索，优先完成报告、效率说明、演示及代码面试。
 
 ## 本轮完整探索
 

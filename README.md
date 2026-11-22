@@ -6,7 +6,7 @@ Part 3 早期在全部 179 道固定开发题上比较了两种有界回复扩�
 
 2026-11-22：八组 179 题 dev、选型及两组 **536 题冻结 test 均已完成并通过核验**。按预定规则选择的 `hybrid-meta` 为 **177/536（33.02%）**，纯 `hybrid` 为 **164/536（30.60%）**：新增答对 35 题、退化 22 题，净增 **13 题 / 2.43 个百分点**，题级 McNemar p=0.111。它与原 BM25 的 178/536（33.21%）整体持平，不能声称稳定显著提升。续跑实际用 0.7895 GPU-hours，整轮合计 8.7841，未超 8+2 的授权。完整分组结果、正负案例、判分疑点与复现见 [Part 3 完整探索](docs/part3-exploration.md)；[最终逐题对照](docs/evidence/structured-test-comparison.json)已归档。
 
-**从这里接手：[Part 1/2 全量结果与错误分析](docs/part12-full-results.md)。** [仓库内精简证据](docs/evidence/part12-full-20261105/)可在无 GPU 环境复核：
+**课程收尾先看：[要求与评分审核](docs/coursework-audit.md)。** Part 1–3 的核心实验已完成，下一步是最终报告、海报/演示和个人代码面试准备。[Part 1/2 全量结果与错误分析](docs/part12-full-results.md)及[仓库内精简证据](docs/evidence/part12-full-20261105/)可在无 GPU 环境复核：
 
 ```bash
 python scripts/verify_part12_evidence.py
@@ -20,19 +20,26 @@ python scripts/verify_part12_evidence.py --benchmark external/GroupMemBench
 
 ## 安装与运行
 
-需要 Python 3.10 或更高版本与 Git 子模块。已有本地 Qwen 权重时，可按[全量运行方案](docs/part1-full-benchmark.md)直接使用 Transformers，无需 HTTP 服务；也可使用下述 OpenAI 兼容 chat-completions 服务。Dense 需要 E5 模型文件及 Sentence Transformers。容器运行方式见 [HPC 部署](docs/hpc-deployment.md)，本次金融服务器的全量结果来自直接 Transformers 后端。
+需要 Python 3.10 或更高版本与 Git 子模块；逐字段重放正式审计报告使用 Python 3.10/3.11。已有本地 Qwen 权重时，可按[全量运行方案](docs/part1-full-benchmark.md)直接使用 Transformers，无需 HTTP 服务；Dense 使用 E5-small-v2。**正式结果的环境与下面的 HTTP/Docker 环境不同**，不要在已验证的实验环境里混装两种依赖配置。
 
 ```bash
 git submodule update --init --recursive
-# 本机已准备 .venv；新机器应先创建自己的 Python 虚拟环境
-source .venv/bin/activate
-python -m pip install -e '.[dense,serving,test]'
+# 在新 Linux 环境重建正式实验的核心依赖；已有验证环境无需重装
+python3.10 -m venv .venv-local
+source .venv-local/bin/activate
+python -m pip install -r requirements-local.txt
+python -m pip install -e '.[test]'
+python -m pip check
 python -m pytest
 ```
 
-### 本机 Qwen 服务
+[`requirements-local.txt`](requirements-local.txt) 对应已记录的 torch 2.8.0、Transformers 4.57.1、Sentence Transformers 5.7.0 和 NumPy 2.2.6。正式服务器实际使用 torch `2.8.0+cu128`；新机器还须按其驱动安装合适的 PyTorch GPU wheel，并先做小样本验证。该文件固定核心包，不声称锁定全部传递依赖或保证跨硬件逐字一致。本轮只核对现有环境及依赖兼容性，没有新建环境重跑模型。
 
-本机已经准备 `.venv` 和 `models/e5-base-v2`。本次 `.venv` 使用 Python 3.10 的 `--system-site-packages`，复用宿主机已有的 GPU 版 PyTorch，因此不是完全独立的环境；Docker 使用独立的 Python 3.11 和固定依赖；`sgmem:local` 已通过本机 RTX 3090 可见性和容器内单题流水线检查。当前机器缓存了 Qwen2.5-0.5B-Instruct，可用于连通性验证（它不适合作为正式结果的质量保证）。
+### 可选：HTTP 服务与 Docker
+
+这一入口保留队友的本机服务方案，不用于复现已发布的金融服务器数值。它使用独立环境安装 `python -m pip install -e '.[dense,serving,test]'`；Docker 的依赖清单见 `requirements-docker.txt`，部署见 [HPC 部署](docs/hpc-deployment.md)。
+
+以下服务示例来自队友原本机的 `.venv` 和 `models/e5-base-v2`，不是当前金融服务器的路径保证。该 `.venv` 使用 Python 3.10 的 `--system-site-packages`，复用宿主机已有的 GPU 版 PyTorch，因此不是完全独立的环境；Docker 使用独立的 Python 3.11 和固定依赖；`sgmem:local` 曾通过 RTX 3090 可见性和容器内单题流水线检查。该机器缓存的 Qwen2.5-0.5B-Instruct 仅用于连通性验证，不用于本项目正式质量比较。
 
 在项目根目录打开第一个终端，按本机现有缓存启动服务：
 

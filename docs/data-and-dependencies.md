@@ -14,7 +14,7 @@
 
 ## 依赖与配置
 
-Python 依赖范围记录在 `pyproject.toml`，当前尚无锁文件；正式实验前须确定并锁定实际依赖和推理后端，安装与运行说明见 README。配置和凭据分开：仓库只放无秘密的示例，不提交 `.env`、访问令牌或个人路径。各成员采用相同模型 revision、tokenizer、评测器版本和解析后的配置；不同硬件或模型更改需明确记录。
+基础 Python 依赖和可选 HTTP 服务依赖记录在 `pyproject.toml`。正式实验使用直接 Transformers 后端，核心版本固定在 [`requirements-local.txt`](../requirements-local.txt)，与 Part 1 provenance 和 Part 3 run-config 中的五个主要包版本一致；其余四项来自同一现有服务器环境的复核。该文件不是完整传递依赖锁。HTTP/Docker 使用不同的较新环境和 `requirements-docker.txt`，不要混装或将容器试跑当作正式结果环境。安装入口见 [README](../README.md#安装与运行)。配置和凭据分开：仓库只放无秘密的示例，不提交 `.env`、访问令牌。各成员采用相同模型 revision、tokenizer、评测器版本和解析后的配置；不同硬件或模型更改需明确记录。
 
 ## 存储与恢复
 

@@ -1,0 +1,12 @@
+# Direct Transformers backend used by the published Part 1 and Part 3 runs.
+# Verified on Linux / Python 3.10.20, with torch 2.8.0+cu128 / CUDA 12.8.
+# Core runtime pins, not a complete transitive lock or the HTTP/Docker profile.
+torch==2.8.0
+transformers==4.57.1
+sentence-transformers==5.7.0
+numpy==2.2.6
+rank-bm25==0.2.2
+tokenizers==0.22.2
+huggingface-hub==0.36.2
+safetensors==0.5.3
+accelerate==1.11.0
