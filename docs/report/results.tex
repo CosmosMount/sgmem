@@ -1,0 +1,27 @@
+\newcommand{\TestRows}{%
+Multi-hop & 137 & 27.74 & 24.82 & 26.28 & 27.74 \\
+Knowledge update & 80 & 32.50 & 20.00 & 31.25 & 32.50 \\
+Temporal & 122 & 22.95 & 12.30 & 18.03 & 19.67 \\
+User-implicit & 36 & 33.33 & 36.11 & 36.11 & 33.33 \\
+Term ambiguity & 79 & 13.92 & 20.25 & 17.72 & 25.32 \\
+Abstention & 82 & 76.83 & 63.41 & 65.85 & 69.51 \\
+\textbf{Overall} & 536 & 33.21 & 27.24 & 30.60 & 33.02 \\
+}
+\newcommand{\DevRows}{%
+Fields & 55 & 30.73 & 0.461 \\
+Scope & 62 & 34.64 & 0.457 \\
+Person & 64 & 35.75 & 0.461 \\
+Time & 62 & 34.64 & 0.439 \\
+Hybrid & 62 & 34.64 & 0.486 \\
+Hybrid-meta & 65 & 36.31 & 0.575 \\
+Scope+reply & 62 & 34.64 & 0.882 \\
+Focus & 63 & 35.20 & 0.882 \\
+}
+\newcommand{\CostRows}{%
+Full BM25/Dense baseline & 3.5907 \\
+Bounded-reply dev & 0.4303 \\
+Ordered-reply dev & 0.4376 \\
+Metadata exploration and frozen test & 8.7841 \\
+Additional recorded pilots and smoke tests & 0.1063 \\
+\textbf{Recorded subtotal (incomplete history)} & 13.3489 \\
+}

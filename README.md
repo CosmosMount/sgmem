@@ -6,7 +6,7 @@ Part 3 早期在全部 179 道固定开发题上比较了两种有界回复扩�
 
 2026-11-22：八组 179 题 dev、选型及两组 **536 题冻结 test 均已完成并通过核验**。按预定规则选择的 `hybrid-meta` 为 **177/536（33.02%）**，纯 `hybrid` 为 **164/536（30.60%）**：新增答对 35 题、退化 22 题，净增 **13 题 / 2.43 个百分点**，题级 McNemar p=0.111。它与原 BM25 的 178/536（33.21%）整体持平，不能声称稳定显著提升。续跑实际用 0.7895 GPU-hours，整轮合计 8.7841，未超 8+2 的授权。完整分组结果、正负案例、判分疑点与复现见 [Part 3 完整探索](docs/part3-exploration.md)；[最终逐题对照](docs/evidence/structured-test-comparison.json)已归档。
 
-**课程收尾先看：[要求与评分审核](docs/coursework-audit.md)。** Part 1–3 的核心实验已完成，下一步是最终报告、海报/演示和个人代码面试准备。[Part 1/2 全量结果与错误分析](docs/part12-full-results.md)及[仓库内精简证据](docs/evidence/part12-full-20261105/)可在无 GPU 环境复核：
+**课程收尾先看：[要求与评分审核](docs/coursework-audit.md)。** Part 1–3 的核心实验已完成。2026-11-23 已整理 [6 页英文报告初稿](docs/report/report.pdf)、[离线案例演示](docs/report/case-demo.html)和[重建/队友复核说明](docs/report/README.md)；剩余重点是团队确认、海报和个人代码面试。[Part 1/2 全量结果与错误分析](docs/part12-full-results.md)及[仓库内精简证据](docs/evidence/part12-full-20261105/)可在无 GPU 环境复核：
 
 ```bash
 python scripts/verify_part12_evidence.py
@@ -88,5 +88,6 @@ python -m sgmem analyze --records results/bm25-dev/predictions.jsonl results/den
 - [HPC 容器部署与 Qwen 升级](docs/hpc-deployment.md)、[检索参考](docs/retrieval-references.md)
 - [实施路线图](docs/roadmap.md)、[后续 CI 清单](docs/ci-plan.md)、[数据和依赖](docs/data-and-dependencies.md)
 - [Part 3 完整探索矩阵与复现](docs/part3-exploration.md)
+- [课程报告、可复算图表与离线案例回放](docs/report/README.md)
 
-评分细则与 50 GPU-hours 上限来自用户提供的课程材料。Part 1 全量运行累计 3.5907 GPU-hours。早期 Qwen2.5-0.5B 连通性测试和 Qwen3-8B 试跑的耗时另计。
+评分细则与 50 GPU-hours 上限来自用户提供的课程材料。Part 1 全量运行累计 3.5907 GPU-hours；各轮已记录的非重叠运行合计 13.3489 GPU-hours，见[报告资源表](docs/report/README.md)。早期未完整计时的连通性测试等仍未计入，不能把此小计当作整个项目精确总用量。

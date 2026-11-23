@@ -1,0 +1,58 @@
+{
+  "purpose": "Additional recorded GPU work found in a read-only audit on 2026-11-23. These precede and do not overlap the formal baseline, reply-dev runs or metadata-round ledgers. Not a complete project budget.",
+  "server_root": "/home/ai4s_group/XZG/NLP/sgmem/results/runs",
+  "measurement": "Single-GPU process wall time, not GPU utilization integral. Fields below were checked directly against the retained source JSON files.",
+  "receipts": [
+    {
+      "run": "qwen3-pilot",
+      "source": "quick-part12-20261105/pilot-config.json",
+      "field": "wall_seconds",
+      "value": 285.6464612483978,
+      "unit": "seconds",
+      "device": "cuda:7 physical / cuda:0 visible",
+      "finished": true
+    },
+    {
+      "run": "qwen3-pilot-regression",
+      "source": "quick-part12-20261105/verification.json",
+      "field": "smoke_wall_seconds",
+      "value": 41.74995034374297,
+      "unit": "seconds",
+      "smoke_questions": 2,
+      "smoke_calls": 4,
+      "gpu_released_after_run": true
+    },
+    {
+      "run": "bm25-cross-gpu-smoke",
+      "source": "part1-full-20261105-parallel/preflight.json",
+      "field": "smoke.bm25.gpu_hours",
+      "value": 0.004810676612477336,
+      "unit": "GPU-hours",
+      "gpu": "2"
+    },
+    {
+      "run": "dense-cross-gpu-smoke",
+      "source": "part1-full-20261105-parallel/preflight.json",
+      "field": "smoke.dense.gpu_hours",
+      "value": 0.010496897002578609,
+      "unit": "GPU-hours",
+      "gpu": "3"
+    }
+  ],
+  "rounded_only": {
+    "source": "docs/part3-bounded-replies.md",
+    "bounded_reply_preflight_gpu_hours": 0.0065,
+    "ordered_reply_preflight_gpu_hours": 0.004,
+    "note": "Approximate values reported in the historical document; original independent timing receipts were not found. Excluded from the exact recorded subtotal."
+  },
+  "excluded_unknown": [
+    "Early Qwen2.5-0.5B connectivity checks",
+    "Other historical preflights without a separately attributable GPU-residence receipt",
+    "Work outside the two inspected SGMem result directories"
+  ],
+  "duplication_rules": [
+    "Part 1 combined/aggregation.json repeats worker costs; count either aggregate or workers once.",
+    "The metadata round uses the outer budget and continuation ledgers; do not add nested run-config or test-comparison totals again.",
+    "Archived copies of the same pilot, baseline or reply run are evidence copies, not additional experiments."
+  ]
+}
