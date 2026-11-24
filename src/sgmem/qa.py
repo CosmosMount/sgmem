@@ -106,18 +106,29 @@ def official_correct(judge_answer: str) -> bool:
     return re.sub(r"[^a-zA-Z]+", "", judge_answer or "").lower() == "correct"
 
 
-def evaluate_question(question: dict, retrieved: list[dict], answer_client: LocalClient,
-                      judge_client: LocalClient, agent_system: str, judge_system: str) -> dict:
-    """Apply the official prompt layout and judge to one already-retrieved question."""
-    docs = [format_message(item["message"]) for item in retrieved]
-    passages = "\n\n".join(f"[{i}] {doc}" for i, doc in enumerate(docs, start=1))
+def build_answer_prompt(question: dict, documents: list[str]) -> str:
+    """Render the benchmark answer prompt from already formatted documents."""
+    passages = "\n\n".join(f"[{i}] {doc}" for i, doc in enumerate(documents, start=1))
     asker = question.get("asking_user_id") or ""
     asker_line = f"Asking user: {asker}\n\n" if asker else ""
-    answer_prompt = (
+    return (
         f"{asker_line}Question:\n{question['question']}\n\n"
         f"Retrieved passages:\n{passages}\n\n"
         "Answer the question using the retrieved passages."
     )
+
+
+def evaluate_question(question: dict, retrieved: list[dict], answer_client: LocalClient,
+                      judge_client: LocalClient, agent_system: str, judge_system: str,
+                      *, documents: list[str] | None = None) -> dict:
+    """Apply the official prompt layout and judge to one already-retrieved question."""
+    if documents is None:
+        docs = [format_message(item["message"]) for item in retrieved]
+    elif not isinstance(documents, list) or not all(isinstance(document, str) for document in documents):
+        raise ValueError("documents must be a list of already rendered strings")
+    else:
+        docs = list(documents)
+    answer_prompt = build_answer_prompt(question, docs)
     start = perf_counter()
     agent_output = answer_client.complete(agent_system, answer_prompt, max_tokens=512)
     answer_seconds = perf_counter() - start

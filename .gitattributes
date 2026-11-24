@@ -1,3 +1,5 @@
 # Preserve the exact frozen split and portable JSONL evidence on Windows/Linux.
 docs/evidence/**/*.json text eol=lf
 docs/evidence/**/*.jsonl text eol=lf
+# Preserve unified-diff context, including upstream trailing whitespace.
+patches/*.patch text eol=lf -whitespace

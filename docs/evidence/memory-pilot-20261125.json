@@ -1,0 +1,342 @@
+{
+  "schema": 1,
+  "purpose": "Source-only pipeline and manual functional QA checks; not benchmark accuracy",
+  "recorded_at_utc": "2026-11-24T16:34:34.732364+00:00",
+  "remote_root": "/data/ai4s_group/XZG/NLP/memory-round-20261124",
+  "baseline_commit": "8de9d301ed765425ef851ee031b9c716dcc42c58",
+  "executed_source": "Uncommitted adapters retained in per-stage code snapshots; file hashes in original manifests",
+  "source_window": {
+    "domain": "Finance",
+    "group": "AML (Anti-Money Laundering) Project",
+    "selection": "first 100 messages sorted by source timestamp then ID",
+    "rows": 100,
+    "sha256": "bcc1fc2b97b3db9a33c20f8e2094d841101261fdd336e81569e0bd1b5f1644d5"
+  },
+  "densex": {
+    "identity": {
+      "schema": 1,
+      "input_sha256": "f059da27618e30c0f75d9e6a9d5583571e84ba762454a765e91e736352ccaf91",
+      "backend": "qwen-http",
+      "device": "cpu",
+      "max_new_tokens": 512,
+      "batch_size": 8,
+      "project_commit": "8de9d301ed765425ef851ee031b9c716dcc42c58",
+      "runtime_versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "tokenizers": "0.22.2",
+        "sentencepiece": "0.1.99"
+      },
+      "builder_sha256": "62b61899a612cae4f01465e2c436e948f505628d2896da15d12e18fe14460448",
+      "extractor_sha256": "b7bd3dec97fd8bdd4aaf28a971218f6ee38ce192d01731b844102b2501622474",
+      "model": {
+        "path": "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+        "configuration_sha256": {
+          "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+          "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+          "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+        },
+        "weight_sha256": {
+          "model-00001-of-00005.safetensors": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f",
+          "model-00002-of-00005.safetensors": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282",
+          "model-00003-of-00005.safetensors": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836",
+          "model-00004-of-00005.safetensors": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a",
+          "model-00005-of-00005.safetensors": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff"
+        },
+        "declared_revision": "b968826d9c46dd6066d109eabc6255188de91218"
+      },
+      "http_service": {
+        "endpoint": "http://127.0.0.1:18951/v1",
+        "server_command": [
+          "/home/ai4s_group/XZG/NLP/sgmem/.venv-cpu/bin/python",
+          "-m",
+          "vllm.entrypoints.openai.api_server",
+          "--model",
+          "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+          "--served-model-name",
+          "Qwen/Qwen3-8B",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "18951",
+          "--dtype",
+          "bfloat16",
+          "--max-model-len",
+          "8192",
+          "--gpu-memory-utilization",
+          "0.38",
+          "--max-num-seqs",
+          "8",
+          "--max-num-batched-tokens",
+          "4096",
+          "--generation-config",
+          "vllm",
+          "--chat-template",
+          "f0204e66537e8dda2798449f45a390a6763c2b2ee68348695474762c3bbaca5c",
+          "--disable-log-requests",
+          "--enforce-eager"
+        ],
+        "chat_template_sha256": "f0204e66537e8dda2798449f45a390a6763c2b2ee68348695474762c3bbaca5c",
+        "runtime_versions": {
+          "torch": "2.8.0",
+          "transformers": "4.57.1",
+          "vllm": "0.11.0"
+        }
+      }
+    },
+    "status": "complete",
+    "source_count": 200,
+    "sessions": [
+      {
+        "status": "complete",
+        "records_before": 0,
+        "started_at_utc": "2026-11-24T15:56:42.963613+00:00",
+        "wall_seconds": 191.6652890238911,
+        "records_after": 200,
+        "ended_at_utc": "2026-11-24T15:59:54.628921+00:00"
+      }
+    ],
+    "record_count": 200,
+    "fallback_count": 0,
+    "timing_complete": true
+  },
+  "lightmem": {
+    "status": "complete",
+    "seconds": 663.4305248390883,
+    "coverage": {
+      "changed_turns": 100,
+      "segmentation_calls": 14,
+      "turn_embedding_calls": 54,
+      "extraction_calls": 13,
+      "sleep_calls": 59,
+      "sleep_mutations": 48
+    },
+    "metrics": [
+      {
+        "extraction_calls": 13,
+        "input_turns": 100,
+        "input_tokens": 10633,
+        "compressed_tokens": 6364,
+        "changed_turns": 100,
+        "segmentation_calls": 14,
+        "coarse_boundaries": 7,
+        "released_segments": 14,
+        "rows": 100,
+        "pre_entries": 115,
+        "post_entries": 108,
+        "extraction_source_turns": 100,
+        "source_coverage": {
+          "pre": {
+            "anchors": 100,
+            "lineage": 100
+          },
+          "post": {
+            "anchors": 93,
+            "lineage": 97
+          }
+        },
+        "embedding_calls": {
+          "turn": 54,
+          "passage": 156
+        },
+        "embedding_length": {
+          "long_passages": 1,
+          "long_passage_chunks": 2
+        },
+        "llm": {
+          "add_memory": {
+            "calls": 13,
+            "prompt_tokens": 16872,
+            "completion_tokens": 7379,
+            "total_tokens": 24251
+          },
+          "update": {
+            "calls": 59,
+            "prompt_tokens": 44274,
+            "completion_tokens": 7929,
+            "total_tokens": 52203
+          }
+        },
+        "add_seconds": 555.6507610827684,
+        "queue_seconds": 0.45301470905542374,
+        "sleep_seconds": 100.04427019879222,
+        "update_actions": {
+          "delete": 7,
+          "ignore": 11,
+          "update": 41
+        }
+      }
+    ]
+  },
+  "raptor": {
+    "status": "complete",
+    "source_count": 100,
+    "config": {
+      "leaf_tokens": 100,
+      "summary_tokens": 256,
+      "max_layers": 5,
+      "cluster_tokens": 3500,
+      "reduction_dimension": 10,
+      "threshold": 0.1,
+      "summary_workers": 8
+    },
+    "nodes_by_layer": {
+      "0": 137,
+      "1": 29,
+      "2": 5
+    },
+    "summary_calls": 34,
+    "wall_seconds": 45.7285283356905,
+    "source_sha256": "6ebf261c02a6e8cab4ba87c5953cf33ee1b516f5af3783274b529a169e5b9d17",
+    "tree_sha256": "02178f9a9a0085af2da65e301f77d3482523bd43aca81046850baf16f066cbe5",
+    "summary_calls_sha256": "a90a833dffef4052f70a86546c1938a2a4ef29f45fdfb699e71cfffdee9a6803"
+  },
+  "hipporag2": {
+    "status": "complete",
+    "seconds": 299.58766403608024,
+    "coverage": {
+      "ppr_retrievals": 3
+    },
+    "graph": {
+      "num_phrase_nodes": 762,
+      "num_passage_nodes": 100,
+      "num_total_nodes": 862,
+      "num_extracted_triples": 952,
+      "num_triples_with_passage_node": 1199,
+      "num_synonymy_triples": 43617,
+      "num_total_triples": 45550
+    },
+    "self_query_only": true
+  },
+  "native_qa": {
+    "status": "complete",
+    "functional_passed": 6,
+    "expected_checks": 6,
+    "wall_seconds": 69.46044538356364,
+    "context_budget": 3500,
+    "checks": [
+      {
+        "method": "densex",
+        "view": "native",
+        "status": "pass",
+        "answer_finish_reason": "stop",
+        "judge_finish_reason": "stop"
+      },
+      {
+        "method": "densex",
+        "view": "raw-budget",
+        "status": "pass",
+        "answer_finish_reason": "stop",
+        "judge_finish_reason": "stop"
+      },
+      {
+        "method": "lightmem",
+        "view": "native",
+        "status": "pass",
+        "answer_finish_reason": "stop",
+        "judge_finish_reason": "stop"
+      },
+      {
+        "method": "lightmem",
+        "view": "raw-budget",
+        "status": "pass",
+        "answer_finish_reason": "stop",
+        "judge_finish_reason": "stop"
+      },
+      {
+        "method": "raptor",
+        "view": "native",
+        "status": "pass",
+        "answer_finish_reason": "stop",
+        "judge_finish_reason": "stop"
+      },
+      {
+        "method": "raptor",
+        "view": "raw-budget",
+        "status": "pass",
+        "answer_finish_reason": "stop",
+        "judge_finish_reason": "stop"
+      }
+    ]
+  },
+  "gpu_resource": {
+    "completed_gpu_hours": 1.0962814774141751,
+    "stages": [
+      {
+        "label": "qwen-propositions-200",
+        "started_at_utc": "2026-11-24T14:57:44.731780+00:00",
+        "ended_at_utc": "2026-11-24T15:05:55.868548+00:00",
+        "wall_seconds": 491.136345455423,
+        "exit_code": 0
+      },
+      {
+        "label": "flan-propositions-200",
+        "started_at_utc": "2026-11-24T15:21:28.267434+00:00",
+        "ended_at_utc": "2026-11-24T15:23:23.721254+00:00",
+        "wall_seconds": 115.45320021733642,
+        "exit_code": 0
+      },
+      {
+        "label": "qwen-preserve-propositions-200",
+        "started_at_utc": "2026-11-24T15:24:32.564521+00:00",
+        "ended_at_utc": "2026-11-24T15:31:46.138853+00:00",
+        "wall_seconds": 433.57375279068947,
+        "exit_code": 0
+      },
+      {
+        "label": "pipeline-pilot",
+        "started_at_utc": "2026-11-24T15:31:52.551084+00:00",
+        "ended_at_utc": "2026-11-24T15:36:37.086033+00:00",
+        "wall_seconds": 284.5344809629023,
+        "exit_code": 1
+      },
+      {
+        "label": "calibration-pilot",
+        "started_at_utc": "2026-11-24T15:40:00.172768+00:00",
+        "ended_at_utc": "2026-11-24T15:54:08.963316+00:00",
+        "wall_seconds": 848.790143173188,
+        "exit_code": 1
+      },
+      {
+        "label": "verification-pilot",
+        "started_at_utc": "2026-11-24T15:56:17.289425+00:00",
+        "ended_at_utc": "2026-11-24T16:11:41.250293+00:00",
+        "wall_seconds": 923.960526695475,
+        "exit_code": 1
+      },
+      {
+        "label": "final-verification",
+        "started_at_utc": "2026-11-24T16:18:47.524110+00:00",
+        "ended_at_utc": "2026-11-24T16:32:56.689393+00:00",
+        "wall_seconds": 849.164869396016,
+        "exit_code": 1
+      }
+    ],
+    "note": "Counts full single-GPU stage wall including loading, concurrent workers, failures and CPU work while allocated. Do not add builder times. Final stage exit 1 retains the failed artificial zero-duplicate probe; the corrected independent HippoRAG run and all subsequent final individual checks passed."
+  },
+  "receipts_sha256": {
+    "messages-pilot.jsonl": "bcc1fc2b97b3db9a33c20f8e2094d841101261fdd336e81569e0bd1b5f1644d5",
+    "qwen-faithful-propositions-200/manifest.json": "0db07fdd6f573adaac8d8cf04613a01c15328b8a3f0b6197a6808e803de887b0",
+    "lightmem-verified-pilot/summary.json": "10ad9dedc47f9b1555995a0a108135045d7e001f7c6e437efafa53c195977bea",
+    "lightmem-verified-pilot/lightmem/manifest.json": "1eed896cc6770850774b49c52afdb0712a0d4a3d03535fe55a7fccf1fd1fc005",
+    "raptor-parallel-pilot.manifest.json": "898bf8e7309bc57754c6235f41f2ae54008bd7aa0c355dd2b4d52dd3e43504cd",
+    "raptor-parallel-pilot.summary-calls.jsonl": "a90a833dffef4052f70a86546c1938a2a4ef29f45fdfb699e71cfffdee9a6803",
+    "hipporag-grounded-pilot/summary.json": "6cc0af9d0634d5832fcd2b1ec713881b6201f0f86853c11efa0f7246e4f80e97",
+    "hipporag-grounded-pilot/hipporag2/sgmem-hipporag.json": "3cae17ab8f39fa1d5f491d97e129441e4332fd8e9787fc017c3ce983ba46528e",
+    "hippo-grounded-code.py": "9476ffebe48d131389a63bc956a1dda8f9e707dd1fe7efc8c9dbda2ee3014fa3",
+    "native-qa-smoke/manifest.json": "883869f167739f4a748f7d9f3f7409a50393784249353299b00027894c202631",
+    "native-qa-smoke/checks.jsonl": "766ee128d3930f97f115fd106b4b0da5a6e77a7fcb585a5723ed8a8d5e60d2d9",
+    "native-qa-smoke/generation-audit.jsonl": "c0aa6d3844a6a3a1d0b5cc6a2d9fdde636715fdd1aa5259d22dbe60eb9687802",
+    "final-service/service.json": "aa4e4557cc34490794a48c4b5efd6709f27dbb6454147261dbf2ac5bff315788"
+  },
+  "known_limits": [
+    "Qwen can change questions, negation, conditions and speaker roles during extraction.",
+    "LightMem sleep can delete complementary information; final source lineage covers 97/100 messages.",
+    "HippoRAG E5 default 0.8 synonym graph is very dense and links some incompatible dates/durations.",
+    "No full 120000-message index, 179-question dev or frozen test result is established by these checks."
+  ]
+}

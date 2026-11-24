@@ -1,0 +1,174 @@
+diff --git a/raptor/__init__.py b/raptor/__init__.py
+--- a/raptor/__init__.py
++++ b/raptor/__init__.py
+@@ -2,7 +2,6 @@
+ from .cluster_tree_builder import ClusterTreeBuilder, ClusterTreeConfig
+ from .EmbeddingModels import (BaseEmbeddingModel, OpenAIEmbeddingModel,
+                               SBertEmbeddingModel)
+-from .FaissRetriever import FaissRetriever, FaissRetrieverConfig
+ from .QAModels import (BaseQAModel, GPT3QAModel, GPT3TurboQAModel, GPT4QAModel,
+                        UnifiedQAModel)
+ from .RetrievalAugmentation import (RetrievalAugmentation,
+@@ -14,3 +13,12 @@
+ from .tree_builder import TreeBuilder, TreeBuilderConfig
+ from .tree_retriever import TreeRetriever, TreeRetrieverConfig
+ from .tree_structures import Node, Tree
++
++
++def __getattr__(name):
++    if name in ("FaissRetriever", "FaissRetrieverConfig"):
++        from .FaissRetriever import FaissRetriever, FaissRetrieverConfig
++
++        globals().update(FaissRetriever=FaissRetriever, FaissRetrieverConfig=FaissRetrieverConfig)
++        return globals()[name]
++    raise AttributeError(name)
+diff --git a/raptor/cluster_utils.py b/raptor/cluster_utils.py
+--- a/raptor/cluster_utils.py
++++ b/raptor/cluster_utils.py
+@@ -29,7 +29,7 @@
+     if n_neighbors is None:
+-        n_neighbors = int((len(embeddings) - 1) ** 0.5)
++        n_neighbors = max(2, int((len(embeddings) - 1) ** 0.5))
+     reduced_embeddings = umap.UMAP(
+-        n_neighbors=n_neighbors, n_components=dim, metric=metric
++        n_neighbors=n_neighbors, n_components=dim, metric=metric, random_state=RANDOM_SEED
+     ).fit_transform(embeddings)
+     return reduced_embeddings
+ 
+@@ -38,7 +38,7 @@
+     embeddings: np.ndarray, dim: int, num_neighbors: int = 10, metric: str = "cosine"
+ ) -> np.ndarray:
+     reduced_embeddings = umap.UMAP(
+-        n_neighbors=num_neighbors, n_components=dim, metric=metric
++        n_neighbors=num_neighbors, n_components=dim, metric=metric, random_state=RANDOM_SEED
+     ).fit_transform(embeddings)
+     return reduced_embeddings
+ 
+@@ -62,7 +62,10 @@
+     gm = GaussianMixture(n_components=n_clusters, random_state=random_state)
+     gm.fit(embeddings)
+     probs = gm.predict_proba(embeddings)
+-    labels = [np.where(prob > threshold)[0] for prob in probs]
++    labels = []
++    for prob in probs:
++        selected = np.flatnonzero(prob > threshold)
++        labels.append(selected if len(selected) else np.array([np.argmax(prob)]))
+     return labels, n_clusters
+ 
+ 
+@@ -81,9 +84,8 @@
+     total_clusters = 0
+ 
+     for i in range(n_global_clusters):
+-        global_cluster_embeddings_ = embeddings[
+-            np.array([i in gc for gc in global_clusters])
+-        ]
++        global_indices = np.flatnonzero([i in gc for gc in global_clusters])
++        global_cluster_embeddings_ = embeddings[global_indices]
+         if verbose:
+             logging.info(
+                 f"Nodes in Global Cluster {i}: {len(global_cluster_embeddings_)}"
+@@ -105,13 +107,7 @@
+             logging.info(f"Local Clusters in Global Cluster {i}: {n_local_clusters}")
+ 
+         for j in range(n_local_clusters):
+-            local_cluster_embeddings_ = global_cluster_embeddings_[
+-                np.array([j in lc for lc in local_clusters])
+-            ]
+-            indices = np.where(
+-                (embeddings == local_cluster_embeddings_[:, None]).all(-1)
+-            )[1]
+-            for idx in indices:
++            for idx in global_indices[[j in lc for lc in local_clusters]]:
+                 all_local_clusters[idx] = np.append(
+                     all_local_clusters[idx], j + total_clusters
+                 )
+@@ -134,11 +130,14 @@
+         nodes: List[Node],
+         embedding_model_name: str,
+         max_length_in_cluster: int = 3500,
+-        tokenizer=tiktoken.get_encoding("cl100k_base"),
++        tokenizer=None,
+         reduction_dimension: int = 10,
+         threshold: float = 0.1,
+         verbose: bool = False,
+     ) -> List[List[Node]]:
++        if tokenizer is None:
++            tokenizer = tiktoken.get_encoding("cl100k_base")
++
+         # Get the embeddings from the nodes
+         embeddings = np.array([node.embeddings[embedding_model_name] for node in nodes])
+ 
+diff --git a/raptor/cluster_tree_builder.py b/raptor/cluster_tree_builder.py
+--- a/raptor/cluster_tree_builder.py
++++ b/raptor/cluster_tree_builder.py
+@@ -1,6 +1,6 @@
+ import logging
+ import pickle
+-from concurrent.futures import ThreadPoolExecutor
++from concurrent.futures import ThreadPoolExecutor, as_completed
+ from threading import Lock
+ from typing import Dict, List, Set
+ 
+@@ -58,6 +58,7 @@
+         all_tree_nodes: Dict[int, Node],
+         layer_to_nodes: Dict[int, List[Node]],
+         use_multithreading: bool = False,
++        max_workers: int = 8,
+     ) -> Dict[int, Node]:
+         logging.info("Using Cluster TreeBuilder")
+ 
+@@ -106,24 +107,37 @@
+                 **self.clustering_params,
+             )
+ 
++            # Soft assignments can produce as many parents as input nodes.
++            if not 0 < len(clusters) < len(node_list_current_layer):
++                self.num_layers = layer
++                break
++
+             lock = Lock()
+ 
+             summarization_length = self.summarization_length
+             logging.info(f"Summarization Length: {summarization_length}")
+ 
+             if use_multithreading:
+-                with ThreadPoolExecutor() as executor:
++                with ThreadPoolExecutor(max_workers=max_workers) as executor:
++                    futures = []
+                     for cluster in clusters:
+-                        executor.submit(
++                        futures.append(executor.submit(
+                             process_cluster,
+                             cluster,
+                             new_level_nodes,
+                             next_node_index,
+                             summarization_length,
+                             lock,
+-                        )
++                        ))
+                         next_node_index += 1
+-                    executor.shutdown(wait=True)
++                    try:
++                        for future in as_completed(futures):
++                            future.result()
++                    except BaseException:
++                        for future in futures:
++                            future.cancel()
++                        raise
++                new_level_nodes = dict(sorted(new_level_nodes.items()))
+ 
+             else:
+                 for cluster in clusters:
+diff --git a/raptor/utils.py b/raptor/utils.py
+--- a/raptor/utils.py
++++ b/raptor/utils.py
+@@ -20,7 +20,7 @@
+ 
+ 
+ def split_text(
+-    text: str, tokenizer: tiktoken.get_encoding("cl100k_base"), max_tokens: int, overlap: int = 0
++    text: str, tokenizer: tiktoken.Encoding, max_tokens: int, overlap: int = 0
+ ):
+     """
+     Splits the input text into smaller chunks based on the tokenizer and maximum allowed tokens.

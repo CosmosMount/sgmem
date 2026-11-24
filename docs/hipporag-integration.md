@@ -1,0 +1,48 @@
+# HippoRAG 2 retrieval in SGMem
+
+This adapter uses the official OpenIE, phrase/passage/triple stores, relation/context/synonym graph, query-to-triple ranking, recognition prompt and candidate mapping, and personalized PageRank. It uses Qwen3-8B and E5-small-v2 on GroupMemBench. The final QA input remains raw SGMem messages. [HippoRAG 2 paper](https://proceedings.mlr.press/v267/gutierrez25a.html) · [Pinned implementation](https://github.com/OSU-NLP-Group/HippoRAG/tree/d5c8329422e0a0b834a15874545cb6a74b4f9b26)
+
+## Environments
+
+- Run the worker with a clean HippoRAG source checkout at `d5c8329422e0a0b834a15874545cb6a74b4f9b26`, the separately provisioned graph dependencies, and the existing SGMem Torch 2.8 and Transformers 4.57.1 runtime. E5 runs on CPU through Sentence Transformers. The Parquet backend uses `pandas` and `pyarrow`, and PPR uses `python_igraph==0.11.8`. Record the actual worker versions and verify the imports before building. [HippoRAG dependency declaration](https://github.com/OSU-NLP-Group/HippoRAG/blob/d5c8329422e0a0b834a15874545cb6a74b4f9b26/pyproject.toml#L10-L41)
+- The worker uses the official online OpenIE path through a loopback OpenAI-compatible `/v1` endpoint. The project service launcher uses vLLM 0.11.0 with a chat template whose rendering is checked against `enable_thinking=False` on the pinned Qwen tokenizer. It binds the service lifetime to the worker command and releases its own service process group at exit. [Qwen checkpoint](https://huggingface.co/Qwen/Qwen3-8B/tree/b968826d9c46dd6066d109eabc6255188de91218) · [Service launcher](../scripts/run_memory_service.py)
+- Load E5 from the local snapshot `ffb93f3bd4047442299a41ebb6fa998a38507c52`. Queries and phrases used for symmetric synonym similarity use `query: `. Indexed passages and facts use `passage: `. [E5 prefixes](https://huggingface.co/intfloat/e5-small-v2#faq)
+
+Run the service launcher and worker after provisioning the snapshots.
+
+```bash
+# SGMem root. HIPPORAG_SRC and HIPPORAG_DEPS are the source and graph dependency directories.
+test "$(git -C "$HIPPORAG_SRC" rev-parse HEAD)" = d5c8329422e0a0b834a15874545cb6a74b4f9b26
+export PYTHONPATH="$PWD/src:$HIPPORAG_SRC/src:$HIPPORAG_DEPS${PYTHONPATH:+:$PYTHONPATH}"
+export NO_PROXY="127.0.0.1,localhost,::1${NO_PROXY:+,$NO_PROXY}"
+python -c 'import hipporag, torch, transformers; print(hipporag.__file__, torch.__version__, transformers.__version__)'
+python scripts/run_memory_service.py --model "$QWEN_SNAPSHOT" \
+  --output "$RESULT_ROOT/hipporag-service-Finance" -- \
+  python -m sgmem.hipporag_memory \
+  --messages "$MEMORY_INPUTS/messages-Finance.jsonl" \
+  --embedding-path "$E5_SNAPSHOT" \
+  --embedding-revision ffb93f3bd4047442299a41ebb6fa998a38507c52 \
+  --llm-revision b968826d9c46dd6066d109eabc6255188de91218 \
+  --llm-base-url http://127.0.0.1:18951/v1 \
+  --index "$RESULT_ROOT/hipporag-Finance" \
+  --queries "$MEMORY_INPUTS/queries-dev.jsonl" --top-k 50 \
+  --output "$RESULT_ROOT/hipporag-Finance-dev.jsonl"
+```
+
+Omit `--queries` and `--output` to build only. Each invocation owns one domain. The CLI filters the query pack to that domain and passes question text and the public asking-user prefix to retrieval. The caller verifies successful coverage of its selected query IDs before replaying QA. The CLI writes an error record and stops if recognition fails. For an approved smoke, use a small source pack and corresponding dev query pack. Verify at least one `ppr` query and inspect all valid-empty and error cases before indexing at scale. `--embedding-device cpu` keeps E5 on CPU. The upstream nearest-neighbor routine selects CUDA when visible to the worker, so limit worker GPU visibility for CPU-only work.
+
+Use `HippoRAGMemory(messages, index_dir, embedding_path=..., embedding_revision=..., llm_revision=...).build()` to build or resume. The common exporter calls `build(require_existing=True)` to require a completed index before loading the retrieval engine. Call `retrieve_with_trace(question, 50, asking_user_id=...)` for common SGMem hits and the audit trail, then `close()`. The caller applies one shared metadata reranker to the same raw candidate pool and selects the final ten hits for the existing QA/judge.
+
+Use `scripts/retrieve_memories.py --method hipporag2-dpr` with the same completed index for the passage-dense control. It invokes the official DPR retrieval and uses the same expansion to unique original IDs. Its trace records `dense_control` and it makes no query-time recognition call.
+
+## State and evidence
+
+- A passage is one canonical normalized body. `chunk_metadata.json` retains every original source ID in source order. The adapter verifies that mapping against the input corpus on reopen and retrieval. Every original ID for a scored passage inherits its score before top-k. Source order breaks exact ties, including between distinct passages. Traces record the number of canonical passages scored and all source IDs in the expanded candidate prefix, including boundary ties.
+- The index manifest binds the exact ordered corpus, adapter source, upstream commit, model revisions and settings, and local E5 files by content hash. The Qwen revision describes the checkpoint served by the operator. Reuse the same endpoint and served snapshot on resume. An interrupted build can reuse compatible embedding/OpenIE state and local cached responses while rebuilding the graph. `complete` on this manifest means the persistent index and provenance passed validation.
+- The earlier live OpenIE smoke stopped when `Msg_845` produced a four-field relation. The revised worker sends a strict JSON schema for each OpenIE stage and validates the original response before parsing. NER accepts an object with `named_entities` as a list of nonempty strings. Each relation under `triples` must contain exactly three nonempty strings. Empty lists are valid, and both stages require a normal stop. A rejected response leaves the build incomplete and writes the raw response, stage, chunk ID, source IDs and usage to `openie-errors.jsonl`. An unchanged profile can replay a cached failure. Keep the failing receipt with the original index when retrying in a fresh directory or with a revised profile.
+- A second live smoke exposed repeated relations until the 4,096-token limit. The OpenIE profile now caps NER at 64 items and triples at 32, adds a 0.15 frequency penalty and asks for distinct relations. The official few-shot examples remain intact. Because Qwen sometimes copies example entities, only case-folded, whole-word spans present in the current passage enter the triple prompt; rejected names are recorded in `ner-grounding.jsonl`, with the original response retained in the cache. This can reject an inferred alias and is an explicit local adaptation. Format, grounding policy and generation options are part of index identity. These checks do not establish that a relation is semantically true.
+- The corrected 100-message smoke completed all three graph retrievals through recognition and PPR in 299.59 seconds. Its 762 phrase nodes and 100 passage nodes contain 952 unique normalized extracted triples. No copied Radio City example entity survived in stored entities or triples. Targeted manual checks still found questions turned into assertions and a negation reversed. The default E5 synonym threshold of 0.8 produced 43,617 undirected synonym edges, 95.76% of all edges. Recomputing the same source-only top-100 neighbor rule gives 6,088 / 986 / 110 edges at 0.85 / 0.90 / 0.95. These are density diagnostics, not dev accuracy or a selected threshold; even high similarity can join different dates or durations.
+- Recognition traces carry the incoming candidate triples, raw output, parsed triples, selected triples, usage, cache hit, and outcome. A valid empty fact list uses the official dense fallback. A graph with zero facts has its own outcome. Malformed or cut-off outputs and request failures raise `RecognitionError` before a fallback can be scored. Nonempty selections must match normalized candidate triples exactly before PPR.
+- The upstream synonym search still performs an exact, tiled all-pairs similarity calculation. Profile its memory and time and the E5 edge density on the smoke corpus before extending to a full domain. Record extraction calls, index time and query-stage costs from the actual run.
+
+The adapter has offline fake-backend tests for source identity, ranking, encoder inputs, OpenIE and recognition failures, and recovery. Real OpenIE, graph and endpoint behavior require an actual model smoke. [Adapter](../src/sgmem/hipporag_memory.py) · [Offline tests](../tests/test_hipporag_memory.py)

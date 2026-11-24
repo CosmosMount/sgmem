@@ -157,6 +157,22 @@ def run(args, client_factory=None) -> Path:
         'input_sha256': fingerprints,
         "evaluation": "GroupMemBench prompt and typed-summary protocol with local models",
     }
+    replay = None
+    context = None
+    if getattr(args, 'precomputed', None):
+        from sgmem.precomputed_retrieval import context_protocol, load_rankings
+
+        context = context_protocol(args.method)
+        if context is not None:
+            from sgmem.memory_context import select_units
+
+            if client_factory is None or args.base_url != 'in-process':
+                raise ValueError('Native context requires the in-process QA client')
+            config['top_k'] = None
+            manifest['context_protocol'] = context
+        replay, provenance, context_sources = load_rankings(args.precomputed, args.method, benchmark, expected, args.top_k)
+        manifest['precomputed'] = provenance
+        manifest['retrieval_timing'] = 'Precomputed ranking lookup, excluding upstream retrieval'
     index_times = {}
     records_by_id = {}
     if resume:
@@ -184,18 +200,21 @@ def run(args, client_factory=None) -> Path:
     judge_client = client_factory(args.base_url, args.judge_model or args.answer_model, timeout=args.timeout, api_key=key)
     started = time.perf_counter()
     try:
+        if context is not None and not callable(getattr(answer_client, 'tokenizer', None)):
+            raise ValueError('Native context requires the in-process answer client tokenizer')
         with (output / 'attempts.jsonl').open('a' if resume else 'x', encoding='utf-8') as handle:
             for domain in args.domains:
                 pending = {qid for qid in expected if qid[0] == domain
                            and records_by_id.get(qid, {}).get('status') != 'ok'}
                 if not pending:
                     continue
-                message_path = benchmark / "data/final" / domain / f"synthetic_domain_channels_rolevariants_{domain}.json"
-                messages = load_messages(message_path)
-                index_started = time.perf_counter()
-                retriever = build_retriever(args.method, messages, args.embedding_model, args.device,
-                                            args.batch_size, args.embedding_revision)
-                index_times[domain] = index_times.get(domain, 0) + time.perf_counter() - index_started
+                if replay is None:
+                    message_path = benchmark / "data/final" / domain / f"synthetic_domain_channels_rolevariants_{domain}.json"
+                    messages = load_messages(message_path)
+                    index_started = time.perf_counter()
+                    retriever = build_retriever(args.method, messages, args.embedding_model, args.device,
+                                                args.batch_size, args.embedding_revision)
+                    index_times[domain] = index_times.get(domain, 0) + time.perf_counter() - index_started
                 for category in args.categories:
                     questions = questions_by_cell[(domain, category)]
                     for q in questions:
@@ -215,12 +234,29 @@ def run(args, client_factory=None) -> Path:
                         try:
                             asker = q.get("asking_user_id") or ""
                             retrieval_started = time.perf_counter()
-                            retrieved = retriever.retrieve(q["question"], args.top_k, asking_user_id=asker)
+                            if replay is None:
+                                retrieved = retriever.retrieve(q["question"], args.top_k, asking_user_id=asker)
+                            else:
+                                retrieved, record['query_trace'] = replay[qid]
                             record["retrieval_seconds"] = time.perf_counter() - retrieval_started
-                            record["retrieval"] = retrieved
-                            result = evaluate_question(q, retrieved, answer_client, judge_client, agent_system, judge_system)
+                            if context is None:
+                                record["retrieval"] = retrieved
+                                result = evaluate_question(q, retrieved, answer_client, judge_client, agent_system, judge_system)
+                            else:
+                                documents, trace = select_units(
+                                    q, retrieved, answer_client.tokenizer, agent_system, context['budget_tokens'],
+                                    sources=context_sources[domain], raw=context['view'] == 'raw-budget',
+                                )
+                                record['context_trace'] = {**trace, 'view': context['view']}
+                                record["retrieval"] = retrieved[:len(documents)]
+                                result = evaluate_question(q, [], answer_client, judge_client, agent_system, judge_system,
+                                                           documents=documents)
                             record.update(result)
                             record["prediction"] = result["answer"]
+                            if context is not None:
+                                usage = result.get('answer_usage')
+                                if not isinstance(usage, dict) or usage.get('prompt_tokens') != trace['prompt_tokens']:
+                                    raise ValueError('Rendered context token count differs from actual answer prompt usage')
                             record["status"] = "ok"
                         except JudgeFailure as exc:
                             record.update(exc.partial)
@@ -243,7 +279,8 @@ def run(args, client_factory=None) -> Path:
                         print(f"{domain}/{category}/{q['id']}: {record['status']} {record.get('judge_answer', '')}", flush=True)
                         if record['status'] == 'error':
                             raise RuntimeError(f'Model call failed for {qid}; fix the cause, then resume')
-                del retriever
+                if replay is None:
+                    del retriever
     finally:
         records = [records_by_id[qid] for qid in expected if qid in records_by_id]
         manifest['status'] = 'complete' if len(records) == len(expected) and all(r['status'] == 'ok' for r in records) else 'incomplete'

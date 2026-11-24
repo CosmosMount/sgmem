@@ -1,0 +1,349 @@
+diff --git a/src/lightmem/memory/lightmem.py b/src/lightmem/memory/lightmem.py
+--- a/src/lightmem/memory/lightmem.py
++++ b/src/lightmem/memory/lightmem.py
+@@ -161,6 +161,8 @@
+         self.logger.info("Token statistics tracking initialized")
+         
+         self.config = config
++        self._sgmem_insert_index = 0
++        self._sgmem_topic_index = 0
+         if self.config.pre_compress:
+             self.logger.info("Initializing pre-compressor")
+             self.compressor = PreCompressorFactory.from_config(self.config.pre_compressor)
+@@ -285,7 +287,7 @@
+             elif self.config.topic_segment and hasattr(self.segmenter, "tokenizer") and self.segmenter.tokenizer is not None:
+                 args = (msgs, self.segmenter.tokenizer)
+             else:
+-                args = (msgs,)
++                args = (msgs, None)
+             # fixed: empty 'content' in the 'messages' of 'compress(*args)'
+             compressed_messages = self.compressor.compress(*args)
+             cfg = getattr(self.compressor, "config", None)
+@@ -312,9 +314,9 @@
+             all_segments = self.senmem_buffer_manager.add_messages(compressed_messages, self.segmenter, self.text_embedder)
+ 
+         if force_segment and self.config.topic_segment:
+-            all_segments = self.senmem_buffer_manager.cut_with_segmenter(self.segmenter, self.text_embedder, force_segment)    
++            all_segments.extend(self.senmem_buffer_manager.cut_with_segmenter(self.segmenter, self.text_embedder, force_segment))
+             
+-        if not all_segments:
++        if not all_segments and not (force_extract and self.shortmem_buffer_manager.buffer):
+             self.logger.debug(f"[{call_id}] No segments generated, returning empty result")
+             return result # TODO
+ 
+@@ -327,13 +329,12 @@
+             self.logger.debug(f"[{call_id}] Extraction not triggered, returning result")
+             return result # TODO 
+         
+-        global GLOBAL_TOPIC_IDX
+         topic_id_mapping = []
+         for api_call_segments in extract_list:
+             api_call_topic_ids = []
+             for topic_segment in api_call_segments:
+-                api_call_topic_ids.append(GLOBAL_TOPIC_IDX)
+-                GLOBAL_TOPIC_IDX += 1
++                api_call_topic_ids.append(self._sgmem_topic_index)
++                self._sgmem_topic_index += 1
+             topic_id_mapping.append(api_call_topic_ids)
+         self.logger.debug(f"topic_id_mapping: {topic_id_mapping}")
+         self.logger.info(f"[{call_id}] Assigned global topic IDs: total={sum(len(x) for x in topic_id_mapping)}, mapping={topic_id_mapping}")
+@@ -418,10 +419,11 @@
+                 bam_tags = getattr(mem_obj, "bam_tags", [])
+                 embed_text = strip_tags(mem_obj.memory) if bam_tags else mem_obj.memory
+                 embedding_vector = self.text_embedder.embed(embed_text)
+-                ids = mem_obj.id
+-                while self.embedding_retriever.exists(ids):
+-                    ids = str(uuid.uuid4())
+-                    mem_obj.id = ids
++                identity = f'{self.embedding_retriever.collection_name}:{self._sgmem_insert_index}'
++                ids = str(uuid.uuid5(uuid.NAMESPACE_URL, identity))
++                self._sgmem_insert_index += 1
++                if self.embedding_retriever.exists(ids):
++                    raise RuntimeError(f'Duplicate LightMem entry {ids}')
+                 payload = {
+                     "time_stamp": mem_obj.time_stamp,
+                     "float_time_stamp": mem_obj.float_time_stamp,
+@@ -434,6 +436,7 @@
+                     "memory": mem_obj.memory,
+                     "entry_type": mem_obj.entry_type,
+                     "anchor_dia_id": mem_obj.anchor_dia_id,
++                    "source_ids": [mem_obj.anchor_dia_id],
+                     "original_memory": mem_obj.original_memory,
+                     "compressed_memory": mem_obj.compressed_memory,
+                     "speaker_id": mem_obj.speaker_id,
+@@ -505,7 +508,7 @@
+             hits = self.embedding_retriever.search(
+                 query_vector=vec,
+                 limit=top_k,
+-                filters={"float_time_stamp": {"lte": ts}}
++                filters={"float_time_stamp": {"lt": ts}}
+             )
+ 
+             candidates = []
+@@ -538,7 +541,7 @@
+         self.logger.info(f"[{call_id}] Starting parallel queue construction with {max_workers} workers")
+ 
+         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+-            executor.map(_update_queue_construction, all_entries)
++            list(executor.map(_update_queue_construction, all_entries))
+         self.logger.info(
+             f"[{call_id}] Queue construction completed: {updated_count} updated, {skipped_count} skipped, "
+             f"nonempty_queues={nonempty_queue_count}, empty_queues={empty_queue_count}"
+@@ -576,19 +579,19 @@
+             "total_tokens": 0
+         }
+         token_lock = threading.Lock()
++        sources_by_target = {}
++        for other in all_entries:
++            for candidate in other['payload'].get('update_queue', []) or []:
++                if candidate['score'] >= score_threshold:
++                    sources_by_target.setdefault(candidate['id'], []).append(other)
++
+         def update_entry(entry):
+             nonlocal processed_count, updated_count, deleted_count, skipped_count
+             
+             eid = entry["id"]
+             payload = entry["payload"]
+ 
+-            candidate_sources = []
+-            for other in all_entries:
+-                update_queue = other["payload"].get("update_queue", [])
+-                for candidate in update_queue:
+-                    if candidate["id"] == eid and candidate["score"] >= score_threshold:
+-                        candidate_sources.append(other)
+-                        break
++            candidate_sources = sources_by_target.get(eid, [])
+ 
+             if not candidate_sources:
+                 with lock:
+@@ -624,8 +627,12 @@
+                 self.logger.debug(f"[{call_id}] Deleted entry: {eid}")
+             elif action == "update":
+                 new_payload = dict(payload)
+-                new_payload["memory"] = updated_entry.get("new_memory")
+-                vector = entry.get("vector")
++                new_payload["memory"] = updated_entry["new_memory"]
++                new_payload["source_ids"] = list(dict.fromkeys(
++                    source_id for point in (entry, *candidate_sources)
++                    for source_id in point["payload"]["source_ids"]
++                ))
++                vector = self.text_embedder.embed(new_payload["memory"])
+                 with write_lock:
+                     self.embedding_retriever.update(vector_id=eid, vector=vector, payload=new_payload)
+                 with lock:
+@@ -633,7 +640,7 @@
+                 self.logger.debug(f"[{call_id}] Updated entry: {eid}")
+         self.logger.info(f"[{call_id}] Starting parallel offline update with {max_workers} workers")
+         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+-            executor.map(update_entry, all_entries)
++            list(executor.map(update_entry, all_entries))
+         with lock:
+             self.token_stats["update_calls"] += update_token_stats["calls"]
+             self.token_stats["update_prompt_tokens"] += update_token_stats["prompt_tokens"]
+diff --git a/src/lightmem/memory/utils.py b/src/lightmem/memory/utils.py
+--- a/src/lightmem/memory/utils.py
++++ b/src/lightmem/memory/utils.py
+@@ -109,7 +109,7 @@
+         for i, msg in enumerate(messages):
+             offset = timedelta(milliseconds=offset_ms * i)
+             new_dt = base_dt + offset
+-            msg['time_stamp'] = new_dt.isoformat(timespec='milliseconds')
++            msg['time_stamp'] = msg.get('source_time_stamp') or new_dt.isoformat(timespec='milliseconds')
+     
+     for segments in extract_list:
+         for seg in segments:
+@@ -244,17 +244,11 @@
+                 fact_list = [fact_list]
+ 
+             for fact_entry in fact_list:
+-                original_sid = int(fact_entry.get("source_id", 0))
+-                sid = original_sid
+-                
+-                if max_valid_sid is not None and sid > max_valid_sid:
+-                    sid = max_valid_sid  
+-                    logger.warning(
+-                        f"LLM returned invalid source_id={original_sid} "
+-                        f"(valid range: [0, {max_valid_sid}]) in batch {batch_idx}. "
+-                        f"Auto-corrected to source_id={sid}. "
+-                        f"Fact: {fact_entry.get('fact', '')[:100]}..."
+-                    )
++                sid = fact_entry.get("source_id")
++                if type(sid) is not int or sid < 0 or (
++                    valid_source_ids is not None and sid not in valid_source_ids[batch_idx]
++                ):
++                    raise ValueError(f"Invalid LightMem source_id {sid!r} in batch {batch_idx}; max {max_valid_sid}")
+                 
+                 seq_candidate = sid * 2
+                 
+@@ -277,13 +271,7 @@
+                     topic_id=resolved_topic_id,
+                     topic_summary="",
+                     logger=logger,
+-                    anchor_valid=(
+-                        "source_id" in fact_entry and (
+-                            valid_source_ids is None or
+-                            (batch_idx < len(valid_source_ids) and
+-                             original_sid == sid and sid in valid_source_ids[batch_idx])
+-                        )
+-                    ),
++                    anchor_valid=True,
+                 )
+ 
+                 if mem_obj:
+diff --git a/src/lightmem/factory/memory_manager/openai.py b/src/lightmem/factory/memory_manager/openai.py
+--- a/src/lightmem/factory/memory_manager/openai.py
++++ b/src/lightmem/factory/memory_manager/openai.py
+@@ -28,7 +28,7 @@
+         else:
+             self.context_windows = model_name_context_windows["DEFAULT"]
+ 
+-        http_client = httpx.Client(verify=False)
++        http_client = httpx.Client(verify=False, trust_env=False)
+ 
+         if os.environ.get("OPENROUTER_API_KEY"):  # Use OpenRouter
+             self.client = OpenAI(
+@@ -130,7 +130,12 @@
+             params["tools"] = tools
+             params["tool_choice"] = tool_choice
+ 
++        if self.config.extra_body is not None:
++            params["extra_body"] = self.config.extra_body
++            params["seed"] = self.config.seed
+         response = self.client.chat.completions.create(**params)
++        if not response.choices or response.choices[0].finish_reason != "stop" or response.usage is None:
++            raise ValueError("Incomplete LightMem generation or missing usage")
+         usage_info = {
+             "prompt_tokens": response.usage.prompt_tokens,
+             "completion_tokens": response.usage.completion_tokens,
+@@ -332,7 +337,6 @@
+                     topic_text = concatenate_messages(topic_segment, messages_use)
+                     user_prompt_parts.append(f"--- Topic {global_topic_id} ---\n{topic_text}")
+ 
+-                print(f"User prompt for API call {api_call_idx}:\n" + "\n".join(user_prompt_parts))
+                 user_prompt = "\n".join(user_prompt_parts)
+                 
+                 metadata_messages = [
+@@ -344,7 +348,14 @@
+                     messages=metadata_messages,
+                     response_format={"type": "json_object"},
+                 )
++                parsed = json.loads(raw_response)
++                if not isinstance(parsed, dict) or not isinstance(parsed.get("data"), list):
++                    raise ValueError("LightMem extraction must return an object with a data array")
+                 metadata_facts = clean_response(raw_response)
++                if any(not isinstance(fact, dict) or type(fact.get("source_id")) is not int
++                       or not isinstance(fact.get("fact"), str) or not fact["fact"].strip()
++                       for fact in metadata_facts):
++                    raise ValueError("LightMem extraction returned an invalid fact")
+                 
+                 for entry in metadata_facts:
+                     entry["entry_type"] = entry_type
+@@ -358,21 +369,10 @@
+                 }
+                 
+             except Exception as e:
+-                print(f"Error processing API call {api_call_idx}: {e}")
+-                return {
+-                    "input_prompt": [],
+-                    "output_prompt": "",
+-                    "cleaned_result": [],
+-                    "usage": None,
+-                    "entry_type": entry_type
+-                }
++                raise RuntimeError(f"LightMem extraction batch {api_call_idx} failed: {e}") from e
+ 
+         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+-            try:
+-                results = list(executor.map(process_segment_wrapper, enumerate(extract_list)))
+-            except Exception as e:
+-                print(f"Error in parallel processing: {e}")
+-                results = [None] * len(extract_list)
++            results = list(executor.map(process_segment_wrapper, enumerate(extract_list)))
+ 
+         return results
+ 
+@@ -395,11 +395,12 @@
+             response_format={"type": "json_object"}
+         )
+         
+-        try:
+-            result = json.loads(response_text)
+-            if "action" not in result:
+-                result = {"action": "ignore"}
+-            result["usage"] = usage_info  
+-            return result
+-        except Exception:
+-            return {"action": "ignore", "usage": usage_info if 'usage_info' in locals() else None}
++        result = json.loads(response_text)
++        if not isinstance(result, dict) or result.get("action") not in ("update", "delete", "ignore"):
++            raise ValueError("Invalid LightMem sleep action")
++        if result["action"] == "update" and (
++            not isinstance(result.get("new_memory"), str) or not result["new_memory"].strip()
++        ):
++            raise ValueError("LightMem sleep update requires nonempty memory text")
++        result["usage"] = usage_info
++        return result
+diff --git a/src/lightmem/factory/pre_compressor/llmlingua_2.py b/src/lightmem/factory/pre_compressor/llmlingua_2.py
+--- a/src/lightmem/factory/pre_compressor/llmlingua_2.py
++++ b/src/lightmem/factory/pre_compressor/llmlingua_2.py
+@@ -62,25 +62,18 @@
+                 **self.config.compress_config
+             }
+ 
+-            try:
+-                comp_content = self._compressor.compress_prompt(**compress_config)['compressed_prompt']
+-            except Exception as e:
+-                print(f"compress error, skip this message: {e}")
+-                comp_content = content  # Keep the original content if compression fails
++            comp_content = self._compressor.compress_prompt(**compress_config)['compressed_prompt']
+ 
+             # Check if the compressed content is still too long
+             if tokenizer is not None:
+-                try:
+-                    while len(tokenizer.encode(comp_content)) >= 512 and comp_content.strip():
+-                        new_compress_config = {
+-                            'context': comp_content,
+-                            **self.config.compress_config
+-                        }
+-                        comp_content = self._compressor.compress_prompt(**new_compress_config)['compressed_prompt']
+-                except Exception as e:
+-                    print(f"secondary compress error: {e}")
+-                    # If an error occurs, exit the loop and keep the current compression result
+-                    break
++                length = len(tokenizer.encode(comp_content))
++                while length >= 512 and comp_content.strip():
++                    new_compress_config = {**self.config.compress_config, "context": [comp_content]}
++                    new_content = self._compressor.compress_prompt(**new_compress_config)["compressed_prompt"]
++                    new_length = len(tokenizer.encode(new_content))
++                    if new_length >= length:
++                        raise RuntimeError("LLMLingua-2 cannot fit a LightMem message in its buffer")
++                    comp_content, length = new_content, new_length
+ 
+             # Update message
+             if comp_content.strip():
+diff --git a/src/lightmem/factory/memory_buffer/sensory_memory.py b/src/lightmem/factory/memory_buffer/sensory_memory.py
+--- a/src/lightmem/factory/memory_buffer/sensory_memory.py
++++ b/src/lightmem/factory/memory_buffer/sensory_memory.py
+@@ -91,8 +91,9 @@
+             return segments
+ 
+         embeddings = []
++        embed_turn = getattr(text_embedder, 'embed_turn', text_embedder.embed)
+         for turn in turns:
+-            emb = text_embedder.embed(turn)
++            emb = embed_turn(turn)
+             embeddings.append(np.array(emb, dtype=np.float32))
+         embeddings = np.vstack(embeddings)
+ 
+diff --git a/src/lightmem/factory/retriever/embeddingretriever/qdrant.py b/src/lightmem/factory/retriever/embeddingretriever/qdrant.py
+--- a/src/lightmem/factory/retriever/embeddingretriever/qdrant.py
++++ b/src/lightmem/factory/retriever/embeddingretriever/qdrant.py
+@@ -118,7 +118,7 @@
+             if isinstance(value, dict):
+                 gte = value.get("gte", None)
+                 lte = value.get("lte", None)
+-                conditions.append(FieldCondition(key=key, range=Range(gte=gte, lte=lte)))
++                conditions.append(FieldCondition(key=key, range=Range(gte=gte, lte=lte, lt=value.get("lt"))))
+             else:
+                 conditions.append(FieldCondition(key=key, match=MatchValue(value=value)))
+         return Filter(must=conditions) if conditions else None

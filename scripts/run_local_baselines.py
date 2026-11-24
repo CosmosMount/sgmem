@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from sgmem import runner
+from sgmem.precomputed_retrieval import PRECOMPUTED_METHODS, context_protocol
 from sgmem.retrieval import METHODS
 from sgmem.shards import PUBLISHED_SPLIT, load_frozen_split, row_key, shard_split
 
@@ -27,7 +28,9 @@ def main():
     parser.add_argument("--output", required=True, help="New directory; never overwritten")
     parser.add_argument("--domains", nargs="+", choices=runner.DOMAINS, default=["Finance", "Technology"])
     parser.add_argument("--categories", nargs="+", choices=runner.CATEGORIES, default=list(runner.CATEGORIES))
-    parser.add_argument('--methods', nargs='+', choices=METHODS, default=['bm25', 'dense'])
+    parser.add_argument('--methods', nargs='+', choices=(*METHODS, *PRECOMPUTED_METHODS), default=['bm25', 'dense'])
+    parser.add_argument('--precomputed', nargs='+', default=argparse.SUPPRESS,
+                        help='Completed memory retrieval directories for the selected methods and domains')
     parser.add_argument('--shards', type=int, default=1, help='Disjoint question shards; use --full')
     parser.add_argument('--shard-index', type=int, default=0, help='Zero-based shard number')
     mode = parser.add_mutually_exclusive_group()
@@ -47,6 +50,13 @@ def main():
         parser.error('Domains and categories must not be repeated')
     if len(set(args.methods)) != len(args.methods):
         parser.error('Methods must not be repeated')
+    uses_precomputed = any(method in PRECOMPUTED_METHODS for method in args.methods)
+    if uses_precomputed != hasattr(args, 'precomputed'):
+        parser.error('Provide --precomputed exactly when selecting a memory retrieval method')
+    if uses_precomputed:
+        args.precomputed = [str(Path(path).resolve()) for path in args.precomputed]
+        if len(set(args.precomputed)) != len(args.precomputed) or any(not Path(path).is_dir() for path in args.precomputed):
+            parser.error('--precomputed requires distinct existing ranking directories')
     if args.shards < 1 or not 0 <= args.shard_index < args.shards:
         parser.error('Require shards > 0 and 0 <= shard-index < shards')
     if args.shards != 1 and not args.full:
@@ -121,6 +131,15 @@ def main():
             'weight_sizes': {str(p.relative_to(folder)): p.stat().st_size
                              for p in sorted(folder.rglob('*.safetensors'))},
         }
+    contexts = {method: protocol for method in args.methods if (protocol := context_protocol(method)) is not None}
+    if contexts:
+        details['context_protocols'] = contexts
+        details['packages']['tokenizers'] = metadata.version('tokenizers')
+        folder = Path(args.model)
+        details['model_files']['qa']['context_tokenizer_files_sha256'] = {
+            path.relative_to(folder).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in sorted(folder.rglob('*')) if path.is_file() and path.suffix in {'.json', '.txt', '.model', '.jinja'}
+        }
     patch = subprocess.check_output(["git", "-C", str(ROOT), "diff", "--binary"])
     details["tracked_patch_sha256"] = hashlib.sha256(patch).hexdigest()
     config_path = output / 'run-config.json'
@@ -130,6 +149,8 @@ def main():
         for key in ('arguments', 'project_git', 'benchmark_git', 'source_split_sha256', 'script_sha256', 'packages', 'tracked_patch_sha256', 'model_files', 'embedding_weight_sha256'):
             if previous[key] != details[key]:
                 parser.error(f'Resume rejected: {key} changed')
+        if previous.get('context_protocols') != details.get('context_protocols'):
+            parser.error('Resume rejected: native context protocol changed')
         if json.loads(split_path.read_text(encoding='utf-8')) != split:
             parser.error('Saved shard differs from the frozen split')
         if json.loads((output / 'full-split.json').read_text(encoding='utf-8')) != full_split:
@@ -156,6 +177,7 @@ def main():
                 self.last_usage = None
                 self.last_finish_reason = None
                 self.context = None
+                self.tokenizer = tokenizer
 
             def complete(self, system_prompt, user_prompt, max_tokens):
                 self.last_usage = None
@@ -214,6 +236,8 @@ def main():
                 model_provenance={'qa_revision': args.model_revision, 'embedding_revision': args.embedding_revision,
                                   'files': details['model_files']},
             )
+            if method in PRECOMPUTED_METHODS:
+                run_args.precomputed = args.precomputed
             run_path = runner.run(run_args, client_factory=DirectClient)
             metrics = json.loads((run_path / "metrics.json").read_text(encoding='utf-8'))
             if metrics['overall']['errors'] or not metrics['complete']:
