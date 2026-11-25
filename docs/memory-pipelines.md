@@ -67,7 +67,7 @@ HippoRAG 2 的 Healthcare 图已保存，含 29,932 个唯一 passage、51,460 �
 
 晚间恢复核验中，LightMem 已通过 4,980-token 长输入请求和 40 条真实消息的完整小测（包括 15 次 sleep 调用）；HippoRAG 已重开原图并完成 Healthcare 的 33 题 passage-dense 导出，随后按固定上游的候选映射方式修正识别阶段的非精确匹配。291 项离线测试通过。小测细节见[恢复核验记录](evidence/memory-recovery-20261125.json)，后续正式结果单独验收；这些核验不计入 benchmark 准确率。
 
-截至 2026-11-25 23:35（UTC+8），HippoRAG 的 33 题图检索和缓存复用的 0.90 阈值对照也已完成；原图和两份身份清单的哈希未变。金融服务器先执行 Healthcare 的三组 QA 和两组阈值对照，再接已冻结的 Dense X test；课程服务器执行 LightMem Healthcare 全量新协议建库与五组检索导出，完成并校验传输后进入同一金融服务器 QA 环境。每阶段记录退出码、耗时及完整性检查，失败不会标成完成。测试集选择保持原冻结方案；后续开发集不重写已有冻结记录。
+2026-11-25 晚间，HippoRAG 的 33 题图检索和缓存复用的 0.90 阈值对照也已完成；原图和两份身份清单的哈希未变。金融服务器先执行 Healthcare 的三组 QA 和两组阈值对照，再接已冻结的 Dense X test；课程服务器执行 LightMem Healthcare 全量新协议建库与五组检索导出，完成并校验传输后进入同一金融服务器 QA 环境。每阶段记录退出码、耗时及完整性检查，失败不会标成完成。测试集选择保持原冻结方案；后续开发集不重写已有冻结记录。
 
 服务器入口为各自本轮目录下的 `finish-study-20261125/continuation-status.json`（金融服务器）与 `lightmem-healthcare-recovery/continuation-status.json`（课程服务器）。跨机排名传输由工作站后台进程完成，依赖工作站保持联网，临时 SSH 故障会重试。LightMem 和 HippoRAG 的另外三个领域尚未纳入这次保守预算队列，不属于已完成范围。
 
