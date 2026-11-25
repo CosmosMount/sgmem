@@ -33,6 +33,8 @@ Omit `--queries` and `--output` to build only. Each invocation owns one domain. 
 
 Use `HippoRAGMemory(messages, index_dir, embedding_path=..., embedding_revision=..., llm_revision=...).build()` to build or resume. The common exporter calls `build(require_existing=True)` to require a completed index before loading the retrieval engine. Call `retrieve_with_trace(question, 50, asking_user_id=...)` for common SGMem hits and the audit trail, then `close()`. The caller applies one shared metadata reranker to the same raw candidate pool and selects the final ten hits for the existing QA/judge.
 
+For the threshold comparison, first export `hipporag2` from the completed 0.8 index. Run the same exporter on the same messages, questions and index with `--synonym-threshold 0.9` and a new output directory. The exporter prunes synonym contributions in memory and preserves fact and passage edges. It requires the original recognition responses in the cache. The manifest records both edge counts and the replay threshold. A real 100-message check replayed three PPR queries from cache and verified that the original index, graph and cache retained their SHA-256 hashes.
+
 Use `scripts/retrieve_memories.py --method hipporag2-dpr` with the same completed index for the passage-dense control. It invokes the official DPR retrieval and uses the same expansion to unique original IDs. Its trace records `dense_control` and it makes no query-time recognition call.
 
 ## State and evidence

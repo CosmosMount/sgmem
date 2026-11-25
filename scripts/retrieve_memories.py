@@ -49,6 +49,32 @@ def _model_files(path, *, weights):
             for item in sorted(path.rglob("*")) if item.is_file() and item.suffix in suffixes}
 
 
+def _prune_synonyms(graph, threshold):
+    """Raise the cutoff of an in-memory, source-aware HippoRAG graph."""
+    if "hipporag_edge_schema" not in graph.attributes() or graph["hipporag_edge_schema"] != 1:
+        raise ValueError("Synonym replay requires the pinned source-aware graph")
+    removed, mixed = [], 0
+    before = graph.ecount()
+    for edge in graph.es.select(synonym_score_gt=0.0, synonym_score_lt=threshold):
+        facts = edge["fact_source_counts"]
+        passage = edge["passage_source"] is not None
+        if not facts and not passage:
+            removed.append(edge.index)
+            continue
+        weight = max(sum(facts.values()), float(passage))
+        if edge["weight"] != weight:
+            raise ValueError("Mixed graph edge has unexpected fact or passage weight")
+        edge["synonym_score"] = 0.0
+        kinds = ["fact"] if facts else []
+        if passage:
+            kinds.append("passage")
+        edge["edge_kind"] = "+".join(kinds)
+        mixed += 1
+    graph.delete_edges(removed)
+    return {"threshold": threshold, "edges_before": before, "edges_after": graph.ecount(),
+            "removed_synonym_only_edges": len(removed), "pruned_mixed_edges": mixed}
+
+
 def load_retriever(args, sources):
     domain = next(iter(sources))[0]
     messages = [dict(message) for message in sources.values()]
@@ -79,9 +105,24 @@ def load_retriever(args, sources):
         dense_only = args.method == "hipporag2-dpr"
         if dense_only:
             settings["dense_only"] = True
+        threshold = getattr(args, "synonym_threshold", None)
+        if threshold is not None and (dense_only or not settings["synonym_threshold"] < threshold <= 1.0):
+            raise ValueError("Use a higher synonym threshold on the completed HippoRAG graph")
         retriever = HippoRAGMemory(messages, index, **settings).build(require_existing=True)
-        return retriever, {**origin, "manifest_sha256": checksum, "identity": state["identity"],
-                           "retrieval": "dpr" if dense_only else "graph"}, {}
+        provenance = {**origin, "manifest_sha256": checksum, "identity": state["identity"],
+                      "retrieval": "dpr" if dense_only else "graph"}
+        if threshold is not None:
+            def require_cached_recognition(*args, **kwargs):
+                raise RuntimeError("Export the original graph rankings before replaying the synonym cutoff")
+
+            try:
+                provenance["synonym_replay"] = _prune_synonyms(retriever.engine.graph, threshold)
+                retriever.engine.llm_model.openai_client.chat.completions.create = require_cached_recognition
+                provenance["recognition_cache_only"] = True
+            except Exception:
+                retriever.close()
+                raise
+        return retriever, provenance, {}
 
     path = _local_model(args.embedding_path, args.embedding_revision, "E5")
     embedding_files = _model_files(path, weights=True)
@@ -144,9 +185,13 @@ def main():
     parser.add_argument("--llm-base-url")
     parser.add_argument("--llm-name")
     parser.add_argument("--llm-revision")
+    parser.add_argument("--synonym-threshold", type=float,
+                        help="Raise the HippoRAG cutoff and reuse cached recognition without model calls")
     args = parser.parse_args()
     if args.context_view is not None and args.method not in CONTEXT_BASES:
         parser.error("--context-view is supported for densex, lightmem and raptor")
+    if args.synonym_threshold is not None and args.method != "hipporag2":
+        parser.error("--synonym-threshold is supported for hipporag2")
     if (args.index is None) != (args.method == "densex-sentences"):
         parser.error("--index is required for all methods except densex-sentences")
     if args.output.exists():
