@@ -10,12 +10,13 @@
 | --- | --- | --- |
 | 四篇论文、官方源码及依赖核查 | 完成；父 agent 复核关键源码 | 固定来源，明确论文核心与适配偏差 |
 | 公共数据导出 | 完成离线核验 | 120,000 条消息、179 道 dev，标签隔离，来源 ID 保留 |
-| Dense X 提取与原文回溯 | 四域 120,000 条完整建库；五个检索条件覆盖 179 题 dev；基础版已完成问答与判分 | 等待元数据、分句和等预算对照的分数 |
-| LightMem/RAPTOR/HippoRAG 2 | 三条核心管线均通过 1,000 条源消息的整卡成本试跑 | 各自独立核验全域建库和 dev；RAPTOR 首次全域发现摘要截断，已复测修复 |
+| Dense X 提取与原文回溯 | 四域 120,000 条完整建库；五个检索条件覆盖 179 题 dev；基础和元数据版已完成问答与判分 | 等待分句和两组等预算对照的分数 |
+| RAPTOR | Healthcare 30,000 条建库完成，33 道 dev 的五个检索条件通过回放校验 | 补齐其余三个领域和各条件问答评分 |
+| LightMem/HippoRAG 2 | 均通过整卡成本试跑；Healthcare 全域任务已排入两台服务器 | 完成索引、检索和问答对照后汇总 |
 | 检索结果与固定 QA/judge 接入 | 主比较、四项消融和三组原生/原文预算对照已接入；286 项离线回归与 6 项真实模型接口检查通过 | 全量 dev 尚未完成；接口检查不计 benchmark 分数 |
 | GPU 调度 | 已启动，优先空卡，允许显存足够的共享卡 | 本轮累计不超过 30 GPU-hours，失败和服务加载也计入 |
 
-已有 Part 1–3 证据保留。本轮的效果比较分阶段记录，当前完整出分的是 Dense X 基础版 dev。用户已授权有合适卡时直接运行；本轮最多 30 GPU-hours。可核对的历史不重叠资源小计为 13.3489 GPU-hours，另有少量历史计时缺失；本轮与历史累计仍须满足课程小于 50 GPU-hours 的约束。
+已有 Part 1–3 证据保留。本轮的效果比较分阶段记录。有合适卡时可直接运行，本轮最多 30 GPU-hours。可核对的历史不重叠资源小计为 13.3489 GPU-hours，另有少量历史计时缺失；本轮与历史累计仍须满足课程小于 50 GPU-hours 的约束。
 
 截至本次小测完成，本轮已记录 **1.096281 GPU-hours**，包括服务加载、失败尝试和占卡期间的 CPU 工作。最后一批的总退出码仍为 1：最初的探针错误地要求原始模型关系零重复，随后独立修正探针和完整 HippoRAG 小测通过；没有覆盖失败账目。各方法最后小测以及 6 项原生/原文接口检查均有独立完成记录。紧凑证据与远端原始收据哈希见 [小测核验记录](evidence/memory-pilot-20261125.json)。
 
@@ -30,7 +31,7 @@
 
 逐行核验了 Dense X 的 120,000 条源 ID、源哈希及回退正文。最终有 500,286 个检索单元，503 条源消息回退原文（0.419%）；其中 1 条达到生成上限。四种 Dense X 排名及分句对照均覆盖冻结的 179 道 dev。整卡试跑、全量建库和 RAPTOR 截断复测见 [扩容核验记录](evidence/memory-scale-20261125.json)。
 
-## Dense X 首个完整开发集结果
+## Dense X 开发集结果
 
 基础 Dense X 对 179 道题的 10 条原消息回溯评测得到 **52/179（29.05%）**。179 道题均有有效判分，1 个回答达到生成长度上限。使用原始排列、固定 Qwen tokenizer 和保存的生成记录重放了 358 个回答与判分提示，哈希逐项一致。
 
@@ -41,7 +42,15 @@
 
 这项比较当前未显示整体收益。Healthcare `knowledge_update_5` 中，Dense X 补回了 `Msg_2947` 并答对；Finance `temporal_21` 中，Dense X 的前 10 条缺少 Dense 曾取回的 `Msg_8383`，回答漏掉了冻结日期。保留判分器的原始结论，个别参考答案与模型表述的差异继续通过案例检查。
 
-元数据重排改变了 85 道题的前 10 条集合。已有 Part 2 标注中，18 道带明确目标消息的诊断题有 7 道能在 Dense X 的 50 条候选内找到目标；基础和元数据组的前 10 条各找到 5 道。原生及同预算原文的 179 份提示均经 tokenizer 检查，证据上限为 3,500 tokens，实际证据用量中位数分别是 2,523 和 3,431。等预算分数待另外两组完成。原始核验见金融服务器本轮目录中的 `densex-first-condition-audit.json`、`densex-dev-retrieval-audit.json` 和 `densex-native-render-audit.json`。
+元数据组得到 **55/179（30.73%）**，比基础版多答对 12 题、丢失 9 题，净增 3 题（配对精确检验 p=0.664）。相对消息级 E5 Dense 和 hybrid-meta 分别少答对 3 题和 10 题。元数据组 179 题的 358 个提示哈希均重放一致，3 个回答达到长度上限。两种 Dense X 的 94 道同提示题，回答和判分全部一致。
+
+元数据重排改变了 85 道题的前 10 条集合。已有 Part 2 标注中，18 道带明确目标消息的诊断题有 7 道能在 Dense X 的 50 条候选内找到目标；基础和元数据组的前 10 条各找到 5 道。原生及同预算原文的 179 份提示均经 tokenizer 检查，证据上限为 3,500 tokens，实际证据用量中位数分别是 2,523 和 3,431。等预算分数待另外两组完成。原始核验见金融服务器本轮目录中的 `densex-first-condition-audit.json`、`densex-meta-dev-audit.json`、`densex-dev-retrieval-audit.json` 和 `densex-native-render-audit.json`。
+
+## RAPTOR Healthcare 构建与检索核验
+
+课程服务器用 1,019 秒从 30,000 条消息构建了 30,007 个叶子和 1,124 个摘要节点。19 次生成达到长度上限，均在一次重试内正常返回。存盘的树、摘要记录和五组排名已核对源语料、模型和开发集身份。金融服务器用正式评分入口成功载入 33 道题的排名，原生节点和同预算原文的证据用量中位数分别为 3,367 和 3,431 tokens，均在 3,500 tokens 上限内。
+
+摘要参与排序后，有 28/33 题的原文前十条集合与只检索叶子的条件不同。基础、元数据和叶子条件在五道带明确目标消息的既有诊断题里均未召回目标。该样本用于解释检索差异，问答效果待评分后评估。核验记录位于金融服务器本轮目录的 `raptor-healthcare-ranking-audit.json`。
 
 ## 固定来源
 
@@ -167,9 +176,21 @@ python scripts/prepare_memory_inputs.py --output results/memory-inputs-dev
 
 LightMem 已修复两个实际问题：使用源消息的真实时刻建立严格较新的更新关系；长事实无损分片编码后按正文 token 数加权聚合。复测核对 100/100 条进入抽取、116 条候选更新边均符合原始时间顺序。607-token 的 `Msg_88` 分成 512/100-token 两片，9 个来源全部保留，独立 CPU 重算的聚合向量与存盘逐元素一致。sleep 前来源覆盖 100/100，之后为 97/100；模型仍会误删补充信息、遗漏否定或误改因果。前测 95/100 与本次 97/100 的差异不是语义准确率，也不能归因于代码修正。
 
-HippoRAG 已阻止四字段关系、无限重复和 few-shot 示例实体混入图。完整原始响应与丢弃诊断保留；仍有把疑问写成事实等内容错误。E5 默认 0.8 同义阈值产生 43,617 条边，占图边的 95.76%；0.85/0.90/0.95 的只读密度探针为 6,088/986/110。高阈值仍会把不同日期或时长看作相似，不能由这三个自查询选参数或声称提升。全量前须核查吞吐、图密度及预先声明的小范围 dev 阈值对照。尚无这轮新方法的 benchmark QA 准确率。
+HippoRAG 已阻止四字段关系、无限重复和 few-shot 示例实体混入图。完整原始响应与丢弃诊断保留；仍有把疑问写成事实等内容错误。E5 默认 0.8 同义阈值产生 43,617 条边，占图边的 95.76%；0.85/0.90/0.95 的只读密度探针为 6,088/986/110。高阈值仍会把不同日期或时长看作相似。Healthcare 开发集的 0.90 对照复用 0.80 的图和识别缓存，单独核对稀疏化是否改变检索。[运行方式](hipporag-integration.md)
 
 四种索引通过 `scripts/retrieve_memories.py` 导出基础/元数据配对；每题共用一次检索所得的 50 个原消息候选，固定 RRF 60，最后 K=10。`scripts/run_local_baselines.py --precomputed <排名目录>` 接回原 QA/judge，校验完整领域源消息、题目原文、提问者、题号和排序文件；回答模型只读取 ID 对应的原消息。命题、摘要和图的诊断轨迹不进入主表 QA。离线回归已证明同一有序原消息生成逐字相同的回答/评分调用；这不替代真实模型测试。
+
+例如，使用同一份 Healthcare 排名对照 RAPTOR 和 RAPTOR + 元数据。`QWEN_MODEL`、`E5_MODEL` 和 `RAPTOR_RANKINGS` 分别指向本地冻结权重和包含 `raw-top10-pair/` 的 Healthcare 排名目录。
+
+```bash
+python scripts/run_local_baselines.py \
+  --model "$QWEN_MODEL" --model-revision b968826d9c46dd6066d109eabc6255188de91218 \
+  --embedding-model "$E5_MODEL" --embedding-revision ffb93f3bd4047442299a41ebb6fa998a38507c52 \
+  --methods raptor raptor-meta --precomputed "$RAPTOR_RANKINGS/raw-top10-pair" \
+  --domains Healthcare --full --partition dev --output results/raptor-healthcare-dev
+```
+
+做接口小测时，将 `--full` 换成 `--categories temporal --limit 1`，并使用新的输出目录。评估四域时给出四个领域和各自的排名目录。每个领域、每种条件只传入一份排名。
 
 同一导出入口接受四个原消息消融名称。它们各生成一份独立排序，均保留 50 条唯一原消息候选，最终取 10 条交给原 QA。
 
@@ -186,7 +207,7 @@ HippoRAG 已阻止四字段关系、无限重复和 few-shot 示例实体混入�
 
 运行目录为金融服务器 `/home/ai4s_group/XZG/NLP/sgmem-memory`；模型、上游 checkout、增量依赖和运行产物位于 `/data/ai4s_group/XZG/NLP/memory-round-20261124`。旧 `sgmem-part3` 未修改。复用原 Python 3.10 环境，缺少的依赖以独立 `deps/` 目录加入 worker 的 PYTHONPATH，不覆盖已有 Torch/Transformers。直接依赖见 `requirements-memory.txt`，实际版本另存运行目录。服务器 `/home` 空间紧张，本轮缓存和临时文件均放 `/data`。
 
-`scripts/run_memory_gpu.py` 双重检查候选卡，优先整张空闲卡，否则使用达到该阶段显存门槛的共享卡。没有合适卡就等待，不加载模型。单卡计时账本、互斥锁和 GNU timeout 限制累计 30 GPU-hours；未完成的资源账目必须核对后再继续。`scripts/run_memory_service.py` 将本机 Qwen 服务生命周期绑定到 worker，固定非思考模板并验证与 tokenizer 一致，结束时释放自己的服务进程组。服务启动、等待工作及失败也计入占卡时间。
+`scripts/run_memory_gpu.py` 双重检查候选卡，优先整张空闲卡，其次使用达到该阶段显存门槛的共享卡。单个账本用互斥锁和 GNU timeout 约束阶段用量。两台服务器的已用时长及未结束阶段预留需合并计入本轮 30 GPU-hours，预留以金融服务器本轮目录的 `second-wave-budget.json` 为准。`scripts/run_memory_service.py` 将本机 Qwen 服务绑定到 worker，固定非思考模板并验证与 tokenizer 一致，结束时释放服务进程组。服务启动、等待工作及失败计入占卡时间。
 
 真实小测入口为 `scripts/smoke_memory_pipelines.py`，使用预先固定的连续公开历史窗口。验收区分“能建库”和“机制实际触发”：RAPTOR 必须生成摘要层；LightMem 必须执行压缩、分段、轮次相似度、事实抽取和 sleep 调用，另记 update/delete 数量；HippoRAG 必须至少有一次经过筛选与 PPR 的检索。小语料自查询仅检查接口和来源，不能当作 dev 准确率。
 

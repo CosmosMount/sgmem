@@ -90,6 +90,7 @@ python -m sgmem analyze --records results/bm25-dev/predictions.jsonl results/den
 - [HPC 容器部署与 Qwen 升级](docs/hpc-deployment.md)、[检索参考](docs/retrieval-references.md)
 - [实施路线图](docs/roadmap.md)、[后续 CI 清单](docs/ci-plan.md)、[数据和依赖](docs/data-and-dependencies.md)
 - [Part 3 完整探索矩阵与复现](docs/part3-exploration.md)
+- [四种记忆检索管线与开发集对照](docs/memory-pipelines.md)
 - [课程报告、可复算图表与离线案例回放](docs/report/README.md)
 
 评分细则与 50 GPU-hours 上限来自用户提供的课程材料。Part 1 全量运行累计 3.5907 GPU-hours；各轮已记录的非重叠运行合计 13.3489 GPU-hours，见[报告资源表](docs/report/README.md)。早期未完整计时的连通性测试等仍未计入，不能把此小计当作整个项目精确总用量。
