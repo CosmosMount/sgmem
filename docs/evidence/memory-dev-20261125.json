@@ -1,0 +1,2469 @@
+{
+  "purpose": "Full dev results from Dense X and RAPTOR; LightMem and HippoRAG 2 remain incomplete. Not test results.",
+  "verified_at_utc": "2026-11-25T15:11:47.124223+00:00",
+  "source_dev_audit_sha256": "8e05fe159ef27c2cd0104db584424b5c4ce6f92344d0450aa5aaf174438cd532",
+  "source_dev_audit_relative_path": "finish-study-20261125/dev-audit.json",
+  "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+  "protocols": {
+    "densex": {
+      "project_git": {
+        "commit": "af207e0119cefdae99543606336f61155ae178af",
+        "status": ""
+      },
+      "benchmark_git": {
+        "commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+        "status": ""
+      },
+      "source_split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+      "enable_thinking": false,
+      "temperature": 0.2,
+      "top_p": 1.0,
+      "top_k": 0,
+      "answer_max_tokens": 512,
+      "judge_max_tokens": 256,
+      "seed_per_call": 42,
+      "packages": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "sentence-transformers": "5.7.0",
+        "numpy": "2.2.6",
+        "rank-bm25": "0.2.2",
+        "tokenizers": "0.22.2"
+      },
+      "context_protocols": {
+        "densex-native": {
+          "view": "native",
+          "budget_tokens": 3500,
+          "candidate_depth": 50,
+          "count": "rendered_prompt_delta"
+        },
+        "densex-raw-budget": {
+          "view": "raw-budget",
+          "budget_tokens": 3500,
+          "candidate_depth": 50,
+          "count": "rendered_prompt_delta"
+        }
+      }
+    },
+    "raptor": {
+      "project_git": {
+        "commit": "af207e0119cefdae99543606336f61155ae178af",
+        "status": ""
+      },
+      "benchmark_git": {
+        "commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+        "status": ""
+      },
+      "source_split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+      "enable_thinking": false,
+      "temperature": 0.2,
+      "top_p": 1.0,
+      "top_k": 0,
+      "answer_max_tokens": 512,
+      "judge_max_tokens": 256,
+      "seed_per_call": 42,
+      "packages": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "sentence-transformers": "5.7.0",
+        "numpy": "2.2.6",
+        "rank-bm25": "0.2.2",
+        "tokenizers": "0.22.2"
+      },
+      "context_protocols": {
+        "raptor-native": {
+          "view": "native",
+          "budget_tokens": 3500,
+          "candidate_depth": 50,
+          "count": "rendered_prompt_delta"
+        },
+        "raptor-raw-budget": {
+          "view": "raw-budget",
+          "budget_tokens": 3500,
+          "candidate_depth": 50,
+          "count": "rendered_prompt_delta"
+        }
+      }
+    }
+  },
+  "methods": {
+    "densex": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 52,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.2905027932960894
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 17,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.32075471698113206
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2727272727272727
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.275
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.2830188679245283
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 14,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3111111111111111
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 3,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.1111111111111111
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.175
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.38461538461538464
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 8,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2962962962962963
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5555555555555556
+        }
+      },
+      "predictions_sha256": "cf46223cc466a202244463a906176382a92848389c530e6e272c6e6761637e88",
+      "generation_audit_sha256": "a908149ba1fe71d9ae24c4dd72aba40737c5d16778843ff4c740919303d90baa"
+    },
+    "densex-meta": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 55,
+        "truncated_answers": 3,
+        "truncated_judgments": 0,
+        "accuracy": 0.30726256983240224
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2830188679245283
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2727272727272727
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.375
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.3018867924528302
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3333333333333333
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.14814814814814814
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.225
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 3,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.23076923076923078
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 8,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.2962962962962963
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5925925925925926
+        }
+      },
+      "predictions_sha256": "091d2c7c7ee2c4da0e69ac240662be3182109f215a8d51cc970ace29587df945",
+      "generation_audit_sha256": "a908149ba1fe71d9ae24c4dd72aba40737c5d16778843ff4c740919303d90baa"
+    },
+    "densex-sentences": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 54,
+        "truncated_answers": 0,
+        "truncated_judgments": 0,
+        "accuracy": 0.3016759776536313
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 18,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.33962264150943394
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.30303030303030304
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.25
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3018867924528302
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.24444444444444444
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.25925925925925924
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.175
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5384615384615384
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18518518518518517
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 17,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.6296296296296297
+        }
+      },
+      "predictions_sha256": "8ad2d7f40ca8727ca7427423deeb2eacc9d0333ae52195126f0aa1d794f12c4e",
+      "generation_audit_sha256": "a908149ba1fe71d9ae24c4dd72aba40737c5d16778843ff4c740919303d90baa"
+    },
+    "densex-native": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 36,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.2011173184357542
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 12,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.22641509433962265
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18181818181818182
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.175
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.20754716981132076
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2222222222222222
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 0,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.0
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 3,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.075
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 2,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.15384615384615385
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18518518518518517
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5925925925925926
+        }
+      },
+      "predictions_sha256": "b9c671256b5d9c9593591eee81aef1dd96f3aaff68c0da0dc6eea0798b25b805",
+      "generation_audit_sha256": "a908149ba1fe71d9ae24c4dd72aba40737c5d16778843ff4c740919303d90baa"
+    },
+    "densex-raw-budget": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 54,
+        "truncated_answers": 5,
+        "truncated_judgments": 0,
+        "accuracy": 0.3016759776536313
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.3018867924528302
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2727272727272727
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.375
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 14,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.2641509433962264
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 13,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.28888888888888886
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18518518518518517
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 14,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.35
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3076923076923077
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.25925925925925924
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.4074074074074074
+        }
+      },
+      "predictions_sha256": "4d59062209ea36684127eb5625d69fa301c2c189fd06b3aff6e63204b94003c7",
+      "generation_audit_sha256": "a908149ba1fe71d9ae24c4dd72aba40737c5d16778843ff4c740919303d90baa"
+    },
+    "raptor": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 48,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.2681564245810056
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2830188679245283
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2727272727272727
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.275
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 13,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.24528301886792453
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.24444444444444444
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2222222222222222
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.15
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3076923076923077
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18518518518518517
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5925925925925926
+        }
+      },
+      "predictions_sha256": "f676ad6a51734945020b6467ef7322e37beabc5e38d602c99a79d84b897cb6c6",
+      "generation_audit_sha256": "251d141acad09702d399ff023bc30db05bf7a5dba9210a5062b7319daeb67882"
+    },
+    "raptor-meta": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 54,
+        "truncated_answers": 1,
+        "truncated_judgments": 0,
+        "accuracy": 0.3016759776536313
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3018867924528302
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.30303030303030304
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 13,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.325
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2830188679245283
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.24444444444444444
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.2222222222222222
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.175
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3076923076923077
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.25925925925925924
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 19,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.7037037037037037
+        }
+      },
+      "predictions_sha256": "5e7d6c1e3bcb10198f44c0db56eaacf07107722660a50e4bec685fb2573a5d4d",
+      "generation_audit_sha256": "251d141acad09702d399ff023bc30db05bf7a5dba9210a5062b7319daeb67882"
+    },
+    "raptor-leaf": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 56,
+        "truncated_answers": 4,
+        "truncated_judgments": 0,
+        "accuracy": 0.3128491620111732
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 21,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.39622641509433965
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 8,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.24242424242424243
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 3,
+          "truncated_judgments": 0,
+          "accuracy": 0.275
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.3018867924528302
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3333333333333333
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.14814814814814814
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 8,
+          "truncated_answers": 4,
+          "truncated_judgments": 0,
+          "accuracy": 0.2
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.46153846153846156
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.25925925925925924
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.5925925925925926
+        }
+      },
+      "predictions_sha256": "31aceca5ca31b262f0e8991ef3acd9d15aba6bcab0fd97d1c8e1305cb9b3b066",
+      "generation_audit_sha256": "251d141acad09702d399ff023bc30db05bf7a5dba9210a5062b7319daeb67882"
+    },
+    "raptor-native": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 43,
+        "truncated_answers": 3,
+        "truncated_judgments": 0,
+        "accuracy": 0.24022346368715083
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 15,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.2830188679245283
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.15151515151515152
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 10,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.25
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 13,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.24528301886792453
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 13,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.28888888888888886
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.25925925925925924
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 2,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.05
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 9,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.6923076923076923
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 5,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.18518518518518517
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.25925925925925924
+        }
+      },
+      "predictions_sha256": "2aa7793a2d666b6caa063da441c78c2a05e36e0af7a1138c979d9247baf74427",
+      "generation_audit_sha256": "251d141acad09702d399ff023bc30db05bf7a5dba9210a5062b7319daeb67882"
+    },
+    "raptor-raw-budget": {
+      "overall": {
+        "total": 179,
+        "completed": 179,
+        "errors": 0,
+        "unclear": 0,
+        "correct": 44,
+        "truncated_answers": 4,
+        "truncated_judgments": 0,
+        "accuracy": 0.24581005586592178
+      },
+      "by_domain": {
+        "Finance": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.20754716981132076
+        },
+        "Healthcare": {
+          "total": 33,
+          "completed": 33,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 6,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.18181818181818182
+        },
+        "Manufacturing": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.275
+        },
+        "Technology": {
+          "total": 53,
+          "completed": 53,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 16,
+          "truncated_answers": 2,
+          "truncated_judgments": 0,
+          "accuracy": 0.3018867924528302
+        }
+      },
+      "by_category": {
+        "multi_hop": {
+          "total": 45,
+          "completed": 45,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 11,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.24444444444444444
+        },
+        "knowledge_update": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.14814814814814814
+        },
+        "temporal": {
+          "total": 40,
+          "completed": 40,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 7,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.175
+        },
+        "user_implicit": {
+          "total": 13,
+          "completed": 13,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.3076923076923077
+        },
+        "term_ambiguity": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 4,
+          "truncated_answers": 0,
+          "truncated_judgments": 0,
+          "accuracy": 0.14814814814814814
+        },
+        "abstention": {
+          "total": 27,
+          "completed": 27,
+          "errors": 0,
+          "unclear": 0,
+          "correct": 14,
+          "truncated_answers": 1,
+          "truncated_judgments": 0,
+          "accuracy": 0.5185185185185185
+        }
+      },
+      "predictions_sha256": "13eb2e92bafb2556c4f3a0392dc1e40b605dc53d531a126070d8b503c64a0e35",
+      "generation_audit_sha256": "251d141acad09702d399ff023bc30db05bf7a5dba9210a5062b7319daeb67882"
+    }
+  },
+  "paired_comparisons": {
+    "densex-meta": {
+      "questions": 179,
+      "gained": 12,
+      "lost": 9,
+      "net": 3,
+      "gained_ids": [
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_19"
+        ],
+        [
+          "Finance",
+          "abstention",
+          "abstention_36"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_33"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_6"
+        ],
+        [
+          "Manufacturing",
+          "knowledge_update",
+          "knowledge_update_18"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_31"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_42"
+        ],
+        [
+          "Manufacturing",
+          "term_ambiguity",
+          "term_ambiguity_8"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_21"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_30"
+        ],
+        [
+          "Technology",
+          "term_ambiguity",
+          "term_ambiguity_5"
+        ],
+        [
+          "Technology",
+          "term_ambiguity",
+          "term_ambiguity_41"
+        ]
+      ],
+      "lost_ids": [
+        [
+          "Finance",
+          "user_implicit",
+          "user_implicit_7"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_7"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_23"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_39"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_38"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_42"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_45"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_32"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_17"
+        ]
+      ]
+    },
+    "raptor-meta": {
+      "questions": 179,
+      "gained": 7,
+      "lost": 1,
+      "net": 6,
+      "gained_ids": [
+        [
+          "Finance",
+          "abstention",
+          "abstention_45"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_33"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_42"
+        ],
+        [
+          "Manufacturing",
+          "term_ambiguity",
+          "term_ambiguity_7"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_21"
+        ],
+        [
+          "Technology",
+          "term_ambiguity",
+          "term_ambiguity_20"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_48"
+        ]
+      ],
+      "lost_ids": [
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_45"
+        ]
+      ]
+    },
+    "densex vs densex-sentences": {
+      "questions": 179,
+      "gained": 19,
+      "lost": 21,
+      "net": -2,
+      "gained_ids": [
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_29"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_1"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_32"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_5"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_8"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_23"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_28"
+        ],
+        [
+          "Healthcare",
+          "temporal",
+          "temporal_27"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_15"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_17"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_39"
+        ],
+        [
+          "Manufacturing",
+          "term_ambiguity",
+          "term_ambiguity_3"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_42"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_45"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_18"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_31"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_32"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_26"
+        ],
+        [
+          "Technology",
+          "temporal",
+          "temporal_14"
+        ]
+      ],
+      "lost_ids": [
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_19"
+        ],
+        [
+          "Finance",
+          "knowledge_update",
+          "knowledge_update_19"
+        ],
+        [
+          "Finance",
+          "knowledge_update",
+          "knowledge_update_23"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_21"
+        ],
+        [
+          "Finance",
+          "user_implicit",
+          "user_implicit_4"
+        ],
+        [
+          "Finance",
+          "abstention",
+          "abstention_35"
+        ],
+        [
+          "Finance",
+          "abstention",
+          "abstention_36"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_13"
+        ],
+        [
+          "Healthcare",
+          "knowledge_update",
+          "knowledge_update_2"
+        ],
+        [
+          "Healthcare",
+          "temporal",
+          "temporal_31"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_33"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_24"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_27"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_31"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_21"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_2"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_30"
+        ],
+        [
+          "Technology",
+          "temporal",
+          "temporal_21"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_18"
+        ],
+        [
+          "Technology",
+          "term_ambiguity",
+          "term_ambiguity_23"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_27"
+        ]
+      ]
+    },
+    "raptor vs raptor-leaf": {
+      "questions": 179,
+      "gained": 11,
+      "lost": 19,
+      "net": -8,
+      "gained_ids": [
+        [
+          "Finance",
+          "temporal",
+          "temporal_21"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_37"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_38"
+        ],
+        [
+          "Healthcare",
+          "knowledge_update",
+          "knowledge_update_12"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_11"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_43"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_39"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_45"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_7"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_26"
+        ],
+        [
+          "Technology",
+          "term_ambiguity",
+          "term_ambiguity_5"
+        ]
+      ],
+      "lost_ids": [
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_20"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_9"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_12"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_7"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_43"
+        ],
+        [
+          "Finance",
+          "abstention",
+          "abstention_9"
+        ],
+        [
+          "Finance",
+          "abstention",
+          "abstention_12"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_22"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_28"
+        ],
+        [
+          "Healthcare",
+          "temporal",
+          "temporal_7"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_30"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_34"
+        ],
+        [
+          "Manufacturing",
+          "term_ambiguity",
+          "term_ambiguity_8"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_31"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_32"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_36"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_35"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_2"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_4"
+        ]
+      ]
+    },
+    "densex-native vs densex-raw-budget": {
+      "questions": 179,
+      "gained": 17,
+      "lost": 35,
+      "net": -18,
+      "gained_ids": [
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_29"
+        ],
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_31"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_3"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_38"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_42"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_43"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_26"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_1"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_11"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_15"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_33"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_45"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_36"
+        ],
+        [
+          "Technology",
+          "temporal",
+          "temporal_28"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_36"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_39"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_48"
+        ]
+      ],
+      "lost_ids": [
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_30"
+        ],
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_41"
+        ],
+        [
+          "Finance",
+          "knowledge_update",
+          "knowledge_update_19"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_2"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_12"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_21"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_7"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_23"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_39"
+        ],
+        [
+          "Finance",
+          "abstention",
+          "abstention_35"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_13"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_37"
+        ],
+        [
+          "Healthcare",
+          "knowledge_update",
+          "knowledge_update_5"
+        ],
+        [
+          "Healthcare",
+          "temporal",
+          "temporal_7"
+        ],
+        [
+          "Healthcare",
+          "temporal",
+          "temporal_22"
+        ],
+        [
+          "Healthcare",
+          "temporal",
+          "temporal_27"
+        ],
+        [
+          "Healthcare",
+          "temporal",
+          "temporal_29"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_21"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_6"
+        ],
+        [
+          "Manufacturing",
+          "knowledge_update",
+          "knowledge_update_18"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_5"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_31"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_37"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_39"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_42"
+        ],
+        [
+          "Manufacturing",
+          "term_ambiguity",
+          "term_ambiguity_8"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_21"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_21"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_30"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_2"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_7"
+        ],
+        [
+          "Technology",
+          "temporal",
+          "temporal_14"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_1"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_4"
+        ],
+        [
+          "Technology",
+          "term_ambiguity",
+          "term_ambiguity_28"
+        ]
+      ]
+    },
+    "raptor-native vs raptor-raw-budget": {
+      "questions": 179,
+      "gained": 24,
+      "lost": 25,
+      "net": -1,
+      "gained_ids": [
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_13"
+        ],
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_20"
+        ],
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_30"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_12"
+        ],
+        [
+          "Finance",
+          "user_implicit",
+          "user_implicit_5"
+        ],
+        [
+          "Finance",
+          "user_implicit",
+          "user_implicit_7"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_43"
+        ],
+        [
+          "Finance",
+          "abstention",
+          "abstention_9"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_28"
+        ],
+        [
+          "Healthcare",
+          "knowledge_update",
+          "knowledge_update_12"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_17"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_24"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_30"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_33"
+        ],
+        [
+          "Manufacturing",
+          "knowledge_update",
+          "knowledge_update_10"
+        ],
+        [
+          "Manufacturing",
+          "term_ambiguity",
+          "term_ambiguity_7"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_27"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_45"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_7"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_18"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_1"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_17"
+        ],
+        [
+          "Technology",
+          "user_implicit",
+          "user_implicit_18"
+        ],
+        [
+          "Technology",
+          "term_ambiguity",
+          "term_ambiguity_5"
+        ]
+      ],
+      "lost_ids": [
+        [
+          "Finance",
+          "multi_hop",
+          "multi_hop_31"
+        ],
+        [
+          "Finance",
+          "temporal",
+          "temporal_21"
+        ],
+        [
+          "Finance",
+          "term_ambiguity",
+          "term_ambiguity_39"
+        ],
+        [
+          "Finance",
+          "abstention",
+          "abstention_35"
+        ],
+        [
+          "Healthcare",
+          "multi_hop",
+          "multi_hop_48"
+        ],
+        [
+          "Healthcare",
+          "temporal",
+          "temporal_31"
+        ],
+        [
+          "Healthcare",
+          "abstention",
+          "abstention_15"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_32"
+        ],
+        [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_43"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_4"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_39"
+        ],
+        [
+          "Manufacturing",
+          "temporal",
+          "temporal_42"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_21"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_37"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_42"
+        ],
+        [
+          "Manufacturing",
+          "abstention",
+          "abstention_44"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_2"
+        ],
+        [
+          "Technology",
+          "multi_hop",
+          "multi_hop_39"
+        ],
+        [
+          "Technology",
+          "knowledge_update",
+          "knowledge_update_26"
+        ],
+        [
+          "Technology",
+          "temporal",
+          "temporal_14"
+        ],
+        [
+          "Technology",
+          "term_ambiguity",
+          "term_ambiguity_20"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_2"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_27"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_34"
+        ],
+        [
+          "Technology",
+          "abstention",
+          "abstention_39"
+        ]
+      ]
+    }
+  },
+  "archived_dev_correct": {
+    "bm25": 56,
+    "dense": 58,
+    "hybrid": 62,
+    "hybrid-meta": 65
+  },
+  "freeze": {
+    "frozen_at_utc": "2026-11-25T07:00:56Z",
+    "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+    "eligible_families": [
+      "densex",
+      "raptor"
+    ],
+    "planned_families": [
+      "densex",
+      "raptor",
+      "lightmem",
+      "hipporag2"
+    ],
+    "dev_audit_sha256": "8e05fe159ef27c2cd0104db584424b5c4ce6f92344d0450aa5aaf174438cd532",
+    "selected_pair": [
+      "densex",
+      "densex-meta"
+    ],
+    "rule": "Highest metadata dev correct among eligible 179-question pairs; tie by raw correct then fixed family order.",
+    "test_questions": 536
+  },
+  "test_status": "not_started",
+  "hipporag_healthcare": {
+    "build": {
+      "status": "complete",
+      "exit_code": 0,
+      "seconds": 7324.709706567228,
+      "count": 30000,
+      "graph": {
+        "num_phrase_nodes": 51460,
+        "num_passage_nodes": 29932,
+        "num_total_nodes": 81392,
+        "num_extracted_triples": 103481,
+        "num_triples_with_passage_node": 164997,
+        "num_synonymy_triples": 3652539,
+        "num_total_triples": 3906145
+      },
+      "error": null
+    },
+    "dense-control": {
+      "status": "failed",
+      "exit_code": 1,
+      "seconds": 16.739416144788265,
+      "count": null,
+      "graph": null,
+      "error": null
+    },
+    "graph": {
+      "status": "failed",
+      "exit_code": 1,
+      "seconds": 16.56080106459558,
+      "count": null,
+      "graph": null,
+      "error": null
+    }
+  },
+  "lightmem_healthcare": [
+    {
+      "group": "Chronic Disease Management Program",
+      "rows": 2517,
+      "status": "complete",
+      "seconds": 8394.843460605945,
+      "exit_code": 0
+    },
+    {
+      "group": "Clinical Trial Enrollment Optimization",
+      "rows": 2831,
+      "status": "failed",
+      "seconds": 7679.313890858088,
+      "exit_code": 1
+    },
+    {
+      "group": "Electronic Health Record Implementation",
+      "rows": 2735,
+      "status": "failed",
+      "seconds": 7636.70338045503,
+      "exit_code": 1
+    },
+    {
+      "group": "Infection Control Campaign",
+      "rows": 3282,
+      "status": "failed",
+      "seconds": 9573.536465986865,
+      "exit_code": 1
+    },
+    {
+      "group": "Medication Reconciliation Project",
+      "rows": 3784,
+      "status": "failed",
+      "seconds": 9448.685640489915,
+      "exit_code": 1
+    },
+    {
+      "group": "Patient Experience Improvement",
+      "rows": 2496,
+      "status": "failed",
+      "seconds": 8096.587143776007,
+      "exit_code": 1
+    },
+    {
+      "group": "Patient Safety Initiative",
+      "rows": 3339,
+      "status": "failed",
+      "seconds": 10720.098496976076,
+      "exit_code": 1
+    },
+    {
+      "group": "Staff Training and Credentialing",
+      "rows": 2896,
+      "status": "failed",
+      "seconds": 7432.457858117996,
+      "exit_code": 1
+    },
+    {
+      "group": "Supply Chain Resilience Project",
+      "rows": 3342,
+      "status": "complete",
+      "seconds": 11030.462854761165,
+      "exit_code": 0
+    },
+    {
+      "group": "Telemedicine Expansion",
+      "rows": 2778,
+      "status": "failed",
+      "seconds": 8599.996949471999,
+      "exit_code": 1
+    }
+  ],
+  "round_gpu_hours_before_resume": 18.16874526105304,
+  "round_gpu_hour_cap": 30
+}
