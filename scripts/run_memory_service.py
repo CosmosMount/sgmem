@@ -42,7 +42,7 @@ def _stop_server(process):
 def run(args):
     command = args.command[1:] if args.command[:1] == ["--"] else args.command
     if (not command or not 0 < args.memory_fraction <= 1
-            or min(args.max_sequences, args.max_batched_tokens) < 1):
+            or min(args.max_sequences, args.max_batched_tokens, args.context_length) < 1):
         raise ValueError("Provide a worker command, valid GPU memory fraction and positive batch limits")
     args.output.mkdir(parents=True, exist_ok=False)
     with socket.socket() as probe:
@@ -62,7 +62,7 @@ def run(args):
     server_command = [sys.executable, "-m", "vllm.entrypoints.openai.api_server",
                       "--model", str(args.model), "--served-model-name", "Qwen/Qwen3-8B",
                       "--host", "127.0.0.1", "--port", str(args.port),
-                      "--dtype", "bfloat16", "--max-model-len", "8192",
+                      "--dtype", "bfloat16", "--max-model-len", str(args.context_length),
                       "--gpu-memory-utilization", str(args.memory_fraction),
                       "--max-num-seqs", str(args.max_sequences),
                       "--max-num-batched-tokens", str(args.max_batched_tokens),
@@ -143,6 +143,8 @@ if __name__ == "__main__":
     parser.add_argument("--memory-fraction", type=float, default=0.38)
     parser.add_argument("--max-sequences", type=int, default=8)
     parser.add_argument("--max-batched-tokens", type=int, default=4096)
+    parser.add_argument("--context-length", type=int, default=8192,
+                        help="Server input plus output token limit; use 16384 for LightMem sleep")
     parser.add_argument("--cuda-graphs", action="store_true",
                         help="Allow vLLM compilation and CUDA graphs when a full card has sufficient memory")
     parser.add_argument("command", nargs=argparse.REMAINDER)

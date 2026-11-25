@@ -8,7 +8,7 @@ import pytest
 
 from sgmem.lightmem_memory import (
     DIMENSIONS, E5_MAX_TOKENS, E5Encoder, LightMemIndex, _build_index, _check_updates,
-    _endpoint, _normalize, _turn,
+    _complete_response, _endpoint, _normalize, _turn,
 )
 
 
@@ -22,6 +22,50 @@ def message(identity, group="room-a", domain="Finance", timestamp="2026-01-02 12
 
 def vector(index=0):
     return np.eye(1, DIMENSIONS, index, dtype=np.float32)[0]
+
+
+def test_truncated_generation_retries_once_without_changing_prompt_and_counts_usage():
+    calls = []
+
+    def create(**params):
+        calls.append(params)
+        return SimpleNamespace(
+            choices=[SimpleNamespace(finish_reason="length" if len(calls) == 1 else "stop",
+                                     message=SimpleNamespace(content='{"action":"ignore"}'))],
+            usage=SimpleNamespace(prompt_tokens=4456, completion_tokens=20, total_tokens=4476),
+        )
+
+    params = {"messages": [{"role": "user", "content": "Keep source facts"}],
+              "max_tokens": 4096, "seed": 42}
+    result = _complete_response(create, params)
+    assert [call["max_tokens"] for call in calls] == [4096, 8192]
+    assert all(call["messages"] == params["messages"] and call["seed"] == 42 for call in calls)
+    assert params["max_tokens"] == 4096
+    assert result.usage.prompt_tokens == 8912 and result.usage.total_tokens == 8952
+
+
+@pytest.mark.parametrize("reason,expected_calls", [("length", 2), ("content_filter", 1)])
+def test_incomplete_generation_stops_with_diagnostic(reason, expected_calls):
+    calls = []
+
+    def create(**params):
+        calls.append(params)
+        return SimpleNamespace(
+            choices=[SimpleNamespace(finish_reason=reason, message=SimpleNamespace(content="partial"))],
+            usage=SimpleNamespace(prompt_tokens=10, completion_tokens=2, total_tokens=12),
+        )
+
+    with pytest.raises(ValueError, match=f"finish_reason={reason}"):
+        _complete_response(create, {"max_tokens": 4096})
+    assert len(calls) == expected_calls
+
+
+def test_missing_usage_is_not_retried_or_treated_as_success():
+    def create(**params):
+        return SimpleNamespace(choices=[SimpleNamespace(finish_reason="stop")], usage=None)
+
+    with pytest.raises(ValueError, match="token usage"):
+        _complete_response(create, {"max_tokens": 4096})
 
 
 class FakeNative:

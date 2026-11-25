@@ -1,0 +1,81 @@
+{
+  "purpose": "Recovery validation, not benchmark accuracy",
+  "lightmem": {
+    "status": "complete",
+    "long_input_tokens": 4980,
+    "long_response_usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 4980,
+      "total_tokens": 4990,
+      "completion_tokens_details": null,
+      "prompt_tokens_details": null
+    },
+    "rows": 40,
+    "metrics": [
+      {
+        "extraction_calls": 2,
+        "input_turns": 40,
+        "input_tokens": 1280,
+        "compressed_tokens": 821,
+        "changed_turns": 40,
+        "segmentation_calls": 2,
+        "coarse_boundaries": 12,
+        "released_segments": 2,
+        "rows": 40,
+        "pre_entries": 40,
+        "post_entries": 38,
+        "extraction_source_turns": 40,
+        "source_coverage": {
+          "pre": {
+            "anchors": 40,
+            "lineage": 40
+          },
+          "post": {
+            "anchors": 38,
+            "lineage": 38
+          }
+        },
+        "embedding_calls": {
+          "turn": 40,
+          "passage": 46
+        },
+        "embedding_length": {
+          "long_passages": 0,
+          "long_passage_chunks": 0
+        },
+        "llm": {
+          "add_memory": {
+            "calls": 2,
+            "prompt_tokens": 3278,
+            "completion_tokens": 1568,
+            "total_tokens": 4846
+          },
+          "update": {
+            "calls": 15,
+            "prompt_tokens": 10082,
+            "completion_tokens": 818,
+            "total_tokens": 10900
+          }
+        },
+        "add_seconds": 61.66778967692517,
+        "queue_seconds": 0.2812636620365083,
+        "sleep_seconds": 7.174599986989051,
+        "update_actions": {
+          "ignore": 7,
+          "delete": 2,
+          "update": 6
+        }
+      }
+    ],
+    "adapter_sha256": "e2e708a8959fa21e140723a69f9f26de2d77bb0360048a149c04f9cb84fbf8a1"
+  },
+  "hipporag": {
+    "index_commit": "bea1b11cdcf180c7a7b918d87bbf5416a336b669",
+    "legacy_reopen_one_question": "passed",
+    "passage_dense_export_questions": 33,
+    "persistent_graph_and_manifests_unchanged": true,
+    "recognition_failure_replay": "5 original candidates recovered using pinned upstream nearest-string mapping; no model or QA call",
+    "formal_graph_export": "pending",
+    "policy": "normalized exact match; otherwise official difflib cutoff=0.0; deduplicate candidates; record all projections; malformed/truncated/network errors fail"
+  }
+}

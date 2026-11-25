@@ -65,6 +65,8 @@ HippoRAG 2 的 Healthcare 图已保存，含 29,932 个唯一 passage、51,460 �
 
 2026-11-25 07:00:56 UTC，按既定规则在已有完整 dev 的 Dense X、RAPTOR 两个候选中冻结 `densex` / `densex-meta`。该选择不代表四种方法已全部比较。后续 test 发布步骤因 SSH 连接断开停止，两组 536 题 test 当时均未启动。续跑保留原冻结记录，不重选方法或修改参数；LightMem/HippoRAG 2 的后续分析仍限 dev。
 
+晚间恢复核验中，LightMem 已通过 4,980-token 长输入请求和 40 条真实消息的完整小测（包括 15 次 sleep 调用）；HippoRAG 已重开原图并完成 Healthcare 的 33 题 passage-dense 导出，随后按固定上游的候选映射方式修正识别阶段的非精确匹配。291 项离线测试通过。小测细节见[恢复核验记录](evidence/memory-recovery-20261125.json)，后续正式结果单独验收；这些核验不计入 benchmark 准确率。
+
 ## Dense X 开发集案例与重放核验
 
 基础 Dense X 对 179 道题的 10 条原消息回溯评测得到 **52/179（29.05%）**。179 道题均有有效判分，1 个回答达到生成长度上限。使用原始排列、固定 Qwen tokenizer 和保存的生成记录重放了 358 个回答与判分提示，哈希逐项一致。

@@ -72,7 +72,7 @@ def service(tmp_path, monkeypatch):
     monkeypatch.setitem(sys.modules, "transformers", SimpleNamespace(AutoTokenizer=auto))
     args = SimpleNamespace(command=["--", "worker"], output=tmp_path / "service", memory_fraction=0.38,
                            model=tmp_path / "model", port=18951, max_sequences=8, max_batched_tokens=4096,
-                           cuda_graphs=False)
+                           cuda_graphs=False, context_length=8192)
     return run, args, state
 
 
@@ -97,11 +97,12 @@ def test_full_card_configuration_is_recorded_and_forwarded(service):
     run, args, state = service
     args.memory_fraction, args.max_sequences, args.max_batched_tokens = 0.85, 32, 8192
     args.cuda_graphs = True
+    args.context_length = 16384
     assert run(args) == 0
     command = state.server_command
     assert "--enforce-eager" not in command
     for flag, value in (("--gpu-memory-utilization", "0.85"), ("--max-num-seqs", "32"),
-                        ("--max-num-batched-tokens", "8192")):
+                        ("--max-num-batched-tokens", "8192"), ("--max-model-len", "16384")):
         assert command[command.index(flag) + 1] == value
     assert json.loads((args.output / "service.json").read_text())["server_command"] == command
 

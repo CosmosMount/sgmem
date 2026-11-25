@@ -1,4 +1,5 @@
 import json
+import runpy
 import sys
 from types import SimpleNamespace
 
@@ -18,7 +19,8 @@ def upstream(monkeypatch):
     """Exercise the real adapter against the official API shape without model calls."""
     fact = ("x", "connects", "y")
     body = '[[ ## fact_after_filter ## ]]\n{"fact": [["x", "connects", "y"]]}\n[[ ## completed ## ]]'
-    state = SimpleNamespace(output=body, finish="stop", embeddings=[], indexes={}, builds=0, engine_calls=0,
+    state = SimpleNamespace(output=body, finish="stop", embeddings=[], embedding_classes=[], indexes={},
+                            builds=0, engine_calls=0,
                             calls=[], failures=False, have_facts=True, ppr_runs=0, dense_runs=0,
                             openie_calls=[], openie_rendered=[], openie_requests=[], extracted_triples=[],
                             ner=('{"named_entities": ["x", "y"]}', "stop"),
@@ -93,6 +95,8 @@ def upstream(monkeypatch):
             assert global_config.llm_base_url == "http://127.0.0.1:18951/v1"
             self.config = global_config
             self.embedding = embedding_model
+            cls = type(embedding_model)
+            state.embedding_classes.append(f"{cls.__module__}.{cls.__qualname__}")
             assert len(index_identity) == 64
             self.entity_embedding_store = SimpleNamespace()
             self.extraction_llm = SimpleNamespace(infer=infer)
@@ -267,16 +271,23 @@ def test_recognition_uses_official_normalization_and_deduplicates(upstream, pack
     assert trace["recognition"]["selected_triples"] == [("x", "connects", "y")]
 
 
-def test_recognition_rejects_unknown_triple_even_with_valid_selection(upstream, pack):
+def test_recognition_maps_output_to_existing_candidates_and_records_remapping(upstream, pack):
     rows, path, kwargs = pack
     memory = adapter.HippoRAGMemory(rows, path, **kwargs).build()
     triples = [["x", "connects", "y"], ["invented", "uses", "unknown"]]
     upstream.output = '[[ ## fact_after_filter ## ]]\n' + json.dumps({"fact": triples})
-    with pytest.raises(adapter.RecognitionError, match="outside its candidates") as error:
-        memory.retrieve("question", 2)
-    assert error.value.trace["parsed_triples"] == triples
-    assert error.value.trace["candidate_triples"] == [("x", "connects", "y")]
-    assert upstream.dense_runs == upstream.ppr_runs == 0
+    _, trace = memory.retrieve_with_trace("question", 2)
+    recognition = trace["recognition"]
+    assert recognition["parsed_triples"] == triples
+    assert recognition["selected_triples"] == recognition["candidate_triples"] == [("x", "connects", "y")]
+    assert recognition["remapped_triples"][0]["generated"] == triples[1]
+    assert recognition["remapped_triples"][0]["candidate"] == ["x", "connects", "y"]
+    assert not recognition["all_selected_triples_projected"]
+    assert upstream.ppr_runs == 1 and upstream.dense_runs == 0
+    upstream.output = '[[ ## fact_after_filter ## ]]\n' + json.dumps({"fact": [triples[1]]})
+    _, trace = memory.retrieve_with_trace("question", 2)
+    assert trace["recognition"]["all_selected_triples_projected"]
+    assert trace["recognition"]["selected_triples"] == [("x", "connects", "y")]
 
 
 def test_reopen_reuses_index_and_rejects_drift(upstream, pack):
@@ -295,6 +306,34 @@ def test_reopen_reuses_index_and_rejects_drift(upstream, pack):
         adapter.HippoRAGMemory([rows[0], message("M1", "Another", "Healthcare")], path, **kwargs)
     with pytest.raises(ValueError, match="loopback"):
         adapter.HippoRAGMemory(rows, path, llm_base_url="https://api.openai.com/v1", **kwargs)
+
+
+def test_module_entry_keeps_embedding_class_identity_on_reopen(upstream, pack, monkeypatch):
+    rows, path, kwargs = pack
+    messages = path.parent / "messages.jsonl"
+    messages.write_text("\n".join(json.dumps(row) for row in rows), encoding="utf-8")
+    monkeypatch.setattr(sys, "argv", ["hipporag_memory", "--messages", str(messages), "--index", str(path),
+                                      "--embedding-path", str(kwargs["embedding_path"]),
+                                      "--embedding-revision", kwargs["embedding_revision"],
+                                      "--llm-revision", kwargs["llm_revision"]])
+
+    # The module entry can load a fresh adapter, outside the fixture's _verify_upstream mock.
+    monkeypatch.setattr(sys.modules["hipporag"], "__file__", __file__, raising=False)
+    distribution = adapter.metadata.distribution
+    fake_distribution = SimpleNamespace(
+        locate_file=lambda _: __file__,
+        read_text=lambda _: json.dumps({"vcs_info": {"commit_id": adapter.UPSTREAM_COMMIT}}),
+    )
+    monkeypatch.setattr(adapter.metadata, "distribution",
+                        lambda name: fake_distribution if name == "hipporag" else distribution(name))
+
+    runpy.run_path(adapter.__file__, run_name="__main__")
+    for dense_only in (False, True):
+        adapter.HippoRAGMemory(rows, path, dense_only=dense_only, **kwargs).build(require_existing=True).close()
+
+    built, graph, dpr = upstream.embedding_classes
+    assert built == graph == dpr
+    assert upstream.builds == 1
 
 
 @pytest.mark.parametrize(("stage", "response", "finish", "failure"), [

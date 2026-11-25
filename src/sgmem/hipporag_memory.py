@@ -1,6 +1,7 @@
 """Run the pinned HippoRAG 2 retriever over one GroupMemBench domain."""
 
 import argparse
+import difflib
 import ast
 import hashlib
 from importlib import metadata
@@ -304,7 +305,7 @@ def _engine(settings, cache_dir, identity, rebuild):
             return response, usage, cache_hit
 
         def rerank(self, query, candidate_items, candidate_indices, len_after_rerank=None):
-            self.trace = {"candidate_triples": candidate_items}
+            self.trace = {"candidate_triples": candidate_items, "remapped_triples": []}
             try:
                 fact_input = json.dumps({"fact": [list(item) for item in candidate_items]})
                 triples = _parse_filter(self.llm_call(query, fact_input))
@@ -318,10 +319,18 @@ def _engine(settings, cache_dir, identity, rebuild):
                 for triple in triples:
                     normalized = tuple(text_processing(triple))
                     if normalized not in candidates:
-                        raise ValueError(f"Recognition returned a triple outside its candidates: {triple!r}")
+                        # The official filter maps paraphrased output back to a candidate.
+                        texts = [str(item) for item in candidate_items]
+                        matched = difflib.get_close_matches(str(triple), texts, n=1, cutoff=0.0)[0]
+                        normalized = tuple(candidate_items[texts.index(matched)])
+                        self.trace["remapped_triples"].append({
+                            "generated": triple, "candidate": list(normalized),
+                            "string_similarity": difflib.SequenceMatcher(None, matched, str(triple)).ratio(),
+                        })
                     if normalized not in seen:
                         selected.append(candidates[normalized])
                         seen.add(normalized)
+                self.trace["all_selected_triples_projected"] = bool(triples) and len(self.trace["remapped_triples"]) == len(triples)
                 selected = selected[:len_after_rerank]
                 return [index for index, _ in selected], [item for _, item in selected], {"confidence": None}
             except Exception as exc:
@@ -579,4 +588,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Use the same class names for CLI builds and imported index reopens.
+    from sgmem.hipporag_memory import main as cli_main
+
+    cli_main()

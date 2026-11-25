@@ -287,6 +287,28 @@ def _config(collection, *, endpoint, model, embedding_model, compressor_model, d
     }
 
 
+def _complete_response(create, params):
+    """Retry a truncated response once; count both attempts in token usage."""
+    totals = Counter()
+    for attempt in range(2):
+        response = create(**dict(params, max_tokens=params["max_tokens"] * (attempt + 1)))
+        if not response.choices or response.usage is None:
+            raise ValueError("LightMem response has no choice or token usage")
+        choice = response.choices[0]
+        for key in ("prompt_tokens", "completion_tokens", "total_tokens"):
+            totals[key] += getattr(response.usage, key)
+        if choice.finish_reason == "stop":
+            for key, value in totals.items():
+                setattr(response.usage, key, value)
+            return response
+        if choice.finish_reason != "length" or attempt:
+            raise ValueError(
+                f"Incomplete LightMem generation: finish_reason={choice.finish_reason}, "
+                f"attempts={attempt + 1}, usage={dict(totals)}, "
+                f"response_tail={(choice.message.content or '')[-300:]!r}"
+            )
+
+
 class _NativeWorker:
     """Reuse loaded models while giving each channel its own memory buffers and store."""
 
@@ -307,6 +329,9 @@ class _NativeWorker:
     def new_group(self, name):
         if self.memory is None:
             self.memory = self.implementation.LightMemory.from_config(_config(name, **self.options))
+            completions = self.memory.manager.client.chat.completions
+            create = completions.create
+            completions.create = lambda **params: _complete_response(create, params)
             compressor = self.memory.compressor._compressor
             if compressor.model.config.model_type != "bert":
                 raise ValueError("This LightMem profile requires the pinned LLMLingua-2 BERT compressor")
@@ -630,6 +655,7 @@ def build_lightmem(messages, output, *, upstream, endpoint, model, embedding_mod
             "openai", "qdrant-client", "pydantic", "tiktoken", "httpx", "pyyaml",
         )},
         "score_threshold": score_threshold, "rate": 0.6, "stm_tokens": 512,
+        "generation_policy": "4096_tokens_retry_length_once_at_8192",
         "update_top_k": 20, "update_keep_n": 10,
     }
     worker = _NativeWorker(upstream, options)
