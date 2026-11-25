@@ -20,7 +20,7 @@ def upstream(monkeypatch):
     body = '[[ ## fact_after_filter ## ]]\n{"fact": [["x", "connects", "y"]]}\n[[ ## completed ## ]]'
     state = SimpleNamespace(output=body, finish="stop", embeddings=[], indexes={}, builds=0, engine_calls=0,
                             calls=[], failures=False, have_facts=True, ppr_runs=0, dense_runs=0,
-                            openie_calls=[], openie_rendered=[], openie_requests=[],
+                            openie_calls=[], openie_rendered=[], openie_requests=[], extracted_triples=[],
                             ner=('{"named_entities": ["x", "y"]}', "stop"),
                             triple=('{"triples": [["x", "connects", "y"]]}', "stop"))
 
@@ -106,7 +106,8 @@ def upstream(monkeypatch):
                 state.openie_calls.append(("ner", chunk_key))
                 ner = self.openie.ner(chunk_key, chunk.content)
                 state.openie_calls.append(("triple_extraction", chunk_key))
-                self.openie.triple_extraction(chunk_key, chunk.content, ner.unique_entities)
+                triple = self.openie.triple_extraction(chunk_key, chunk.content, ner.unique_entities)
+                state.extracted_triples.append(triple.triples)
             self.embedding.batch_encode([chunk.content for chunk in chunks])
             self.entity_embedding_store.embedding_model.batch_encode(["entity"])
             self.embedding.batch_encode([str(fact)])
@@ -307,7 +308,6 @@ def test_reopen_reuses_index_and_rejects_drift(upstream, pack):
     ("ner", json.dumps({"named_entities": ["Alice"] * 65}), "stop", "64-item limit"),
     ("triple_extraction", json.dumps({"triples": [["Alice", "owns", "report"]] * 33}),
      "stop", "32-item limit"),
-    ("triple_extraction", '{"triples":[["Alice","owns","   "]]}', "stop", "three-string arrays"),
 ])
 def test_openie_guards_reject_original_outputs_before_graph_completion(
         upstream, pack, stage, response, finish, failure):
@@ -334,6 +334,18 @@ def test_openie_valid_empty_responses_complete_index(upstream, pack):
     adapter.HippoRAGMemory(rows, path, **kwargs).build().close()
     assert json.loads((path / "sgmem-hipporag.json").read_text())["status"] == "complete"
     assert not (path / "openie-errors.jsonl").exists()
+
+
+def test_openie_drops_only_blank_triples_and_records_raw_output(upstream, pack):
+    rows, path, kwargs = pack
+    valid = ["Alice", "owns", "report"]
+    raw = json.dumps({"triples": [valid, ["Alice", "owns", "   "]]})
+    upstream.triple = raw, "stop"
+    adapter.HippoRAGMemory(rows, path, **kwargs).build().close()
+    assert upstream.extracted_triples == [[valid]] * 3
+    records = [json.loads(line) for line in (path / "openie-blank-triples.jsonl").read_text().splitlines()]
+    assert records[0] == {"chunk_id": "chunk-0", "raw_output": raw, "dropped_blank_triples": 1}
+    assert len(records) == 3
 
 
 def test_openie_requests_keep_examples_and_bind_schemas_to_index(upstream, pack, monkeypatch):

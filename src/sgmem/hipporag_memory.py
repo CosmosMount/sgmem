@@ -147,13 +147,13 @@ def _validate_openie_json(stage, response):
     if stage == "ner":
         if not isinstance(values, list) or not all(isinstance(item, str) and item.strip() for item in values):
             raise ValueError("expected named_entities as a list of nonempty strings")
-    else:
-        if not isinstance(values, list) or not all(
+        return values, 0
+    if not isinstance(values, list) or not all(
             isinstance(triple, list) and len(triple) == 3
-            and all(isinstance(item, str) and item.strip() for item in triple) for triple in values
-        ):
-            raise ValueError("expected triples as a list of three-string arrays")
-    return values
+            and all(isinstance(item, str) for item in triple) for triple in values):
+        raise ValueError("expected triples as a list of three-string arrays")
+    usable = [triple for triple in values if all(item.strip() for item in triple)]
+    return usable, len(values) - len(usable)
 
 
 def _entity_mentioned(entity, passage):
@@ -163,8 +163,16 @@ def _entity_mentioned(entity, passage):
 
 
 def _guard_openie(engine):
+    failure = None
+    failure_lock = Lock()
+
     def checked(stage, infer):
         def extract(chunk_key, *args, **kwargs):
+            nonlocal failure
+            # The upstream executor can still dequeue work after the first invalid result.
+            with failure_lock:
+                if failure is not None:
+                    raise OpenIEError(failure)
             row = infer(chunk_key, *args, **kwargs)
             response = getattr(row, "response", None)
             metadata = getattr(row, "metadata", None)
@@ -180,9 +188,12 @@ def _guard_openie(engine):
                 _validate_openie_json(stage, response)
             except ValueError as exc:
                 source_ids = engine.chunk_metadata.get(chunk_key, {}).get("message_ids", [])
-                raise OpenIEError({"stage": stage, "chunk_id": chunk_key, "message_ids": source_ids,
+                with failure_lock:
+                    if failure is None:
+                        failure = {"stage": stage, "chunk_id": chunk_key, "message_ids": source_ids,
                                    "raw_output": response, "metadata": metadata,
-                                   "error": f"OpenIE {stage} failed for chunk {chunk_key} (messages {source_ids}): {exc}"}) from exc
+                                   "error": f"OpenIE {stage} failed for chunk {chunk_key} (messages {source_ids}): {exc}"}
+                raise OpenIEError(failure) from exc
             return row
         return extract
 
@@ -206,7 +217,7 @@ def _engine(settings, cache_dir, identity, rebuild):
         raise ValueError("Use a served Qwen model name compatible with the loopback endpoint")
     encoder = SentenceTransformer(settings["embedding_path"], device=settings["embedding_device"],
                                   local_files_only=True)
-    grounding_lock = Lock()
+    trace_lock = Lock()
 
     class SchemaOpenIE(OpenIE):
         def _extract(self, stage, max_tokens, **template_values):
@@ -223,7 +234,10 @@ def _engine(settings, cache_dir, identity, rebuild):
                 )
                 usage = dict(metadata, cache_hit=cache_hit)
                 if usage.get("finish_reason") == "stop":
-                    return response, usage, _validate_openie_json(stage, response)
+                    values, dropped = _validate_openie_json(stage, response)
+                    if dropped:
+                        usage["dropped_blank_triples"] = dropped
+                    return response, usage, values
             except Exception as exc:
                 usage["error"] = str(exc)
             return response, usage, []
@@ -234,7 +248,7 @@ def _engine(settings, cache_dir, identity, rebuild):
             unmatched = list(dict.fromkeys(entity for entity in entities if not _entity_mentioned(entity, passage)))
             if unmatched:
                 record = {"chunk_id": chunk_key, "accepted": accepted, "unmatched": unmatched}
-                with grounding_lock, (Path(cache_dir) / "ner-grounding.jsonl").open("a", encoding="utf-8") as handle:
+                with trace_lock, (Path(cache_dir) / "ner-grounding.jsonl").open("a", encoding="utf-8") as handle:
                     handle.write(json.dumps(record, ensure_ascii=False) + "\n")
             return NerRawOutput(chunk_id=chunk_key, response=response, metadata=usage,
                                 unique_entities=accepted)
@@ -244,6 +258,11 @@ def _engine(settings, cache_dir, identity, rebuild):
                 "triple_extraction", self.triple_max_tokens, passage=passage,
                 named_entity_json=json.dumps({"named_entities": named_entities}),
             )
+            if usage.get("dropped_blank_triples"):
+                record = {"chunk_id": chunk_key, "raw_output": response,
+                          "dropped_blank_triples": usage["dropped_blank_triples"]}
+                with trace_lock, (Path(cache_dir) / "openie-blank-triples.jsonl").open("a", encoding="utf-8") as handle:
+                    handle.write(json.dumps(record, ensure_ascii=False) + "\n")
             unique = dict.fromkeys(tuple(triple) for triple in triples)
             return TripleRawOutput(chunk_id=chunk_key, response=response, metadata=usage,
                                    triples=[list(triple) for triple in unique])
