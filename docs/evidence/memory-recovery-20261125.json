@@ -75,7 +75,101 @@
     "passage_dense_export_questions": 33,
     "persistent_graph_and_manifests_unchanged": true,
     "recognition_failure_replay": "5 original candidates recovered using pinned upstream nearest-string mapping; no model or QA call",
-    "formal_graph_export": "pending",
-    "policy": "normalized exact match; otherwise official difflib cutoff=0.0; deduplicate candidates; record all projections; malformed/truncated/network errors fail"
+    "formal_graph_export": "33/33 Healthcare dev complete; QA in progress",
+    "policy": "normalized exact match; otherwise official difflib cutoff=0.0; deduplicate candidates; record all projections; malformed/truncated/network errors fail",
+    "ranking_evidence": {
+      "hipporag2": {
+        "questions": 33,
+        "methods": [
+          "hipporag2",
+          "hipporag2-meta"
+        ],
+        "manifest_sha256": "a45cbf7f47ef42ab05cb42f8605c4c1bbfc8c6602235026bc3c2128ae18da6a3",
+        "query_policy": {
+          "name": "official_nearest_candidate_with_normalization_and_dedup",
+          "source_sha256": "f2b19cfe339a5a47a5c0379d268865b9d82cfac3291ba9e541395cf1ec70bb81",
+          "launcher_sha256": "63ce8d13d71db378e911b130eee864d73f86b9eb573ecb2817db653b30b475c0",
+          "legacy_index_adapter_sha256": "84b78c8544c9c1368e007731b34f29b18560a7305bf9c9c2f12864bc5a1abc98"
+        }
+      },
+      "synonym-0.90": {
+        "questions": 33,
+        "methods": [
+          "hipporag2",
+          "hipporag2-meta"
+        ],
+        "manifest_sha256": "7374b67b838eba5d0c42af612128a7be07e3aabba0fa4043b8b14bc46358b69d",
+        "query_policy": {
+          "name": "official_nearest_candidate_with_normalization_and_dedup",
+          "source_sha256": "f2b19cfe339a5a47a5c0379d268865b9d82cfac3291ba9e541395cf1ec70bb81",
+          "launcher_sha256": "63ce8d13d71db378e911b130eee864d73f86b9eb573ecb2817db653b30b475c0",
+          "legacy_index_adapter_sha256": "84b78c8544c9c1368e007731b34f29b18560a7305bf9c9c2f12864bc5a1abc98"
+        }
+      }
+    }
+  },
+  "continuation": {
+    "initial_round_gpu_hours": 18.168745261053036,
+    "course_recovery_cap": 4.6,
+    "finance_export_cap": 0.9,
+    "qa_cap": 5.449999999999999,
+    "round_cap": 30,
+    "planned_qa": [
+      {
+        "label": "hipporag-healthcare-dev",
+        "methods": [
+          "hipporag2",
+          "hipporag2-meta",
+          "hipporag2-dpr"
+        ],
+        "domains": [
+          "Healthcare"
+        ],
+        "partition": "dev",
+        "cap_hours": 0.5
+      },
+      {
+        "label": "hipporag-healthcare-synonym-dev",
+        "methods": [
+          "hipporag2",
+          "hipporag2-meta"
+        ],
+        "domains": [
+          "Healthcare"
+        ],
+        "partition": "dev",
+        "cap_hours": 0.35
+      },
+      {
+        "label": "frozen-test",
+        "methods": [
+          "densex",
+          "densex-meta"
+        ],
+        "domains": [
+          "Finance",
+          "Healthcare",
+          "Manufacturing",
+          "Technology"
+        ],
+        "partition": "test",
+        "cap_hours": 3.8
+      },
+      {
+        "label": "lightmem-healthcare-dev",
+        "methods": [
+          "lightmem",
+          "lightmem-meta",
+          "lightmem-pre",
+          "lightmem-native",
+          "lightmem-raw-budget"
+        ],
+        "domains": [
+          "Healthcare"
+        ],
+        "partition": "dev",
+        "cap_hours": 0.8
+      }
+    ]
   }
 }
