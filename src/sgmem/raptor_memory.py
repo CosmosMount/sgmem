@@ -24,6 +24,10 @@ SUMMARY_SYSTEM = (
     "Keep proposals and plans separate from decisions. Leave unresolved references unresolved. "
     "Add no information. Aim for roughly 50 words. Return only the summary."
 )
+SUMMARY_RETRY_SYSTEM = SUMMARY_SYSTEM + (
+    " Select the three central claims instead of listing every excerpt. "
+    "Use at most three short sentences and 60 words in total, then stop."
+)
 
 
 @dataclass(frozen=True)
@@ -63,11 +67,35 @@ class LocalQwenSummarizer:
         self.context_tokens, self.timeout = context_tokens, timeout
         self.last_usage = None
         self.last_response = None
+        self.truncated_response = None
 
     def __call__(self, context, max_tokens):
         self.last_usage = None
         self.last_response = None
-        messages = [{"role": "system", "content": SUMMARY_SYSTEM}, {"role": "user", "content": context}]
+        self.truncated_response = None
+        for system in (SUMMARY_SYSTEM, SUMMARY_RETRY_SYSTEM):
+            self.last_response = None
+            data, prompt_tokens = self._request(system, context, max_tokens)
+            self.last_response = data
+            choice, usage = data["choices"][0], data.get("usage") or {}
+            finish = choice.get("finish_reason")
+            completion = usage.get("completion_tokens")
+            message = choice["message"]
+            valid = (usage.get("prompt_tokens") == prompt_tokens and type(completion) is int
+                     and 0 < completion <= max_tokens and not message.get("reasoning_content")
+                     and not message.get("reasoning"))
+            if valid and finish == "stop":
+                self.last_usage = usage
+                return message["content"]
+            if valid and finish == "length" and completion == max_tokens and self.truncated_response is None:
+                self.truncated_response = data
+                continue
+            raise ValueError("RAPTOR summary stopped unexpectedly or its token accounting did not match: "
+                             f"finish={finish}, prompt={usage.get('prompt_tokens')}/{prompt_tokens}, "
+                             f"completion={completion}/{max_tokens}")
+
+    def _request(self, system, context, max_tokens):
+        messages = [{"role": "system", "content": system}, {"role": "user", "content": context}]
         prompt_tokens = len(self.tokenizer.apply_chat_template(
             messages, add_generation_prompt=True, tokenize=True, enable_thinking=False,
         ))
@@ -81,20 +109,9 @@ class LocalQwenSummarizer:
             response = conn.getresponse()
             if response.status != 200:
                 raise RuntimeError(f"Local RAPTOR summarizer returned HTTP {response.status}")
-            data = json.load(response)
+            return json.load(response), prompt_tokens
         finally:
             conn.close()
-        choice, usage = data["choices"][0], data.get("usage") or {}
-        self.last_response = data
-        if (choice.get("finish_reason") != "stop" or usage.get("prompt_tokens") != prompt_tokens
-                or type(usage.get("completion_tokens")) is not int
-                or not 0 < usage["completion_tokens"] <= max_tokens
-                or choice["message"].get("reasoning_content")):
-            raise ValueError("RAPTOR summary stopped unexpectedly or its token accounting did not match: "
-                             f"finish={choice.get('finish_reason')}, prompt={usage.get('prompt_tokens')}/{prompt_tokens}, "
-                             f"completion={usage.get('completion_tokens')}/{max_tokens}")
-        self.last_usage = usage
-        return choice["message"]["content"]
 
 
 class _Tokens:

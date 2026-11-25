@@ -21,7 +21,7 @@ class Tokenizer:
 
     def apply_chat_template(self, messages, **kwargs):
         assert kwargs == {"add_generation_prompt": True, "tokenize": True, "enable_thinking": False}
-        assert messages[0]["content"] == raptor.SUMMARY_SYSTEM
+        assert messages[0]["content"] in (raptor.SUMMARY_SYSTEM, raptor.SUMMARY_RETRY_SYSTEM)
         assert messages[1] == {"role": "user", "content": "source text"}
         return [1, 2, 3, 4]
 
@@ -169,7 +169,8 @@ def test_summary_requires_direct_loopback_endpoint(endpoint):
 
 def test_summary_rejects_overflow_redirect_and_bad_token_accounting(monkeypatch):
     cap = raptor.RaptorConfig().summary_tokens
-    state = SimpleNamespace(status=200, finish="stop", reported_prompt=329, completion=110, calls=0)
+    state = SimpleNamespace(status=200, finish="stop", reported_prompt=329, completion=110, calls=0,
+                            systems=[], shorten=False)
 
     class LongTokenizer(Tokenizer):
         def apply_chat_template(self, messages, **kwargs):
@@ -187,11 +188,13 @@ def test_summary_rejects_overflow_redirect_and_bad_token_accounting(monkeypatch)
             payload = json.loads(body)
             assert payload["max_tokens"] == 256 and payload["model"] == "local"
             assert payload["chat_template_kwargs"] == {"enable_thinking": False}
+            state.systems.append(payload["messages"][0]["content"])
 
         def getresponse(self):
+            shorter = state.shorten and state.systems[-1] == raptor.SUMMARY_RETRY_SYSTEM
             response = io.StringIO(json.dumps({
-                "choices": [{"finish_reason": state.finish, "message": {"content": "summary"}}],
-                "usage": {"prompt_tokens": state.reported_prompt, "completion_tokens": state.completion},
+                "choices": [{"finish_reason": "stop" if shorter else state.finish, "message": {"content": "summary"}}],
+                "usage": {"prompt_tokens": state.reported_prompt, "completion_tokens": 45 if shorter else state.completion},
             }))
             response.status = state.status
             return response
@@ -212,8 +215,13 @@ def test_summary_rejects_overflow_redirect_and_bad_token_accounting(monkeypatch)
     state.status, state.finish, state.completion = 200, "length", cap
     with pytest.raises(ValueError, match="finish=length, prompt=329/329, completion=256/256"):
         summarize("source text", cap)
+    assert state.systems[-2:] == [raptor.SUMMARY_SYSTEM, raptor.SUMMARY_RETRY_SYSTEM]
     assert summarize.last_response["usage"]["completion_tokens"] == 256
+    state.shorten = True
+    assert summarize("source text", cap) == "summary"
+    assert summarize.truncated_response["usage"]["completion_tokens"] == 256
+    assert summarize.last_usage["completion_tokens"] == 45
     state.finish, state.reported_prompt = "stop", 328
     with pytest.raises(ValueError, match="token accounting"):
         summarize("source text", cap)
-    assert state.calls == 4 and summarize.last_usage is None
+    assert state.calls == 7 and summarize.last_usage is None and summarize.truncated_response is None

@@ -1,0 +1,235 @@
+{
+  "purpose": "Measured resource and completeness evidence for the SGMem memory studies",
+  "source_build_commit": "af207e0119cefdae99543606336f61155ae178af",
+  "benchmark_commit": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+  "dev_split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+  "course_gpu": "NVIDIA A40",
+  "course_stage_resources": {
+    "course-wholecard-cost": {
+      "label": "course-wholecard-cost",
+      "gpu": {
+        "index": "2",
+        "uuid": "GPU-0938a4c2-e5cf-26b9-c5c0-6b4685ab837e",
+        "free_mib": 45056,
+        "utilization": 0
+      },
+      "started_at_utc": "2026-11-24T17:07:10.577001+00:00",
+      "ended_at_utc": "2026-11-24T17:41:47.775886+00:00",
+      "wall_seconds": 2077.198326545069,
+      "exit_code": 0
+    },
+    "course-densex-full": {
+      "label": "course-densex-full",
+      "gpu": {
+        "index": "2",
+        "uuid": "GPU-0938a4c2-e5cf-26b9-c5c0-6b4685ab837e",
+        "free_mib": 45056,
+        "utilization": 0
+      },
+      "started_at_utc": "2026-11-24T20:55:41.083106+00:00",
+      "ended_at_utc": "2026-11-25T00:32:26.179591+00:00",
+      "wall_seconds": 13005.095875630854,
+      "exit_code": 0
+    }
+  },
+  "whole_card_cost_pilot": [
+    {
+      "method": "densex",
+      "status": "complete",
+      "wall_seconds": 77.69041694607586,
+      "output_bytes": 217314,
+      "artifact_usage": {
+        "calls": 200,
+        "prompt_tokens": 51877,
+        "completion_tokens": 15966
+      },
+      "service_usage": {
+        "calls": 200,
+        "prompt_tokens": 51877,
+        "completion_tokens": 15966
+      },
+      "source_rows": 200
+    },
+    {
+      "method": "lightmem",
+      "status": "complete",
+      "wall_seconds": 1355.7850865900982,
+      "output_bytes": 11439413,
+      "artifact_usage": {
+        "calls": 754,
+        "prompt_tokens": 719952,
+        "completion_tokens": 196301
+      },
+      "service_usage": {
+        "calls": 754,
+        "prompt_tokens": 719952,
+        "completion_tokens": 196301
+      },
+      "source_rows": 1000
+    },
+    {
+      "method": "raptor",
+      "status": "complete",
+      "wall_seconds": 114.11123676714487,
+      "output_bytes": 3742754,
+      "artifact_usage": {
+        "calls": 262,
+        "prompt_tokens": 128183,
+        "completion_tokens": 18384
+      },
+      "service_usage": {
+        "calls": 262,
+        "prompt_tokens": 128183,
+        "completion_tokens": 18384
+      },
+      "source_rows": 1000
+    },
+    {
+      "method": "hipporag2",
+      "status": "complete",
+      "wall_seconds": 371.74440957186744,
+      "output_bytes": 45710635,
+      "artifact_usage": {
+        "calls": 1998,
+        "prompt_tokens": 1064196,
+        "completion_tokens": 204159
+      },
+      "service_usage": {
+        "calls": 1998,
+        "prompt_tokens": 1064196,
+        "completion_tokens": 204159
+      },
+      "source_rows": 1000
+    }
+  ],
+  "densex_build": {
+    "kind": "full source-to-proposition audit",
+    "source_count": 120000,
+    "total_fallbacks": 503,
+    "total_retrieval_units": 500286,
+    "domains": [
+      {
+        "domain": "Healthcare",
+        "finished_at_utc": "2026-11-24T21:26:36.980930+00:00",
+        "rows": 30000,
+        "fallback_count": 152,
+        "manifest_sha256": "7272216ad98fa0c50fac3b3bc54ca14142b1af71d6d72225c74e79b736e6f7c3",
+        "parse_counts": {
+          "valid": 29848,
+          "malformed": 82,
+          "empty": 70
+        },
+        "units": 83253,
+        "input_sha256": "cfb0017d07fc58f630f7c4e995f4bac11ea9fd70492bd5acb53b2e8413a9c824",
+        "propositions_sha256": "c6c4480cee5247bc2151c28b739f48b2c60009013f8d63ac2a4b66ad6f2782cb"
+      },
+      {
+        "domain": "Manufacturing",
+        "finished_at_utc": "2026-11-24T21:58:00.791388+00:00",
+        "rows": 30000,
+        "fallback_count": 102,
+        "manifest_sha256": "d3088063c51d4ee29cb61d866eab1d00b07545e9e27aff1bcd35a8528ecb0a13",
+        "parse_counts": {
+          "valid": 29898,
+          "malformed": 51,
+          "empty": 50,
+          "truncated": 1
+        },
+        "units": 84417,
+        "input_sha256": "c061c29b5b353adf97043b468d2cd170dbdfa5ede79e9e43e7f622826466859f",
+        "propositions_sha256": "2d4ff6906f25aa9c71c3abc43c770b4d921f59a5c4948ba20518a345be9bec3a"
+      },
+      {
+        "domain": "Finance",
+        "finished_at_utc": "2026-11-24T23:15:09.425277+00:00",
+        "rows": 30000,
+        "fallback_count": 107,
+        "manifest_sha256": "1c0938c9d22f825ab14d672e49a9acae2cb7569b3058044faafcf9b0107299a4",
+        "parse_counts": {
+          "valid": 29893,
+          "malformed": 2,
+          "empty": 105
+        },
+        "units": 165617,
+        "input_sha256": "b361f38a2405d3bbb06a41f91373102b222a00421ba49bc69935a693e991d82e",
+        "propositions_sha256": "626e941047f4e4a1ee37918109e3a669b1c3a8d793f7679bfa50d2707c0b3c8f"
+      },
+      {
+        "domain": "Technology",
+        "finished_at_utc": "2026-11-25T00:32:24.050888+00:00",
+        "rows": 30000,
+        "fallback_count": 142,
+        "manifest_sha256": "8f3895e324158db6f4d4345531d0d86efe5a73297b078138858439bcf8a1cbe4",
+        "parse_counts": {
+          "valid": 29858,
+          "empty": 139,
+          "malformed": 3
+        },
+        "units": 166999,
+        "input_sha256": "fc11e1e1eff7cddd0d212b841cc38dc6d3c396e03eb82878cff4be96e536acb9",
+        "propositions_sha256": "3544d535a3c6e18635681602064093eb84c308e9b8320776e16a6d67b5e65371"
+      }
+    ],
+    "commit": "af207e0119cefdae99543606336f61155ae178af"
+  },
+  "densex_dev_export_status": {
+    "Healthcare": "complete",
+    "Manufacturing": "complete",
+    "Finance": "complete",
+    "Technology": "complete"
+  },
+  "raptor_first_full_domain": {
+    "domain": "Healthcare",
+    "source_rows": 30000,
+    "status": "failed",
+    "seconds": 777.019585005939,
+    "summary_calls": 333,
+    "truncated_calls": 5,
+    "failure_trace_sha256": "ad9aed8322875fa4171e432cf13a8666ee33e7a78ce6ccf4240c6ae9e0d239d0",
+    "bounded_retry_preflight": {
+      "status": "complete",
+      "adapter_sha256": "c635e0db077510f73d4ee2340f6c258590d7e1b251acadc57cae6f5606cea63f",
+      "checks": [
+        {
+          "original_call": 245,
+          "original_completion_tokens": 256,
+          "retry_completion_tokens": 38,
+          "status": "complete"
+        },
+        {
+          "original_call": 250,
+          "original_completion_tokens": 256,
+          "retry_completion_tokens": 42,
+          "status": "complete"
+        },
+        {
+          "original_call": 255,
+          "original_completion_tokens": 256,
+          "retry_completion_tokens": 30,
+          "status": "complete"
+        },
+        {
+          "original_call": 282,
+          "original_completion_tokens": 256,
+          "retry_completion_tokens": 39,
+          "status": "complete"
+        },
+        {
+          "original_call": 281,
+          "original_completion_tokens": 256,
+          "retry_completion_tokens": 41,
+          "status": "complete"
+        }
+      ]
+    }
+  },
+  "raw_evidence_host": "course-server",
+  "raw_evidence_root": "/data/linjvnyong/XZG/NLP/memory-round-20261125",
+  "raw_receipt_hashes": {
+    "densex-full-audit.json": "c9476afa5a7d090f01b4ca48d93b502b472fcf5dc3198ca88ab0070772e8bded",
+    "raptor-retry-preflight.json": "7bacb393e221e185ac97f5b214d46ed04b533ecc7403871cb0b6fee9a28d51c8",
+    "wholecard-cost-pilot/pilot-summary.json": "975d2474db0242c0898a598c8dc2b2d0e1f83fc31403d6815998fbca2ba56f45",
+    "densex-full-service/service.json": "b63e861df1dbe8ac8e07c241ab2a819d4a2046c05e934f7f9fa657df5d6be614",
+    "wholecard-service/service.json": "b872bd096bbd445802f8ed485b48cae019f66a07aa81772f53618b30293d4b53"
+  }
+}

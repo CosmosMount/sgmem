@@ -126,13 +126,14 @@ def build(args):
             "summary": {"endpoint": args.endpoint, "model": "Qwen/Qwen3-8B", "declared_revision": QWEN_REVISION,
                         "context_tokens": 8192, "enable_thinking": False, "temperature": 0,
                         "max_tokens": config.summary_tokens, "workers": config.summary_workers,
-                        "system_prompt": raptor.SUMMARY_SYSTEM},
+                        "system_prompt": raptor.SUMMARY_SYSTEM,
+                        "retry_system_prompt": raptor.SUMMARY_RETRY_SYSTEM},
         }
         manifest = {"schema": 1, "status": "building", "domain": messages[0]["domain"],
                     "source_count": len(messages), "provenance": provenance, "config": asdict(config),
                     "started_at_utc": datetime.now(timezone.utc).isoformat()}
         write_json(manifest_path, manifest)
-        calls = 0
+        calls, retries = 0, 0
         receipts_lock = Lock()
         sys.path.insert(0, str(upstream))
         try:
@@ -146,7 +147,7 @@ def build(args):
             encoder = SentenceTransformer(str(embedding), device="cpu", local_files_only=True)
             with receipts_path.open("x", encoding="utf-8", newline="\n") as receipts:
                 def summarize(context, max_tokens):
-                    nonlocal calls
+                    nonlocal calls, retries
                     call_start = perf_counter()
                     with receipts_lock:
                         calls += 1
@@ -164,6 +165,10 @@ def build(args):
                     finally:
                         row["seconds"] = perf_counter() - call_start
                         with receipts_lock:
+                            truncated = getattr(client, "truncated_response", None)
+                            if truncated is not None:
+                                retries += 1
+                                row["truncated_response"] = truncated
                             receipts.write(json.dumps(row, ensure_ascii=False, allow_nan=False) + "\n")
                             receipts.flush()
 
@@ -181,7 +186,7 @@ def build(args):
             raise
         finally:
             sys.path.remove(str(upstream))
-            manifest.update(summary_calls=calls, wall_seconds=perf_counter() - started,
+            manifest.update(summary_calls=calls, summary_retries=retries, wall_seconds=perf_counter() - started,
                             ended_at_utc=datetime.now(timezone.utc).isoformat())
             write_json(manifest_path, manifest)
     return manifest
