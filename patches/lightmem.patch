@@ -262,8 +262,41 @@ diff --git a/src/lightmem/factory/memory_manager/openai.py b/src/lightmem/factor
  
          return results
  
-@@ -395,11 +395,12 @@
-             response_format={"type": "json_object"}
+@@ -390,16 +390,46 @@
+             {"role": "user", "content": user_prompt}
+         ]
+ 
++        memory_max_chars = 16000
++        sleep_update_format = {
++            "type": "json_schema",
++            "json_schema": {
++                "name": "lightmem_sleep_update",
++                "strict": True,
++                "schema": {
++                    "anyOf": [
++                        {
++                            "type": "object",
++                            "properties": {
++                                "action": {"type": "string", "enum": ["update"]},
++                                "new_memory": {"type": "string", "minLength": 1, "maxLength": memory_max_chars},
++                            },
++                            "required": ["action", "new_memory"],
++                            "additionalProperties": False,
++                        },
++                        {
++                            "type": "object",
++                            "properties": {"action": {"type": "string", "enum": ["delete", "ignore"]}},
++                            "required": ["action"],
++                            "additionalProperties": False,
++                        },
++                    ],
++                },
++            },
++        }
+         response_text, usage_info = self.generate_response(
+             messages=messages,
+-            response_format={"type": "json_object"}
++            response_format=sleep_update_format,
          )
          
 -        try:
@@ -275,12 +308,14 @@ diff --git a/src/lightmem/factory/memory_manager/openai.py b/src/lightmem/factor
 -        except Exception:
 -            return {"action": "ignore", "usage": usage_info if 'usage_info' in locals() else None}
 +        result = json.loads(response_text)
-+        if not isinstance(result, dict) or result.get("action") not in ("update", "delete", "ignore"):
++        action = result.get("action") if isinstance(result, dict) else None
++        if action == "update":
++            memory = result.get("new_memory")
++            if (result.keys() != {"action", "new_memory"} or not isinstance(memory, str)
++                    or not memory.strip() or len(memory) > memory_max_chars):
++                raise ValueError("LightMem sleep update requires a nonempty memory string of at most 16000 characters")
++        elif action not in ("delete", "ignore") or result.keys() != {"action"}:
 +            raise ValueError("Invalid LightMem sleep action")
-+        if result["action"] == "update" and (
-+            not isinstance(result.get("new_memory"), str) or not result["new_memory"].strip()
-+        ):
-+            raise ValueError("LightMem sleep update requires nonempty memory text")
 +        result["usage"] = usage_info
 +        return result
 diff --git a/src/lightmem/factory/pre_compressor/llmlingua_2.py b/src/lightmem/factory/pre_compressor/llmlingua_2.py
@@ -347,3 +382,20 @@ diff --git a/src/lightmem/factory/retriever/embeddingretriever/qdrant.py b/src/l
              else:
                  conditions.append(FieldCondition(key=key, match=MatchValue(value=value)))
          return Filter(must=conditions) if conditions else None
+diff --git a/src/lightmem/memory/prompts.py b/src/lightmem/memory/prompts.py
+--- a/src/lightmem/memory/prompts.py
++++ b/src/lightmem/memory/prompts.py
+@@ -344,11 +344,12 @@
+ Additional guidance:
+ - Use only the information provided. Do not invent details.
+ - Your operation should always be applied to the target memory. Do not modify or correct the content inside the candidate memories.
++- When updating, write one concise memory string using only details that refine the target. State each fact once.
+ 
+ The output must be a JSON object with the following structure:
+ {
+   "action": "update" | "delete" | "ignore",
+-  "new_memory": { ... }   // only required when action = "update"
++  "new_memory": "the updated memory"   // include only when action = "update"
+ }
+ 
+ Example 1:

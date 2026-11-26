@@ -2,7 +2,9 @@
 
 适配入口使用官方 LightMem 提交 `80211869f55e9c2276a7e7f564356d6cb03b7d8c` 的 `LightMemory`。建库依次运行 LLMLingua-2、注意力和相邻轮次相似度分段、512-token STM、flat 事实抽取、LTM 直接入库、睡眠队列与离线更新。使用 LoCoMo 的压缩设置 `rate=0.6` 和默认睡眠相似度阈值 `0.9`。参照 [LightMem 论文 §3](https://arxiv.org/html/2510.18866v4#S3) 与 [官方源码](https://github.com/zjunlp/LightMem/tree/80211869f55e9c2276a7e7f564356d6cb03b7d8c)。
 
-Healthcare 扩容时，部分 sleep 请求的输入超过 4,096 tokens，加上预留输出后被 8,192-token 服务拒绝。恢复运行使用 `scripts/run_memory_service.py --context-length 16384`，实际设置写入服务清单。每次仍先请求最多 4,096 个输出 tokens；仅在 `finish_reason=length` 时保持原提示和种子重试一次，上限 8,192，并累计两次 token 用量。缺少 usage、其他结束原因或第二次仍截断都会明确失败，错误包含结束原因、用量和响应尾部。索引清单记录该生成策略；新策略使用独立输出，不能与旧群组快照混为同一协议。
+Healthcare 扩容时，部分睡眠请求的输入超过 4,096 tokens，加上预留输出后被 8,192-token 服务拒绝。恢复运行使用 `scripts/run_memory_service.py --context-length 16384`，实际设置写入服务清单。生成先请求最多 4,096 个输出 tokens。仅在 `finish_reason=length` 时保持原提示、schema 和种子重试一次，上限 8,192，两次 token 用量累加。缺少 usage、其他结束原因或第二次仍截断都会使请求失败。对能够读取的响应，失败日志记录结束原因、用量和响应尾部，并保存原始请求消息供复查。
+
+16,384-token 恢复运行仍有六个 Healthcare 群组因睡眠更新的两次输出都达到上限而失败。新协议要求将更新写为紧凑、无重复的记忆字符串，使用 `json_schema` 约束输出。`update` 必须附带非空 `new_memory` 字符串，`delete` 和 `ignore` 只包含 `action`。16,000 字符是 GroupMemBench 适配设置，为已完成群组中观测到的最长更新（11,922 字符）留出余量。索引清单保存睡眠响应策略和补丁哈希。采用该策略时使用新的输出目录重跑所有群组。正式建库前用固定 Qwen 服务做小规模推理校验。
 
 启用重试后，指标 `llm.*.calls` 表示成功完成的逻辑请求数，不能直接标成实际 API 请求次数。token 用量包含两次尝试；实际 HTTP 请求次数应另查该阶段服务日志，GPU 账本仍包含加载、重试和失败耗时。
 
@@ -18,7 +20,7 @@ Healthcare 扩容时，部分 sleep 请求的输入超过 4,096 tokens，加上�
 | LLMLingua / Qdrant Client / Pydantic | 0.2.2 / 1.15.1 / 2.12.0 |
 | OpenAI / HTTPX / tiktoken / PyYAML | 2.3.0 / 0.28.1 / 0.12.0 / 6.0.3 |
 
-在隔离的 LightMem worker 环境中使用已经过验证的 Torch/CUDA 配置。若复用 SGMem 的 Torch 2.8 和 Transformers 4.57.1，清单记录实际版本，端到端小测用于核实兼容性。Qwen 通过已有的本地 OpenAI 兼容端点服务。它须支持 `response_format=json_object`、`chat_template_kwargs.enable_thinking=false`、`seed`，并返回 `finish_reason` 与 token usage。启动服务时应单独记录其实际权重修订。服务名和 `/v1` 地址仅标识调用入口。
+在隔离的 LightMem worker 环境中使用已经过验证的 Torch/CUDA 配置。若复用 SGMem 的 Torch 2.8 和 Transformers 4.57.1，清单记录实际版本，端到端小测用于核实兼容性。Qwen 通过已有的本地 OpenAI 兼容端点服务。它须支持 `response_format=json_object` 的抽取请求、`response_format=json_schema` 的睡眠请求、`chat_template_kwargs.enable_thinking=false`、`seed`，并返回 `finish_reason` 与 token usage。启动服务时应单独记录其实际权重修订。服务名和 `/v1` 地址仅标识调用入口。
 
 本地模型路径为课程冻结的 E5-small-v2 `ffb93f3bd4047442299a41ebb6fa998a38507c52`，以及官方默认压缩器 `microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank` `5f0c82792b7ea14c6484e015b6a072009496b7f2`。适配器检查冻结 E5 权重哈希，记录压缩器哈希和调用方提供的压缩器修订。Qwen3-8B 应使用课程冻结修订 `b968826d9c46dd6066d109eabc6255188de91218`。
 

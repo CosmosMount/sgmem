@@ -28,18 +28,21 @@ DIMENSIONS = 384
 E5_MAX_TOKENS = 512
 E5_LENGTH_POLICY = "lossless_passage_chunks_token_weighted_mean_512"
 SLEEP_TIME_POLICY = "strictly_later_source_instant_utc"
+SLEEP_RESPONSE_POLICY = "strict_json_schema_action_and_memory_max_16000_chars"
 PATCH = Path(__file__).resolve().parents[2] / "patches" / "lightmem.patch"
 PATCHED_SOURCE = {
     "src/lightmem/factory/memory_buffer/sensory_memory.py":
         "afda81858408c2de117ec472b09174c1a96b8628c633e21d42ae9ce26fe18a39",
     "src/lightmem/factory/memory_manager/openai.py":
-        "3e273adebf089a8a9455d7ed20789370d60290db7e698fb0d5de83fd5de81a84",
+        "b37ae2264fd5125d4588999c7098bc2197724161c71c50c2bdcfbf98ee14d6a0",
     "src/lightmem/factory/pre_compressor/llmlingua_2.py":
         "82dff55fd1a62db2920e7e4497710cdd9c288ad1e90975b2ddf310b8e69abb88",
     "src/lightmem/factory/retriever/embeddingretriever/qdrant.py":
         "8e255fd66f9fced6378c5b4460a64dbacbde1061d21e0fae7410e7d87ed00eb7",
     "src/lightmem/memory/lightmem.py":
         "711da50d9f95b8fe2e0b3ffaa978920783bad1cd7f643841f5cf225f8ab1a5a7",
+    "src/lightmem/memory/prompts.py":
+        "48e46d94838589728fbc45ad3f8fe9e7d499b5a864e5af204831c67c821b5f13",
     "src/lightmem/memory/utils.py":
         "f112351acc31618a1031f3b98732e0a5f3f52fb8754d8f5d9ffc89afae0c370a",
 }
@@ -293,7 +296,8 @@ def _complete_response(create, params):
     for attempt in range(2):
         response = create(**dict(params, max_tokens=params["max_tokens"] * (attempt + 1)))
         if not response.choices or response.usage is None:
-            raise ValueError("LightMem response has no choice or token usage")
+            raise ValueError("LightMem response has no choice or token usage, "
+                             f"request_messages={_json(params.get('messages'))}")
         choice = response.choices[0]
         for key in ("prompt_tokens", "completion_tokens", "total_tokens"):
             totals[key] += getattr(response.usage, key)
@@ -305,7 +309,8 @@ def _complete_response(create, params):
             raise ValueError(
                 f"Incomplete LightMem generation: finish_reason={choice.finish_reason}, "
                 f"attempts={attempt + 1}, usage={dict(totals)}, "
-                f"response_tail={(choice.message.content or '')[-300:]!r}"
+                f"response_tail={(choice.message.content or '')[-300:]!r}, "
+                f"request_messages={_json(params.get('messages'))}"
             )
 
 
@@ -656,6 +661,7 @@ def build_lightmem(messages, output, *, upstream, endpoint, model, embedding_mod
         )},
         "score_threshold": score_threshold, "rate": 0.6, "stm_tokens": 512,
         "generation_policy": "4096_tokens_retry_length_once_at_8192",
+        "sleep_response_policy": SLEEP_RESPONSE_POLICY,
         "update_top_k": 20, "update_keep_n": 10,
     }
     worker = _NativeWorker(upstream, options)

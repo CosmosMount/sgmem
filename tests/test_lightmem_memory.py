@@ -7,8 +7,8 @@ import numpy as np
 import pytest
 
 from sgmem.lightmem_memory import (
-    DIMENSIONS, E5_MAX_TOKENS, E5Encoder, LightMemIndex, _build_index, _check_updates,
-    _complete_response, _endpoint, _normalize, _turn,
+    DIMENSIONS, E5_MAX_TOKENS, PATCH, SLEEP_RESPONSE_POLICY, E5Encoder, LightMemIndex, _build_index,
+    _check_updates, _complete_response, _endpoint, _normalize, _turn,
 )
 
 
@@ -55,9 +55,16 @@ def test_incomplete_generation_stops_with_diagnostic(reason, expected_calls):
             usage=SimpleNamespace(prompt_tokens=10, completion_tokens=2, total_tokens=12),
         )
 
-    with pytest.raises(ValueError, match=f"finish_reason={reason}"):
-        _complete_response(create, {"max_tokens": 4096})
+    messages = [{"role": "system", "content": "Return a JSON action"},
+                {"role": "user", "content": "Target\n候选 \"one\""}]
+    with pytest.raises(ValueError, match=f"finish_reason={reason}") as failure:
+        _complete_response(create, {"max_tokens": 4096, "messages": messages})
     assert len(calls) == expected_calls
+    diagnostic, request = str(failure.value).split("request_messages=", 1)
+    assert f"attempts={expected_calls}" in diagnostic
+    assert f"'total_tokens': {12 * expected_calls}" in diagnostic
+    assert "response_tail='partial'" in diagnostic
+    assert json.loads(request) == messages
 
 
 def test_missing_usage_is_not_retried_or_treated_as_success():
@@ -66,6 +73,63 @@ def test_missing_usage_is_not_retried_or_treated_as_success():
 
     with pytest.raises(ValueError, match="token usage"):
         _complete_response(create, {"max_tokens": 4096})
+
+
+@pytest.fixture
+def patched_sleep_update():
+    # Run the changed request and validation block from the patch without importing LightMem.
+    marker = "\n+        memory_max_chars = "
+    _, found, rest = PATCH.read_text(encoding="utf-8").partition(marker)
+    assert found
+    lines = (found + rest).split("\ndiff --git ", 1)[0].splitlines()
+    body = "\n".join(line[1:] for line in lines if line.startswith((" ", "+")))
+    scope = {"json": json}
+    exec(compile("def sleep_update(self, messages):\n" + body, str(PATCH), "exec"), scope)
+    return scope["sleep_update"]
+
+
+@pytest.mark.parametrize("payload", [
+    {"action": "update", "new_memory": "x" * 16000}, {"action": "delete"}, {"action": "ignore"},
+], ids=["update_at_maximum", "delete", "ignore"])
+def test_sleep_update_sends_bounded_schema_and_preserves_valid_actions(patched_sleep_update, payload):
+    requests = []
+    usage = {"total_tokens": 12}
+
+    def generate_response(**request):
+        requests.append(request)
+        return json.dumps(payload), usage
+
+    messages = [{"role": "user", "content": "Target and candidate memories"}]
+    assert patched_sleep_update(SimpleNamespace(generate_response=generate_response), messages) == {
+        **payload, "usage": usage,
+    }
+    request, = requests
+    assert request["messages"] == messages
+    response_format = request["response_format"]
+    assert response_format["type"] == "json_schema"
+    assert response_format["json_schema"]["strict"] is True
+    update, unchanged = response_format["json_schema"]["schema"]["anyOf"]
+    assert update["required"] == ["action", "new_memory"]
+    assert update["properties"]["action"]["enum"] == ["update"]
+    assert update["properties"]["new_memory"] == {"type": "string", "minLength": 1, "maxLength": 16000}
+    assert unchanged["required"] == ["action"]
+    assert unchanged["properties"]["action"]["enum"] == ["delete", "ignore"]
+    assert all(branch["additionalProperties"] is False for branch in (update, unchanged))
+
+
+@pytest.mark.parametrize("response", [
+    '{"action":"update","new_memory":',
+    '{"action":"update"}',
+    '{"action":"update","new_memory":{}}',
+    '{"action":"update","new_memory":" "}',
+    json.dumps({"action": "update", "new_memory": "x" * 16001}),
+    '{"action":"ignore","new_memory":"unexpected"}',
+    '{"action":"skip"}',
+], ids=["invalid_json", "missing_memory", "object_memory", "blank_memory", "overlong_memory", "extra_field", "unknown_action"])
+def test_sleep_update_rejects_invalid_action_instead_of_synthesizing_ignore(patched_sleep_update, response):
+    worker = SimpleNamespace(generate_response=lambda **_: (response, {}))
+    with pytest.raises(ValueError):
+        patched_sleep_update(worker, [])
 
 
 class FakeNative:
@@ -211,6 +275,9 @@ def test_full_boundary_group_isolation_resume_and_backtracking(tmp_path):
     assert len(calls) == 2
     with pytest.raises(ValueError, match="configuration changed"):
         _build_index(rows, path, {"source": "other"}, new_group, resume=True)
+    with pytest.raises(ValueError, match="configuration changed"):
+        _build_index(rows, path, {"source": "fixture", "sleep_response_policy": SLEEP_RESPONSE_POLICY},
+                     new_group, resume=True)
     old_manifest = json.loads((path / "manifest.json").read_text(encoding="utf-8"))
     del old_manifest["protocol"]["e5_length_policy"]
     (path / "manifest.json").write_text(json.dumps(old_manifest), encoding="utf-8")
