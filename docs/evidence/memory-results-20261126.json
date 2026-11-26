@@ -2959,10 +2959,10 @@
     "freeze_write_guard": "Reject repeated dev freeze before any writes; exercised rejection preserved dev, freeze and test hashes."
   },
   "verification": {
-    "offline_tests_passed": 301,
+    "offline_tests_passed": 302,
     "failed_sleep_prompt_and_output_diagnosis_reviewed": true,
     "all_possible_code_behaviors_proven": false,
-    "new_sleep_schema_real_inference": "pending, required before full rebuild"
+    "new_sleep_schema_real_inference": "Passed two observed long-retry cases and a real 40-message pipeline with 15 sleep actions; full 30000-message rebuild running, not yet accepted."
   },
   "manual_judge_review": {
     "scope": "Four Healthcare synonym090 metadata lost questions; qualitative spot check, not a full human relabeling.",
@@ -2986,5 +2986,385 @@
     },
     "finding": "For multi_hop_42 both answers convey confirming thresholds, but the saved Qwen judge tolerates extra detail for raw and penalizes it for meta. This is a semantic scoring ambiguity, not parsing or missing-generation corruption.",
     "action": "Preserve all original automatic scores; do not selectively rejudge or tune on test."
+  },
+  "lightmem_repair": {
+    "acceptance": {
+      "preflight_status": "complete",
+      "source_commit": "725d3a0b250a634d245e6663db93b8fe81bb8b19",
+      "preflight_sha256": "d1c54468cb178d5a32448c7f5067f9ea6b799e148de9769446f451c0ca95acbf",
+      "source_adapter_sha256": "eda7f4c3410546ffe7d83bb5a604a3f420cd372c3cbae07a60dbb653ac9c9dbb",
+      "accepted_at_utc": "2026-11-26T01:24:04.059960+00:00",
+      "gpu_hours_before_build": 24.970727444578664,
+      "maximum_after_remaining_stages": 29.770727444578664,
+      "scope": "Healthcare only, 30000 source messages and 5 x 33 dev answers, no additional test tuning",
+      "preflight_source_commit": "091713af7c55f385ce6dcf662f16cffa9af87727",
+      "service_restart_check": {
+        "False": 98,
+        "True": "bound",
+        "live_listener_rejected": true
+      }
+    },
+    "preflight": {
+      "status": "complete",
+      "rows": 40,
+      "long_cases": [
+        {
+          "group": "01",
+          "previous_usage": {
+            "completion_tokens": 4645,
+            "prompt_tokens": 4894,
+            "total_tokens": 9539
+          },
+          "new_usage": {
+            "prompt_tokens": 2471,
+            "completion_tokens": 214,
+            "total_tokens": 2685
+          },
+          "action": "update",
+          "new_memory_characters": 1088,
+          "new_memory_sha256": "a0a205f1751eabedc31b34a3062d173825eeef59d87a54252481e24094dabb60"
+        },
+        {
+          "group": "09",
+          "previous_usage": {
+            "completion_tokens": 4456,
+            "prompt_tokens": 2314,
+            "total_tokens": 6770
+          },
+          "new_usage": {
+            "prompt_tokens": 1181,
+            "completion_tokens": 169,
+            "total_tokens": 1350
+          },
+          "action": "update",
+          "new_memory_characters": 696,
+          "new_memory_sha256": "48a0e2e0f1dd88cc4f5b3897d42ec780eedac29e15018895104c0e2fa9bd0d56"
+        }
+      ],
+      "metrics": [
+        {
+          "extraction_calls": 2,
+          "input_turns": 40,
+          "input_tokens": 1280,
+          "compressed_tokens": 821,
+          "changed_turns": 40,
+          "segmentation_calls": 2,
+          "coarse_boundaries": 12,
+          "released_segments": 2,
+          "rows": 40,
+          "pre_entries": 40,
+          "post_entries": 38,
+          "extraction_source_turns": 40,
+          "source_coverage": {
+            "pre": {
+              "anchors": 40,
+              "lineage": 40
+            },
+            "post": {
+              "anchors": 38,
+              "lineage": 38
+            }
+          },
+          "embedding_calls": {
+            "turn": 40,
+            "passage": 46
+          },
+          "embedding_length": {
+            "long_passages": 0,
+            "long_passage_chunks": 0
+          },
+          "llm": {
+            "add_memory": {
+              "calls": 2,
+              "prompt_tokens": 3278,
+              "completion_tokens": 1568,
+              "total_tokens": 4846
+            },
+            "update": {
+              "calls": 15,
+              "prompt_tokens": 10442,
+              "completion_tokens": 559,
+              "total_tokens": 11001
+            }
+          },
+          "add_seconds": 42.809705471619964,
+          "queue_seconds": 0.08915997669100761,
+          "sleep_seconds": 5.539547733962536,
+          "update_actions": {
+            "delete": 2,
+            "ignore": 7,
+            "update": 6
+          }
+        }
+      ],
+      "protocol": {
+        "adapter_sha256": "eda7f4c3410546ffe7d83bb5a604a3f420cd372c3cbae07a60dbb653ac9c9dbb",
+        "endpoint": "http://127.0.0.1:18951/v1",
+        "model": "Qwen/Qwen3-8B",
+        "embedding_model": "/home/ai4s_group/XZG/NLP/sgmem/models/e5-small-v2",
+        "compressor_model": "/data/ai4s_group/XZG/NLP/memory-round-20261124/llmlingua2",
+        "device": "cpu",
+        "seed": 42,
+        "upstream_commit": "80211869f55e9c2276a7e7f564356d6cb03b7d8c",
+        "patch_sha256": "20af538ce3423f75f43d970420f1977d1a04152159c0e4a5e1b8edc71c30da82",
+        "embedding_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "qa_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+        "embedding_weights_sha256": "45bfa60070649aae2244fbc9d508537779b93b6f353c17b0f95ceccb1c5116c1",
+        "compressor_revision": "5f0c82792b7ea14c6484e015b6a072009496b7f2",
+        "compressor_config_sha256": "e6c33ec2f099e659e125efaa8b7bb07a6e65b7d9fc36211c6fa3206e1c399085",
+        "compressor_weights_sha256": "22b9ecde52fec5c97e8c54a293be768727df95a81c6c8dccb03f262a50c58324",
+        "packages": {
+          "numpy": "2.2.6",
+          "torch": "2.8.0",
+          "transformers": "4.57.1",
+          "sentence-transformers": "5.7.0",
+          "llmlingua": "0.2.2",
+          "openai": "3.3.0",
+          "qdrant-client": "1.15.1",
+          "pydantic": "2.13.4",
+          "tiktoken": "0.9.0",
+          "httpx": "0.28.1",
+          "pyyaml": "6.0.3"
+        },
+        "score_threshold": 0.9,
+        "rate": 0.6,
+        "stm_tokens": 512,
+        "generation_policy": "4096_tokens_retry_length_once_at_8192",
+        "sleep_response_policy": "strict_json_schema_postvalidate_memory_max_16000_chars",
+        "update_top_k": 20,
+        "update_keep_n": 10,
+        "e5_length_policy": "lossless_passage_chunks_token_weighted_mean_512",
+        "sleep_time_policy": "strictly_later_source_instant_utc"
+      },
+      "service_runtime": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "vllm": "0.11.0"
+      },
+      "service_status": "complete",
+      "max_model_len": "16384"
+    },
+    "throughput_probe": [
+      {
+        "has_max_length": true,
+        "seconds": 5.17873771302402,
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 31,
+          "total_tokens": 55,
+          "completion_tokens_details": null,
+          "prompt_tokens_details": null
+        },
+        "finish_reason": "stop",
+        "content": "{\"action\": \"update\", \"new_memory\": \"The appointment is at 10:00.\"}"
+      },
+      {
+        "has_max_length": false,
+        "seconds": 0.7467856630682945,
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 31,
+          "total_tokens": 55,
+          "completion_tokens_details": null,
+          "prompt_tokens_details": null
+        },
+        "finish_reason": "stop",
+        "content": "{\"action\": \"update\", \"new_memory\": \"The appointment is at 10:00.\"}"
+      }
+    ],
+    "stopped_probe": {
+      "reason": "Stopped after measured decoder maxLength overhead before bulk. Type-only schema will be tested under a new stage label.",
+      "pid": 3043018
+    },
+    "continuation": {
+      "complete": false,
+      "steps": [],
+      "stage": "lightmem-schema-build-resume",
+      "updated_at_utc": "2026-11-26T01:27:45.909740+00:00"
+    },
+    "execution_plan": {
+      "baseline_gpu_hours": 24.970727444578664,
+      "stage_caps": {
+        "preflight": 0.12,
+        "build": 4.0,
+        "qa": 0.8
+      },
+      "upper_gpu_hours": 29.770727444578664,
+      "limit_gpu_hours": 30,
+      "source_commit": "725d3a0b250a634d245e6663db93b8fe81bb8b19",
+      "no_new_test_selection": true,
+      "service": [
+        "/home/ai4s_group/XZG/NLP/sgmem/.venv-cpu/bin/python",
+        "-B",
+        "/home/ai4s_group/XZG/NLP/sgmem-lightmem-schema/scripts/run_memory_service.py",
+        "--model",
+        "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+        "--context-length",
+        "16384",
+        "--memory-fraction",
+        "0.85",
+        "--max-sequences",
+        "32",
+        "--max-batched-tokens",
+        "8192",
+        "--cuda-graphs"
+      ],
+      "exports": [
+        [
+          "/home/ai4s_group/XZG/NLP/sgmem/.venv-cpu/bin/python",
+          "-B",
+          "/home/ai4s_group/XZG/NLP/sgmem-lightmem-schema/scripts/retrieve_memories.py",
+          "--method",
+          "lightmem",
+          "--messages",
+          "/home/ai4s_group/XZG/NLP/sgmem-memory/results/memory-inputs-dev/messages-Healthcare.jsonl",
+          "--questions",
+          "/home/ai4s_group/XZG/NLP/sgmem-memory/results/memory-inputs-dev/queries-dev.jsonl",
+          "--index",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/index",
+          "--output",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/rankings/raw-top10-pair",
+          "--qa-tokenizer",
+          "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+          "--tokenizer-revision",
+          "b968826d9c46dd6066d109eabc6255188de91218"
+        ],
+        [
+          "/home/ai4s_group/XZG/NLP/sgmem/.venv-cpu/bin/python",
+          "-B",
+          "/home/ai4s_group/XZG/NLP/sgmem-lightmem-schema/scripts/retrieve_memories.py",
+          "--method",
+          "lightmem-pre",
+          "--messages",
+          "/home/ai4s_group/XZG/NLP/sgmem-memory/results/memory-inputs-dev/messages-Healthcare.jsonl",
+          "--questions",
+          "/home/ai4s_group/XZG/NLP/sgmem-memory/results/memory-inputs-dev/queries-dev.jsonl",
+          "--index",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/index",
+          "--output",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/rankings/ablation",
+          "--qa-tokenizer",
+          "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+          "--tokenizer-revision",
+          "b968826d9c46dd6066d109eabc6255188de91218"
+        ],
+        [
+          "/home/ai4s_group/XZG/NLP/sgmem/.venv-cpu/bin/python",
+          "-B",
+          "/home/ai4s_group/XZG/NLP/sgmem-lightmem-schema/scripts/retrieve_memories.py",
+          "--method",
+          "lightmem",
+          "--messages",
+          "/home/ai4s_group/XZG/NLP/sgmem-memory/results/memory-inputs-dev/messages-Healthcare.jsonl",
+          "--questions",
+          "/home/ai4s_group/XZG/NLP/sgmem-memory/results/memory-inputs-dev/queries-dev.jsonl",
+          "--index",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/index",
+          "--output",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/rankings/native",
+          "--qa-tokenizer",
+          "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+          "--tokenizer-revision",
+          "b968826d9c46dd6066d109eabc6255188de91218",
+          "--context-view",
+          "native"
+        ],
+        [
+          "/home/ai4s_group/XZG/NLP/sgmem/.venv-cpu/bin/python",
+          "-B",
+          "/home/ai4s_group/XZG/NLP/sgmem-lightmem-schema/scripts/retrieve_memories.py",
+          "--method",
+          "lightmem",
+          "--messages",
+          "/home/ai4s_group/XZG/NLP/sgmem-memory/results/memory-inputs-dev/messages-Healthcare.jsonl",
+          "--questions",
+          "/home/ai4s_group/XZG/NLP/sgmem-memory/results/memory-inputs-dev/queries-dev.jsonl",
+          "--index",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/index",
+          "--output",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/rankings/raw-budget",
+          "--qa-tokenizer",
+          "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+          "--tokenizer-revision",
+          "b968826d9c46dd6066d109eabc6255188de91218",
+          "--context-view",
+          "raw-budget"
+        ]
+      ],
+      "requires_workstation_connection": false,
+      "earlier_preflight_exit": 143
+    },
+    "startup_failure": {
+      "status": {
+        "complete": false,
+        "steps": [
+          {
+            "stage": "lightmem-schema-build",
+            "exit_code": 1
+          }
+        ],
+        "stage": "failed",
+        "updated_at_utc": "2026-11-26T01:24:06.487549+00:00",
+        "reason": "lightmem-schema-build exited 1"
+      },
+      "resource": {
+        "label": "lightmem-schema-build",
+        "gpu": {
+          "index": "2",
+          "uuid": "GPU-7007b663-efaf-31dc-da53-ae2a613b13de",
+          "free_mib": 48675,
+          "utilization": 0
+        },
+        "command": [
+          "/home/ai4s_group/XZG/NLP/sgmem/.venv-cpu/bin/python",
+          "-B",
+          "/home/ai4s_group/XZG/NLP/sgmem-lightmem-schema/scripts/run_memory_service.py",
+          "--model",
+          "/data/Public/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+          "--context-length",
+          "16384",
+          "--memory-fraction",
+          "0.85",
+          "--max-sequences",
+          "32",
+          "--max-batched-tokens",
+          "8192",
+          "--cuda-graphs",
+          "--output",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/service",
+          "--",
+          "/home/ai4s_group/XZG/NLP/sgmem/.venv-cpu/bin/python",
+          "-B",
+          "/data/ai4s_group/XZG/NLP/memory-round-20261124/lightmem-healthcare-schema/build.py",
+          "build"
+        ],
+        "started_at_utc": "2026-11-26T01:24:06.415258+00:00",
+        "round_limit_seconds": 108000,
+        "stage_limit_seconds": 14400.0,
+        "remaining_before_seconds": 95371.27923912182,
+        "pid": 3256782,
+        "wall_seconds": 0.06499999016523361,
+        "exit_code": 1,
+        "ended_at_utc": "2026-11-26T01:24:06.480754+00:00"
+      },
+      "reason": "Closed local HTTP connection blocked port probe before service initialization."
+    },
+    "port_reuse_check": {
+      "False": 98,
+      "True": "bound",
+      "live_listener_rejected": true
+    },
+    "active_stage_at_review": {
+      "label": "lightmem-schema-build-resume",
+      "gpu": {
+        "index": "2",
+        "uuid": "GPU-7007b663-efaf-31dc-da53-ae2a613b13de",
+        "free_mib": 48675,
+        "utilization": 0
+      },
+      "started_at_utc": "2026-11-26T01:27:48.181318+00:00",
+      "stage_limit_seconds": 14400.0
+    },
+    "service_status_at_review": "ready"
   }
 }
