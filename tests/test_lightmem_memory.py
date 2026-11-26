@@ -77,69 +77,113 @@ def test_missing_usage_is_not_retried_or_treated_as_success():
 
 @pytest.fixture
 def patched_sleep_update():
-    # Run the changed request and validation block from the patch without importing LightMem.
-    marker = "\n+        memory_max_chars = "
-    _, found, rest = PATCH.read_text(encoding="utf-8").partition(marker)
+    # Exercise the complete replacement method without importing heavyweight dependencies.
+    patch = PATCH.read_text(encoding="utf-8")
+    marker = "     def _call_update_llm(self, system_prompt, target_entry, candidate_sources):"
+    _, found, rest = patch.partition(marker)
     assert found
-    lines = (found + rest).split("\ndiff --git ", 1)[0].splitlines()
-    body = "\n".join(line[1:] for line in lines if line.startswith((" ", "+")))
-    scope = {"json": json}
-    exec(compile("def sleep_update(self, messages):\n" + body, str(PATCH), "exec"), scope)
-    return scope["sleep_update"]
+    body = (found + rest).split("\ndiff --git ", 1)[0]
+    source = "\n".join(line[1:] for line in body.splitlines() if line.startswith((" ", "+")))
+    scope = {"json": json, "SLEEP_REWRITE_PROMPT": "Rewrite only the selected evidence"}
+    import textwrap
+    exec(compile(textwrap.dedent(source), str(PATCH), "exec"), scope)
+    return scope["_call_update_llm"]
 
 
-@pytest.mark.parametrize("payload", [
-    {"action": "update", "new_memory": "x" * 16000}, {"action": "delete"}, {"action": "ignore"},
-], ids=["update_at_maximum", "delete", "ignore"])
-def test_sleep_update_sends_strict_schema_and_preserves_valid_actions(patched_sleep_update, payload):
+def sleep_case(method, outputs):
     requests = []
-    usage = {"total_tokens": 12}
+    responses = iter(outputs)
 
     def generate_response(**request):
         requests.append(request)
-        return json.dumps(payload), usage
+        value = next(responses)
+        return (value if isinstance(value, str) else json.dumps(value)), {
+            "prompt_tokens": 10, "completion_tokens": 2, "total_tokens": 12,
+        }
 
-    messages = [{"role": "user", "content": "Target and candidate memories"}]
-    assert patched_sleep_update(SimpleNamespace(generate_response=generate_response), messages) == {
-        **payload, "usage": usage,
+    result = method(SimpleNamespace(generate_response=generate_response), "Classify the relationship",
+                    {"payload": {"memory": "original target"}},
+                    [{"payload": {"memory": text}} for text in ("irrelevant source", "selected evidence")])
+    return result, requests
+
+
+@pytest.mark.parametrize("relation,index,action", [
+    ("unrelated", -1, "ignore"), ("equivalent", 1, "ignore"), ("contradiction", 1, "delete"),
+])
+def test_sleep_classifies_without_rewriting(patched_sleep_update, relation, index, action):
+    result, requests = sleep_case(patched_sleep_update, [{"relation": relation, "candidate_index": index}])
+    assert result["action"] == action and result["relation"] == relation
+    assert len(requests) == 1 and result["usage"]["total_tokens"] == 12
+    schema = requests[0]["response_format"]["json_schema"]
+    assert schema["strict"] and schema["schema"]["additionalProperties"] is False
+    assert schema["schema"]["properties"]["candidate_index"]["enum"] == list(range(-1, 10))
+
+
+def test_sleep_rewrites_only_selected_evidence_and_counts_both_calls(patched_sleep_update):
+    result, requests = sleep_case(patched_sleep_update, [
+        {"relation": "refinement", "candidate_index": 1}, {"new_memory": "Target with its supported detail."},
+    ])
+    assert result["action"] == "update" and result["selected_candidate_index"] == 1
+    assert result["usage"] == {"prompt_tokens": 20, "completion_tokens": 4, "total_tokens": 24}
+    assert len(requests) == 2
+    assert json.loads(requests[1]["messages"][1]["content"]) == {
+        "target": "original target", "later_evidence": "selected evidence",
     }
-    request, = requests
-    assert request["messages"] == messages
-    response_format = request["response_format"]
-    assert response_format["type"] == "json_schema"
-    assert response_format["json_schema"]["strict"] is True
-    update, unchanged = response_format["json_schema"]["schema"]["anyOf"]
-    assert update["required"] == ["action", "new_memory"]
-    assert update["properties"]["action"]["enum"] == ["update"]
-    assert update["properties"]["new_memory"] == {"type": "string", "minLength": 1}
-    assert unchanged["required"] == ["action"]
-    assert unchanged["properties"]["action"]["enum"] == ["delete", "ignore"]
-    assert all(branch["additionalProperties"] is False for branch in (update, unchanged))
+    assert requests[1]["response_format"]["json_schema"]["schema"]["properties"]["new_memory"]["maxLength"] == 1024
 
 
-@pytest.mark.parametrize("response", [
-    '{"action":"update","new_memory":',
-    '{"action":"update"}',
-    '{"action":"update","new_memory":{}}',
-    '{"action":"update","new_memory":" "}',
-    json.dumps({"action": "update", "new_memory": "x" * 16001}),
-    '{"action":"ignore","new_memory":"unexpected"}',
-    '{"action":"skip"}',
-], ids=["invalid_json", "missing_memory", "object_memory", "blank_memory", "overlong_memory", "extra_field", "unknown_action"])
-def test_sleep_update_rejects_invalid_action_instead_of_synthesizing_ignore(patched_sleep_update, response):
-    worker = SimpleNamespace(generate_response=lambda **_: (response, {}))
+@pytest.mark.parametrize("selection", [
+    '{"relation":', {"relation": "unknown", "candidate_index": 1},
+    {"relation": "refinement", "candidate_index": 2}, {"relation": "refinement", "candidate_index": True},
+    {"relation": "unrelated", "candidate_index": 0}, {"relation": "equivalent", "candidate_index": -1},
+    {"relation": "refinement", "candidate_index": 1, "extra": 0},
+])
+def test_sleep_rejects_invalid_selection(patched_sleep_update, selection):
     with pytest.raises(ValueError):
-        patched_sleep_update(worker, [])
+        sleep_case(patched_sleep_update, [selection])
+
+
+@pytest.mark.parametrize("revision", [
+    '{"new_memory":', {"new_memory": {}}, {"new_memory": " "},
+    {"new_memory": "x" * 1024}, {"new_memory": "updated", "extra": 0},
+])
+def test_sleep_rejects_invalid_revision(patched_sleep_update, revision):
+    with pytest.raises(ValueError):
+        sleep_case(patched_sleep_update, [{"relation": "refinement", "candidate_index": 1}, revision])
+
+
+def test_sleep_records_an_exact_unchanged_revision_as_noop(patched_sleep_update):
+    result, requests = sleep_case(patched_sleep_update, [
+        {"relation": "refinement", "candidate_index": 1}, {"new_memory": "original target"},
+    ])
+    assert result["action"] == "ignore" and result["unchanged_revision"] is True
+    assert result["relation"] == "refinement" and result["usage"]["total_tokens"] == 24
+    assert len(requests) == 2
+
+
+def test_sleep_lineage_includes_only_the_selected_candidate():
+    before = [{"id": key, "source_ids": [key], "time_stamp": f"2026-01-02 12:00:0{i}"}
+              for i, key in enumerate(("target", "unused", "selected"))]
+    event = {"target": "target", "source_ids": ["target"], "action": "update",
+             "candidates": ["unused", "selected"], "candidate_source_ids": [["unused"], ["selected"]],
+             "selected_candidate": "selected"}
+    updated = {**before[0], "source_ids": ["target", "selected"]}
+    _check_updates(before, [updated, *before[1:]], [event])
+    with pytest.raises(RuntimeError, match="provenance"):
+        _check_updates(before, [{**updated, "source_ids": ["target", "unused", "selected"]}, *before[1:]], [event])
+    with pytest.raises(RuntimeError, match="outside the candidates"):
+        _check_updates(before, [updated, *before[1:]], [{**event, "selected_candidate": "absent"}])
 
 
 class FakeNative:
     """Implements the patched boundary with deterministic CPU data and no model imports."""
 
-    def __init__(self, name, *, fail=False, corrupt=False, omit_turn=False):
+    def __init__(self, name, *, fail=False, corrupt=False, omit_turn=False, fail_sleep=False):
         self.name = name
         self.points = {}
         self.calls = []
         self.fail = fail
+        self.fail_sleep = fail_sleep
         self.corrupt = corrupt
         self.omit_turn = omit_turn
         self.buffer = []
@@ -150,7 +194,9 @@ class FakeNative:
             buffer=self.buffer, big_buffer=[], cut_with_segmenter=self.cut,
         )
         self.shortmem_buffer_manager = SimpleNamespace(buffer=[])
-        self.embedding_retriever = SimpleNamespace(get_all=lambda: list(self.points.values()))
+        self.embedding_retriever = SimpleNamespace(
+            get_all=lambda: [self.points[key] for key in sorted(self.points)], insert=self.insert,
+        )
         self.manager = SimpleNamespace(
             meta_text_extract=self.extract,
             _call_update_llm=lambda *_: {
@@ -158,6 +204,10 @@ class FakeNative:
             },
         )
         self.tokens = Counter()
+
+    def insert(self, *, vectors, payloads, ids):
+        self.points.update({identity: {"id": identity, "vector": vector, "payload": payload}
+                            for identity, vector, payload in zip(ids, vectors, payloads, strict=True)})
 
     @staticmethod
     def compress(messages, tokenizer):
@@ -202,21 +252,25 @@ class FakeNative:
     def extract(self, *, extract_list):
         for user in extract_list[0][0]:
             identity = f"{self.name}:{user['dia_id']}"
-            self.points[identity] = {
-                "id": identity, "vector": vector(),
-                "payload": {"memory": f"fact {user['dia_id']}", "anchor_dia_id": user["dia_id"],
-                            "source_ids": [user["dia_id"]], "entry_type": "factual", "topic_id": 0},
-            }
+            self.embedding_retriever.insert(vectors=[vector()], ids=[identity], payloads=[{
+                "memory": f"fact {user['dia_id']}", "anchor_dia_id": user["dia_id"],
+                "source_ids": [user["dia_id"]], "entry_type": "factual", "topic_id": 0,
+            }])
 
     def construct_update_queue_all_entries(self, *, top_k, keep_top_n):
         assert (top_k, keep_top_n) == (20, 10)
-        assert self.calls[-1] == "flush"
+        assert not self.calls or self.calls[-1] == "flush"
         self.calls.append("queue")
 
-    def offline_update_all_entries(self, *, score_threshold):
+    def offline_update_all_entries(self, *, score_threshold, max_candidate_sources):
         assert score_threshold == 0.9
+        assert max_candidate_sources == 10
         assert self.calls[-1] == "queue"
         self.calls.append("sleep")
+        if self.fail_sleep:
+            # Simulate a partially applied pass. Resume must restore the pre-sleep store.
+            self.points.clear()
+            raise RuntimeError("sleep generation problem")
         if len(self.points) < 2:
             return
         target, candidate, *_ = self.points.values()
@@ -316,6 +370,54 @@ def test_missing_update_provenance_is_rejected(tmp_path):
     with pytest.raises(RuntimeError, match="record update provenance"):
         _build_index([message("a"), message("b", timestamp="2026-01-02 12:00:01")], tmp_path / "bad", {},
                      lambda name: FakeNative(name, corrupt=True))
+
+
+def test_sleep_failure_resumes_exact_pre_store_without_reextracting(tmp_path):
+    rows = [message("a"), message("b", timestamp="2026-01-02 12:00:01")]
+    path = tmp_path / "memory"
+    with pytest.raises(RuntimeError, match="sleep generation problem"):
+        _build_index(rows, path, {}, lambda name: FakeNative(name, fail_sleep=True))
+    assert len(list(path.glob("*.pre.npz"))) == 1
+    assert len(list(path.glob("*.npz"))) == 1
+    with pytest.raises(ValueError, match="incomplete"):
+        LightMemIndex.load(path, "Finance")
+    restored = []
+
+    def resume(name):
+        worker = FakeNative(name, fail=True)  # Any accidental new extraction must fail.
+        restored.append(worker)
+        return worker
+
+    manifest = _build_index(rows, path, {}, resume, resume=True)
+    assert restored[0].calls == ["queue", "sleep"]
+    metric, = manifest["metrics"]
+    assert metric["reused_ingestion"] is True
+    assert metric["extraction_source_turns"] == 2
+    assert metric["llm"] == {"add_memory": {"total_tokens": 8}, "update": {"total_tokens": 2}}
+    assert metric["embedding_calls"]["turn"] == 2
+    assert not list(path.glob("*.pre.npz"))
+    encoder = SimpleNamespace(query=lambda _: vector())
+    before = LightMemIndex.load(path, "Finance", stage="pre", encoder=encoder)
+    after = LightMemIndex.load(path, "Finance", stage="post", encoder=encoder)
+    assert len(before.entries) == len(after.entries) == 2
+    assert {entry["text"] for entry in before.entries} == {"fact a", "fact b"}
+    assert "Consolidated fact" in {entry["text"] for entry in after.entries}
+
+
+def test_changed_pre_sleep_checkpoint_identity_fails_before_restore(tmp_path):
+    rows = [message("a")]
+    path = tmp_path / "memory"
+    with pytest.raises(RuntimeError, match="sleep generation problem"):
+        _build_index(rows, path, {}, lambda name: FakeNative(name, fail_sleep=True))
+    checkpoint, = path.glob("*.pre.npz")
+    with np.load(checkpoint, allow_pickle=False) as saved:
+        metadata = json.loads(str(saved["metadata"]))
+        vectors = saved["vectors"]
+        stored = saved["stored_vectors"]
+    metadata["sources_sha256"] = "wrong"
+    np.savez(checkpoint, vectors=vectors, stored_vectors=stored, metadata=json.dumps(metadata))
+    with pytest.raises(ValueError, match="checkpoint identity"):
+        _build_index(rows, path, {}, FakeNative, resume=True)
 
 
 def test_empty_buffers_do_not_hide_a_turn_missing_from_extraction(tmp_path):

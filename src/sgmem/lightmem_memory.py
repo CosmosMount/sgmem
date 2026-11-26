@@ -28,21 +28,22 @@ DIMENSIONS = 384
 E5_MAX_TOKENS = 512
 E5_LENGTH_POLICY = "lossless_passage_chunks_token_weighted_mean_512"
 SLEEP_TIME_POLICY = "strictly_later_source_instant_utc"
-SLEEP_RESPONSE_POLICY = "strict_json_schema_postvalidate_memory_max_16000_chars"
+SLEEP_RESPONSE_POLICY = "select_relation_then_rewrite_one_source_1024_chars"
+SLEEP_MAX_SOURCES = 10
 PATCH = Path(__file__).resolve().parents[2] / "patches" / "lightmem.patch"
 PATCHED_SOURCE = {
     "src/lightmem/factory/memory_buffer/sensory_memory.py":
         "afda81858408c2de117ec472b09174c1a96b8628c633e21d42ae9ce26fe18a39",
     "src/lightmem/factory/memory_manager/openai.py":
-        "c15c6367990d3667a41523dcbd1d9dcd2de287f181a310a9c13ca77925a9afcf",
+        "95191e4f9d5db0af0287c2c1a58d68c8855193e396690ce436219d59e5b1bf62",
     "src/lightmem/factory/pre_compressor/llmlingua_2.py":
         "82dff55fd1a62db2920e7e4497710cdd9c288ad1e90975b2ddf310b8e69abb88",
     "src/lightmem/factory/retriever/embeddingretriever/qdrant.py":
         "8e255fd66f9fced6378c5b4460a64dbacbde1061d21e0fae7410e7d87ed00eb7",
     "src/lightmem/memory/lightmem.py":
-        "711da50d9f95b8fe2e0b3ffaa978920783bad1cd7f643841f5cf225f8ab1a5a7",
+        "7c1c0e1467bb11da6d2090250a8f2bbb26b6a35afd1a207ffa8149d87bbf9dae",
     "src/lightmem/memory/prompts.py":
-        "48e46d94838589728fbc45ad3f8fe9e7d499b5a864e5af204831c67c821b5f13",
+        "a94869296ba6e8f4752cac169309224c825b17fa0b01aaed16be6b9a2c3f2399",
     "src/lightmem/memory/utils.py":
         "f112351acc31618a1031f3b98732e0a5f3f52fb8754d8f5d9ffc89afae0c370a",
 }
@@ -395,14 +396,16 @@ def _snapshot(memory, channel):
     return entries, matrix
 
 
-def _build_group(memory, rows, score_threshold):
+def _ingest_group(memory, rows):
     channel = {row["id"]: row for row in rows}
     compression = Counter()
     source_compress = memory.compressor.compress
     source_propose_cut = memory.segmenter.propose_cut
     source_cut_buffer = memory.senmem_buffer_manager.cut_with_segmenter
     source_extract = memory.manager.meta_text_extract
+    source_insert = memory.embedding_retriever.insert
     extracted_ids = []
+    insertions = []
 
     def counted_compress(messages, tokenizer):
         before = [message["content"] for message in messages if message["role"] == "user"]
@@ -430,6 +433,13 @@ def _build_group(memory, rows, score_threshold):
                              for message in segment if message["role"] == "user")
         return source_extract(extract_list=extract_list, **kwargs)
 
+    def counted_insert(vectors, payloads=None, ids=None):
+        # Qdrant normalizes on insertion and resolves tied neighbours by insertion order.
+        original = [(identity, list(vector)) for identity, vector in zip(ids, vectors, strict=True)]
+        result = source_insert(vectors=vectors, payloads=payloads, ids=ids)
+        insertions.extend(original)
+        return result
+
     counters = Counter()
     embedding_start = memory.text_embedder.calls.copy()
     length_start = memory.text_embedder.length_stats.copy()
@@ -438,6 +448,7 @@ def _build_group(memory, rows, score_threshold):
     memory.segmenter.propose_cut = counted_propose_cut
     memory.senmem_buffer_manager.cut_with_segmenter = counted_cut_buffer
     memory.manager.meta_text_extract = counted_extract
+    memory.embedding_retriever.insert = counted_insert
     started = perf_counter()
     try:
         for row in rows:
@@ -450,6 +461,7 @@ def _build_group(memory, rows, score_threshold):
         memory.segmenter.propose_cut = source_propose_cut
         memory.senmem_buffer_manager.cut_with_segmenter = source_cut_buffer
         memory.manager.meta_text_extract = source_extract
+        memory.embedding_retriever.insert = source_insert
     add_seconds = perf_counter() - started
 
     if (compression["input_turns"] != len(rows) or memory.senmem_buffer_manager.buffer
@@ -457,7 +469,78 @@ def _build_group(memory, rows, score_threshold):
         raise RuntimeError("LightMem did not finish ingesting its complete channel")
     if extracted_ids != list(channel):
         raise RuntimeError("LightMem extraction did not receive every source turn in channel order")
+    token_end = memory.get_token_statistics()["llm"]["add_memory"]
+    metrics = {
+        **dict(counters), **dict(compression), "rows": len(rows),
+        "extraction_source_turns": len(extracted_ids), "add_seconds": add_seconds,
+        "embedding_calls": dict(memory.text_embedder.calls - embedding_start),
+        "embedding_length": {key: memory.text_embedder.length_stats[key] - length_start[key]
+                             for key in ("long_passages", "long_passage_chunks")},
+        "llm": {"add_memory": {key: value - token_start["add_memory"][key]
+                               for key, value in token_end.items()}},
+    }
+    return metrics, insertions
+
+
+def _ingestion_checkpoint(path, memory, rows, ingestion=None):
+    """Save or restore the exact pre-sleep store; never persist a partial update pass."""
+    identity = hashlib.sha256(_json(rows).encode()).hexdigest()
+    channel = {row["id"]: row for row in rows}
+    if ingestion is not None:
+        metrics, insertions = ingestion
+        _snapshot(memory, channel)
+        by_id = {point["id"]: point for point in memory.embedding_retriever.get_all()}
+        ids = [identity for identity, _ in insertions]
+        if len(ids) != len(set(ids)) or set(ids) != by_id.keys():
+            raise ValueError("LightMem insertion record does not match its pre-sleep store")
+        points = [by_id[identity] for identity in ids]
+        metadata = {
+            "sources_sha256": identity, "metrics": metrics,
+            "points": [{"id": point["id"], "payload": point["payload"]} for point in points],
+        }
+        vectors = np.asarray([vector for _, vector in insertions], dtype=np.float32).reshape(-1, DIMENSIONS)
+        stored = np.asarray([point["vector"] for point in points], dtype=np.float32).reshape(-1, DIMENSIONS)
+        temporary = path.with_suffix(".tmp")
+        with temporary.open("wb") as output:
+            np.savez(output, vectors=vectors, stored_vectors=stored, metadata=_json(metadata))
+        temporary.replace(path)
+        return metrics
+    with np.load(path, allow_pickle=False) as saved:
+        metadata = json.loads(str(saved["metadata"]))
+        vectors = saved["vectors"]
+        stored = saved["stored_vectors"]
+    points = metadata["points"]
+    ids = [point["id"] for point in points]
+    if (metadata["sources_sha256"] != identity or len(ids) != len(set(ids))
+            or vectors.shape != (len(points), DIMENSIONS) or stored.shape != vectors.shape
+            or not np.isfinite(vectors).all() or not np.isfinite(stored).all()):
+        raise ValueError("LightMem pre-sleep checkpoint identity or vectors changed")
+    if memory.embedding_retriever.get_all():
+        raise ValueError("Restore a LightMem pre-sleep checkpoint only into an empty store")
+    if points:
+        memory.embedding_retriever.insert(
+            vectors=vectors.tolist(), payloads=[point["payload"] for point in points], ids=ids,
+        )
+    actual = {point["id"]: point for point in memory.embedding_retriever.get_all()}
+    restored = np.asarray([actual[identity]["vector"] for identity in ids], dtype=np.float32).reshape(-1, DIMENSIONS)
+    if not np.array_equal(stored, restored):
+        raise ValueError("LightMem restored vectors differ from the pre-sleep store")
+    _snapshot(memory, channel)
+    return metadata["metrics"]
+
+
+def _build_group(memory, rows, score_threshold, checkpoint):
+    channel = {row["id"]: row for row in rows}
+    reused = checkpoint.is_file()
+    if reused:
+        metrics = _ingestion_checkpoint(checkpoint, memory, rows)
+    else:
+        ingestion = _ingest_group(memory, rows)
+        metrics = _ingestion_checkpoint(checkpoint, memory, rows, ingestion)
     pre = _snapshot(memory, channel)
+    embedding_start = memory.text_embedder.calls.copy()
+    length_start = memory.text_embedder.length_stats.copy()
+    token_start = memory.get_token_statistics()["llm"]["update"]
     events = []
     event_lock = Lock()
     update = memory.manager._call_update_llm
@@ -471,7 +554,10 @@ def _build_group(memory, rows, score_threshold):
             "candidates": [point["id"] for point in candidates],
             "candidate_source_ids": candidate_sources, "action": result["action"],
             "usage": result["usage"],
+            **{key: result[key] for key in ("relation", "unchanged_revision") if key in result},
         }
+        if "selected_candidate_index" in result:
+            event["selected_candidate"] = candidates[result["selected_candidate_index"]]["id"]
         with event_lock:
             events.append(event)
         return result
@@ -483,19 +569,16 @@ def _build_group(memory, rows, score_threshold):
     memory.manager._call_update_llm = audited_update
     started = perf_counter()
     try:
-        memory.offline_update_all_entries(score_threshold=score_threshold)
+        memory.offline_update_all_entries(score_threshold=score_threshold, max_candidate_sources=SLEEP_MAX_SOURCES)
     finally:
         memory.manager._call_update_llm = update
     sleep_seconds = perf_counter() - started
     post = _snapshot(memory, channel)
     _check_updates(pre[0], post[0], events)
-    token_end = memory.get_token_statistics()["llm"]
-    tokens = {phase: {key: value - token_start[phase][key] for key, value in token_end[phase].items()}
-              for phase in ("add_memory", "update")}
+    token_end = memory.get_token_statistics()["llm"]["update"]
     metrics = {
-        **dict(counters), **dict(compression), "rows": len(rows),
+        **metrics, "reused_ingestion": reused,
         "pre_entries": len(pre[0]), "post_entries": len(post[0]),
-        "extraction_source_turns": len(extracted_ids),
         "source_coverage": {
             stage: {
                 "anchors": len({entry["anchor_dia_id"] for entry in entries}),
@@ -503,11 +586,12 @@ def _build_group(memory, rows, score_threshold):
             }
             for stage, entries in (("pre", pre[0]), ("post", post[0]))
         },
-        "embedding_calls": dict(memory.text_embedder.calls - embedding_start),
-        "embedding_length": {key: memory.text_embedder.length_stats[key] - length_start[key]
+        "embedding_calls": dict(Counter(metrics["embedding_calls"]) + memory.text_embedder.calls - embedding_start),
+        "embedding_length": {key: metrics["embedding_length"][key]
+                                  + memory.text_embedder.length_stats[key] - length_start[key]
                              for key in ("long_passages", "long_passage_chunks")},
-        "llm": tokens,
-        "add_seconds": add_seconds, "queue_seconds": queue_seconds, "sleep_seconds": sleep_seconds,
+        "llm": {**metrics["llm"], "update": {key: value - token_start[key] for key, value in token_end.items()}},
+        "queue_seconds": queue_seconds, "sleep_seconds": sleep_seconds,
         "update_actions": dict(Counter(event["action"] for event in events)),
     }
     return pre, post, sorted(events, key=lambda event: event["target"]), metrics
@@ -528,6 +612,8 @@ def _check_updates(pre, post, events):
                 or any(candidate not in source for candidate in candidates)
                 or event["candidate_source_ids"] != [source[candidate]["source_ids"] for candidate in candidates]):
             raise RuntimeError(f"Invalid LightMem update inputs for {identity}")
+        if "selected_candidate" in event and event["selected_candidate"] not in candidates:
+            raise RuntimeError(f"LightMem selected evidence is outside the candidates for {identity}")
         target_time = _instant(source[identity]["time_stamp"])
         if any(_instant(source[candidate]["time_stamp"]) <= target_time for candidate in candidates):
             raise RuntimeError(f"LightMem sleep candidate is not strictly newer than {identity}")
@@ -542,9 +628,9 @@ def _check_updates(pre, post, events):
             if actual is not None:
                 raise RuntimeError(f"LightMem deletion did not remove {identity}")
             continue
-        expected = list(dict.fromkeys(
-            item for items in [row["source_ids"], *event["candidate_source_ids"]] for item in items
-        ))
+        evidence = ([source[event["selected_candidate"]]["source_ids"]]
+                    if "selected_candidate" in event else event["candidate_source_ids"])
+        expected = list(dict.fromkeys(item for items in [row["source_ids"], *evidence] for item in items))
         if actual is None or actual["source_ids"] != expected:
             raise RuntimeError(f"LightMem did not record update provenance for {identity}")
 
@@ -613,13 +699,16 @@ def _build_index(messages, output, protocol, new_group, *, resume=False, score_t
         path = output / item["file"]
         if path.exists():
             saved, _ = _read_group(path, domain, group)
+            path.with_suffix(".pre.npz").unlink(missing_ok=True)
             metrics.append(saved["metrics"])
             continue
         started = perf_counter()
         status = "failed"
         try:
-            result = _build_group(new_group(path.stem), groups[domain, group], score_threshold)
+            checkpoint = path.with_suffix(".pre.npz")
+            result = _build_group(new_group(path.stem), groups[domain, group], score_threshold, checkpoint)
             _write_group(path, result, domain, group)
+            checkpoint.unlink()
             metrics.append(result[3])
             status = "complete"
         finally:
@@ -662,6 +751,8 @@ def build_lightmem(messages, output, *, upstream, endpoint, model, embedding_mod
         "score_threshold": score_threshold, "rate": 0.6, "stm_tokens": 512,
         "generation_policy": "4096_tokens_retry_length_once_at_8192",
         "sleep_response_policy": SLEEP_RESPONSE_POLICY,
+        "sleep_max_candidate_sources": SLEEP_MAX_SOURCES,
+        "checkpoint_policy": "atomic_pre_sleep_store_resume_with_matching_protocol",
         "update_top_k": 20, "update_keep_n": 10,
     }
     worker = _NativeWorker(upstream, options)

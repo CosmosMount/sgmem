@@ -1,0 +1,123 @@
+{
+  "status": "complete",
+  "rows": 40,
+  "qdrant_exact_vectors_payloads_and_ties": true,
+  "no_reextraction_on_resume": true,
+  "pre_checkpoint_sha256": "1219a641974f73724fb66990925705f538835d00d0ebdea4ab6f5bdb497bb1fd",
+  "metrics": {
+    "add_seconds": 57.82567958091386,
+    "changed_turns": 40,
+    "coarse_boundaries": 12,
+    "compressed_tokens": 821,
+    "embedding_calls": {
+      "passage": 45,
+      "turn": 40
+    },
+    "embedding_length": {
+      "long_passages": 0,
+      "long_passage_chunks": 0
+    },
+    "extraction_calls": 2,
+    "extraction_source_turns": 40,
+    "input_tokens": 1280,
+    "input_turns": 40,
+    "llm": {
+      "add_memory": {
+        "calls": 2,
+        "completion_tokens": 1582,
+        "prompt_tokens": 3278,
+        "total_tokens": 4860
+      },
+      "update": {
+        "calls": 13,
+        "prompt_tokens": 4881,
+        "completion_tokens": 451,
+        "total_tokens": 5332
+      }
+    },
+    "released_segments": 2,
+    "rows": 40,
+    "segmentation_calls": 2,
+    "reused_ingestion": true,
+    "pre_entries": 40,
+    "post_entries": 39,
+    "source_coverage": {
+      "pre": {
+        "anchors": 40,
+        "lineage": 40
+      },
+      "post": {
+        "anchors": 39,
+        "lineage": 39
+      }
+    },
+    "queue_seconds": 0.2714675890747458,
+    "sleep_seconds": 3.4709454670082778,
+    "update_actions": {
+      "ignore": 7,
+      "delete": 1,
+      "update": 5
+    }
+  },
+  "protocol": {
+    "adapter_sha256": "b6259b7cb8cb6c317561b1616ef0da3c2a70e58727c4aefacf2eabad3482fc18",
+    "endpoint": "http://127.0.0.1:18951/v1",
+    "model": "Qwen/Qwen3-8B",
+    "embedding_model": "/data/linjvnyong/XZG/NLP/memory-round-20261125/models/e5-small-v2",
+    "compressor_model": "/data/linjvnyong/XZG/NLP/memory-round-20261125/models/llmlingua2",
+    "device": "cpu",
+    "seed": 42,
+    "upstream_commit": "80211869f55e9c2276a7e7f564356d6cb03b7d8c",
+    "patch_sha256": "62953f4100e43dd8ce7bf8400fdcd4eac4dd3ad5885426036502399e55859f5e",
+    "embedding_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "qa_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "embedding_weights_sha256": "45bfa60070649aae2244fbc9d508537779b93b6f353c17b0f95ceccb1c5116c1",
+    "compressor_revision": "5f0c82792b7ea14c6484e015b6a072009496b7f2",
+    "compressor_config_sha256": "e6c33ec2f099e659e125efaa8b7bb07a6e65b7d9fc36211c6fa3206e1c399085",
+    "compressor_weights_sha256": "22b9ecde52fec5c97e8c54a293be768727df95a81c6c8dccb03f262a50c58324",
+    "packages": {
+      "numpy": "2.2.5",
+      "torch": "2.9.0",
+      "transformers": "4.57.3",
+      "sentence-transformers": "5.7.0",
+      "llmlingua": "0.2.2",
+      "openai": "2.14.0",
+      "qdrant-client": "1.15.1",
+      "pydantic": "2.12.5",
+      "tiktoken": "0.12.0",
+      "httpx": "0.28.1",
+      "pyyaml": "6.0.2"
+    },
+    "score_threshold": 0.9,
+    "rate": 0.6,
+    "stm_tokens": 512,
+    "generation_policy": "4096_tokens_retry_length_once_at_8192",
+    "sleep_response_policy": "select_relation_then_rewrite_one_source_1024_chars",
+    "sleep_max_candidate_sources": 10,
+    "checkpoint_policy": "atomic_pre_sleep_store_resume_with_matching_protocol",
+    "update_top_k": 20,
+    "update_keep_n": 10,
+    "e5_length_policy": "lossless_passage_chunks_token_weighted_mean_512",
+    "sleep_time_policy": "strictly_later_source_instant_utc"
+  },
+  "wall_seconds": 102.0607691318728,
+  "manual_content_review": true,
+  "semantic_quality_perfect": false,
+  "manual_review": {
+    "basis": "Compared every target, selected candidate, and model action/output for nine probes.",
+    "controls": {
+      "refinement": "update",
+      "superseding-conflict": "delete",
+      "near-neighbor": "ignore"
+    },
+    "known_limitations": {
+      "healthcare-05": "Shared pharmacy workflow may be insufficient to identify the same event.",
+      "healthcare-07": "Screenshot/field text is merged although exact event identity is ambiguous.",
+      "healthcare-08": "Revision drops original Workday/MissingHistCerts/QI details.",
+      "healthcare-09": "Revision omits parts of the selected procurement/QC conditions."
+    },
+    "decision": "Accept engineering stability and real action controls for full dev evaluation, not semantic perfection; freeze this policy without fitting to QA labels.",
+    "scope": "Six archived text failures were reduced to ten candidates; archived logs omit ID/time tie ordering. Exact tie/lineage behavior is independently tested."
+  },
+  "sleep_regressions_sha256": "644eb25d22578751b0db1c28ee39f7bca319f007d4925fc5c52988ec7a602757"
+}
