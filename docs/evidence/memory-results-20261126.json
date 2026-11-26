@@ -3366,5 +3366,289 @@
       "stage_limit_seconds": 14400.0
     },
     "service_status_at_review": "ready"
+  },
+  "latest_status_review": {
+    "checked_at_utc": "2026-11-26T09:29:18.444430+00:00",
+    "continuation": {
+      "complete": false,
+      "steps": [
+        {
+          "stage": "lightmem-schema-build-resume",
+          "exit_code": 1
+        }
+      ],
+      "stage": "failed",
+      "updated_at_utc": "2026-11-26T04:33:50.712392+00:00",
+      "reason": "lightmem-schema-build-resume exited 1"
+    },
+    "groups": [
+      {
+        "group": "Chronic Disease Management Program",
+        "rows": 2517,
+        "status": "complete",
+        "seconds": 7547.7715106755495,
+        "exit_code": 0,
+        "group_id": "01",
+        "receipt_sha256": "d50aab0872a739456d62b7f21af25b3cc79fbeb524f6b2d18a781545cff59a71",
+        "snapshot_verified": true,
+        "pre_entries": 2517,
+        "post_entries": 2381,
+        "source_coverage": {
+          "post": {
+            "anchors": 2381,
+            "lineage": 2489
+          },
+          "pre": {
+            "anchors": 2517,
+            "lineage": 2517
+          }
+        }
+      },
+      {
+        "group": "Clinical Trial Enrollment Optimization",
+        "rows": 2831,
+        "status": "complete",
+        "seconds": 9105.115139910951,
+        "exit_code": 0,
+        "group_id": "02",
+        "receipt_sha256": "3570db289119674c90cd3dc9e8cb721e941c08e56ffcf9a68f708672172e15b4",
+        "snapshot_verified": true,
+        "pre_entries": 2829,
+        "post_entries": 2725,
+        "source_coverage": {
+          "post": {
+            "anchors": 2724,
+            "lineage": 2804
+          },
+          "pre": {
+            "anchors": 2827,
+            "lineage": 2827
+          }
+        }
+      },
+      {
+        "group": "Electronic Health Record Implementation",
+        "rows": 2735,
+        "status": "failed",
+        "seconds": 7260.51721400395,
+        "exit_code": 1,
+        "group_id": "03",
+        "receipt_sha256": "e96c35b4ff77dc29163aa553c9c1d7a708e39a44a787fc1e1bb96cb825b926eb",
+        "error": {
+          "stage": "sleep",
+          "finish_reason": "length",
+          "attempts": 2,
+          "usage": {
+            "prompt_tokens": 2800,
+            "completion_tokens": 12288,
+            "total_tokens": 15088
+          },
+          "prompt_tokens_per_attempt": 1400,
+          "request_messages_saved": true,
+          "request_sha256": "60b3b2e3df01a62ce66b5deb0cc28af8dcd9cb36f90b212c5692441817640875",
+          "user_characters": 3525
+        }
+      },
+      {
+        "group": "Infection Control Campaign",
+        "rows": 3282,
+        "status": "complete",
+        "seconds": 10307.57720075734,
+        "exit_code": 0,
+        "group_id": "04",
+        "receipt_sha256": "9cdb554ed355d8433b874a02969779591f3e68232201a888b32edf911602d8ef",
+        "snapshot_verified": true,
+        "pre_entries": 3282,
+        "post_entries": 3126,
+        "source_coverage": {
+          "post": {
+            "anchors": 3126,
+            "lineage": 3252
+          },
+          "pre": {
+            "anchors": 3282,
+            "lineage": 3282
+          }
+        }
+      },
+      {
+        "group": "Medication Reconciliation Project",
+        "rows": 3784,
+        "status": "failed",
+        "seconds": 11107.550007993355,
+        "exit_code": 1,
+        "group_id": "05",
+        "receipt_sha256": "215ef53e64fed0b3aa497cc35e0403a12196df54121bf69562ec72a463a39536",
+        "error": {
+          "stage": "sleep",
+          "finish_reason": "length",
+          "attempts": 2,
+          "usage": {
+            "prompt_tokens": 3968,
+            "completion_tokens": 12288,
+            "total_tokens": 16256
+          },
+          "prompt_tokens_per_attempt": 1984,
+          "request_messages_saved": true,
+          "request_sha256": "2d54496ee4cb7d2c69fac6cb16c8ebce3f95450ce71cd2a34eaf2d2e72d6ba04",
+          "user_characters": 6970
+        }
+      },
+      {
+        "group": "Patient Experience Improvement",
+        "rows": 2496,
+        "status": "failed",
+        "seconds": 7669.251369340345,
+        "exit_code": 1,
+        "group_id": "06",
+        "receipt_sha256": "61deaf575e13a482682bbf09f90c6d2d9a6637c297ae88ac1b01eadcae460dfd",
+        "error": {
+          "stage": "sleep",
+          "finish_reason": "length",
+          "attempts": 2,
+          "usage": {
+            "prompt_tokens": 3272,
+            "completion_tokens": 12288,
+            "total_tokens": 15560
+          },
+          "prompt_tokens_per_attempt": 1636,
+          "request_messages_saved": true,
+          "request_sha256": "4fdd03a618a802ac19faad758810b73e7285c2f4efade09d3cf1248f88117084",
+          "user_characters": 5318
+        }
+      },
+      {
+        "group": "Patient Safety Initiative",
+        "rows": 3339,
+        "status": "failed",
+        "seconds": 10616.486158959568,
+        "exit_code": 1,
+        "group_id": "07",
+        "receipt_sha256": "e60b2d341201863b0fbecf2cd9b257d479f4fc0b2563c97ce494e718a72c2d2d",
+        "error": {
+          "stage": "sleep",
+          "finish_reason": "length",
+          "attempts": 2,
+          "usage": {
+            "prompt_tokens": 6408,
+            "completion_tokens": 12288,
+            "total_tokens": 18696
+          },
+          "prompt_tokens_per_attempt": 3204,
+          "request_messages_saved": true,
+          "request_sha256": "65798102cfebed3df3ba659065c3beb1b594f9d63024e81dc1c37765f6d3200a",
+          "user_characters": 12056
+        }
+      },
+      {
+        "group": "Staff Training and Credentialing",
+        "rows": 2896,
+        "status": "failed",
+        "seconds": 9899.667859008536,
+        "exit_code": 1,
+        "group_id": "08",
+        "receipt_sha256": "8f081401c4337617f331f3696fca2248e9c88342a542ee00866725210991735c",
+        "error": {
+          "stage": "sleep",
+          "finish_reason": "length",
+          "attempts": 2,
+          "usage": {
+            "prompt_tokens": 2842,
+            "completion_tokens": 12288,
+            "total_tokens": 15130
+          },
+          "prompt_tokens_per_attempt": 1421,
+          "request_messages_saved": true,
+          "request_sha256": "0432632a3082e38f38f8efa4c691a2c0e72d95853ba4825634b1e1f345e06ed6",
+          "user_characters": 3698
+        }
+      },
+      {
+        "group": "Supply Chain Resilience Project",
+        "rows": 3342,
+        "status": "failed",
+        "seconds": 10515.214218089357,
+        "exit_code": 1,
+        "group_id": "09",
+        "receipt_sha256": "b1dc2b1eab2889766372a8ba22a2420ae054c6b813bed6272f9913e1565237e9",
+        "error": {
+          "stage": "sleep",
+          "finish_reason": "length",
+          "attempts": 2,
+          "usage": {
+            "prompt_tokens": 3446,
+            "completion_tokens": 12288,
+            "total_tokens": 15734
+          },
+          "prompt_tokens_per_attempt": 1723,
+          "request_messages_saved": true,
+          "request_sha256": "615ca850090dc0d8686fd165ff2aa6a40182bf796e0bbcc93d0a31573f8e9a41",
+          "user_characters": 5833
+        }
+      },
+      {
+        "group": "Telemedicine Expansion",
+        "rows": 2778,
+        "status": "complete",
+        "seconds": 8365.154626384377,
+        "exit_code": 0,
+        "group_id": "10",
+        "receipt_sha256": "d5a221530b48e3085cb53b2d06dac4f7ec47ca2103914f960975dcfb1d945ca8",
+        "snapshot_verified": true,
+        "pre_entries": 2790,
+        "post_entries": 2649,
+        "source_coverage": {
+          "post": {
+            "anchors": 2637,
+            "lineage": 2757
+          },
+          "pre": {
+            "anchors": 2778,
+            "lineage": 2778
+          }
+        }
+      }
+    ],
+    "source_rows_complete": 11408,
+    "qa_started": false,
+    "active_gpu_stage": false,
+    "protected_files_and_previous_predictions_unchanged": true,
+    "acceptance_limit": "Small real preflight passed; full-domain reliability not achieved. No LightMem QA accuracy available.",
+    "budget": {
+      "gpu_hours": 28.07142813333711,
+      "remaining_gpu_hours": 1.9285718666628888,
+      "limit_gpu_hours": 30,
+      "ledgers": {
+        "finance-server": {
+          "budget.jsonl": {
+            "seconds": 19891.069132788107,
+            "records": 9,
+            "sha256": "661e02735ac783b8603c86343dd09a150c7923ab68b6c769bc5c7699506af641"
+          },
+          "hipporag-healthcare-resource/budget.jsonl": {
+            "seconds": 11292.612627310678,
+            "records": 2,
+            "sha256": "93c458acc5925393cd7c575037cb0dc0432578bfb4524cd0e65a24386c1a4427"
+          },
+          "finish-study-20261125/resource/budget.jsonl": {
+            "seconds": 23791.308240398765,
+            "records": 9,
+            "sha256": "aced1b1fa82e5871a32019c745ccd9370bd078909b09630e58297541695e9d7b"
+          }
+        },
+        "course-server": {
+          "budget.jsonl": {
+            "seconds": 34223.80117969215,
+            "records": 5,
+            "sha256": "28f2299f38859469aab2fe1406b378f8f1151eb3367a88338394295f0f3d2a43"
+          },
+          "finish-study-20261125/resource/budget.jsonl": {
+            "seconds": 11858.350099823903,
+            "records": 3,
+            "sha256": "fbe0316ff886512b0d3b81772b2dc87bafd8a6eade003f052fe09f36e30a8e99"
+          }
+        }
+      }
+    }
   }
 }
