@@ -2,6 +2,7 @@ import json
 from contextlib import nullcontext
 from pathlib import Path
 import runpy
+import socket
 import sys
 from types import SimpleNamespace
 
@@ -55,12 +56,14 @@ def service(tmp_path, monkeypatch):
     def sleep(duration):
         state.now += duration
 
-    probe = SimpleNamespace(bind=lambda *_: None)
+    state.socket_options = []
+    probe = SimpleNamespace(bind=lambda *_: None, setsockopt=lambda *args: state.socket_options.append(args))
     props = {
         "version": lambda name: "test-runtime",
         "os": SimpleNamespace(killpg=killpg, environ={"CUDA_VISIBLE_DEVICES": "2"}),
         "signal": fake_signal,
-        "socket": SimpleNamespace(socket=lambda: nullcontext(probe)),
+        "socket": SimpleNamespace(socket=lambda: nullcontext(probe), SOL_SOCKET=socket.SOL_SOCKET,
+                                  SO_REUSEADDR=socket.SO_REUSEADDR),
         "subprocess": SimpleNamespace(Popen=popen, run=worker, STDOUT=-2),
         "time": SimpleNamespace(monotonic=lambda: state.now, sleep=sleep),
         "urlopen": lambda *a, **kw: nullcontext(SimpleNamespace(status=200)),
@@ -81,8 +84,23 @@ def test_server_group_closes_after_worker(service, worker_exit, status):
     run, args, state = service
     state.worker_exit = worker_exit
     assert run(args) == worker_exit
+    assert state.socket_options == [(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)]
     assert state.calls == [15] and not state.group_alive
     assert json.loads((args.output / "service.json").read_text())["status"] == status
+
+
+def test_busy_port_does_not_leave_an_unusable_output_directory(service, monkeypatch):
+    run, args, state = service
+
+    def occupied(address):
+        raise OSError("Address already in use")
+
+    probe = SimpleNamespace(setsockopt=lambda *args: None, bind=occupied)
+    monkeypatch.setattr(run.__globals__["socket"], "socket", lambda: nullcontext(probe))
+    with pytest.raises(OSError, match="already in use"):
+        run(args)
+    assert not args.output.exists()
+    assert not hasattr(state, "server_command")
 
 
 def test_server_escalates_even_if_leader_exited(service):

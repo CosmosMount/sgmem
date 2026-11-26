@@ -44,9 +44,11 @@ def run(args):
     if (not command or not 0 < args.memory_fraction <= 1
             or min(args.max_sequences, args.max_batched_tokens, args.context_length) < 1):
         raise ValueError("Provide a worker command, valid GPU memory fraction and positive batch limits")
-    args.output.mkdir(parents=True, exist_ok=False)
     with socket.socket() as probe:
+        # Match the HTTP server: closed connections must not block the next stage.
+        probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         probe.bind(("127.0.0.1", args.port))
+    args.output.mkdir(parents=True, exist_ok=False)
     from transformers import AutoTokenizer
 
     tokenizer = AutoTokenizer.from_pretrained(args.model, local_files_only=True)
