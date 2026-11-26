@@ -6,6 +6,8 @@
 
 ## 当前状态
 
+2026-11-26 用户取消本轮 30 GPU-hours 的执行上限，要求补齐实验与分析。后续调度默认没有累计截止值，继续记录两台服务器所有阶段的实际资源用量；保留每阶段超时、失败停止和恢复检查。下面 17:29 的表格及账本为续跑前验收快照，历史失败记录不覆盖。缺失工作仍是 LightMem 全四域及 HippoRAG 2 其余三域；最终选择须等完整 dev 比较后再冻结，已有 test 和冻结记录保留。
+
 | 工作 | 状态 | 完成判据 |
 | --- | --- | --- |
 | 四篇论文、官方源码及依赖核查 | 完成；父 agent 复核关键源码 | 固定来源，明确论文核心与适配偏差 |
@@ -17,7 +19,7 @@
 | 检索结果与固定 QA/judge 接入 | Dense X/RAPTOR 十组 dev 共 1,790 条；本次新增 1,072 条 test 和 165 条 Healthcare dev 评分 | 逐题覆盖、原消息出处、原始判分及 2,474 份新提示均核验通过 |
 | GPU 调度 | 两台服务器本轮累计 28.0714 GPU-hours；30 上限内剩余 1.9286 | 本轮没有活动或排队的 NLP 阶段；最后构建因生成失败退出，并非预算超时 |
 
-已有 Part 1–3 证据保留。本轮的效果比较分阶段记录。有合适卡时可直接运行，本轮最多 30 GPU-hours。可核对的历史不重叠资源小计为 13.3489 GPU-hours，另有少量历史计时缺失；本轮与历史累计仍须满足课程小于 50 GPU-hours 的约束。
+已有 Part 1–3 证据保留。本轮的效果比较分阶段记录，有合适卡时可直接运行。此前 30 GPU-hours 是执行预算，现已由用户取消。可核对的历史不重叠资源小计为 13.3489 GPU-hours，另有少量历史计时缺失；课程材料中的小于 50 GPU-hours 要求是另一项报告约束，取消本轮预算不改变该要求。全部探索和最终方案成本均如实报告，不能通过重置账本或拆分轮次隐藏累计花费。
 
 以下成本试跑段落保留早期阶段历史，不代表当前累计用量。截至早期小测完成，本轮记录 **1.096281 GPU-hours**，包括服务加载、失败尝试和占卡期间的 CPU 工作。该批的总退出码为 1：最初的探针错误地要求原始模型关系零重复，随后独立修正探针和完整 HippoRAG 小测通过；没有覆盖失败账目。各方法最后小测以及 6 项原生/原文接口检查均有独立完成记录。紧凑证据与远端原始收据哈希见 [小测核验记录](evidence/memory-pilot-20261125.json)。
 
@@ -293,7 +295,7 @@ python scripts/run_local_baselines.py \
 
 运行目录为金融服务器 `/home/ai4s_group/XZG/NLP/sgmem-memory`；模型、上游 checkout、增量依赖和运行产物位于 `/data/ai4s_group/XZG/NLP/memory-round-20261124`。旧 `sgmem-part3` 未修改。复用原 Python 3.10 环境，缺少的依赖以独立 `deps/` 目录加入 worker 的 PYTHONPATH，不覆盖已有 Torch/Transformers。直接依赖见 `requirements-memory.txt`，实际版本另存运行目录。服务器 `/home` 空间紧张，本轮缓存和临时文件均放 `/data`。
 
-`scripts/run_memory_gpu.py` 双重检查候选卡，优先整张空闲卡，其次使用达到该阶段显存门槛的共享卡。单个账本用互斥锁和 GNU timeout 约束阶段用量。两台服务器的已用时长及未结束阶段预留需合并计入本轮 30 GPU-hours。最后一次 LightMem 续跑的预留与小测门槛记录在金融服务器本轮目录下的 `lightmem-healthcare-schema/execution-plan.json` 和 `acceptance.json`；该阶段已失败结束，应以 `continuation-status.json` 和实际账本为准，不把预留当成仍在运行。早先的 `second-wave-budget.json` 是历史分配记录。`scripts/run_memory_service.py` 将本机 Qwen 服务绑定到 worker，固定非思考模板并验证与 tokenizer 一致，结束时释放服务进程组。服务启动、等待工作及失败计入占卡时间。
+`scripts/run_memory_gpu.py` 双重检查候选卡，优先整张空闲卡，其次使用达到该阶段显存门槛的共享卡。单个账本用互斥锁和 GNU timeout 约束阶段用量。用户取消累计执行上限后，默认仅保留必填的 `--max-hours` 阶段超时；显式传入 `--total-hours` 才启用单账本累计上限。两台服务器的实际用量仍合并报告，不同账本不代表不同的免费预算。最后一次 LightMem schema 续跑的预留与小测门槛记录在金融服务器本轮目录下的 `lightmem-healthcare-schema/execution-plan.json` 和 `acceptance.json`；该阶段已失败结束，应以 `continuation-status.json` 和实际账本为准，不把预留当成仍在运行。早先的 `second-wave-budget.json` 是历史分配记录。`scripts/run_memory_service.py` 将本机 Qwen 服务绑定到 worker，固定非思考模板并验证与 tokenizer 一致，结束时释放服务进程组。服务启动、等待工作及失败计入占卡时间。
 
 真实小测入口为 `scripts/smoke_memory_pipelines.py`，使用预先固定的连续公开历史窗口。验收区分“能建库”和“机制实际触发”：RAPTOR 必须生成摘要层；LightMem 必须执行压缩、分段、轮次相似度、事实抽取和 sleep 调用，另记 update/delete 数量；HippoRAG 必须至少有一次经过筛选与 PPR 的检索。小语料自查询仅检查接口和来源，不能当作 dev 准确率。
 

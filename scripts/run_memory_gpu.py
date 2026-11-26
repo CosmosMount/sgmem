@@ -1,4 +1,4 @@
-"""Run one memory-pipeline GPU stage within the approved cumulative 30 GPU-hours."""
+"""Run one memory-pipeline GPU stage with a per-stage watchdog."""
 
 import argparse
 from datetime import datetime, timezone
@@ -10,9 +10,6 @@ import re
 import signal
 import subprocess
 import time
-
-LIMIT_SECONDS = 30 * 3600
-
 
 def select_gpu(rows, occupied, minimum):
     eligible = [row for row in rows if row["free_mib"] >= minimum]
@@ -39,7 +36,10 @@ def used_seconds(rows):
         raise ValueError("Invalid GPU ledger duration; reconcile it before another stage")
     if len({row["label"] for row in rows}) != len(rows):
         raise ValueError("Duplicate stage label in GPU ledger")
-    return sum(values)
+    total = sum(values)
+    if not math.isfinite(total):
+        raise ValueError("Invalid GPU ledger duration; reconcile it before another stage")
+    return total
 
 
 def run(args):
@@ -47,8 +47,13 @@ def run(args):
 
     if not re.fullmatch(r"[A-Za-z0-9_-]+", args.label):
         raise ValueError("Use a simple unique stage label")
-    if not math.isfinite(args.max_hours) or args.max_hours <= 0 or args.min_free_mib <= 0:
+    if (not math.isfinite(args.max_hours) or args.max_hours <= 0
+            or not math.isfinite(args.max_hours * 3600) or args.min_free_mib <= 0):
         raise ValueError("Stage hours and free memory must be positive")
+    if (args.total_hours is not None and
+            (not math.isfinite(args.total_hours) or args.total_hours <= 0
+             or not math.isfinite(args.total_hours * 3600))):
+        raise ValueError("Total hours must be finite and positive")
     command = args.command[1:] if args.command[:1] == ["--"] else args.command
     if not command:
         raise ValueError("Provide a command after --")
@@ -62,8 +67,10 @@ def run(args):
         rows = [json.loads(line) for line in ledger.read_text().splitlines()] if ledger.exists() else []
         if any(row["label"] == args.label for row in rows):
             raise ValueError("Stage label already used; retries need separate resource records")
-        remaining = LIMIT_SECONDS - used_seconds(rows)
-        limit = min(remaining, args.max_hours * 3600)
+        used = used_seconds(rows)
+        round_limit = args.total_hours * 3600 if args.total_hours is not None else None
+        remaining = round_limit - used if round_limit is not None else None
+        limit = min(remaining, args.max_hours * 3600) if remaining is not None else args.max_hours * 3600
         if limit < 60:
             raise RuntimeError("Insufficient remaining GPU budget")
         log_path = directory / f"{args.label}.log"
@@ -81,7 +88,7 @@ def run(args):
             time.sleep(30)
         record = {"label": args.label, "gpu": gpu, "command": command,
                   "started_at_utc": datetime.now(timezone.utc).isoformat(),
-                  "round_limit_seconds": LIMIT_SECONDS, "stage_limit_seconds": limit,
+                  "round_limit_seconds": round_limit, "stage_limit_seconds": limit,
                   "remaining_before_seconds": remaining}
         active.write_text(json.dumps(record, indent=2) + "\n")
         environment = {**os.environ, "CUDA_VISIBLE_DEVICES": gpu["index"],
@@ -121,7 +128,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--budget-dir", type=Path, required=True)
     parser.add_argument("--label", required=True)
-    parser.add_argument("--max-hours", type=float, required=True, help="Per-stage cap within the round limit")
+    parser.add_argument("--max-hours", type=float, required=True, help="Per-stage cap in hours")
+    parser.add_argument("--total-hours", type=float, default=None, help="Optional cumulative cap in hours")
     parser.add_argument("--min-free-mib", type=int, default=20000)
     parser.add_argument("command", nargs=argparse.REMAINDER)
     raise SystemExit(run(parser.parse_args()))
