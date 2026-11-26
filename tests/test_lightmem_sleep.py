@@ -98,4 +98,3 @@ def test_sleep_ranks_incoming_edges_and_records_only_selected_lineage(sleep_meth
     assert indexed["payload"]["source_ids"] == ["shared", "target", expected[0]]
     assert indexed["payload"]["float_time_stamp"] == 0
     assert indexed["vector"] == [0.75]
-
