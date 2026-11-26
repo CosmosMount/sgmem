@@ -2963,5 +2963,28 @@
     "failed_sleep_prompt_and_output_diagnosis_reviewed": true,
     "all_possible_code_behaviors_proven": false,
     "new_sleep_schema_real_inference": "pending, required before full rebuild"
+  },
+  "manual_judge_review": {
+    "scope": "Four Healthcare synonym090 metadata lost questions; qualitative spot check, not a full human relabeling.",
+    "case": {
+      "hipporag2": {
+        "question_id": "multi_hop_42",
+        "reference_answer": "Confirm the threshold list",
+        "answer": "SupplyChainOps is expected to confirm and validate the triggers, including stock-based triggers and depot count thresholds, to ensure logistics continuity planning is properly executed and to enable the closure of the logistics continuity phase.",
+        "judge_output": "The gold answer specifies that the expected action from SupplyChainOps is to \"Confirm the threshold list,\" which refers to identifying and verifying the specific thresholds related to triggers in logistics continuity planning. The agent's answer, while more detailed, includes the core action of confirming and validating triggers, including thresholds, which aligns with the gold answer. The additional details about stock-based triggers and depot count thresholds are not necessary for correctness but do not contradict the gold answer. The agent's answer correctly captures the expected action of confirming thresholds, even if it provides more context.\n\nFinal: Correct",
+        "judge_answer": "Correct",
+        "official_correct": true
+      },
+      "hipporag2-meta": {
+        "question_id": "multi_hop_42",
+        "reference_answer": "Confirm the threshold list",
+        "answer": "SupplyChainOps is expected to confirm or validate the triggers, including the threshold list, stock-based triggers, and revised distribution path, by specific deadlines to close logistics continuity planning and ensure proper escalation and fallback coverage.",
+        "judge_output": "The gold answer specifies that the expected action from SupplyChainOps is to \"Confirm the threshold list,\" which is a specific part of the logistics continuity planning process. The agent's answer, while more detailed, includes confirming or validating triggers, which encompasses the threshold list but also adds additional elements such as stock-based triggers and revised distribution paths. While the agent's answer includes the correct action mentioned in the gold answer, it goes beyond the scope of the gold answer by adding extra details. Therefore, the agent's answer is not a direct match to the gold answer, but it does include the correct core action.\n\nFinal: Incorrect",
+        "judge_answer": "Incorrect",
+        "official_correct": false
+      }
+    },
+    "finding": "For multi_hop_42 both answers convey confirming thresholds, but the saved Qwen judge tolerates extra detail for raw and penalizes it for meta. This is a semantic scoring ambiguity, not parsing or missing-generation corruption.",
+    "action": "Preserve all original automatic scores; do not selectively rejudge or tune on test."
   }
 }

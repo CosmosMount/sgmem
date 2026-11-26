@@ -28,13 +28,13 @@ DIMENSIONS = 384
 E5_MAX_TOKENS = 512
 E5_LENGTH_POLICY = "lossless_passage_chunks_token_weighted_mean_512"
 SLEEP_TIME_POLICY = "strictly_later_source_instant_utc"
-SLEEP_RESPONSE_POLICY = "strict_json_schema_action_and_memory_max_16000_chars"
+SLEEP_RESPONSE_POLICY = "strict_json_schema_postvalidate_memory_max_16000_chars"
 PATCH = Path(__file__).resolve().parents[2] / "patches" / "lightmem.patch"
 PATCHED_SOURCE = {
     "src/lightmem/factory/memory_buffer/sensory_memory.py":
         "afda81858408c2de117ec472b09174c1a96b8628c633e21d42ae9ce26fe18a39",
     "src/lightmem/factory/memory_manager/openai.py":
-        "b37ae2264fd5125d4588999c7098bc2197724161c71c50c2bdcfbf98ee14d6a0",
+        "c15c6367990d3667a41523dcbd1d9dcd2de287f181a310a9c13ca77925a9afcf",
     "src/lightmem/factory/pre_compressor/llmlingua_2.py":
         "82dff55fd1a62db2920e7e4497710cdd9c288ad1e90975b2ddf310b8e69abb88",
     "src/lightmem/factory/retriever/embeddingretriever/qdrant.py":

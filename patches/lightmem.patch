@@ -278,7 +278,7 @@ diff --git a/src/lightmem/factory/memory_manager/openai.py b/src/lightmem/factor
 +                            "type": "object",
 +                            "properties": {
 +                                "action": {"type": "string", "enum": ["update"]},
-+                                "new_memory": {"type": "string", "minLength": 1, "maxLength": memory_max_chars},
++                                "new_memory": {"type": "string", "minLength": 1},
 +                            },
 +                            "required": ["action", "new_memory"],
 +                            "additionalProperties": False,

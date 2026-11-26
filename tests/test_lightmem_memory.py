@@ -91,7 +91,7 @@ def patched_sleep_update():
 @pytest.mark.parametrize("payload", [
     {"action": "update", "new_memory": "x" * 16000}, {"action": "delete"}, {"action": "ignore"},
 ], ids=["update_at_maximum", "delete", "ignore"])
-def test_sleep_update_sends_bounded_schema_and_preserves_valid_actions(patched_sleep_update, payload):
+def test_sleep_update_sends_strict_schema_and_preserves_valid_actions(patched_sleep_update, payload):
     requests = []
     usage = {"total_tokens": 12}
 
@@ -111,7 +111,7 @@ def test_sleep_update_sends_bounded_schema_and_preserves_valid_actions(patched_s
     update, unchanged = response_format["json_schema"]["schema"]["anyOf"]
     assert update["required"] == ["action", "new_memory"]
     assert update["properties"]["action"]["enum"] == ["update"]
-    assert update["properties"]["new_memory"] == {"type": "string", "minLength": 1, "maxLength": 16000}
+    assert update["properties"]["new_memory"] == {"type": "string", "minLength": 1}
     assert unchanged["required"] == ["action"]
     assert unchanged["properties"]["action"]["enum"] == ["delete", "ignore"]
     assert all(branch["additionalProperties"] is False for branch in (update, unchanged))
