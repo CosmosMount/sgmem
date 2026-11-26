@@ -28,6 +28,8 @@ LightMem 找到的另一个问题是更新队列的反向汇集：每条新记�
 
 两台服务器的续跑根目录分别是 `/data/ai4s_group/XZG/NLP/memory-completion-20261126` 和 `/data/linjvnyong/XZG/NLP/memory-completion-20261126`。查看金融端 `hipporag/status.json`、`joint/status.json` 及课程端 `lightmem/controller-status.json`；阶段排队和计划文件都不是完成证据。
 
+金融端 `analysis_watch.py` 已通过归档结果的只读核验并开始等待。联合审计完成后，自动生成 `joint/analysis.json` 和 `joint/analysis.md`，包括二十个开发条件、分域/分题型统计、逐题增损与双侧精确配对检验，以及冻结配对的 test。3,500-token 原生/原文条件单列；多项探索性检验不声称已作多重校正。该步骤不调用模型。两台服务器总资源成本与代表性错误案例仍需在最终人工验收时结合账本核对。
+
 ### 17:29 历史快照
 
 | 工作 | 状态 | 完成判据 |
