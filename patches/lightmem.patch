@@ -14,7 +14,7 @@ index c030f16..228d267 100644
          embeddings = np.vstack(embeddings)
  
 diff --git a/src/lightmem/factory/memory_manager/openai.py b/src/lightmem/factory/memory_manager/openai.py
-index 684e66f..83f6637 100644
+index 684e66f..d234735 100644
 --- a/src/lightmem/factory/memory_manager/openai.py
 +++ b/src/lightmem/factory/memory_manager/openai.py
 @@ -4,7 +4,7 @@ from openai import OpenAI
@@ -71,7 +71,7 @@ index 684e66f..83f6637 100644
                  
                  for entry in metadata_facts:
                      entry["entry_type"] = entry_type
-@@ -358,48 +369,81 @@ class OpenaiManager:
+@@ -358,48 +369,84 @@ class OpenaiManager:
                  }
                  
              except Exception as e:
@@ -184,8 +184,11 @@ index 684e66f..83f6637 100644
 +        memory = revision["new_memory"]
 +        if not isinstance(memory, str) or not memory.strip():
 +            raise ValueError("LightMem sleep revision requires a nonempty memory string")
-+        if len(memory) >= limit:
-+            raise ValueError(f"LightMem sleep revision reached the {limit}-character limit")
++        if len(memory) > limit:
++            raise ValueError(f"LightMem sleep revision exceeds the {limit}-character schema limit")
++        if len(memory) == limit:
++            # The decoder may have closed a repetitive revision at the schema boundary.
++            return {**result, "action": "ignore", "revision_rejected": "length_limit"}
 +        if memory.strip() == target.strip():
 +            return {**result, "action": "ignore", "unchanged_revision": True}
 +        return {**result, "action": "update", "new_memory": memory}

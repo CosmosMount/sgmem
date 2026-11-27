@@ -1,0 +1,176 @@
+{
+  "recorded_on": "2026-11-27 (Asia/Shanghai)",
+  "status": "partial",
+  "hipporag": {
+    "manufacturing_ranking_audit": {
+      "source": "saved rankings",
+      "domain": "Manufacturing",
+      "n_messages": 30000,
+      "queries_per_condition": 40,
+      "n_conditions": 5,
+      "ranked_rows": 200,
+      "source_identity_and_candidate_counts": "passed",
+      "recognition_modes": {
+        "hipporag2": {
+          "ppr": 36,
+          "dense_valid_empty": 4
+        },
+        "hipporag2@0.90": {
+          "ppr": 36,
+          "dense_valid_empty": 4
+        },
+        "hipporag2-dpr": {
+          "dense_control": 40
+        }
+      },
+      "comparisons": {
+        "hipporag2 vs hipporag2-dpr": {
+          "changed_top10_sets": 36,
+          "mean_overlap": 7.525
+        },
+        "hipporag2@0.90 vs hipporag2": {
+          "changed_top10_sets": 36,
+          "mean_overlap": 7.925
+        },
+        "hipporag2-meta vs hipporag2": {
+          "changed_top10_sets": 20,
+          "mean_overlap": 7.4
+        },
+        "hipporag2-meta@0.90 vs hipporag2@0.90": {
+          "changed_top10_sets": 20,
+          "mean_overlap": 7.475
+        }
+      },
+      "graph": {
+        "num_phrase_nodes": 52951,
+        "num_passage_nodes": 29917,
+        "num_total_nodes": 82868,
+        "num_extracted_triples": 105953,
+        "num_triples_with_passage_node": 168867,
+        "num_synonymy_triples": 3815078,
+        "num_total_triples": 4073691
+      },
+      "synonym_replay": {
+        "threshold": 0.9,
+        "edges_before": 4073691,
+        "edges_after": 1030136,
+        "removed_synonym_only_edges": 3043555,
+        "pruned_mixed_edges": 500
+      },
+      "qa_calls": 0,
+      "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+      "prediction_scores_pending": true
+    },
+    "finance_timeout": {
+      "previous_status": {
+        "complete": false,
+        "stage": "failed",
+        "steps": [
+          {
+            "stage": "smoke",
+            "exit_code": 0
+          },
+          {
+            "stage": "domain-Manufacturing",
+            "exit_code": 0
+          },
+          {
+            "stage": "domain-Finance",
+            "exit_code": 1
+          }
+        ],
+        "source_commit": "a404ec4f1b1884f4d1cee37e875bb43c0fd03fa4",
+        "cumulative_gpu_limit": null,
+        "updated_at_utc": "2026-11-26T20:32:57.875237+00:00",
+        "failed_stage": "domain-Finance"
+      },
+      "exit_code": 124,
+      "cache_rows": 49900,
+      "cache_integrity": "ok",
+      "triples_progress_at_timeout": {
+        "complete_log": 19999,
+        "total": 29900
+      },
+      "watchdog_hours_before": 6,
+      "watchdog_hours_resume": 12,
+      "source_commit": "a404ec4f1b1884f4d1cee37e875bb43c0fd03fa4"
+    }
+  },
+  "lightmem": {
+    "prior_failure": "Five Finance groups returned valid JSON with a revision at the decoder's 1024-character cap.",
+    "completed_source_groups": 11,
+    "completed_source_rows": 35205,
+    "pre_sleep_checkpoints": 5,
+    "checkpoint_source_rows": 24795,
+    "adoption_receipt_sha256": "6faafd3441b6f06b4990e2202a46dc2e35821e4d570968b59d00376c56eb5d04",
+    "preflight": {
+      "rows": 40,
+      "status": "complete",
+      "qdrant_exact_vectors_payloads_and_ties": true,
+      "no_reextraction_on_resume": true,
+      "update_actions": {
+        "ignore": 8,
+        "delete": 1,
+        "update": 6
+      },
+      "rejected_revisions": {},
+      "post_lineage": 39,
+      "prior_probe_cases_with_identical_outcomes": 9,
+      "receipt_sha256": "6af0bf1f4ec28737299f80da9808614db26c919934fdc847702f4d8ad39ef3c5",
+      "protocol": {
+        "adapter_sha256": "c07859adaac3cb7021d8eaf9e1401604a86a4407c93a1840a61b212cb95661d6",
+        "endpoint": "http://127.0.0.1:18951/v1",
+        "model": "Qwen/Qwen3-8B",
+        "embedding_model": "/data/linjvnyong/XZG/NLP/memory-round-20261125/models/e5-small-v2",
+        "compressor_model": "/data/linjvnyong/XZG/NLP/memory-round-20261125/models/llmlingua2",
+        "device": "cpu",
+        "seed": 42,
+        "upstream_commit": "80211869f55e9c2276a7e7f564356d6cb03b7d8c",
+        "patch_sha256": "40eed131cdfe5095f2ecbe8620c4374e719c21591c027ba8c8ca00bf1d6d40a5",
+        "embedding_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "qa_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+        "embedding_weights_sha256": "45bfa60070649aae2244fbc9d508537779b93b6f353c17b0f95ceccb1c5116c1",
+        "compressor_revision": "5f0c82792b7ea14c6484e015b6a072009496b7f2",
+        "compressor_config_sha256": "e6c33ec2f099e659e125efaa8b7bb07a6e65b7d9fc36211c6fa3206e1c399085",
+        "compressor_weights_sha256": "22b9ecde52fec5c97e8c54a293be768727df95a81c6c8dccb03f262a50c58324",
+        "packages": {
+          "numpy": "2.2.5",
+          "torch": "2.9.0",
+          "transformers": "4.57.3",
+          "sentence-transformers": "5.7.0",
+          "llmlingua": "0.2.2",
+          "openai": "2.14.0",
+          "qdrant-client": "1.15.1",
+          "pydantic": "2.12.5",
+          "tiktoken": "0.12.0",
+          "httpx": "0.28.1",
+          "pyyaml": "6.0.2"
+        },
+        "score_threshold": 0.9,
+        "rate": 0.6,
+        "stm_tokens": 512,
+        "generation_policy": "4096_tokens_retry_length_once_at_8192",
+        "sleep_response_policy": "single_evidence_revision_retain_target_at_1024_chars",
+        "sleep_max_candidate_sources": 10,
+        "checkpoint_policy": "atomic_pre_sleep_store_resume_with_matching_protocol",
+        "update_top_k": 20,
+        "update_keep_n": 10,
+        "e5_length_policy": "lossless_passage_chunks_token_weighted_mean_512",
+        "sleep_time_policy": "strictly_later_source_instant_utc"
+      }
+    },
+    "cpu_tests_passed": 321
+  },
+  "accounting": {
+    "logged_gpu_hours": {
+      "prior_non_overlapping": 13.3489,
+      "prior_memory_round": 28.07142813333711,
+      "hipporag_recovery_round": 9.73676774991314,
+      "lightmem_previous_attempt": 12.559787036033619,
+      "lightmem_recovery_preflight": 0.04695547499305879
+    },
+    "known_total_gpu_hours": 63.76383839427693,
+    "course_topic_12_limit_gpu_hours": 50,
+    "scope": "Completed receipts before the new full continuation, including failed attempts. Missing historical durations and ongoing stages are excluded."
+  }
+}

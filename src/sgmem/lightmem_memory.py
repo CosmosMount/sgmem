@@ -28,14 +28,14 @@ DIMENSIONS = 384
 E5_MAX_TOKENS = 512
 E5_LENGTH_POLICY = "lossless_passage_chunks_token_weighted_mean_512"
 SLEEP_TIME_POLICY = "strictly_later_source_instant_utc"
-SLEEP_RESPONSE_POLICY = "select_relation_then_rewrite_one_source_1024_chars"
+SLEEP_RESPONSE_POLICY = "single_evidence_revision_retain_target_at_1024_chars"
 SLEEP_MAX_SOURCES = 10
 PATCH = Path(__file__).resolve().parents[2] / "patches" / "lightmem.patch"
 PATCHED_SOURCE = {
     "src/lightmem/factory/memory_buffer/sensory_memory.py":
         "afda81858408c2de117ec472b09174c1a96b8628c633e21d42ae9ce26fe18a39",
     "src/lightmem/factory/memory_manager/openai.py":
-        "95191e4f9d5db0af0287c2c1a58d68c8855193e396690ce436219d59e5b1bf62",
+        "6fb731a02f6601b41351f20ff7c56790782575723132401ed8d929117ad4fa9a",
     "src/lightmem/factory/pre_compressor/llmlingua_2.py":
         "82dff55fd1a62db2920e7e4497710cdd9c288ad1e90975b2ddf310b8e69abb88",
     "src/lightmem/factory/retriever/embeddingretriever/qdrant.py":
@@ -554,7 +554,7 @@ def _build_group(memory, rows, score_threshold, checkpoint):
             "candidates": [point["id"] for point in candidates],
             "candidate_source_ids": candidate_sources, "action": result["action"],
             "usage": result["usage"],
-            **{key: result[key] for key in ("relation", "unchanged_revision") if key in result},
+            **{key: result[key] for key in ("relation", "unchanged_revision", "revision_rejected") if key in result},
         }
         if "selected_candidate_index" in result:
             event["selected_candidate"] = candidates[result["selected_candidate_index"]]["id"]
@@ -593,6 +593,8 @@ def _build_group(memory, rows, score_threshold, checkpoint):
         "llm": {**metrics["llm"], "update": {key: value - token_start[key] for key, value in token_end.items()}},
         "queue_seconds": queue_seconds, "sleep_seconds": sleep_seconds,
         "update_actions": dict(Counter(event["action"] for event in events)),
+        "rejected_revisions": dict(Counter(event["revision_rejected"] for event in events
+                                           if "revision_rejected" in event)),
     }
     return pre, post, sorted(events, key=lambda event: event["target"]), metrics
 
@@ -614,6 +616,10 @@ def _check_updates(pre, post, events):
             raise RuntimeError(f"Invalid LightMem update inputs for {identity}")
         if "selected_candidate" in event and event["selected_candidate"] not in candidates:
             raise RuntimeError(f"LightMem selected evidence is outside the candidates for {identity}")
+        if "revision_rejected" in event and (
+                event["revision_rejected"] != "length_limit" or event["action"] != "ignore"
+                or event.get("relation") != "refinement" or event.get("selected_candidate") not in candidates):
+            raise RuntimeError(f"Invalid LightMem rejected revision for {identity}")
         target_time = _instant(source[identity]["time_stamp"])
         if any(_instant(source[candidate]["time_stamp"]) <= target_time for candidate in candidates):
             raise RuntimeError(f"LightMem sleep candidate is not strictly newer than {identity}")

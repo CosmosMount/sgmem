@@ -145,7 +145,7 @@ def test_sleep_rejects_invalid_selection(patched_sleep_update, selection):
 
 @pytest.mark.parametrize("revision", [
     '{"new_memory":', {"new_memory": {}}, {"new_memory": " "},
-    {"new_memory": "x" * 1024}, {"new_memory": "updated", "extra": 0},
+    {"new_memory": "x" * 1025}, {"new_memory": "updated", "extra": 0},
 ])
 def test_sleep_rejects_invalid_revision(patched_sleep_update, revision):
     with pytest.raises(ValueError):
@@ -159,6 +159,24 @@ def test_sleep_records_an_exact_unchanged_revision_as_noop(patched_sleep_update)
     assert result["action"] == "ignore" and result["unchanged_revision"] is True
     assert result["relation"] == "refinement" and result["usage"]["total_tokens"] == 24
     assert len(requests) == 2
+
+
+def test_sleep_rejects_a_schema_boundary_revision_without_losing_the_target(patched_sleep_update):
+    result, requests = sleep_case(patched_sleep_update, [
+        {"relation": "refinement", "candidate_index": 1}, {"new_memory": "x" * 1024},
+    ])
+    assert result == {"action": "ignore", "relation": "refinement", "selected_candidate_index": 1,
+                      "revision_rejected": "length_limit", "usage": {
+                          "prompt_tokens": 20, "completion_tokens": 4, "total_tokens": 24,
+                      }}
+    assert len(requests) == 2
+    before = [{"id": key, "source_ids": [key], "time_stamp": f"2026-01-02 12:00:0{i}"}
+              for i, key in enumerate(("target", "selected"))]
+    event = {**result, "target": "target", "source_ids": ["target"],
+             "selected_candidate": "selected", "candidates": ["selected"], "candidate_source_ids": [["selected"]]}
+    _check_updates(before, before, [event])
+    with pytest.raises(RuntimeError, match="Unexpected change"):
+        _check_updates(before, before[1:], [event])
 
 
 def test_sleep_lineage_includes_only_the_selected_candidate():
