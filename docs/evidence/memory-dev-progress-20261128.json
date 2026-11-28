@@ -1,0 +1,448 @@
+{
+  "date": "2026-11-28 (Asia/Shanghai)",
+  "status": "partial_scoring",
+  "prediction_verification": "CPU replay of saved QA and judge outputs",
+  "lightmem": {
+    "complete_input_rows": 120000,
+    "complete_groups": 33,
+    "dev_questions_per_condition": 179,
+    "dev_conditions": 5,
+    "pre_lineage": 119922,
+    "post_lineage": 117063,
+    "length_cap_rejections": 27,
+    "sleep_changed_top10_sets": 179,
+    "sleep_mean_top10_overlap": 4.139664804469274,
+    "meta_changed_top10_sets": 76,
+    "domain_builds": {
+      "Healthcare": {
+        "groups": 10,
+        "rows": 30000,
+        "reused_ingestion_groups": 0,
+        "pre_entries": 30031,
+        "post_entries": 28989,
+        "pre_lineage": 29995,
+        "post_lineage": 29309,
+        "rejected_revisions": 0,
+        "decisions": {
+          "delete": 1042,
+          "ignore": 7756,
+          "update": 14304
+        },
+        "ranked_dev": 33,
+        "sleep_changed_top10_sets": 33,
+        "sleep_mean_top10_overlap": 4.121212121212121,
+        "meta_changed_top10_sets": 14,
+        "meta_mean_top10_overlap": 7.787878787878788
+      },
+      "Finance": {
+        "groups": 6,
+        "rows": 30000,
+        "reused_ingestion_groups": 5,
+        "pre_entries": 37207,
+        "post_entries": 35492,
+        "pre_lineage": 29970,
+        "post_lineage": 29286,
+        "rejected_revisions": 17,
+        "decisions": {
+          "delete": 1715,
+          "ignore": 4177,
+          "update": 23267
+        },
+        "ranked_dev": 53,
+        "sleep_changed_top10_sets": 53,
+        "sleep_mean_top10_overlap": 3.9622641509433962,
+        "meta_changed_top10_sets": 18,
+        "meta_mean_top10_overlap": 8.924528301886792
+      },
+      "Manufacturing": {
+        "groups": 10,
+        "rows": 30000,
+        "reused_ingestion_groups": 0,
+        "pre_entries": 30098,
+        "post_entries": 28752,
+        "pre_lineage": 29995,
+        "post_lineage": 29097,
+        "rejected_revisions": 0,
+        "decisions": {
+          "delete": 1346,
+          "ignore": 7308,
+          "update": 14258
+        },
+        "ranked_dev": 40,
+        "sleep_changed_top10_sets": 40,
+        "sleep_mean_top10_overlap": 4.325,
+        "meta_changed_top10_sets": 21,
+        "meta_mean_top10_overlap": 6.925
+      },
+      "Technology": {
+        "groups": 7,
+        "rows": 30000,
+        "reused_ingestion_groups": 0,
+        "pre_entries": 35582,
+        "post_entries": 34216,
+        "pre_lineage": 29962,
+        "post_lineage": 29371,
+        "rejected_revisions": 10,
+        "decisions": {
+          "delete": 1366,
+          "ignore": 3936,
+          "update": 23300
+        },
+        "ranked_dev": 53,
+        "sleep_changed_top10_sets": 53,
+        "sleep_mean_top10_overlap": 4.188679245283019,
+        "meta_changed_top10_sets": 23,
+        "meta_mean_top10_overlap": 8.90566037735849
+      }
+    },
+    "dev_archive_sha256": "06a728c3433524f7aa1793a3f3e5a5a06b77df5a920df225d44762f85d81b8d1",
+    "index_manifest_sha256": "41cefc7edaad621fdcd28c4cefb167c03272c355a8bc602b4dbe7c4c94284e41",
+    "finance_qa_input_validation": {
+      "actual_qa_loader": {
+        "lightmem": 179,
+        "lightmem-meta": 179,
+        "lightmem-pre": 179,
+        "lightmem-native": 179,
+        "lightmem-raw-budget": 179
+      },
+      "rank_manifests": 16,
+      "fold": "dev",
+      "model_calls": 0
+    }
+  },
+  "hipporag": {
+    "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+    "methods": {
+      "hipporag2": {
+        "correct": 49,
+        "total": 179,
+        "by_domain": {
+          "Manufacturing": {
+            "correct": 11,
+            "total": 40
+          },
+          "Finance": {
+            "correct": 16,
+            "total": 53
+          },
+          "Technology": {
+            "correct": 11,
+            "total": 53
+          },
+          "Healthcare": {
+            "correct": 11,
+            "total": 33
+          }
+        },
+        "by_category": {
+          "abstention": {
+            "correct": 13,
+            "total": 27
+          },
+          "knowledge_update": {
+            "correct": 4,
+            "total": 27
+          },
+          "multi_hop": {
+            "correct": 16,
+            "total": 45
+          },
+          "temporal": {
+            "correct": 4,
+            "total": 40
+          },
+          "term_ambiguity": {
+            "correct": 7,
+            "total": 27
+          },
+          "user_implicit": {
+            "correct": 5,
+            "total": 13
+          }
+        }
+      },
+      "hipporag2-meta": {
+        "correct": 58,
+        "total": 179,
+        "by_domain": {
+          "Manufacturing": {
+            "correct": 15,
+            "total": 40
+          },
+          "Finance": {
+            "correct": 17,
+            "total": 53
+          },
+          "Technology": {
+            "correct": 15,
+            "total": 53
+          },
+          "Healthcare": {
+            "correct": 11,
+            "total": 33
+          }
+        },
+        "by_category": {
+          "abstention": {
+            "correct": 15,
+            "total": 27
+          },
+          "knowledge_update": {
+            "correct": 5,
+            "total": 27
+          },
+          "multi_hop": {
+            "correct": 17,
+            "total": 45
+          },
+          "temporal": {
+            "correct": 5,
+            "total": 40
+          },
+          "term_ambiguity": {
+            "correct": 9,
+            "total": 27
+          },
+          "user_implicit": {
+            "correct": 7,
+            "total": 13
+          }
+        }
+      },
+      "hipporag2-dpr": {
+        "correct": 58,
+        "total": 179,
+        "by_domain": {
+          "Manufacturing": {
+            "correct": 11,
+            "total": 40
+          },
+          "Finance": {
+            "correct": 21,
+            "total": 53
+          },
+          "Technology": {
+            "correct": 18,
+            "total": 53
+          },
+          "Healthcare": {
+            "correct": 8,
+            "total": 33
+          }
+        },
+        "by_category": {
+          "abstention": {
+            "correct": 15,
+            "total": 27
+          },
+          "knowledge_update": {
+            "correct": 5,
+            "total": 27
+          },
+          "multi_hop": {
+            "correct": 16,
+            "total": 45
+          },
+          "temporal": {
+            "correct": 7,
+            "total": 40
+          },
+          "term_ambiguity": {
+            "correct": 9,
+            "total": 27
+          },
+          "user_implicit": {
+            "correct": 6,
+            "total": 13
+          }
+        }
+      }
+    },
+    "controls_correct": {
+      "bm25": 56,
+      "dense": 58,
+      "hybrid": 62,
+      "hybrid-meta": 65
+    },
+    "paired": {
+      "hipporag2-meta vs hipporag2": {
+        "questions": 179,
+        "gained": 13,
+        "lost": 4,
+        "net": 9,
+        "paired_exact_two_sided_p": 0.049041748046875
+      },
+      "hipporag2 vs hipporag2-dpr": {
+        "questions": 179,
+        "gained": 14,
+        "lost": 23,
+        "net": -9,
+        "paired_exact_two_sided_p": 0.18774155899882317
+      },
+      "hipporag2-meta vs hipporag2-dpr": {
+        "questions": 179,
+        "gained": 17,
+        "lost": 17,
+        "net": 0,
+        "paired_exact_two_sided_p": 1
+      },
+      "hipporag2-meta vs hybrid-meta": {
+        "questions": 179,
+        "gained": 17,
+        "lost": 24,
+        "net": -7,
+        "paired_exact_two_sided_p": 0.34888887944907765
+      }
+    },
+    "extraction_and_ranking": {
+      "Manufacturing": {
+        "input_rows": 30000,
+        "dev_questions_per_condition": 40,
+        "index_sha256": "872dbdaf4400d4ee3d0cf571c5a9fd6a77d127339e3fb15bfffe789bc9a26bba",
+        "edges_0_80": 4073691,
+        "edges_0_90": 1030136
+      },
+      "Finance": {
+        "input_rows": 30000,
+        "dev_questions_per_condition": 53,
+        "index_sha256": "186a259407f7d630245e3c776ad86d1437a1503ad66bb3b49982cdb505b90c87",
+        "edges_0_80": 7719285,
+        "edges_0_90": 2590667
+      },
+      "Technology": {
+        "input_rows": 30000,
+        "dev_questions_per_condition": 53,
+        "index_sha256": "595a135ad738921bf7242a2d48a0ec86c1ef80a114f5360a0cc26ca629d2736f",
+        "edges_0_80": 7903789,
+        "edges_0_90": 2468309
+      }
+    },
+    "prediction_files": {
+      "hipporag2": {
+        "/data/ai4s_group/XZG/NLP/memory-round-20261124/finish-study-20261125/qa/hipporag-healthcare-dev/hipporag2/predictions.jsonl": "90e56497fb13745c6fe3e7a826f7a41677625b54ce2925e1333abcd24550e8fb",
+        "/data/ai4s_group/XZG/NLP/memory-completion-20261126/hipporag/qa/base/hipporag2/predictions.jsonl": "2c56d0d62920b4bb43a0c054c96abf940da4eb2325eb8273b3064a0779612159"
+      },
+      "hipporag2-meta": {
+        "/data/ai4s_group/XZG/NLP/memory-round-20261124/finish-study-20261125/qa/hipporag-healthcare-dev/hipporag2-meta/predictions.jsonl": "cc4ee6569c764cdbca61ef74c1ed2247f129be526f57a1219c837a3c7e1b2233",
+        "/data/ai4s_group/XZG/NLP/memory-completion-20261126/hipporag/qa/base/hipporag2-meta/predictions.jsonl": "d8a79650450fe44c71c08c188314abc016901609f3293ed97b11d3058f72d18d"
+      },
+      "hipporag2-dpr": {
+        "/data/ai4s_group/XZG/NLP/memory-round-20261124/finish-study-20261125/qa/hipporag-healthcare-dev/hipporag2-dpr/predictions.jsonl": "1e5eb20bf94bdc7988b78c1980076e794bd701b170d2e60f60c2c8d314db66b1",
+        "/data/ai4s_group/XZG/NLP/memory-completion-20261126/hipporag/qa/base/hipporag2-dpr/predictions.jsonl": "086e8e25946749ed158b8d940297606d8cb0f2db5886145d71728f53cb936ac8"
+      }
+    },
+    "hipporag_hours": 22.712113798209465,
+    "resumption": {
+      "recorded_at_utc": "2026-11-28T07:12:04.480394+00:00",
+      "interruption": {
+        "complete": false,
+        "stage": "failed",
+        "steps": [
+          {
+            "stage": "smoke",
+            "exit_code": 0
+          },
+          {
+            "stage": "domain-Manufacturing",
+            "exit_code": 0
+          },
+          {
+            "stage": "domain-Finance",
+            "exit_code": 0
+          },
+          {
+            "stage": "domain-Technology",
+            "exit_code": 0
+          },
+          {
+            "stage": "dev",
+            "exit_code": 1
+          }
+        ],
+        "source_commit": "a404ec4f1b1884f4d1cee37e875bb43c0fd03fa4",
+        "cumulative_gpu_limit": null,
+        "updated_at_utc": "2026-11-27T19:25:55.940386+00:00",
+        "failed_stage": "dev"
+      },
+      "cause": "GPU stage label rejected the dot in 0.90 before allocation",
+      "old_label": "hippo-qa-synonym-0.90-01",
+      "new_label": "hippo-qa-synonym-0-90-01",
+      "qa_outputs_reused": {
+        "hipporag2": "2c56d0d62920b4bb43a0c054c96abf940da4eb2325eb8273b3064a0779612159",
+        "hipporag2-meta": "d8a79650450fe44c71c08c188314abc016901609f3293ed97b11d3058f72d18d",
+        "hipporag2-dpr": "086e8e25946749ed158b8d940297606d8cb0f2db5886145d71728f53cb936ac8"
+      },
+      "changed_script": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/hippo.py",
+      "script_sha256_before": "bc6fb5782bb244da4cac89c04f38567dfa9a8ce5468ee3bd16b84edd84bfc769",
+      "script_sha256_after": "73cc0fb603443b8401174eb9939ee8918fb7759f36a56e22e0d367b983d77718"
+    }
+  },
+  "reviewed_dev_examples": [
+    {
+      "key": [
+        "Manufacturing",
+        "multi_hop",
+        "multi_hop_3"
+      ],
+      "comparison": "hipporag2-meta vs hipporag2",
+      "reference_answer": "Alex",
+      "predictions": {
+        "hipporag2": "Raj",
+        "hipporag2-meta": "Alex"
+      },
+      "evidence": [
+        {
+          "message_id": "Msg_18969",
+          "phase": "Define Downtime Metrics",
+          "metadata_rank": 3,
+          "base_rank": null,
+          "observation": "Names Alex as final sign-off owner in the requested phase."
+        },
+        {
+          "message_id": "Msg_25398",
+          "phase": "Timeline Adjustment for Maintenance Rollout",
+          "metadata_rank": null,
+          "base_rank": 5,
+          "observation": "Names Raj in the adjacent phase and mentions the requested phase in passing."
+        }
+      ]
+    },
+    {
+      "key": [
+        "Technology",
+        "multi_hop",
+        "multi_hop_36"
+      ],
+      "comparison": "hipporag2-dpr vs hipporag2",
+      "evidence": [
+        {
+          "message_id": "Msg_26353",
+          "ppr_rank": 1,
+          "dpr_rank": 1,
+          "observation": "States the reference closure gates, Support workbook lock and Engineering dedupe key post."
+        },
+        {
+          "message_id": "Msg_27435",
+          "ppr_rank": 2,
+          "dpr_rank": 2,
+          "observation": "Describes a conflicting closure formulation involving the SRE exception list."
+        }
+      ],
+      "observation": "Both conditions retrieved the supporting message at rank 1. DPR answered with the reference gates. The PPR answer also drew on the conflicting formulation."
+    }
+  ],
+  "gpu_hours": {
+    "previous_project": 13.3489,
+    "previous_memory_round": 28.07142813333711,
+    "original_lightmem": 12.559787036033619,
+    "lightmem_recovery": 18.40606018641252,
+    "hipporag": 22.712113798209465,
+    "completed_duration_subtotal": 95.09828915399271,
+    "scope": "Completed ledger rows at this audit, including failed attempts. Excludes active stages and earlier untimed work."
+  },
+  "pending": [
+    "HippoRAG 0.90 threshold QA and audit for both 179-question conditions",
+    "LightMem five 179-question QA conditions",
+    "Joint dev freeze, selected 536-question test and report"
+  ]
+}
