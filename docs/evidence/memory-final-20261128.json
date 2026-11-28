@@ -1,0 +1,748 @@
+{
+  "date": "2026-11-28",
+  "state": "complete",
+  "protocol": {
+    "published_code_reviewed": "8c6e8fe428762dd62423f6c789d31575c9b46827",
+    "groupmembench": "461f00c3e8a1a4a3a2ed5814b729014502c4702f",
+    "answering_and_judging": "Qwen3-8B b968826d9c46dd6066d109eabc6255188de91218",
+    "embedding": "E5-small-v2 ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "test_scope": "Two HippoRAG 2 conditions selected on dev. Other method comparisons include previously completed results on the same split.",
+    "retrieval_top_k": 10,
+    "native_context_token_budget": 3500,
+    "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835"
+  },
+  "dev": {
+    "conditions": 20,
+    "questions": 179,
+    "correct": {
+      "densex": 52,
+      "densex-meta": 55,
+      "densex-sentences": 54,
+      "densex-native": 36,
+      "densex-raw-budget": 54,
+      "raptor": 48,
+      "raptor-meta": 54,
+      "raptor-leaf": 56,
+      "raptor-native": 43,
+      "raptor-raw-budget": 44,
+      "hybrid-meta": 65,
+      "hipporag2": 49,
+      "hipporag2-meta": 58,
+      "hipporag2-dpr": 58,
+      "hipporag2@0.90": 57,
+      "hipporag2-meta@0.90": 59,
+      "lightmem": 35,
+      "lightmem-meta": 43,
+      "lightmem-pre": 46,
+      "lightmem-native": 27,
+      "lightmem-raw-budget": 43
+    },
+    "prior_controls_correct": {
+      "bm25": 56,
+      "dense": 58,
+      "hybrid": 62,
+      "hybrid-meta": 65
+    },
+    "paired": {
+      "densex-meta vs densex": {
+        "questions": 179,
+        "gained": 12,
+        "lost": 9,
+        "net": 3,
+        "mcnemar_exact_p": 0.6636238098144531
+      },
+      "raptor-meta vs raptor": {
+        "questions": 179,
+        "gained": 7,
+        "lost": 1,
+        "net": 6,
+        "mcnemar_exact_p": 0.0703125
+      },
+      "lightmem-meta vs lightmem": {
+        "questions": 179,
+        "gained": 11,
+        "lost": 3,
+        "net": 8,
+        "mcnemar_exact_p": 0.057373046875
+      },
+      "hipporag2-meta@0.90 vs hipporag2@0.90": {
+        "questions": 179,
+        "gained": 11,
+        "lost": 9,
+        "net": 2,
+        "mcnemar_exact_p": 0.8238029479980469
+      },
+      "densex vs densex-sentences": {
+        "questions": 179,
+        "gained": 19,
+        "lost": 21,
+        "net": -2,
+        "mcnemar_exact_p": 0.8746293123804207
+      },
+      "raptor vs raptor-leaf": {
+        "questions": 179,
+        "gained": 11,
+        "lost": 19,
+        "net": -8,
+        "mcnemar_exact_p": 0.20048842206597328
+      },
+      "lightmem vs lightmem-pre": {
+        "questions": 179,
+        "gained": 12,
+        "lost": 23,
+        "net": -11,
+        "mcnemar_exact_p": 0.0895310789346695
+      },
+      "hipporag2 vs hipporag2-dpr": {
+        "questions": 179,
+        "gained": 14,
+        "lost": 23,
+        "net": -9,
+        "mcnemar_exact_p": 0.18774155899882317
+      },
+      "hipporag2@0.90 vs hipporag2": {
+        "questions": 179,
+        "gained": 20,
+        "lost": 12,
+        "net": 8,
+        "mcnemar_exact_p": 0.21532714972272515
+      },
+      "hipporag2-meta@0.90 vs hipporag2-meta": {
+        "questions": 179,
+        "gained": 17,
+        "lost": 16,
+        "net": 1,
+        "mcnemar_exact_p": 1
+      },
+      "hipporag2-meta@0.90 vs hipporag2-dpr": {
+        "questions": 179,
+        "gained": 23,
+        "lost": 22,
+        "net": 1,
+        "mcnemar_exact_p": 1
+      },
+      "hipporag2-meta@0.90 vs hybrid-meta": {
+        "questions": 179,
+        "gained": 17,
+        "lost": 23,
+        "net": -6,
+        "mcnemar_exact_p": 0.42959050784338615
+      },
+      "densex-native vs densex-raw-budget": {
+        "questions": 179,
+        "gained": 17,
+        "lost": 35,
+        "net": -18,
+        "mcnemar_exact_p": 0.017533235299084904
+      },
+      "raptor-native vs raptor-raw-budget": {
+        "questions": 179,
+        "gained": 24,
+        "lost": 25,
+        "net": -1,
+        "mcnemar_exact_p": 1
+      },
+      "lightmem-native vs lightmem-raw-budget": {
+        "questions": 179,
+        "gained": 11,
+        "lost": 27,
+        "net": -16,
+        "mcnemar_exact_p": 0.013852965261321515
+      }
+    },
+    "small_source_diagnostic": {
+      "n_annotated_dev_keys": 18,
+      "annotation_kind": "Union of existing Part 2 target_message_ids per development question",
+      "annotation_sha256": "7d6bc1886ef8360b6316c9002726aa58dfeb2f912413498a2e1efda320a1554e",
+      "target_id_count": 18,
+      "scope": "Diagnostic annotation subset only; used after inference",
+      "results": {
+        "densex": {
+          "target_recalled_any": 5,
+          "all_targets_recalled": 5,
+          "answer_correct": 2,
+          "target_recalled_but_incorrect": 3,
+          "target_missing_but_correct": 0
+        },
+        "densex-meta": {
+          "target_recalled_any": 5,
+          "all_targets_recalled": 5,
+          "answer_correct": 2,
+          "target_recalled_but_incorrect": 3,
+          "target_missing_but_correct": 0
+        },
+        "densex-sentences": {
+          "target_recalled_any": 7,
+          "all_targets_recalled": 7,
+          "answer_correct": 4,
+          "target_recalled_but_incorrect": 4,
+          "target_missing_but_correct": 1
+        },
+        "raptor": {
+          "target_recalled_any": 5,
+          "all_targets_recalled": 5,
+          "answer_correct": 3,
+          "target_recalled_but_incorrect": 2,
+          "target_missing_but_correct": 0
+        },
+        "raptor-meta": {
+          "target_recalled_any": 6,
+          "all_targets_recalled": 6,
+          "answer_correct": 3,
+          "target_recalled_but_incorrect": 3,
+          "target_missing_but_correct": 0
+        },
+        "raptor-leaf": {
+          "target_recalled_any": 5,
+          "all_targets_recalled": 5,
+          "answer_correct": 3,
+          "target_recalled_but_incorrect": 3,
+          "target_missing_but_correct": 1
+        },
+        "lightmem": {
+          "target_recalled_any": 4,
+          "all_targets_recalled": 4,
+          "answer_correct": 2,
+          "target_recalled_but_incorrect": 3,
+          "target_missing_but_correct": 1
+        },
+        "lightmem-meta": {
+          "target_recalled_any": 6,
+          "all_targets_recalled": 6,
+          "answer_correct": 5,
+          "target_recalled_but_incorrect": 3,
+          "target_missing_but_correct": 2
+        },
+        "lightmem-pre": {
+          "target_recalled_any": 6,
+          "all_targets_recalled": 6,
+          "answer_correct": 4,
+          "target_recalled_but_incorrect": 3,
+          "target_missing_but_correct": 1
+        },
+        "hipporag2": {
+          "target_recalled_any": 7,
+          "all_targets_recalled": 7,
+          "answer_correct": 6,
+          "target_recalled_but_incorrect": 4,
+          "target_missing_but_correct": 3
+        },
+        "hipporag2-meta": {
+          "target_recalled_any": 9,
+          "all_targets_recalled": 9,
+          "answer_correct": 6,
+          "target_recalled_but_incorrect": 4,
+          "target_missing_but_correct": 1
+        },
+        "hipporag2-dpr": {
+          "target_recalled_any": 6,
+          "all_targets_recalled": 6,
+          "answer_correct": 5,
+          "target_recalled_but_incorrect": 2,
+          "target_missing_but_correct": 1
+        },
+        "hipporag2@0.90": {
+          "target_recalled_any": 7,
+          "all_targets_recalled": 7,
+          "answer_correct": 6,
+          "target_recalled_but_incorrect": 3,
+          "target_missing_but_correct": 2
+        },
+        "hipporag2-meta@0.90": {
+          "target_recalled_any": 9,
+          "all_targets_recalled": 9,
+          "answer_correct": 6,
+          "target_recalled_but_incorrect": 4,
+          "target_missing_but_correct": 1
+        },
+        "hybrid-meta": {
+          "target_recalled_any": 11,
+          "all_targets_recalled": 11,
+          "answer_correct": 7,
+          "target_recalled_but_incorrect": 4,
+          "target_missing_but_correct": 0
+        }
+      }
+    },
+    "lightmem_native_context_audit": {
+      "context_audit": {
+        "lightmem-native": {
+          "questions": 179,
+          "correct": 27,
+          "matched_prompts": 358,
+          "evidence_token_min": 2624,
+          "evidence_token_median": 3430,
+          "evidence_token_max": 3497,
+          "units_median": 38
+        },
+        "lightmem-raw-budget": {
+          "questions": 179,
+          "correct": 43,
+          "matched_prompts": 358,
+          "evidence_token_min": 3308,
+          "evidence_token_median": 3426,
+          "evidence_token_max": 3500,
+          "units_median": 21
+        }
+      },
+      "model_calls": 0,
+      "budget_tokens": 3500
+    },
+    "lightmem_case": {
+      "question": [
+        "Technology",
+        "multi_hop",
+        "multi_hop_30"
+      ],
+      "source_message": "Msg_21540",
+      "source_rank_before_sleep": 10,
+      "source_in_top_50_after_sleep": false,
+      "details_dropped": [
+        "Offline retry cutoff",
+        "Stale replay rejection"
+      ],
+      "judge_before_sleep": true,
+      "judge_after_sleep": false
+    },
+    "dev_audit_sha256": "a54d315d7e0334e2954dfb23a10c0d82725fe8c4c396debe1db0b38d26eee8c7"
+  },
+  "freeze": {
+    "split_sha256": "b72e50f858c09a3b9300f7456f18380a5984d1c07923cdacb143d74af3dbf835",
+    "dev_audit_sha256": "a54d315d7e0334e2954dfb23a10c0d82725fe8c4c396debe1db0b38d26eee8c7",
+    "eligible_families": [
+      "densex",
+      "raptor",
+      "lightmem",
+      "hipporag2"
+    ],
+    "selected_family": "hipporag2",
+    "selected_pair": [
+      "hipporag2",
+      "hipporag2-meta"
+    ],
+    "selected_synonym_threshold": 0.9,
+    "candidate_pairs_dev_correct_raw_meta": {
+      "densex": [
+        52,
+        55
+      ],
+      "raptor": [
+        48,
+        54
+      ],
+      "lightmem": [
+        35,
+        43
+      ],
+      "hipporag2": [
+        57,
+        59
+      ]
+    },
+    "test_questions": 536,
+    "rule": "Highest metadata correct, then raw correct, then fixed family order. HippoRAG threshold uses the same scoring with 0.80 on exact tie.",
+    "frozen_at_utc": "2026-11-28T10:48:25Z",
+    "sha256": "f8ffe30c21efa1f09efcab467453134dd29c5fa9e7dbd82a342d1b4444df8310"
+  },
+  "frozen_test": {
+    "new_scored_rows": 1072,
+    "questions": 536,
+    "method_results": {
+      "hipporag2": {
+        "metrics": {
+          "overall": {
+            "correct": 166,
+            "questions": 536
+          },
+          "domain": {
+            "Finance": {
+              "correct": 58,
+              "questions": 161
+            },
+            "Healthcare": {
+              "correct": 29,
+              "questions": 97
+            },
+            "Manufacturing": {
+              "correct": 35,
+              "questions": 118
+            },
+            "Technology": {
+              "correct": 44,
+              "questions": 160
+            }
+          },
+          "category": {
+            "multi_hop": {
+              "correct": 39,
+              "questions": 137
+            },
+            "knowledge_update": {
+              "correct": 22,
+              "questions": 80
+            },
+            "temporal": {
+              "correct": 18,
+              "questions": 122
+            },
+            "user_implicit": {
+              "correct": 15,
+              "questions": 36
+            },
+            "term_ambiguity": {
+              "correct": 19,
+              "questions": 79
+            },
+            "abstention": {
+              "correct": 53,
+              "questions": 82
+            }
+          }
+        },
+        "tokens": {
+          "answer": {
+            "prompt_tokens": 925184,
+            "completion_tokens": 93148,
+            "total_tokens": 1018332
+          },
+          "judge": {
+            "prompt_tokens": 87475,
+            "completion_tokens": 53718,
+            "total_tokens": 141193
+          }
+        },
+        "finish_reasons": {
+          "answer": {
+            "stop": 530,
+            "length": 6
+          },
+          "judge": {
+            "stop": 536
+          }
+        },
+        "unclear": 0,
+        "retry_questions": 0,
+        "predictions_sha256": "688b6882cc2b31a6550b03183ffe9529947fca3db2cbf7379fef847a81fd4737"
+      },
+      "hipporag2-meta": {
+        "metrics": {
+          "overall": {
+            "correct": 167,
+            "questions": 536
+          },
+          "domain": {
+            "Finance": {
+              "correct": 58,
+              "questions": 161
+            },
+            "Healthcare": {
+              "correct": 30,
+              "questions": 97
+            },
+            "Manufacturing": {
+              "correct": 35,
+              "questions": 118
+            },
+            "Technology": {
+              "correct": 44,
+              "questions": 160
+            }
+          },
+          "category": {
+            "multi_hop": {
+              "correct": 38,
+              "questions": 137
+            },
+            "knowledge_update": {
+              "correct": 23,
+              "questions": 80
+            },
+            "temporal": {
+              "correct": 19,
+              "questions": 122
+            },
+            "user_implicit": {
+              "correct": 14,
+              "questions": 36
+            },
+            "term_ambiguity": {
+              "correct": 19,
+              "questions": 79
+            },
+            "abstention": {
+              "correct": 54,
+              "questions": 82
+            }
+          }
+        },
+        "tokens": {
+          "answer": {
+            "prompt_tokens": 922567,
+            "completion_tokens": 93583,
+            "total_tokens": 1016150
+          },
+          "judge": {
+            "prompt_tokens": 88496,
+            "completion_tokens": 53921,
+            "total_tokens": 142417
+          }
+        },
+        "finish_reasons": {
+          "answer": {
+            "stop": 527,
+            "length": 9
+          },
+          "judge": {
+            "stop": 536
+          }
+        },
+        "unclear": 0,
+        "retry_questions": 0,
+        "predictions_sha256": "ecffb26baecc1e3f26463793b905853cebe1461477d289542310dbde6ec55272"
+      }
+    },
+    "archived_control_correct": {
+      "bm25": 178,
+      "dense": 146,
+      "hybrid": 164,
+      "hybrid-meta": 177,
+      "densex": 156,
+      "densex-meta": 167
+    },
+    "paired": {
+      "hipporag2-meta vs hipporag2": {
+        "questions": 536,
+        "gained": 12,
+        "lost": 11,
+        "net": 1,
+        "mcnemar_exact_p": 1
+      },
+      "hipporag2-meta vs bm25": {
+        "questions": 536,
+        "gained": 58,
+        "lost": 69,
+        "net": -11,
+        "mcnemar_exact_p": 0.3749570506813295
+      },
+      "hipporag2-meta vs dense": {
+        "questions": 536,
+        "gained": 49,
+        "lost": 28,
+        "net": 21,
+        "mcnemar_exact_p": 0.02203345876482212
+      },
+      "hipporag2-meta vs hybrid-meta": {
+        "questions": 536,
+        "gained": 58,
+        "lost": 68,
+        "net": -10,
+        "mcnemar_exact_p": 0.42279113414588043
+      },
+      "hipporag2-meta vs densex-meta": {
+        "questions": 536,
+        "gained": 63,
+        "lost": 63,
+        "net": 0,
+        "mcnemar_exact_p": 1
+      }
+    },
+    "top10_and_outcomes": {
+      "same_order": 363,
+      "different_members": 172,
+      "different_members_lost": 11,
+      "different_members_gained": 12,
+      "only_order": 1
+    },
+    "manually_checked_cases": {
+      "source_recovered": {
+        "question": [
+          "Manufacturing",
+          "multi_hop",
+          "multi_hop_37"
+        ],
+        "source_message": "Msg_22948",
+        "metadata_rank": 2,
+        "reference": "Supplier sample sign-off",
+        "base_answer": "The lack of final customer confirmation on the validation scope and unresolved engineering requirements are preventing QA from closing the validation matrix.",
+        "metadata_answer": "Supplier sample sign-off is preventing QA from closing the validation matrix in the Quality Test Plan phase.",
+        "base_correct": false,
+        "metadata_correct": true
+      },
+      "additional_detail_penalized": {
+        "question": [
+          "Technology",
+          "multi_hop",
+          "multi_hop_24"
+        ],
+        "source_message": "Msg_27529",
+        "base_rank": 2,
+        "metadata_rank": 1,
+        "core_answer_present_in_both": true,
+        "base_correct": true,
+        "metadata_correct": false,
+        "judge_reason": "The score penalized additional details about a different follow-up condition while acknowledging inclusion of the reference answer's core information."
+      }
+    },
+    "exact_prompt_hash_and_token_matches": 2144,
+    "independent_cpu_replay_model_calls": 0,
+    "ranking_exports_rechecked": 4,
+    "artifacts": {
+      "dev-audit.json": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/dev-audit.json",
+        "bytes": 11694,
+        "sha256": "a54d315d7e0334e2954dfb23a10c0d82725fe8c4c396debe1db0b38d26eee8c7"
+      },
+      "freeze.json": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/freeze.json",
+        "bytes": 840,
+        "sha256": "f8ffe30c21efa1f09efcab467453134dd29c5fa9e7dbd82a342d1b4444df8310"
+      },
+      "test-query-receipt.json": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/test-query-receipt.json",
+        "bytes": 276,
+        "sha256": "f0fbd2fab64315b0d306001317a95eca6bc096b5d378d2104cc07c57381d6aea"
+      },
+      "test-audit.json": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/test-audit.json",
+        "bytes": 77832,
+        "sha256": "dc8884de6735ea7c3489fe12f7d8f857ead76502d820306102e1132e7201458a"
+      },
+      "summary.json": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/summary.json",
+        "bytes": 472,
+        "sha256": "72ca1e74b62f8faeb79534df3b30482e05b81f7847de3cbeba160cf708c7660a"
+      },
+      "analysis.json": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/analysis.json",
+        "bytes": 161799,
+        "sha256": "8fdc43f89afe6ba80753438170a58d6b2e5ad61db88b73378470a614713fcce9"
+      },
+      "analysis.md": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/analysis.md",
+        "bytes": 6511,
+        "sha256": "98fb959687e301ec79a508e632dcf4c78c973df4c398e7d9c22744758e8f0d56"
+      },
+      "status.json": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/status.json",
+        "bytes": 551,
+        "sha256": "bb28c1f27fa9eccac9cd78d89b4ca1e2c417e13e145b3d65a8138541289d9a12"
+      },
+      "qa_run_config": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/qa-test/run-config.json",
+        "bytes": 4752,
+        "sha256": "2cf0bed3026fbd167c7fd27032c37c405609c358dbbae61c99afd9187ad5d6b4"
+      },
+      "generation_audit": {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/qa-test/generation-audit.jsonl",
+        "bytes": 896250,
+        "sha256": "28175366c7e910e9b09928d69598adc3b243509330446ab2b8fe77dbd2d062c2"
+      }
+    }
+  },
+  "cpu_regression": {
+    "passed": 321,
+    "failed": 0,
+    "skipped": 0,
+    "used_pinned_upstream_code": true
+  },
+  "resources": {
+    "measurement": "Single-GPU wall-time summed over distinct occupancy stages. Failed attempts and model loading are included where recorded. Historical runs lacking attribution or timing are excluded.",
+    "pre_extension_gpu_hours": 13.3489,
+    "memory_extension_gpu_hours": 89.34957450797167,
+    "cumulative_gpu_hours_recorded_lower_bound": 102.69847450797167,
+    "topic12_gpu_hours_limit_exclusive": 50,
+    "expansion_stages": 55,
+    "nonzero_exit_stages": 20,
+    "nonzero_exit_gpu_hours": 26.443752375936665,
+    "checked_intervals_max_clock_difference_seconds": 0.003396543896087678,
+    "extension_by_host_gpu_hours": {
+      "financial": 45.58312970788218,
+      "course": 43.76644480008949
+    },
+    "breakdown_gpu_hours": {
+      "initial_extension_work": 28.07142813333711,
+      "hipporag_full_recovery_and_dev": 23.61383389062507,
+      "lightmem_before_final_recovery": 12.559787036033619,
+      "lightmem_final_recovery": 18.40606018641252,
+      "joint_lightmem_dev": 2.6697130246124128,
+      "frozen_hipporag_test_rankings": 0.7038508058924021,
+      "frozen_hipporag_test_qa": 3.3249014310585334
+    },
+    "new_frozen_test_gpu_hours": 4.028752236950935,
+    "frozen_qa_stage_records": [
+      {
+        "label": "joint-qa-test-01",
+        "started_at_utc": "2026-11-28T11:30:51.782356+00:00",
+        "ended_at_utc": "2026-11-28T14:50:21.427903+00:00",
+        "wall_seconds": 11969.64515181072,
+        "exit_code": 0,
+        "gpu_index": "0"
+      }
+    ],
+    "ledgers": [
+      {
+        "path": "/data/ai4s_group/XZG/NLP/memory-round-20261124/budget.jsonl",
+        "sha256": "661e02735ac783b8603c86343dd09a150c7923ab68b6c769bc5c7699506af641",
+        "stages": 9,
+        "gpu_seconds": 19891.069132788107,
+        "nonzero_exit_stages": 4
+      },
+      {
+        "path": "/data/ai4s_group/XZG/NLP/memory-round-20261124/hipporag-healthcare-resource/budget.jsonl",
+        "sha256": "93c458acc5925393cd7c575037cb0dc0432578bfb4524cd0e65a24386c1a4427",
+        "stages": 2,
+        "gpu_seconds": 11292.612627310678,
+        "nonzero_exit_stages": 2
+      },
+      {
+        "path": "/data/ai4s_group/XZG/NLP/memory-round-20261124/finish-study-20261125/resource/budget.jsonl",
+        "sha256": "aced1b1fa82e5871a32019c745ccd9370bd078909b09630e58297541695e9d7b",
+        "stages": 9,
+        "gpu_seconds": 23791.308240398765,
+        "nonzero_exit_stages": 4
+      },
+      {
+        "path": "/data/linjvnyong/XZG/NLP/memory-round-20261125/budget.jsonl",
+        "sha256": "28f2299f38859469aab2fe1406b378f8f1151eb3367a88338394295f0f3d2a43",
+        "stages": 5,
+        "gpu_seconds": 34223.80117969215,
+        "nonzero_exit_stages": 2
+      },
+      {
+        "path": "/data/linjvnyong/XZG/NLP/memory-round-20261125/finish-study-20261125/resource/budget.jsonl",
+        "sha256": "fbe0316ff886512b0d3b81772b2dc87bafd8a6eade003f052fe09f36e30a8e99",
+        "stages": 3,
+        "gpu_seconds": 11858.350099823903,
+        "nonzero_exit_stages": 2
+      },
+      {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/hipporag/resource/budget.jsonl",
+        "sha256": "3b12001e790d3c6a6eb629b071313ac4dd0b5d5ade15c28a62f192afc19a26c4",
+        "stages": 8,
+        "gpu_seconds": 85009.80200625025,
+        "nonzero_exit_stages": 1
+      },
+      {
+        "path": "/data/linjvnyong/XZG/NLP/memory-completion-20261126/lightmem/resource/budget.jsonl",
+        "sha256": "96a4dcc002504545b51ffdc0fd35452d218496ade4b94e3ebb198a61b297b38d",
+        "stages": 7,
+        "gpu_seconds": 45215.23332972103,
+        "nonzero_exit_stages": 5
+      },
+      {
+        "path": "/data/linjvnyong/XZG/NLP/memory-completion-20261126/lightmem-recovery/resource/budget.jsonl",
+        "sha256": "0952e978e8733fa90dbcd96b71764a5f3a184234802300b336b52a869f7e69c1",
+        "stages": 5,
+        "gpu_seconds": 66261.81667108508,
+        "nonzero_exit_stages": 0
+      },
+      {
+        "path": "/data/ai4s_group/XZG/NLP/memory-completion-20261126/joint/resource/budget.jsonl",
+        "sha256": "055e22a5c7ba8bf503ef25bc7f64ebd992eb09683fe9b8f6ad239b7d70d606f4",
+        "stages": 7,
+        "gpu_seconds": 24114.474941628054,
+        "nonzero_exit_stages": 0
+      }
+    ]
+  }
+}
